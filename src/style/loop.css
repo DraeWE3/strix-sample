@@ -1,0 +1,20 @@
+.logo-loop {
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.logo-strip {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.logo-item {
+  flex: 0 0 auto;
+  padding: 0 2rem;
+}
+
+.logo-item img {
+  height: 40px;
+  object-fit: contain;
+}

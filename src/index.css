@@ -1,0 +1,126 @@
+/* src/index.css */
+
+/* --- Font faces --- */
+@font-face {
+  font-family: "syne-extrabold";
+  src: url("./assets/fonts/Syne-ExtraBold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "syne-bold";
+  src: url("./assets/fonts/Syne-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "syne-med";
+  src: url("./assets/fonts/Syne-Medium.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "syne-reg";
+  src: url("./assets/fonts/Syne-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "cd-reg";
+  src: url("./assets/fonts/ClashDisplay-Regular.otf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "cd-bold";
+  src: url("./assets/fonts/ClashDisplay-Semibold.otf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "cd-bold";
+  src: url("./assets/fonts/ClashDisplay-Semibold.otf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ep-med";
+  src: url("./assets/fonts/Epilogue-Medium.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ep-reg";
+  src: url("./assets/fonts/Epilogue-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ep-light";
+  src: url("./assets/fonts/Epilogue-Light.ttf") format("truetype");
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "cd-sb";
+  src: url("./assets/fonts/ClashDisplay-Semibold.otf") format("truetype");
+  font-display: swap;
+}
+
+p{
+  font-family: ep-reg;
+}
+
+* { box-sizing: border-box; }
+/* --- Reset + layout helpers --- */
+html, body, .app{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  background-color: #000000;
+}
+
+body {
+  font-family: "Strix", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: #fff;
+}
+
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
