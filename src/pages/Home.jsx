@@ -496,7 +496,7 @@ const Home = () => {
           <img src={Light} alt="" className="underlay" />
           <img src={LightMobile} alt="" className="underlay-mobile" />
 
-           <div className="explore explore-mobile relative overflow-hidden" ref={exploreRef}>
+           <div className="explore explore-mobile relative overflow-hidden">
           <div className="section-container2">
       <div className="blur-box">
         <input type="text" placeholder="Type here..." />
@@ -602,7 +602,7 @@ const Home = () => {
       />
     </div>
 
-        <div className="motion" ref={motionRef}>
+        <div className="motion">
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
@@ -675,7 +675,7 @@ const Home = () => {
           <Loop />
         </div>
 
-        <div className="services" ref={servicesRef}>
+        <div className="services" >
              <h1 className="section-header">
                We Build Experiences that Breathe
              </h1>
@@ -738,7 +738,7 @@ const Home = () => {
           <Button text="Our Services" />
         </div>
 
-        <div className="services services-mvp" ref={mvpRef}>
+        <div className="services services-mvp" >
                   <h1 className="section-header">From Idea to Market in 4 Weeks</h1>
 
           <div className="mvp-cardcon">
@@ -799,7 +799,7 @@ const Home = () => {
           <Button text="Our Services" />
         </div>
 
-        <div className="services" ref={aboutRef}>
+        <div className="services">
                   <h1 className="section-header3">
                     Strix Production
                   </h1>
@@ -832,7 +832,7 @@ const Home = () => {
       />
         </div>
 
-        <div className="portfolio" ref={portfolioRef}>
+        <div className="portfolio" >
           <img
         src={Shadow1}
         alt=""
@@ -863,7 +863,7 @@ const Home = () => {
           
         </div>
 
-        <div className="testimonial-con" ref={testimonialRef}>
+        <div className="testimonial-con" >
            <h1 className="section-header2">
                     Our Craft, Your Expression.
                   </h1>
@@ -874,7 +874,7 @@ const Home = () => {
           <TestimonialCarousel />
         </div>
 
-        <div className="booking" ref={bookingRef}>
+        <div className="booking" >
            <h1 className="section-header2">
                     Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
                   </h1>
