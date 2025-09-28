@@ -18,15 +18,19 @@ const LogoLoop = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const strip = containerRef.current.querySelector(".logo-strip");
-      const stripWidth = strip.scrollWidth / 2; // half is one copy
+      const stripWidth = strip.scrollWidth / 2; // width of one set of logos
 
       gsap.to(strip, {
-        x: `-=${stripWidth}`, // move continuously left
-        duration: 40,         // adjust speed
-        ease: "linear",
+        x: -stripWidth,
+        duration: 30, // speed (lower = faster)
+        ease: "none",
         repeat: -1,
         modifiers: {
-          x: (x) => `${parseFloat(x) % -stripWidth}px`, // reset cleanly
+          x: (x) => {
+            const current = parseFloat(x);
+            // Reset after moving one full set
+            return `${current % -stripWidth}px`;
+          },
         },
       });
     }, containerRef);
@@ -37,7 +41,7 @@ const LogoLoop = () => {
   return (
     <div className="logo-loop" ref={containerRef}>
       <div className="logo-strip">
-        {/* Duplicate once only */}
+        {/* Duplicate logos to ensure smooth loop */}
         {logos.concat(logos).map((src, i) => (
           <div key={i} className="logo-item">
             <img src={src} alt={`logo-${i}`} />

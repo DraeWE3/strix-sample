@@ -7,6 +7,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    margin-bottom: 15rem;
 }
 
 .underlay {
@@ -14,7 +15,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 70vh;
+  height: 60vh;
   z-index: 0;
  
   opacity: 0; /* start hidden */
@@ -49,6 +50,10 @@
    text-align: center;
    margin: 0%;
      margin-left: 7%;
+         margin-top: 39%;
+          background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero .spread-txt{
@@ -78,15 +83,15 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-bottom: 10%;
-    padding-top: 5%;
-    gap: 0.7rem;
+    padding-top: 10%;
+    gap: 0.2rem;
     position: relative;
         padding-bottom: 15%;
 }
 
-.explore-mob{
-  display: none !important;
+.explore-mobile{
+  display: flex !important;
+
 }
 
 .shadow1{
@@ -112,10 +117,6 @@
 
 .shdowsmall{
   width: 20%;
-}
-
-.explore-mob{
-  display: none;
 }
 
 
@@ -218,9 +219,6 @@
 }
 
 
-.explore-mobile{
-  display: none;
-}
 
 
 /* =====================explore==================== */
@@ -280,11 +278,17 @@
 }
 
 .num1 p{
-    font-family: cd-reg;
+    font-family: cd-bold;
     font-size: 20px;
           background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+     filter: drop-shadow(0px 4px  rgba(0, 0, 0, 0.25));
+   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.474));
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
 }
 
 .shadow3{
@@ -472,7 +476,7 @@ box-shadow: rgba(255, 255, 255, 0.17) 0px 23px 25px 0px inset,
     width: 25%;
     position: relative;
     transform: translateY(20px); /* start slightly below */
-    transition: opacity 0.4s ease, transform 0.4s ease;
+     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .card-img{
@@ -502,35 +506,37 @@ box-shadow: rgba(255, 255, 255, 0.17) 0px 23px 25px 0px inset,
 }
 
 .glow{
-    background: rgba(255, 255, 255, 0);
-    background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(140, 7, 217, 0.15) 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #aa00c852 100%);
+ background-image: url('../assets/img/glow-card1.webp');
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
 position: absolute;
 z-index: 5;
-width: 90%;
+width: 100%;
 height: 100%;
- top: 54%;
+ top: 50%;
  border-radius: 1.5rem;
   left: 50%;
   transform: translate(-50%, -50%);
-  visibility: hidden;
-  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  opacity: 0; /* hidden */
+      visibility: hidden;
+  transition: 
+    opacity 0.6s ease-in-out,
+    transform 0.6s ease-in-out,
+    visibility 0.6s ease-in-out;
 }
 
 .glow2{
-    background: rgba(255, 255, 255, 0);
-    background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(0, 115, 255, 0.15) 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #3e95ff4d 100%);
+   background-image: url('../assets/img/glow-card2.webp');
 }
 
 .glow3{
-    background: rgba(255, 255, 255, 0);
-    background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #9eff3e31 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(1, 255, 65, 0.255) 100%);
+    background-image: url('../assets/img/glow-card3.webp');
 }
 
 .card-con:hover .glow {
-  visibility: visible;
+ opacity: 1; /* fade in */
+      visibility: visible;
 }
 
 .card-con:hover .card-icon2 {
@@ -779,12 +785,12 @@ height: 100%;
 
 .cl{
     position: relative;
-    padding: 10% 0;
-    height: 90vh;
+    padding: 4rem 0;
+    height: 33rem;
     width: 99vw;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
 }
 
 .cl-btn{
@@ -937,6 +943,10 @@ height: 100%;
 
 .gsap-visible {
   visibility: visible !important;
+}
+
+.explore-desk{
+  display: none;
 }
 
 

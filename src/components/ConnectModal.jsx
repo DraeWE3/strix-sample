@@ -82,7 +82,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
             </div>
 
             <div className="modal-links">
-              {["Home", "Services", "Projects", "About"].map((text, i) => (
+              {["Build MVP", "Our work", "Who we are", "Blog"].map((text, i) => (
                 <motion.div key={i} custom={i + 3} variants={itemVariants}>
                   <Link to="/" onClick={onClose}>{text}</Link>
                 </motion.div>

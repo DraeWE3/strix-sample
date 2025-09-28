@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../style/home.css";
 import Light from "../assets/img/bg.webp";
 import Nav from "../components/Navbar";
-import Bg from "../assets/img/bgg.webm";
+import { motion } from "framer-motion";
 import Button from "../components/Button";
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
@@ -14,7 +14,7 @@ import Card from "../assets/img/card.webp";
 import Star from "../assets/img/star.webp";
 import Star2 from "../assets/img/star2.webp";
 import Card2 from "../assets/img/card1.webp";
-import Card3 from "../assets/img/card2.webp";
+import Card3 from "../assets/img/card3.webp";
 import Cloud from "../assets/img/cloud.webp";
 import Cloud2 from "../assets/img/cloud2.webp";
 import Bolt from "../assets/img/bolt.webp";
@@ -395,6 +395,32 @@ const Home = () => {
       );
   }, []);
 
+    const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.25, delayChildren: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const fadeInSide = (direction) => ({
+    hidden: { opacity: 0, x: direction === "left" ? -80 : 80 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1, ease: "easeOut", delay: 0.6 },
+    },
+  });
+
   // Refs for each section with different animation types
   const exploreRef = useRef(null);
   const motionRef = useRef(null);
@@ -496,72 +522,70 @@ const Home = () => {
           <img src={Light} alt="" className="underlay" />
           <img src={LightMobile} alt="" className="underlay-mobile" />
 
-           <div className="explore explore-mobile relative overflow-hidden">
-          <div className="section-container2">
-      <div className="blur-box">
-        <input type="text" placeholder="Type here..." />
-      </div>
-      <div className="image-box">
-        <p></p>
-      </div>
-    </div>
+       <motion.div
+      className="explore explore-mobile relative overflow-hidden"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Top Input */}
+      <motion.div className="section-container2" variants={itemVariants}>
+        <div className="blur-box">
+          <motion.input
+            type="text"
+            placeholder="Type here..."
+            variants={itemVariants}
+          />
+        </div>
+        <motion.div className="image-box" variants={itemVariants}>
+          <p></p>
+        </motion.div>
+      </motion.div>
 
-      <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
-        <p className="power-mobile">Powering Brands with Design & Technology</p>
+      {/* Heading */}
+      <motion.h1 className="power-desk" variants={itemVariants}>
+        Powering Brands with Design & Technology
+      </motion.h1>
+      <motion.p className="power-mobile" variants={itemVariants}>
+        Powering Brands with Design & Technology
+      </motion.p>
 
-       <div className="section-container">
-      <div className="blur-box">
-        <input type="text" placeholder="Type here..." />
-      </div>
-      <div className="image-box">
-        <p></p>
-      </div>
-    </div>
+      {/* Bottom Input */}
+      <motion.div className="section-container" variants={itemVariants}>
+        <div className="blur-box">
+          <motion.input
+            type="text"
+            placeholder="Type here..."
+            variants={itemVariants}
+          />
+        </div>
+        <motion.div className="image-box" variants={itemVariants}>
+          <p></p>
+        </motion.div>
+      </motion.div>
 
-      <div className="button-p flex gap-4 mt-6">
-        <ButtonArrow text="Get Started"  />
+      {/* Buttons */}
+      <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
+        <ButtonArrow text="Get Started" />
         <Button text="Explore Work" />
-      </div>
-      <img
+      </motion.div>
+
+      {/* Shadows with side fade-in */}
+      <motion.img
         src={Shadow1}
         alt=""
         className="shadow1 absolute top-10 left-0 w-40"
+        variants={fadeInSide("left")}
       />
-      <img
+      <motion.img
         src={Shadow2}
         alt=""
         className="shadow2 absolute bottom-0 right-0 w-40"
+        variants={fadeInSide("right")}
       />
-    </div>
+    </motion.div>
 
-     <div className="explore relative overflow-hidden explore-mob">
-          <div className="section-container2">
-      <div className="blur-box">
-        <input type="text" placeholder="Type here..." />
-      </div>
-      <div className="image-box">
-        <p></p>
-      </div>
-    </div>
-
-      <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
-        <p className="power-mobile">Powering Brands with Design & Technology</p>
-
-      <div className="button-p flex gap-4 mt-6">
-       <ButtonArrow text="Get Started"  />
-        <Button text="Explore Work" />
-      </div>
-      <img
-        src={Shadow1}
-        alt=""
-        className="shadow1 absolute top-10 left-0 w-40"
-      />
-      <img
-        src={Shadow2}
-        alt=""
-        className="shadow2 absolute bottom-0 right-0 w-40"
-      />
-    </div>
+     
         </div>
 
   <div className="explore relative overflow-hidden explore-desk">
@@ -614,8 +638,8 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={295}
-                  to={300}
+                  from={0}
+                  to={2}
                   separator=","
                   direction="up"
                   duration={2}
@@ -629,8 +653,8 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={215}
-                  to={220}
+                  from={95}
+                  to={100}
                   separator=","
                   direction="up"
                   duration={2}
@@ -644,14 +668,14 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={85}
-                  to={90}
+                  from={10}
+                  to={15}
                   separator=","
                   direction="up"
                   duration={2}
                   className="count-up-text"
                 />
-                <span>+</span>
+                <span>%</span>
               </div>
               <p>Client-Retention</p>
             </div>

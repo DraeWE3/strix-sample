@@ -109,6 +109,7 @@ const Carousel = () => {
   const styles = {
     container: {
       width: '100%',
+      maxWidth: '1500px',
       height: 'auto',
       overflow: 'hidden',
       position: 'relative',

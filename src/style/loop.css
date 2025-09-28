@@ -7,6 +7,7 @@
 .logo-strip {
   display: flex;
   flex-wrap: nowrap;
+  will-change: transform; /* improves smoothness */
 }
 
 .logo-item {
@@ -14,7 +15,7 @@
   padding: 0 2rem;
 }
 
- .logo-item img {
-    height: 2rem;
-    width: auto;
-  }
+.logo-item img {
+  height: 2rem;
+  width: auto;
+}

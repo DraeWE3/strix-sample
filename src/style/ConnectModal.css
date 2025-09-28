@@ -20,9 +20,9 @@
   padding: 8%;
   border-radius: 24px;
   overflow: visible;
-max-width: 90vw;       /* Prevent overflow on small screens */
-  max-height: 90vh;      /* Prevent overflow vertically */
-  aspect-ratio: 55 / 35; /* Locks ratio at ~1.57 */
+max-width: 95vw;       /* Prevent overflow on small screens */
+  max-height: 95vh;      /* Prevent overflow vertically */
+  aspect-ratio: 55 / 35; 
   z-index: 10;
   text-align: center;
   background-image: url('../assets/img/nav-img.png');
@@ -56,6 +56,7 @@ max-width: 90vw;       /* Prevent overflow on small screens */
 .nav-left div p{
     font-weight: 100;
     margin: 0;
+    font-family: cd-reg;
 }
 
 
@@ -64,6 +65,7 @@ max-width: 90vw;       /* Prevent overflow on small screens */
     font-size: 30px;
     text-align: start;
     width: 60%;
+     font-family: cd-reg;
 
 }
 
@@ -91,6 +93,14 @@ max-width: 90vw;       /* Prevent overflow on small screens */
 
   /* Drop shadow */
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.modal-links a{
+  min-width: 8rem !important;
+  display: block;
+  font-size: 20px;
+  font-family: cd-reg;
+  margin-bottom: 0.5rem;
 }
 
 
