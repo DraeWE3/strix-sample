@@ -15,11 +15,14 @@ const Carousel = () => {
   useEffect(() => {
     const updateOffset = () => {
       if (window.innerWidth <= 768) {
-        setButtonOffset("1%"); // mobile
+        setButtonOffset("1%"); // 📱 mobile
+      } else if (window.innerWidth <= 1500) {
+        setButtonOffset("33.4%"); // 💻 tablet / medium screens
       } else {
-        setButtonOffset("31.7%"); // desktop
+        setButtonOffset("32.4rem"); // 🖥️ large desktop
       }
     };
+
     updateOffset();
     window.addEventListener("resize", updateOffset);
     return () => window.removeEventListener("resize", updateOffset);
@@ -106,6 +109,58 @@ const Carousel = () => {
     return () => clearInterval(interval);
   }, [isAnimating]);
 
+  // ✅ Swipe & Drag support
+  const startX = useRef(0);
+  const isDragging = useRef(false);
+
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging.current) return;
+    const currentX = e.touches[0].clientX;
+    const diff = startX.current - currentX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      isDragging.current = false;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseDown = (e) => {
+    startX.current = e.clientX;
+    isDragging.current = true;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    const currentX = e.clientX;
+    const diff = startX.current - currentX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      isDragging.current = false;
+    }
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
   const styles = {
     container: {
       width: '100%',
@@ -183,10 +238,10 @@ const Carousel = () => {
       transition: 'all 0.3s ease',
     },
     prevButton: {
-      left: buttonOffset, // ✅ responsive offset
+      left: buttonOffset,
     },
     nextButton: {
-      right: buttonOffset, // ✅ responsive offset
+      right: buttonOffset,
     },
     indicators: {
       position: 'absolute',
@@ -215,7 +270,17 @@ const Carousel = () => {
     <div style={styles.container}>
       <div style={styles.backgroundEffect}></div>
       <div style={styles.mainWrapper}>
-        <div ref={containerRef} style={styles.carouselContainer}>
+        <div
+          ref={containerRef}
+          style={styles.carouselContainer}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+        >
           {infiniteItems.map((item, index) => (
             <div
               key={`${item.id}-${Math.floor(index / carouselData.length)}`}
