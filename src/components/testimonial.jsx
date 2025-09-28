@@ -229,10 +229,10 @@ navBtn: {
 
         {/* Nav Buttons */}
         <button className='desktop-arrow' onClick={prevTestimonial} disabled={isAnimating} style={{ ...styles.navBtn, ...styles.prevBtn }}>
-          <ChevronLeft size={50} />
+          <ChevronLeft size={30} />
         </button>
         <button className='desktop-arrow' onClick={nextTestimonial} disabled={isAnimating} style={{ ...styles.navBtn, ...styles.nextBtn }}>
-          <ChevronRight size={50} />
+          <ChevronRight size={30} />
         </button>
 
          <button className='mobile-arrow' onClick={prevTestimonial} disabled={isAnimating} style={{ ...styles.navBtn, ...styles.prevBtn }}>

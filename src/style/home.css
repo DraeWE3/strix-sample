@@ -38,7 +38,7 @@
 }
 
 
-.hero h1 {
+.hero .spread-h1 {
   font-family: syne-bold;
  z-index: 2;
   letter-spacing: 90px;
@@ -51,7 +51,7 @@
      margin-left: 7%;
 }
 
-.hero p{
+.hero .spread-txt{
     font-family: cd-reg;
      background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;
@@ -63,11 +63,14 @@
     font-size: 21px;
     z-index: 4;
     position: relative;
+    background-color: red !important;
 }
 
 
 
 /* =====================explore==================== */
+
+
 
 .explore{
     width: 100%;
@@ -82,6 +85,10 @@
         padding-bottom: 15%;
 }
 
+.explore-mob{
+  display: none !important;
+}
+
 .shadow1{
     position: absolute;
     right: 0;
@@ -90,6 +97,8 @@
     width: 40%;
     z-index: 2;
 }
+
+
 
 
 .shadow2{
@@ -103,6 +112,10 @@
 
 .shdowsmall{
   width: 20%;
+}
+
+.explore-mob{
+  display: none;
 }
 
 
@@ -205,6 +218,10 @@
 }
 
 
+.explore-mobile{
+  display: none;
+}
+
 
 /* =====================explore==================== */
 
@@ -284,7 +301,7 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
+  width: 89%;
   height: auto;
   z-index: 1;
 }
@@ -322,6 +339,7 @@
     position: relative;
     padding-bottom: 10%;
 }
+
 
 .services h1{
   font-family: syne-med;
@@ -374,7 +392,7 @@
 .card-content {
   text-align: center;
   color: white;
-  z-index: 2;
+  z-index: 10;
   position: relative;
 }
 
@@ -486,7 +504,7 @@ box-shadow: rgba(255, 255, 255, 0.17) 0px 23px 25px 0px inset,
 .glow{
     background: rgba(255, 255, 255, 0);
     background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(140, 7, 217, 0.15) 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(140, 7, 217, 0.15) 100%);
+    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #aa00c852 100%);
 position: absolute;
 z-index: 5;
 width: 90%;
@@ -502,13 +520,13 @@ height: 100%;
 .glow2{
     background: rgba(255, 255, 255, 0);
     background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(0, 115, 255, 0.15) 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(0, 115, 255, 0.15) 100%);
+    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #3e95ff4d 100%);
 }
 
 .glow3{
     background: rgba(255, 255, 255, 0);
-    background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(85, 255, 0, 0.16) 100%);
-    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(85, 255, 0, 0.16) 100%);
+    background: -webkit-linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, #9eff3e31 100%);
+    background: linear-gradient(357deg, rgba(255, 255, 255, 0) 0%, rgba(1, 255, 65, 0.255) 100%);
 }
 
 .card-con:hover .glow {
@@ -586,11 +604,14 @@ height: 100%;
 /*===================mvp====================*/
 .mvp-cardcon{
   width: 100%;
-  height: 85vh;
+  height: 32.9rem;
   position: relative;
   margin-top: 4rem;
   
 }
+
+
+
 .mvp-card{
    position: absolute;
     left: 50%;
@@ -701,18 +722,18 @@ height: 100%;
    align-items: center;
    justify-content: center;
    width: 50%;
-   height: 40rem;
+   height: 30rem;
    overflow: hidden;
    position: relative;
 }
 
 
 .coin-anime{
-  width: 100%;
-  height: 120%;
+  width: auto;
+  height: 100%;
   object-fit: cover;
   position: absolute;
-  top: -5rem;
+  top: 0;
 
 }
 
@@ -741,16 +762,19 @@ height: 100%;
   }
 
 
-    .portfolio .links{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 40%;
-        position: relative;
-        z-index: 8;
-        font-family: ep-med;
-        margin-top: 1rem;
-    }
+   .portfolio .links {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* ✅ 5 equal columns */
+  align-items: center;
+  justify-items: center; /* centers each item in its cell */
+  width: 40%;
+  position: relative;
+  z-index: 8;
+  font-family: ep-med;
+  margin-top: 1rem;
+  gap: 1rem; /* optional spacing between items */
+}
+
 
 
 .cl{
@@ -893,6 +917,29 @@ height: 100%;
 }
 
 
+  
+
+      .sr-mobile{
+     display: flex;
+     font-size: 35px;
+     font-size: ep-red;
+     line-height: 2rem;
+     text-align: start;
+     letter-spacing: 0.1rem;
+     line-height: 3.2rem;
+  }
+
+  .spread-h1,
+.spread-txt {
+  opacity: 0;
+  visibility: hidden; /* prevent flicker */
+}
+
+.gsap-visible {
+  visibility: visible !important;
+}
+
+
 
 
 /* =======================ANIMATION====================== */
@@ -906,6 +953,7 @@ height: 100%;
       animation-delay: 0.5s;
       width: 100%;
       height: 72vh;
+      display: none;
     }
 
     .half-circle-svg {
@@ -994,8 +1042,8 @@ height: 100%;
 
 .power-desk{
   display: flex;
+  /* letter-spacing: 0.1em; */
 }
-
 
 
 @media (max-width: 770px) {
@@ -1010,7 +1058,7 @@ height: 100%;
   .underlay-mobile{
     display: flex;
     width: 100%;
-    height: 62vh;
+    height: 52vh;
     position: absolute;
     top: 0;
     left: 0;
@@ -1025,14 +1073,14 @@ height: 100%;
   }
 
   .hero h1{
-    font-size: 16vw;
-    letter-spacing: 30px !important;
+    font-size: 17vw !important;
+    letter-spacing: 6vw !important;
   }
 
-  .hero p{
+  .hero .spread-txt{
     font-size: 18px;
     letter-spacing: 0.5px;
-
+    margin-bottom: 20%;
   }
 
 
@@ -1055,13 +1103,7 @@ height: 100%;
    display: none !important;
   }
 
-    .sr-mobile{
-     display: flex;
-     font-size: 19px;
-     font-size: ep-med;
-     line-height: 2rem;
-     text-align: center;
-  }
+
 
   .image-box{
     width: 2.5rem;
@@ -1085,6 +1127,30 @@ height: 100%;
 
   .motion{
     padding-top: 30%;
+  }
+
+    .sr-mobile{
+     display: flex;
+     font-size: 19px;
+     font-size: ep-reg;
+     line-height: 2rem;
+     text-align: center;
+  }
+
+  .btn-con{
+    display: block;
+    margin: 0;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .card-content{
+    height: 2rem;
+  }
+
+  .card-content-p{
+    margin: 0;
   }
 
 
@@ -1131,7 +1197,7 @@ height: 100%;
 .circleblur{
   height: auto;
     width: 100%;
-    top: 16rem;
+  top: 22%;
 }
 
 .altcard{
@@ -1193,7 +1259,7 @@ height: 100%;
 }
 
  .portfolio .links{
-  width: 95%;
+  width: 85%;
  }
 
 .testimonial-con h1{
@@ -1261,6 +1327,7 @@ height: 100%;
 
 .footer-pp{
   text-align: center;
+  max-width: 90%;
 }
 
 .quote{
@@ -1327,5 +1394,30 @@ height: 100%;
 .power-desk{
   display: none;
 }
+
+.explore-mob{
+  display: flex !important;
+  position: absolute;
+  bottom: 0;
+}
+
+.explore-desk{
+  display: none;
+}
+
+.hero{
+  height: 100vh !important;
+}
+
+.spread-txt{
+  margin-bottom: 30%;
+  max-width: 90%;
+  font-size: 19px;
+}
+
+}
+
+
+@media (max-width: 470px) {
 
 }

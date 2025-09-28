@@ -1,43 +1,52 @@
 .btn {
-  padding: 12px 17px;
-  background: transparent;
-  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2.5rem 1.9rem !important;
   border-radius: 5rem;
-  min-width: fit-content;
-  box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.48);
   cursor: pointer;
-  color: #fff;
   font-weight: 500;
-  transition: all 0.3s ease-in-out;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
-               0 0 10px rgba(255, 255, 255, 0.4);
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+
+  /* Background image settings */
+  background-image: url('../assets/img/btn-norm.webp');
+  background-position: center;
+  background-size: 100% 100%; /* Stretch image to cover full button */
+  background-repeat: no-repeat;
+
+  /* Makes button grow with text */
+  width: auto;
+  min-width: max-content; 
+  height: 3rem;
 }
 
 .btn:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
-              0 0 20px rgba(255, 255, 255, 0.5);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
-               0 0 20px rgba(255, 255, 255, 0.7),
-               0 0 30px rgba(255, 255, 255, 0.5);
+  background-image: url('../assets/img/btn-norm2.webp');
 }
 
 .btn-p {
-  width: 100% !important;
-  text-align: center;
   margin: 0;
+  padding: 0 1rem; /* Ensures spacing inside */
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10%;
+  /* line-height: 1.2; */
 }
 
-.inter{
-  display: none;
+.btn:active{
+  background-image: url('../assets/img/btn-active.webp');
 }
 
+/* 🔹 Mobile responsive */
 @media (max-width: 770px) {
-   .btn{
-    padding: 10px 17px;
-   }
+  .btn {
+    padding: 0.7rem 1.5rem;
+    background-size: 100% 100%; /* stays adaptive */
+  }
 
-   .btn-p{
+  .btn-p {
     font-size: 14px;
-   }
-
+  }
 }

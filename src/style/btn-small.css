@@ -1,8 +1,8 @@
-.btn-arr {
+.btn-small {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 1.9rem;
+  padding: 2rem 1.9rem;
   border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
@@ -14,14 +14,15 @@
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
-
+  z-index: 10;
+position: relative;
   /* Makes button grow with text */
   width: auto;
   min-width: max-content; 
   height: 0;
 }
 
-.btn-aarr:hover {
+.btn-small:hover {
   background-image: url('../assets/img/btn-norm2.webp');
 }
 
@@ -44,19 +45,19 @@
     transition: all 0.5s ease-in-out;
 }
 
-.btn-aarr:hover .btn-arrow{
+.btn-small:hover .btn-arrow{
   background-image: url('../assets/img/btn-arrow2.webp');
   width: 1.2rem;
 }
 
-.btn-aarr:active{
+.btn-small:active{
   background-image: url('../assets/img/btn-active.webp');
 }
 
 /* 🔹 Mobile responsive */
 @media (max-width: 770px) {
-  .btn-aarr{
-    padding: 0.7rem 1.5rem;
+  .btn-small {
+    padding: 1.7rem 1.5rem;
     background-size: 100% 100%; /* stays adaptive */
   }
 

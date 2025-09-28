@@ -69,6 +69,51 @@
   font-display: swap;
 }
 
+.section-header{
+  font-family: syne-bold !important;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 50px;
+  text-align: center;
+  max-width: 50%;
+}
+
+.section-header3{
+  font-family: syne-bold !important;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 65px !important;
+  text-align: center !important;
+  max-width: 50% !important;
+}
+
+.section-header2{
+  font-family: syne-med !important;
+ color: #fff;
+  font-size: 50px;
+  text-align: center;
+}
+
+@media (max-width: 770px) {
+  .section-header{
+      font-size: 35px !important;
+  text-align: center;
+  max-width: 100%;
+  }
+
+  .section-header3{
+     font-size: 40px !important;
+     max-width: 90% !important;
+  }
+
+   .section-header2{
+     font-size: 40px !important;
+     max-width: 90% !important;
+  }
+}
+
 p{
   font-family: ep-reg;
 }
@@ -111,6 +156,37 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.link-button:hover{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1% 1.2rem !important;
+  padding-bottom: 0.8rem !important;
+  border-radius: 5rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  /* Background image settings */
+  background-image: url('./assets/img/link-btn.webp');
+  background-position: center;
+  background-size: 100% 100%; /* Stretch image to cover full button */
+  background-repeat: no-repeat;
+
+  /* Makes button grow with text */
+  width: auto;
+  min-width: max-content; 
+  height: 3rem;
+}
+
+
+.link-button:hover{
+  display: inline-flex;
+}
+
+
+
 
 @media (prefers-color-scheme: light) {
   :root {

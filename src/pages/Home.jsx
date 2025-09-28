@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../style/home.css";
 import Light from "../assets/img/bg.webp";
 import Nav from "../components/Navbar";
@@ -8,7 +8,7 @@ import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
 import CountUp from "../components/CountUp";
 import Shadow3 from "../assets/img/shadow3.webp";
-import Vector1 from "../assets/img/Vector.svg";
+import VectorB from '../assets/img/b-vector.webp'
 import Loop from "../components/Loop";
 import Card from "../assets/img/card.webp";
 import Star from "../assets/img/star.webp";
@@ -23,9 +23,8 @@ import CircleBlur from "../assets/img/circle-blur.webp";
 import TestImg from "../assets/img/test.webp";
 import Mvp from "../assets/img/mvp.webp";
 import Carousel from "../components/carousel";
-import Coin from "../assets/img/Coin-anime.mp4";
+import Coin from "../assets/img/coin-video.webm";
 import Footer from "../components/Footer";
-import { ButtonI } from "../components/ButtonI";
 import TestimonialCarousel from "../components/testimonial";
 import useTiltMotion from "../components/threecard";
 import ScrollReveal from "../animations/scroolReveal";
@@ -35,6 +34,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import BlurText from "../animations/blur";
 import LightMobile from "../assets/img/mobile-hero.webp";
+import MvpReasearch from '../assets/img/mpv-research.png'
+import MvpDev from '../assets/img/mvp-dev.png'
+import MvpDesign from '../assets/img/mvp-design.png'
+import ButtonArrow from "../components/button-arrow";
+import ButtonSmall from "../components/btn-small";
+import BtnNormsall from "../components/normSmall-btn";
+import DevelopmentModal from "../components/DevelopmentModal";
+import DesignModal from "../components/DesignModal";
+import ResearchModal from "../components/production";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -43,59 +51,243 @@ const getScrollStart = () => {
   return window.innerWidth < 768 ? "top 90%" : "top 80%";
 };
 
+// 🚀 ENHANCED HEADER ANIMATION SYSTEM
+const useAdvancedHeaderAnimation = (ref, animationType = "default") => {
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const ctx = gsap.context(() => {
+      const headers = ref.current.querySelectorAll("h1, .section-header, .section-header2, .section-header3");
+      
+      headers.forEach((header, index) => {
+        // Ensure header has relative positioning for animations
+        header.style.position = 'relative';
+
+        // Split text into characters/words
+        const split = new SplitText(header, {
+          type: "chars,words",
+          charsClass: "char-reveal",
+          wordsClass: "word-reveal",
+        });
+
+        // Add CSS for better 3D effects
+        gsap.set(split.chars, {
+          transformPerspective: 1000,
+          transformStyle: "preserve-3d",
+        });
+
+        // Different animation types
+        switch (animationType) {
+          case "magnetic":
+            // Magnetic pull-in effect
+            gsap.set(split.chars, {
+              y: 150,
+              opacity: 0,
+              rotationX: 90,
+              scale: 0.3,
+              filter: "blur(10px)",
+            });
+
+            gsap.to(split.chars, {
+              y: 0,
+              opacity: 1,
+              rotationX: 0,
+              scale: 1,
+              filter: "blur(0px)",
+              duration: 1.4,
+              ease: "power4.out",
+              stagger: {
+                amount: 0.8,
+                from: "center",
+                grid: "auto",
+              },
+              scrollTrigger: {
+                trigger: header,
+                start: "top 85%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+              },
+            });
+            break;
+
+          case "glitch":
+            // Glitch reveal effect
+            gsap.set(split.chars, {
+              y: 100,
+              opacity: 0,
+              skewX: 20,
+            });
+
+            gsap.to(split.chars, {
+              y: 0,
+              opacity: 1,
+              skewX: 0,
+              duration: 1.2,
+              ease: "back.out(2)",
+              stagger: {
+                amount: 0.6,
+                from: "random",
+              },
+              scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            });
+            break;
+
+          case "wave":
+            // Wave ripple effect
+            gsap.set(split.chars, {
+              y: 80,
+              opacity: 0,
+              rotationY: 180,
+              transformOrigin: "center center -50px",
+            });
+
+            gsap.to(split.chars, {
+              y: 0,
+              opacity: 1,
+              rotationY: 0,
+              duration: 1.5,
+              ease: "elastic.out(1.2, 0.75)",
+              stagger: {
+                amount: 1.2,
+                from: "start",
+                ease: "sine.inOut",
+              },
+              scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            });
+            break;
+
+          case "typewriter":
+            // Typewriter effect with cursor
+            gsap.set(split.chars, {
+              opacity: 0,
+            });
+
+            // Add cursor
+            const cursor = document.createElement('span');
+            cursor.textContent = '|';
+            cursor.style.cssText = 'color: #fff; animation: blink 1s infinite;';
+            header.appendChild(cursor);
+
+            gsap.to(split.chars, {
+              opacity: 1,
+              duration: 0.05,
+              stagger: 0.08,
+              scrollTrigger: {
+                trigger: header,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+              onComplete: () => {
+                gsap.to(cursor, { opacity: 0, duration: 0.5, delay: 0.5 });
+              }
+            });
+            break;
+
+          case "neon":
+            // Neon sign flicker
+            gsap.set(split.chars, {
+              opacity: 0,
+            });
+
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              }
+            });
+
+            tl.to(split.chars, {
+              opacity: 1,
+              duration: 0.1,
+              stagger: {
+                amount: 0.8,
+                from: "random",
+              },
+            });
+            break;
+
+          default:
+            // Enhanced default with 3D rotation and blur
+            gsap.set(split.chars, {
+              y: 120,
+              opacity: 0,
+              rotationX: 90,
+              rotationZ: 15,
+              scale: 0.8,
+              filter: "blur(8px)",
+              transformOrigin: "center bottom",
+            });
+
+            gsap.to(split.chars, {
+              y: 0,
+              opacity: 1,
+              rotationX: 0,
+              rotationZ: 0,
+              scale: 1,
+              filter: "blur(0px)",
+              duration: 1.6,
+              ease: "power4.out",
+              stagger: {
+                amount: 0.8,
+                from: "start",
+              },
+              scrollTrigger: {
+                trigger: header,
+                start: "top 85%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+              },
+            });
+        }
+      });
+    }, ref);
+
+    return () => ctx.revert();
+  }, [ref, animationType]);
+};
+
+// Enhanced scroll animation for other elements
 const useScrollAnimation = (ref) => {
   useEffect(() => {
     if (!ref.current) return;
 
     const ctx = gsap.context(() => {
-      const h1 = ref.current.querySelector("h1");
       const p = ref.current.querySelector(".p-up");
       const buttons = ref.current.querySelectorAll(".button-p");
 
-      if (h1) {
-        const split = new SplitText(h1, {
-          type: "chars",
-          charsClass: "split-char",
-        });
-
-        gsap.from(split.chars, {
-          y: 80,
-          opacity: 0,
-          rotateX: 50,
-          stagger: 0.04,
-          duration: 0.8,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: getScrollStart(), // 🔹 responsive start
-          },
-        });
-      }
-
       if (p) {
         gsap.from(p, {
-          y: 30,
+          y: 40,
           opacity: 0,
-          duration: 1,
+          duration: 1.2,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ref.current,
-            start: getScrollStart(), // 🔹 responsive start
+            start: getScrollStart(),
           },
         });
       }
 
       if (buttons.length > 0) {
         gsap.from(buttons, {
-          y: 40,
+          y: 50,
           opacity: 0,
           scale: 0.9,
           stagger: 0.15,
-          duration: 0.6,
+          duration: 0.8,
           ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: ref.current,
-            start: getScrollStart(), // 🔹 responsive start
+            start: getScrollStart(),
           },
         });
       }
@@ -106,6 +298,7 @@ const useScrollAnimation = (ref) => {
 };
 
 const Home = () => {
+  const [openModal, setOpenModal] = useState(null);
   const titleRef = useRef(null);
   const subTextRef = useRef(null);
 
@@ -114,33 +307,41 @@ const Home = () => {
     console.log("BlurText animation finished!");
   };
 
+  // Keep your original hero animation unchanged
   useEffect(() => {
-    const tl = gsap.timeline();
-    tl.fromTo(
-      titleRef.current,
-      {
-        opacity: 0,
-        scale: 1.2,
-        letterSpacing: "140px",
-        y: 100,
-        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        letterSpacing: "90px",
-        y: 0,
-        filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.474))",
-        ease: "power4.out",
-        duration: 2.5,
-      }
-    );
+    gsap.set(titleRef.current, {
+      opacity: 0,
+      visibility: "hidden",
+      scale: 1.2,
+      letterSpacing: "140px",
+      y: 100,
+      filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
+    });
 
-    tl.fromTo(
+    gsap.set(subTextRef.current, {
+      opacity: 0,
+      visibility: "hidden",
+      y: 60,
+    });
+
+    const tl = gsap.timeline();
+
+    tl.to(titleRef.current, {
+      opacity: 1,
+      visibility: "visible",
+      scale: 1,
+      letterSpacing: "90px",
+      y: 0,
+      filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.474))",
+      ease: "power4.out",
+      duration: 2.5,
+    });
+
+    tl.to(
       subTextRef.current,
-      { opacity: 0, y: 60 },
       {
         opacity: 1,
+        visibility: "visible",
         y: 0,
         ease: "power3.out",
         duration: 1.8,
@@ -150,12 +351,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    gsap.set(".mvp-card", { opacity: 0 }); // start hidden
+    gsap.set(".mvp-card", { opacity: 0 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".mvp-cardcon",
-        start: getScrollStart(), // 🔹 responsive start
+        start: getScrollStart(),
         toggleActions: "play none none reverse",
       },
     });
@@ -194,14 +395,25 @@ const Home = () => {
       );
   }, []);
 
-  
-
-  // Refs for each section
+  // Refs for each section with different animation types
   const exploreRef = useRef(null);
   const motionRef = useRef(null);
   const servicesRef = useRef(null);
   const mvpRef = useRef(null);
   const aboutRef = useRef(null);
+  const portfolioRef = useRef(null);
+  const testimonialRef = useRef(null);
+  const bookingRef = useRef(null);
+
+  // Apply different animation styles to each section
+  useAdvancedHeaderAnimation(exploreRef, "default");
+  useAdvancedHeaderAnimation(motionRef, "magnetic");
+  useAdvancedHeaderAnimation(servicesRef, "magnetic");
+  useAdvancedHeaderAnimation(mvpRef, "glitch");
+  useAdvancedHeaderAnimation(aboutRef, "neon");
+  useAdvancedHeaderAnimation(portfolioRef, "typewriter");
+  useAdvancedHeaderAnimation(testimonialRef, "magnetic");
+  useAdvancedHeaderAnimation(bookingRef, "magnetic");
 
   useScrollAnimation(exploreRef);
   useScrollAnimation(motionRef);
@@ -209,8 +421,6 @@ const Home = () => {
   useScrollAnimation(mvpRef);
   useScrollAnimation(aboutRef);
 
-
-  
   const velocityRef = useRef(null);
 
   useEffect(() => {
@@ -218,10 +428,10 @@ const Home = () => {
       gsap.fromTo(
         velocityRef.current.children,
         {
-          y: 100,       // cards slide up into place
-          opacity: 0,   // fade in
-          rotateX: 20,  // subtle 3D entry
-          scale: 0.95,  // start slightly smaller
+          y: 100,
+          opacity: 0,
+          rotateX: 20,
+          scale: 0.95,
         },
         {
           y: 0,
@@ -231,13 +441,13 @@ const Home = () => {
           duration: 1.2,
           ease: "power4.out",
           stagger: {
-            amount: 0.6, // spread out the animation across cards
-            from: "center", // animate from middle outwards
+            amount: 0.6,
+            from: "center",
           },
           scrollTrigger: {
             trigger: velocityRef.current,
-            start: "top 80%",  // when container hits 80% of viewport
-            toggleActions: "play none none reverse", // replay on scroll up
+            start: "top 80%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -248,12 +458,29 @@ const Home = () => {
 
   return (
     <div>
+      {/* Add CSS for animations */}
+      <style jsx>{`
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+        
+        .char-reveal, .word-reveal {
+          display: inline-block;
+          will-change: transform, opacity, filter;
+        }
+        
+        .section-header, .section-header2, .section-header3 {
+          overflow: hidden;
+          position: relative;
+        }
+      `}</style>
 
       <div className="app">
         <Nav />
         <div className="hero">
-          <h1 ref={titleRef}>STRIX</h1>
-          <p ref={subTextRef}>Where Creative Strategy Meets Scalable Technology</p>
+          <h1 className="spread-h1" ref={titleRef}>STRIX</h1>
+          <p className="spread-txt" ref={subTextRef}>Where Creative Strategy Meets Scalable Technology</p>
            <div className="half-circle-container">
       <svg className="half-circle-svg" viewBox="0 0 400 200" preserveAspectRatio="none">
         <defs>
@@ -263,50 +490,36 @@ const Home = () => {
             <stop offset="100%" style={{ stopColor: "#ffffff", stopOpacity: 0.9 }} />
           </linearGradient>
         </defs>
-        {/* Flipped downward half circle */}
         <path className="half-circle-path" d="M 50 0 A 150 150 0 0 0 350 0" />
       </svg>
-
-      {/* Underlay image that fades in */}
     </div>
           <img src={Light} alt="" className="underlay" />
           <img src={LightMobile} alt="" className="underlay-mobile" />
-        </div>
 
-        {/* =====================explore==================== */}
-      <div ref={exploreRef} className="explore relative overflow-hidden">
-
+           <div className="explore explore-mobile relative overflow-hidden" ref={exploreRef}>
           <div className="section-container2">
-      {/* First item: blurred background with input */}
       <div className="blur-box">
         <input type="text" placeholder="Type here..." />
       </div>
-
-      {/* Second item: background image with centered content */}
       <div className="image-box">
         <p></p>
       </div>
     </div>
 
-
-      <h1 className="power-desk">Powering Brands with Design & Technology</h1>
+      <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
         <p className="power-mobile">Powering Brands with Design & Technology</p>
 
-
        <div className="section-container">
-      {/* First item: blurred background with input */}
       <div className="blur-box">
         <input type="text" placeholder="Type here..." />
       </div>
-
-      {/* Second item: background image with centered content */}
       <div className="image-box">
         <p></p>
       </div>
     </div>
 
       <div className="button-p flex gap-4 mt-6">
-        <Button text="Get Started" />
+        <ButtonArrow text="Get Started"  />
         <Button text="Explore Work" />
       </div>
       <img
@@ -321,30 +534,91 @@ const Home = () => {
       />
     </div>
 
-        {/* =====================motion==================== */}
+     <div className="explore relative overflow-hidden explore-mob">
+          <div className="section-container2">
+      <div className="blur-box">
+        <input type="text" placeholder="Type here..." />
+      </div>
+      <div className="image-box">
+        <p></p>
+      </div>
+    </div>
+
+      <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
+        <p className="power-mobile">Powering Brands with Design & Technology</p>
+
+      <div className="button-p flex gap-4 mt-6">
+       <ButtonArrow text="Get Started"  />
+        <Button text="Explore Work" />
+      </div>
+      <img
+        src={Shadow1}
+        alt=""
+        className="shadow1 absolute top-10 left-0 w-40"
+      />
+      <img
+        src={Shadow2}
+        alt=""
+        className="shadow2 absolute bottom-0 right-0 w-40"
+      />
+    </div>
+        </div>
+
+  <div className="explore relative overflow-hidden explore-desk">
+          <div className="section-container2">
+      <div className="blur-box">
+        <input type="text" placeholder="Type here..." />
+      </div>
+      <div className="image-box">
+        <p></p>
+      </div>
+    </div>
+
+      <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
+        <p className="power-mobile">Powering Brands with Design & Technology</p>
+
+       <div className="section-container">
+      <div className="blur-box">
+        <input type="text" placeholder="Type here..." />
+      </div>
+      <div className="image-box">
+        <p></p>
+      </div>
+    </div>
+
+      <div className="button-p flex gap-4 mt-6">
+       <ButtonArrow text="Get Started"  />
+        <Button text="Explore Work" />
+      </div>
+      <img
+        src={Shadow1}
+        alt=""
+        className="shadow1 absolute top-10 left-0 w-40"
+      />
+      <img
+        src={Shadow2}
+        alt=""
+        className="shadow2 absolute bottom-0 right-0 w-40"
+      />
+    </div>
+
         <div className="motion" ref={motionRef}>
           <img src={Shadow3} alt="" className="shadow3" />
-          <img src={Vector1} alt="" className="Vector1" />
+          <img src={VectorB} alt="" className="Vector1" />
 
-        <BlurText
-        text="Real Work. Real Results"
-        delay={150}
-        animateBy="words"
-        direction="top"
-        onAnimationComplete={handleAnimationComplete}
-        className="text-2xl mb-8"
-      />
+      <h1 className="section-header2">
+        Real Work. Real Results
+      </h1>
 
           <div className="number-container">
-            {/* Conversions */}
             <div className="num1">
               <div>
                 <CountUp
-                  from={0}
+                  from={295}
                   to={300}
                   separator=","
                   direction="up"
-                  duration={5}
+                  duration={2}
                   className="count-up-text"
                 />
                 <span>+</span>
@@ -352,15 +626,14 @@ const Home = () => {
               <p>Conversions</p>
             </div>
 
-            {/* Projects */}
             <div className="num1">
               <div>
                 <CountUp
-                  from={0}
+                  from={215}
                   to={220}
                   separator=","
                   direction="up"
-                  duration={5}
+                  duration={2}
                   className="count-up-text"
                 />
                 <span>+</span>
@@ -368,15 +641,14 @@ const Home = () => {
               <p>Projects</p>
             </div>
 
-            {/* Client Retention */}
             <div className="num1">
               <div>
                 <CountUp
-                  from={0}
+                  from={85}
                   to={90}
                   separator=","
                   direction="up"
-                  duration={5}
+                  duration={2}
                   className="count-up-text"
                 />
                 <span>+</span>
@@ -384,7 +656,6 @@ const Home = () => {
               <p>Client-Retention</p>
             </div>
 
-            {/* Potential */}
             <div className="num1">
               <div>
                 <h1 className="count-up-text">∞</h1>
@@ -395,39 +666,23 @@ const Home = () => {
 
             <p className="motion-p p-up">
               Trusted by brands that demand Excellence - we deliver creative-tech
-              solutions that don’t just look good, they perform where it matters
+              solutions that don't just look good, they perform where it matters
             </p>
             <Button text="Explore Cases" />
         </div>
 
-        {/* ====================logo loop================== */}
         <div className="logo-loop">
           <Loop />
         </div>
 
-        {/* ===================services=================== */}
         <div className="services" ref={servicesRef}>
-            <BlurText
-
-  text=" We Build Experiences that Breathe"
-
-  delay={150}
-
-  animateBy="words"
-
-  direction="top"
-
-
-  onAnimationComplete={handleAnimationComplete}
-
-  className="text-2xl mb-8"
-
-/>
+             <h1 className="section-header">
+               We Build Experiences that Breathe
+             </h1>
 
           <img className="circleblur"  src={CircleBlur} alt="" />
 
           <div ref={velocityRef} className="altcard flex gap-8 justify-center">
-      {/* Card 1 */}
       <div className="card-con">
         <img src={Card} alt="" className="card-img" />
         <img src={Star} alt="" className="card-icon" />
@@ -436,13 +691,12 @@ const Home = () => {
           <h2>Design</h2>
           <p className="card-content-p">Crafted to Captivate</p>
           <div className="btn-con">
-            <Button />
+            <BtnNormsall onClick={() => setOpenModal("design")}text="Know more" />
           </div>
         </div>
         <div className="glow"></div>
       </div>
 
-      {/* Card 2 */}
       <div className="card-con card-con2">
         <img src={Card2} alt="" className="card-img" />
         <img src={Cloud} alt="" className="card-icon" />
@@ -451,13 +705,12 @@ const Home = () => {
           <h2>Development</h2>
           <p className="card-content-p">Engineered for Performance</p>
           <div className="btn-con">
-            <Button />
+            <BtnNormsall onClick={() => setOpenModal("dev")} text="Know more" />
           </div>
         </div>
         <div className="glow glow2"></div>
       </div>
 
-      {/* Card 3 */}
       <div className="card-con">
         <img src={Card3} alt="" className="card-img" />
         <img src={Bolt} alt="" className="card-icon" />
@@ -466,25 +719,30 @@ const Home = () => {
           <h2>Production</h2>
           <p className="card-content-p">Elevate your content</p>
           <div className="btn-con">
-            <Button />
+            <BtnNormsall onClick={() => setOpenModal("research")} text="Know more" />
           </div>
         </div>
         <div className="glow glow3"></div>
       </div>
     </div>
 
+     <DevelopmentModal isOpen={openModal === "dev"} onClose={() => setOpenModal(null)} />
+      <DesignModal isOpen={openModal === "design"} onClose={() => setOpenModal(null)} />
+      <ResearchModal isOpen={openModal === "research"} onClose={() => setOpenModal(null)} />
+
           <p className="services-p p-up">
             From visuals that speak to systems that scale - We deliver
-            end-to-end solutions that define, design, and develop your brand’s
+            end-to-end solutions that define, design, and develop your brand's
             digital presence
           </p>
           <Button text="Our Services" />
         </div>
 
-        {/* ==================mvp==================== */}
         <div className="services services-mvp" ref={mvpRef}>
+                  <h1 className="section-header">From Idea to Market in 4 Weeks</h1>
 
-           <img
+          <div className="mvp-cardcon">
+             <img
         src={Shadow1}
         alt=""
         className="shadow1 shdowsmall absolute top-10 left-0 w-40"
@@ -492,24 +750,12 @@ const Home = () => {
       <img
         src={Shadow2}
         alt=""
-        className="shadow2 shdowsmall absolute bottom-0 right-0 w-40"
+        className="shadow2 mpv-shad shdowsmall absolute bottom-0 right-0 w-40"
       />
 
-
-                    <BlurText
-                    text="From Idea to Market in 4 Weeks"
-                    delay={150}
-                    animateBy="words"
-                    direction="top"
-                    maxWidth="550px" 
-                    onAnimationComplete={handleAnimationComplete}
-                    className="text-2xl mb-8"
-                  />
-
-          <div className="mvp-cardcon">
             <div className="mvp-card mvp-card1">
               <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={TestImg} alt="" />
+              <img className="mvp-img-ab" src={MvpDev} alt="" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Research
@@ -522,7 +768,7 @@ const Home = () => {
 
             <div className="mvp-card mvp-card2">
               <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={TestImg} alt="" />
+              <img className="mvp-img-ab" src={MvpDesign} alt="" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Design
@@ -535,7 +781,7 @@ const Home = () => {
 
             <div className="mvp-card mvp-card3">
               <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={TestImg} alt="" />
+              <img className="mvp-img-ab" src={MvpReasearch} alt="" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Development
@@ -547,24 +793,16 @@ const Home = () => {
             </div>
           </div>
           <p className="services-p p-up">
-            We don’t just design and develop - we help founders validate and
+            We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </p>
           <Button text="Our Services" />
         </div>
 
-        {/* ==================About us==================== */}
         <div className="services" ref={aboutRef}>
-          
-           <BlurText
-                    text="Strix Production"
-                    delay={150}
-                    animateBy="words"
-                    direction="top"
-                    maxWidth="550px" 
-                    onAnimationComplete={handleAnimationComplete}
-                    className="text-2xl mb-8"
-                  />
+                  <h1 className="section-header3">
+                    Strix Production
+                  </h1>
           <div className="coin-con">
             <video
               className="coin-anime"
@@ -580,7 +818,8 @@ const Home = () => {
             production, and MVP expertise to help brands and startups scale
             faster.
           </p>
-          <Button text="About us" />
+          
+          <BtnNormsall text="About us" />
            <img
         src={Shadow1}
         alt=""
@@ -593,8 +832,7 @@ const Home = () => {
       />
         </div>
 
-        {/* ===================portfolio================= */}
-        <div className="portfolio">
+        <div className="portfolio" ref={portfolioRef}>
           <img
         src={Shadow1}
         alt=""
@@ -605,46 +843,41 @@ const Home = () => {
         alt=""
         className="shadow2 shadowmed  absolute bottom-0 right-0 w-40"
       />
-           <BlurText
-                    text="Our Craft, Your Expression."
-                    delay={150}
-                    animateBy="words"
-                    direction="top"
-                    onAnimationComplete={handleAnimationComplete}
-                    className="text-2xl mb-8"
-                  />
+                  <h1 className="section-header2">
+                    Our Craft, Your Expression.
+                  </h1>
           <div className="links">
-            <p>Branding</p>
-            <p>Websites</p>
-            <p>All</p>
-            <p>UI/UX</p>
-            <p>Media</p>
+            <p className="link-button">Branding</p>
+            <p className="link-button">Websites</p>
+            <p className="link-button">All</p>
+            <p className="link-button">UI/UX</p>
+            <p className="link-button">Media</p>
           </div>
           <div className="cl">
             <img  className="circleblur2" src={CircleBlur} alt="" />
             <Carousel />
             <div className="cl-btn">
-            <ButtonI />
+            <ButtonSmall text="Portfolio" />
           </div>
           </div>
           
         </div>
 
-        {/* ==================testimonials================ */}
-        <div className="testimonial-con">
-          <h1>What Our Clients say</h1>
+        <div className="testimonial-con" ref={testimonialRef}>
+           <h1 className="section-header2">
+                    Our Craft, Your Expression.
+                  </h1>
                     <p>
-            Real stories from the brands and people we’ve helped grow, design,
+            Real stories from the brands and people we've helped grow, design,
             and stand out
           </p>
           <TestimonialCarousel />
         </div>
 
-        {/* ==================booking================ */}
-        <div className="booking">
-          <h1>
-            Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
-          </h1>
+        <div className="booking" ref={bookingRef}>
+           <h1 className="section-header2">
+                    Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
+                  </h1>
           <div className="second">
             <div className="left-booking">
               <p>
@@ -656,18 +889,7 @@ const Home = () => {
                 Let's start <br /> your project
               </p>
             </div>
-              <ScrollReveal
-              baseOpacity={0}
-              enableBlur={true}
-              baseRotation={5}
-              blurStrength={15}
-              className="sr-desk"
-              >
-              We’d love to be challenged by you! Feel free to share your brief
-                              with us
-
-              </ScrollReveal>
-              <p className="sr-mobile" > We’d love to be challenged by you! Feel free to share your brief
+              <p className="sr-mobile" > We'd love to be challenged by you! Feel free to share your brief
                               with us</p>
             </div>
             <div className="right-booking">
@@ -675,8 +897,6 @@ const Home = () => {
                 Let's start <br /> your project
               </p>
             </div>
-
-             
           </div>
           <Button text="Book Appointment" />
         </div>

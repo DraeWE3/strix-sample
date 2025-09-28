@@ -63,9 +63,9 @@ const Footer = () => {
           <p className="hea">Services</p>
           <ul>
             <li className="ft-num">Build MVP</li>
-            <li>Ui/UX Design</li>
-            <li>Website</li>
-            <li>SaaS Promos</li>
+            <li className="ft-num"> Ui/UX Design</li>
+            <li className="ft-num">Website</li>
+            <li className="ft-num">SaaS Promos</li>
           </ul>
         </div>
         <div className="ft-links">

@@ -9,20 +9,22 @@
 }
 
 .loader-text {
-  color: white;
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   font-family: syne-bold;
-   letter-spacing: 90px;
+ z-index: 2;
+  letter-spacing: 90px;
+  font-size: 10vw;
+  position: relative;
+   filter: drop-shadow(0px 4px  rgba(0, 0, 0, 0.25));
+   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.474));
+   text-align: center;
+   margin: 0%;
+     margin-left: 7%;
 }
 
 
 @media (max-width: 770px) {
   .loader-text{
-    font-size: 3rem;
-    letter-spacing: 30px;
-    margin-left: 5px;
+ font-size: 16vw;
+    letter-spacing: 30px !important;
   }
 }

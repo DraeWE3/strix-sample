@@ -68,14 +68,17 @@
 }
 
 
-.mid{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 30%;
-    font-family: ep-med;
-    font-size: 14px;
+.mid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ✅ 3 equal columns */
+  align-items: center;
+  justify-items: center; /* centers each item inside its cell */
+  width: 30%; /* keeps the overall container fixed at 30% */
+  font-family: ep-med;
+  font-size: 14px;
+  gap: 1rem; /* optional: space between items */
 }
+
 
 .nav-link{
   text-decoration: none;
@@ -85,6 +88,9 @@
   z-index: 10;
 }
 
+.nav-link:hover{
+  margin-top: 1rem;
+}
 
 .right{
     width: 8rem;
@@ -102,6 +108,7 @@
   background: none;
   border: none;
   z-index: 10;
+  width: 6rem;
 }
 
 .line {
@@ -123,11 +130,11 @@
 
 
 .hamburger:hover .top{
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .hamburger:hover .bottom{
-    margin-left: 10px;
+    margin-left: 15px;
 
 }
 

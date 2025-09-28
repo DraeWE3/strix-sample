@@ -15,9 +15,9 @@ const Carousel = () => {
   useEffect(() => {
     const updateOffset = () => {
       if (window.innerWidth <= 768) {
-        setButtonOffset("3%"); // mobile
+        setButtonOffset("1%"); // mobile
       } else {
-        setButtonOffset("22.5%"); // desktop
+        setButtonOffset("31.7%"); // desktop
       }
     };
     updateOffset();
@@ -257,7 +257,7 @@ const Carousel = () => {
             ...(isAnimating ? { opacity: 0.5 } : {}),
           }}
         >
-          <ChevronLeft size={28} />
+          <ChevronLeft size={38} />
         </button>
 
         <button
@@ -269,7 +269,7 @@ const Carousel = () => {
             ...(isAnimating ? { opacity: 0.5 } : {}),
           }}
         >
-          <ChevronRight size={28} />
+          <ChevronRight size={38} />
         </button>
       </div>
 
