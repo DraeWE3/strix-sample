@@ -1,14 +1,15 @@
-.btn-arr {
-  display: flex;
+.card-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 2.5rem 1.9rem;
+  justify-content: center;
+
+  padding: 0.5rem 1.7rem !important;
   border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
   color: #fff;
   transition: all 0.5s ease-in-out;
-  gap: 7px !important;
+  position: relative;
   /* Background image settings */
   background-image: url('../assets/img/btn-norm.webp');
   background-position: center;
@@ -18,45 +19,29 @@
   /* Makes button grow with text */
   width: auto;
   min-width: max-content; 
-  height: 0;
+  height: 3rem;
 }
 
-.btn-aarr:hover {
+.card-btn:hover {
   background-image: url('../assets/img/btn-norm2.webp');
 }
 
 .btn-p {
   margin: 0;
-  padding: 0 !important; /* Ensures spacing inside */
+  padding: 0 1rem; /* Ensures spacing inside */
   text-align: center;
-  font-size: 1rem;
-  margin-bottom: 10% !important;
-  font-family: cd-reg;
+  font-size: 12px;
+  margin-bottom: 10%;
   /* line-height: 1.2; */
 }
 
-.btn-arrow{
-  background-image: url('../assets/img/btn-arrow.webp');
-  width: 1rem;
-  height: 1rem;
-  background-size: cover;
-  background-size: cover;
-  margin-bottom: 10%;
-    transition: all 0.5s ease-in-out;
-}
-
-.btn-aarr:hover .btn-arrow{
-  background-image: url('../assets/img/btn-arrow2.webp');
-  width: 1.2rem;
-}
-
-.btn-aarr:active{
+.card-btn:active{
   background-image: url('../assets/img/btn-active.webp');
 }
 
 /* 🔹 Mobile responsive */
 @media (max-width: 770px) {
-  .btn-aarr{
+  .card-btn {
     padding: 0.7rem 1.5rem;
     background-size: 100% 100%; /* stays adaptive */
   }

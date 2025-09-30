@@ -43,6 +43,7 @@ import BtnNormsall from "../components/normSmall-btn";
 import DevelopmentModal from "../components/DevelopmentModal";
 import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
+import CardBtn from "../components/cardBtn";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -638,8 +639,8 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={0}
-                  to={2}
+                  from={15}
+                  to={20}
                   separator=","
                   direction="up"
                   duration={2}
@@ -653,8 +654,8 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={95}
-                  to={100}
+                  from={215}
+                  to={220}
                   separator=","
                   direction="up"
                   duration={2}
@@ -668,8 +669,8 @@ const Home = () => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={10}
-                  to={15}
+                  from={85}
+                  to={90}
                   separator=","
                   direction="up"
                   duration={2}
@@ -715,7 +716,7 @@ const Home = () => {
           <h2>Design</h2>
           <p className="card-content-p">Crafted to Captivate</p>
           <div className="btn-con">
-            <BtnNormsall onClick={() => setOpenModal("design")}text="Know more" />
+            <CardBtn onClick={() => setOpenModal("design")}text="Know more" />
           </div>
         </div>
         <div className="glow"></div>
@@ -729,7 +730,7 @@ const Home = () => {
           <h2>Development</h2>
           <p className="card-content-p">Engineered for Performance</p>
           <div className="btn-con">
-            <BtnNormsall onClick={() => setOpenModal("dev")} text="Know more" />
+            <CardBtn onClick={() => setOpenModal("dev")} text="Know more" />
           </div>
         </div>
         <div className="glow glow2"></div>
@@ -743,7 +744,7 @@ const Home = () => {
           <h2>Production</h2>
           <p className="card-content-p">Elevate your content</p>
           <div className="btn-con">
-            <BtnNormsall onClick={() => setOpenModal("research")} text="Know more" />
+            <CardBtn onClick={() => setOpenModal("research")} text="Know more" />
           </div>
         </div>
         <div className="glow glow3"></div>
@@ -785,7 +786,8 @@ const Home = () => {
                   MVP <br /> Research
                 </h2>
                 <div className="btn-con2">
-                  <Button />
+                  <p className="mvp-ptxt">Shape your concept into a roadmap</p>
+                  <CardBtn text="Know more"/>
                 </div>
               </div>
             </div>
@@ -798,7 +800,8 @@ const Home = () => {
                   MVP <br /> Design
                 </h2>
                 <div className="btn-con2">
-                  <Button />
+                  <p className="mvp-ptxt">Create intuitive flows, protoypes & More</p>
+                  <CardBtn text="Know more"/>
                 </div>
               </div>
             </div>
@@ -811,7 +814,8 @@ const Home = () => {
                   MVP <br /> Development
                 </h2>
                 <div className="btn-con2">
-                  <Button />
+                  <p className="mvp-ptxt">Full-stack, scalable builds</p>
+                  <CardBtn text="Know more"/>
                 </div>
               </div>
             </div>
@@ -820,7 +824,7 @@ const Home = () => {
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </p>
-          <Button text="Our Services" />
+          <ButtonArrow text="Build MVP" />
         </div>
 
         <div className="services">

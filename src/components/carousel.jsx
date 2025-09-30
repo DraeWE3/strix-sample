@@ -42,40 +42,46 @@ const Carousel = () => {
   const totalItems = infiniteItems.length;
 
   const getItemStyle = (index) => {
-    const position = index - currentIndex;
-    const isCenter = position === 0;
-    const absPosition = Math.abs(position);
+  const position = index - currentIndex;
+  const isCenter = position === 0;
+  const absPosition = Math.abs(position);
 
-    let transform = '';
-    let opacity = 1;
-    let zIndex = 10;
-    let scale = 1;
+  let transform = '';
+  let opacity = 1;
+  let zIndex = 10;
+  let scale = 1;
+  let visibility = "visible";
 
-    if (isCenter) {
-      transform = 'translateX(0%) translateZ(0px)';
-      scale = 1.2;
-      zIndex = 20;
-      opacity = 1;
-    } else if (absPosition === 1) {
-      const translateX = position > 0 ? '120%' : '-120%';
-      transform = `translateX(${translateX}) translateZ(-80px)`;
-    } else if (absPosition === 2) {
-      const translateX = position > 0 ? '240%' : '-240%';
-      transform = `translateX(${translateX}) translateZ(-140px)`;
-    } else {
-      const translateX = position > 0 ? '320%' : '-320%';
-      transform = `translateX(${translateX}) translateZ(-200px)`;
-    }
+  if (isCenter) {
+    transform = 'translateX(0%) translateZ(0px)';
+    scale = 1.2;
+    zIndex = 20;
+    opacity = 1;
+  } else if (absPosition === 1) {
+    const translateX = position > 0 ? '120%' : '-120%';
+    transform = `translateX(${translateX}) translateZ(-80px)`;
+  } else if (absPosition === 2) {
+    const translateX = position > 0 ? '240%' : '-240%';
+    transform = `translateX(${translateX}) translateZ(-140px)`;
+  } else {
+    // ✅ Far left / right images → hide them
+    const translateX = position > 0 ? '320%' : '-320%';
+    transform = `translateX(${translateX}) translateZ(-200px)`;
+    opacity = 0;           // fully transparent
+    visibility = "hidden"; // remove from layout/interaction
+  }
 
-    return {
-      transform: `${transform} scale(${scale})`,
-      opacity,
-      zIndex,
-      transition: isAnimating
-        ? 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-        : 'none',
-    };
+  return {
+    transform: `${transform} scale(${scale})`,
+    opacity,
+    visibility,
+    zIndex,
+    transition: isAnimating
+      ? 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+      : 'none',
   };
+};
+
 
   const nextSlide = () => {
     if (isAnimating) return;
@@ -164,11 +170,12 @@ const Carousel = () => {
   const styles = {
     container: {
       width: '100%',
-      maxWidth: '1500px',
       height: 'auto',
       overflow: 'hidden',
       position: 'relative',
       marginTop: '2rem',
+       cursor: 'grab',
+      
     },
     backgroundEffect: {
       position: 'absolute',
@@ -188,6 +195,7 @@ const Carousel = () => {
       justifyContent: 'center',
       height: '100%',
       position: 'relative',
+       cursor: 'grab',
     },
     carouselContainer: {
       position: 'relative',
@@ -198,6 +206,7 @@ const Carousel = () => {
       justifyContent: 'center',
       perspective: '1200px',
       perspectiveOrigin: '50% 50%',
+       cursor: 'grab',
     },
     carouselItem: {
       position: 'absolute',
@@ -213,9 +222,11 @@ const Carousel = () => {
       overflow: 'hidden',
       boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.6)',
       transition: 'box-shadow 0.3s ease',
+       cursor: 'grab',
     },
     imageContainerHover: {
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.9)',
+      cursor: 'grab',
     },
     image: {
       width: '100%',
@@ -230,7 +241,7 @@ const Carousel = () => {
       width: '60px',
       height: '60px',
       background: 'transparent',
-      display: 'flex',
+      display: 'none',
       alignItems: 'center',
       justifyContent: 'center',
       color: 'white',

@@ -97,7 +97,7 @@ const DesignModal = ({ isOpen, onClose }) => {
                <div className="t-txt">
                 <h2>Website Design</h2>
                 <p>Custom Websites, Landing page</p>
-                </div>
+                </div> 
             </div>
        </div>
        </div>

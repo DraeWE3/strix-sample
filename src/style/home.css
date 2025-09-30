@@ -42,7 +42,7 @@
 .hero .spread-h1 {
   font-family: syne-bold;
  z-index: 2;
-  letter-spacing: 90px;
+  letter-spacing: 9vw !important;
   font-size: 10vw;
   position: relative;
    filter: drop-shadow(0px 4px  rgba(0, 0, 0, 0.25));
@@ -50,10 +50,33 @@
    text-align: center;
    margin: 0%;
      margin-left: 7%;
-         margin-top: 39%;
+         margin-top: 32%;
           background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 1400px) {
+  .hero .spread-h1{
+    margin-top: 26%;
+    letter-spacing: 9vw !important;
+  }
+
+  .underlay{
+    height: 50vh;
+  }
+
+  .explore {
+    padding-top: 5rem !important;
+  }
+
+  .explore h1{
+    font-size: 2.5vw !important;
+  }
+
+  .section-container{
+     max-width: 40rem !important;
+  }
 }
 
 .hero .spread-txt{
@@ -127,7 +150,7 @@
      background: linear-gradient(to bottom, #FCFCFD, #969697);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 40px;
+    font-size: 2.5vw;
 }
 
 .explore p{
@@ -156,6 +179,7 @@
   padding: 2rem;
   flex-direction: row;
   width: 60%;
+  max-width: 40rem;
 }
 
 .section-container2 {
@@ -314,7 +338,8 @@
     font-family: ep-light;
     max-width: 50%;
     text-align: center;
-    font-size: 18px;
+    font-size: 19px;
+    line-height: 2.5rem;
      background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -473,10 +498,11 @@ box-shadow: rgba(255, 255, 255, 0.17) 0px 23px 25px 0px inset,
 
 
 .card-con{
-    width: 25%;
+    width: 20rem;
     position: relative;
     transform: translateY(20px); /* start slightly below */
      transition: opacity 0.4s ease, transform 0.4s ease;
+
 }
 
 .card-img{
@@ -491,6 +517,7 @@ box-shadow: rgba(255, 255, 255, 0.17) 0px 23px 25px 0px inset,
   width: 50%;
   z-index: 6;
   width: 26%;
+
 }
 
 .card-icon2{
@@ -554,7 +581,7 @@ height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 45rem;
+    height: 42rem;
     position: relative;
 }
 
@@ -585,25 +612,51 @@ height: 100%;
   margin: 0;
   font-family: cd-reg;
   font-size: 32px;
+  margin-bottom: -13px;
+
 }
 
-.card-content-p{
-    max-width: 80%;
-    text-align: center;
+.card-content-p {
+  max-width: 80%;
+  text-align: center;
+  margin-bottom: 1rem;                /* base margin */
+  opacity: 0.85;                      /* slightly muted initially */
+  transform: translateY(10px);        /* start a bit lower */
+  transition: 
+    margin-bottom 0.4s ease, 
+    transform 0.4s ease, 
+    opacity 0.4s ease, 
+    text-shadow 0.4s ease;
 }
 
-.btn-con{
-    display: none;
-    transform: translateY(20px); /* start slightly below */
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none; /* prevent clicks while hidden */
+.card-con:hover .card-content-p {
+  margin-bottom: 3rem;              /* your original idea */
+  opacity: 1;                         /* brighten */
+  transform: translateY(0) scale(1.05); /* lift + scale slightly */
+  text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25); /* soft glow */
 }
 
-.card-con:hover .btn-con{
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+/* Base state (hidden) */
+.btn-con {
+  position: absolute;        /* ✅ removes layout space */
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(20px); /* centered + slightly below */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 
+    opacity 0.6s ease-in-out,
+    transform 0.6s ease-in-out,
+    visibility 0.6s ease-in-out;
+}
+
+/* When hovering carousel container */
+.card-con:hover .btn-con {
+  transform: translate(-50%, -50%) translateY(0); /* back to normal */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 
@@ -613,7 +666,6 @@ height: 100%;
   height: 32.9rem;
   position: relative;
   margin-top: 4rem;
-  
 }
 
 
@@ -638,6 +690,16 @@ height: 100%;
 
 .mvp-card3{
      top: -90%;
+}
+
+.mvp-ptxt{
+  width: 11rem;
+  text-align: center;
+  font-size: 10px;
+  margin: 0%;
+  margin-bottom: 5px;
+ color: #D8D8D8;
+ font-family: ep-reg;
 }
 
 
@@ -670,11 +732,25 @@ height: 100%;
     transform: translate(-50%, -50%);
 }
 
-.mvp-content h2{
-    font-family: cd-reg;
-    text-align: center;
-    margin-bottom: 8px;
+.mvp-content h2 {
+  font-family: cd-reg;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 20px;
+   background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 5rem;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* smooth animation */
 }
+
+.mvp-card:hover .mvp-content h2 {
+  margin-top: 2rem;
+  color: #fff; /* optional: text color change */
+  transform: scale(1.05); /* optional: slight pop effect */
+  font-size: 18px;
+}
+
 
 .btn-con2{
     display: none;
@@ -682,6 +758,10 @@ height: 100%;
 
 .mvp-card:hover .btn-con2{
     display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .mvp-img-ab {
@@ -708,15 +788,19 @@ height: 100%;
 
 .btn-con2 {
   opacity: 0;
+  transform: translateY(20px) scale(0.95);
   visibility: hidden;
-  transform: translateY(20px); /* start slightly lower */
-  transition: all 0.5s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex; /* keep it flex so animation works */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .mvp-card:hover .btn-con2 {
   opacity: 1;
+  transform: translateY(0) scale(1);
   visibility: visible;
-  transform: translateY(0); /* slide up smoothly */
 }
 
 
@@ -828,6 +912,7 @@ height: 100%;
     align-items: center;
     justify-self: center;
     flex-direction: column;
+    margin-top: 10%;
   }
 
 
@@ -876,7 +961,7 @@ height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10%;
+  padding: 8rem 10%;
 }
 
 .left-booking{
@@ -957,7 +1042,11 @@ height: 100%;
 }
 
 
-
+@media (min-width: 1500px) {
+  .shadow1, .shadow2{
+    display: none;
+  }
+}
 
 /* =======================ANIMATION====================== */
 

@@ -9,8 +9,12 @@ import slogo3 from "../assets/img/slogo3.webp";
 import slogo4 from "../assets/img/slogo4.webp";
 import slogo5 from "../assets/img/slogo5.webp";
 import slogo6 from "../assets/img/slogo6.webp";
+import slogo7 from "../assets/img/slogo7.png";
+import slogo8 from "../assets/img/slogo8.png";
+import slogo9 from "../assets/img/slogo9.png";
+import slogo10 from "../assets/img/slogo10.png";
 
-const logos = [slogo1, slogo2, slogo3, slogo4, slogo5, slogo6];
+const logos = [slogo1, slogo2, slogo3, slogo4, slogo5, slogo6, slogo7, slogo8, slogo9, slogo10,];
 
 const LogoLoop = () => {
   const containerRef = useRef(null);
