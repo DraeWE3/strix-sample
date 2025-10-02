@@ -20,8 +20,8 @@
   color: white;
   padding: 8%;
   padding-top: 0 5% !important;
-  border-radius: 24px;
-  overflow: visible;
+  border-radius: 2vw;
+  overflow: hidden;
   width: 75vw; 
   height: 85vh;
   min-height: 500px; 
@@ -87,17 +87,17 @@
 }
 
 .t-txt{
-  width: 10vw;
+  width: 20vw;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center ;
-    width: 15rem;
+   min-width: 15rem;
 }
 
 .t-icon{
-  width: 4
-  vw;
+  width: 4vw;
+  object-fit: cover;
   height: auto;
 }
 
@@ -161,10 +161,10 @@
 
 }
 
-.close-btn {
+.close-btnmode {
   position: absolute;
-  top: 3%;
-  right: 3%;
+  top: 4%;
+  right: 2%;
   border: none;
   background: none;
   font-size: 20px;
@@ -233,6 +233,11 @@
 /* Desktop modal visible only on larger screens */
 .desktop-modal {
   display: flex;
+} 
+
+
+@media (min-width: 140px) {
+  
 }
 
 /* 📱 On mobile, swap */

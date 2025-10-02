@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1.9rem;
+  padding: 4.1% 4%;
+  padding: 1.9rem 1.8rem;
   border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
@@ -22,32 +23,44 @@ position: relative;
   height: 0;
 }
 
+@media (min-width: 140px) {
+  .btn-small{
+    padding: 2.6vw 2.7vw;
+  }
+
+  .btn-small-p{
+    font-size: 1.2vw;
+  }
+
+}
+
 .btn-small:hover {
   background-image: url('../assets/img/btn-norm2.webp');
 }
 
-.btn-p {
+.btn-small-p {
   margin: 0;
-  padding: 0 !important; /* Ensures spacing inside */
+  padding: 0 !important; 
   text-align: center;
   font-size: 1rem;
+  font-family: cd-reg;
   margin-bottom: 10% !important;
   /* line-height: 1.2; */
 }
 
-.btn-arrow{
+.small-btn-arrow{
   background-image: url('../assets/img/btn-arrow.webp');
-  width: 1rem;
-  height: 1rem;
+  width: 1vw;
+  height: 1vw;
   background-size: cover;
   background-size: cover;
   margin-bottom: 10%;
     transition: all 0.5s ease-in-out;
 }
 
-.btn-small:hover .btn-arrow{
+.btn-small:hover .small-btn-arrow{
   background-image: url('../assets/img/btn-arrow2.webp');
-  width: 1.2rem;
+  width: 1.2vw;
 }
 
 .btn-small:active{
@@ -61,7 +74,12 @@ position: relative;
     background-size: 100% 100%; /* stays adaptive */
   }
 
-  .btn-p {
-    font-size: 14px;
+  .btn-small-p {
+    font-size: 12px;
+  }
+
+  .small-btn-arrow{
+    width: 0.5rem;
+    height: 0.5rem;
   }
 }

@@ -11,7 +11,7 @@ const ButtonSmall = ({ text = "Log In", onClick }) => {
       className="btn-small"
       onClick={onClick}
     >
-      <p className='btn-p'>{text}</p> <span className="btn-arrow"></span>
+      <p className='btn-small-p'>{text}</p> <span className="small-btn-arrow"></span>
     </div>
   );
 };

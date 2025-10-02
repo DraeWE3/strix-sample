@@ -115,7 +115,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
             </div>
 
             <motion.div className="mobile-btn" custom={6} variants={itemVariants}>
-              <ButtonSmall padding="1rem 2rem" text="Let's Talk" />
+              <ButtonSmall text="Let's Talk" />
             </motion.div>
 
             <motion.div className="mobile-socials" custom={7} variants={itemVariants}>

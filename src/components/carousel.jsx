@@ -200,13 +200,14 @@ const Carousel = () => {
     carouselContainer: {
       position: 'relative',
       width: '100%',
-      height: 'clamp(220px, 60vh, 400px)',
+      height: 'clamp(320px, 60vh, 100px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       perspective: '1200px',
       perspectiveOrigin: '50% 50%',
        cursor: 'grab',
+       marginBottom: '1.5rem'
     },
     carouselItem: {
       position: 'absolute',

@@ -11,7 +11,7 @@ const Button = ({ text = "Log In", onClick }) => {
       className="btn"
       onClick={onClick}
     >
-      <p className='btn-p'>{text}</p>
+      <p className='bbtn-p'>{text}</p>
     </div>
   );
 };

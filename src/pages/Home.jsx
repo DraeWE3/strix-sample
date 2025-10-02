@@ -44,6 +44,7 @@ import DevelopmentModal from "../components/DevelopmentModal";
 import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
 import CardBtn from "../components/cardBtn";
+import Shadow4 from '../assets/img/shadow4.webp'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -351,31 +352,34 @@ const Home = () => {
     );
   }, []);
 
-  useEffect(() => {
-    gsap.set(".mvp-card", { opacity: 0 });
+useEffect(() => {
+  gsap.set(".mvp-card", { opacity: 0 });
 
-    const tl = gsap.timeline({
+  let mm = gsap.matchMedia();
+
+  // Desktop version (keep your exact values)
+  mm.add("(min-width: 771px)", () => {
+    gsap.timeline({
       scrollTrigger: {
         trigger: ".mvp-cardcon",
         start: getScrollStart(),
         toggleActions: "play none none reverse",
       },
-    });
-
-    tl.to(".mvp-card1", {
-      opacity: 1,
-      x: -220,
-      y: -120,
-      rotate: -12,
-      duration: 1.2,
-      ease: "power3.out",
     })
+      .to(".mvp-card1", {
+        opacity: 1,
+        x: -260,       // your desktop value
+        y: 0,
+        rotate: -18,   // your desktop value
+        duration: 1.2,
+        ease: "power3.out",
+      })
       .to(
         ".mvp-card2",
         {
           opacity: 1,
           x: 0,
-          y: -200,
+          y: 0,
           rotate: 0,
           duration: 1.2,
           ease: "power3.out",
@@ -386,15 +390,64 @@ const Home = () => {
         ".mvp-card3",
         {
           opacity: 1,
-          x: 220,
-          y: -240,
-          rotate: 12,
+          x: 260,       // your desktop value
+          y: 0,
+          rotate: 18,   // your desktop value
           duration: 1.2,
           ease: "power3.out",
         },
         "-=0.9"
       );
-  }, []);
+  });
+
+  // Mobile version (tweaked values)
+  mm.add("(max-width: 770px)", () => {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mvp-cardcon",
+        start: getScrollStart(),
+        toggleActions: "play none none reverse",
+      },
+    })
+      .to(".mvp-card1", {
+        opacity: 1,
+        x: -150,      // closer in
+        y: 0,
+        rotate: -20,  // softer tilt
+        duration: 1.2,
+        ease: "power3.out",
+      })
+      .to(
+        ".mvp-card2",
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          rotate: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        },
+        "-=0.9"
+      )
+      .to(
+        ".mvp-card3",
+        {
+          opacity: 1,
+          x: 150,      // closer in
+          y: 0,
+          rotate: 20,  // softer tilt
+          duration: 1.2,
+          ease: "power3.out",
+        },
+        "-=0.9"
+      );
+  });
+
+  return () => mm.revert(); // cleanup
+}, []);
+
+
+
 
     const containerVariants = {
     hidden: { opacity: 0 },
@@ -636,6 +689,7 @@ const Home = () => {
       </h1>
 
           <div className="number-container">
+            <img src={Shadow4} className="shadow4" alt="" />
             <div className="num1">
               <div>
                 <CountUp
@@ -766,7 +820,7 @@ const Home = () => {
         <div className="services services-mvp" >
                   <h1 className="section-header">From Idea to Market in 4 Weeks</h1>
 
-          <div className="mvp-cardcon">
+          <div className="mvp-cardcon mvp-desk">
              <img
         src={Shadow1}
         alt=""
@@ -820,14 +874,18 @@ const Home = () => {
               </div>
             </div>
           </div>
+          
+
+
+
           <p className="services-p p-up">
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </p>
-          <ButtonArrow text="Build MVP" />
+          <ButtonSmall text="Build MVP" />
         </div>
 
-        <div className="services">
+        <div className="services service-pro">
                   <h1 className="section-header3">
                     Strix Production
                   </h1>
@@ -871,7 +929,7 @@ const Home = () => {
         alt=""
         className="shadow2 shadowmed  absolute bottom-0 right-0 w-40"
       />
-                  <h1 className="section-header2">
+                  <h1 className="section-header2 ">
                     Our Craft, Your Expression.
                   </h1>
           <div className="links">
@@ -893,9 +951,9 @@ const Home = () => {
 
         <div className="testimonial-con" >
            <h1 className="section-header2">
-                    Our Craft, Your Expression.
+                    What our clients say
                   </h1>
-                    <p>
+                    <p className="text-pp">
             Real stories from the brands and people we've helped grow, design,
             and stand out
           </p>
@@ -908,7 +966,7 @@ const Home = () => {
                   </h1>
           <div className="second">
             <div className="left-booking">
-              <p>
+              <p className="leave">
                 <span>•</span>Leave a request
               </p>
 

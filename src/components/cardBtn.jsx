@@ -10,7 +10,7 @@ const CardBtn = ({ text = "Log In", onClick }) => {
       className="card-btn"
       onClick={onClick}
     >
-      <p className='btn-p'>{text}</p>
+      <p className='card-btn-p'>{text}</p>
     </div>
   );
 };

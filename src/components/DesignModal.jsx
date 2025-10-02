@@ -46,7 +46,7 @@ const DesignModal = ({ isOpen, onClose }) => {
           <motion.div className="backdrop" onClick={onClose} variants={backdropVariants} />
           <motion.div className="modal-content2" variants={modalVariants}>
              <img src={Grad} alt="" className="gradient" />
-            <button className="close-btn arr-left" onClick={onClose}><img src={Arrow} alt="" /></button>
+            <button className="close-btnmode arr-left" onClick={onClose}><img src={Arrow} alt="" /></button>
             <h1>Design</h1>
             <p className="mcp">Crafting intuitive, eye-catching designs for web, apps, and brands that stand out.</p>
        <div className="mcp-con">

@@ -73,15 +73,15 @@ max-width: 95vw;       /* Prevent overflow on small screens */
 
 .close-btn {
   position: absolute;
-  top: 5%;
-  right: 2px;
+  top: 2.5%;
+  right: 0.3% !important;
   border: none;
   background: none;
   font-size: 20px;
   color: white;
   cursor: pointer;
-  width: 1.2vw !important;
-  height: 1.2vh !important;
+  width: 3.2vw !important;
+  height: 2.9vw  !important;
 }
 
 

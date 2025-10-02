@@ -45,7 +45,7 @@ const ResearchModal = ({ isOpen, onClose }) => {
           <motion.div className="backdrop" onClick={onClose} variants={backdropVariants} />
           <motion.div className="modal-content2" variants={modalVariants}>
              <img src={Grad} alt="" className="gradient" />
-            <button className="close-btn arr-left" onClick={onClose}><img src={Arrow} alt="" /></button>
+            <button className="close-btnmode arr-left" onClick={onClose}><img src={Arrow} alt="" /></button>
             <h1>Production</h1>
             <p className="mcp">Creating engaging video content and motion graphics that tell your story powerfully.</p>
        <div className="mcp-con">

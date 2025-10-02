@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 1.9rem;
+  padding: 2.3rem 1.8rem !important;
   border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
@@ -14,7 +14,8 @@
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
-
+  position: relative;
+  z-index: 5;
   /* Makes button grow with text */
   width: auto;
   min-width: max-content; 
@@ -62,6 +63,11 @@
   }
 
   .btn-p {
-    font-size: 14px;
+     font-size: 13px !important;
+  }
+
+  .btn-arrow{
+    width: 0.6rem;
+    height: 0.6rem;
   }
 }
