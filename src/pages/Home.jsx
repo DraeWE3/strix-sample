@@ -405,7 +405,7 @@ useEffect(() => {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".mvp-cardcon",
-        start: "top 10%",
+        start: "center 50%",
         toggleActions: "play none none reverse",
       },
     })
@@ -559,7 +559,7 @@ useEffect(() => {
           stagger: 0.15,   // faster stagger
           scrollTrigger: {
             trigger: velocityRef.current,
-            start: "top 10%",  // start a bit later so it’s always visible
+            start: "center 50%",  // start a bit later so it’s always visible
             toggleActions: "play none none reverse",
           },
         }
