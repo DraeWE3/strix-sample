@@ -10,9 +10,9 @@
 
 .c-img{
     position: absolute;
-      top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+      top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   height: auto;
   object-fit: cover;
   width: 60vw;
@@ -35,6 +35,13 @@
   color: transparent;
 }
 
+@media (min-width: 140px) {
+  .comming h2{
+    font-size: 50px;
+    margin-bottom: ;
+  }
+}
+
 .comming h2{
       font-family: syne-bold;
       font-size: 40px;
@@ -50,6 +57,13 @@
       margin-bottom: 5rem;
 }
 
+@media (min-width: 140px) {
+  .comming h1{
+    font-size: 50px;
+    margin-bottom: 10%;
+  }
+}
+
 .comming p{
     font-family: ep-reg;
       text-align: center;
@@ -58,6 +72,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  font-size: 20px !important;
 }
 
 .mobile-socials {
@@ -110,7 +125,7 @@
 
     .comming p{
        margin-bottom: 1rem;
-       font-size: 12px;
+       font-size: 12px !important;
     }
 
     .mobile-socials{

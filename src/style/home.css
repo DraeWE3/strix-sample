@@ -86,9 +86,9 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-    letter-spacing: 5px;
+    letter-spacing: 0.65vw;
     margin: 0%;
-    font-size: 2vw;
+    font-size: 1.6vw;
     z-index: 4;
     position: relative;
     background-color: red !important;
@@ -138,11 +138,12 @@
       z-index: 2;
 }
 
-@media (min-width: 1000px) {
-  .shadow1, .shadow2{
-    width: 50% !important;
+
+  /* .shadow1, .shadow2{
+width: 50% !important;
   }
-}
+     */
+
 
 .shdowsmall{
   width: 20%;
@@ -156,7 +157,7 @@
      background: linear-gradient(to bottom, #FCFCFD, #969697);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 2.4vw !important;
+    font-size: 2.1vw !important;
 }
 
 .explore p{
@@ -184,8 +185,7 @@
   gap: 1rem;
   padding: 1rem 2rem;
   flex-direction: row;
-  width: 60%;
-  max-width: 40rem;
+  min-width: 38rem !important;
 }
 
 .section-container2 {
@@ -208,7 +208,7 @@
 /* First item - blurred input box */
 .blur-box {
   width: 95%; 
-  height: 3rem;
+  height: 2.8rem;
   backdrop-filter: blur(12px);
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -236,8 +236,8 @@
 
 /* Second item - image background with centered content */
 .image-box {
-  width: 3rem;
-  height: 3rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
   background: url("../assets/img/micro.png") center/cover no-repeat;
   display: flex;
@@ -1034,11 +1034,7 @@ height: 100%;
 }
 
 
-@media (min-width: 1500px) {
-  .shadow1, .shadow2{
-    display: none;
-  }
-}
+
 
 /* =======================ANIMATION====================== */
 

@@ -357,7 +357,7 @@ useEffect(() => {
 
   let mm = gsap.matchMedia();
 
-  // Desktop version (keep your exact values)
+  // Desktop version (scroll-based)
   mm.add("(min-width: 771px)", () => {
     gsap.timeline({
       scrollTrigger: {
@@ -368,9 +368,9 @@ useEffect(() => {
     })
       .to(".mvp-card1", {
         opacity: 1,
-        x: -260,       // your desktop value
+        x: -260,
         y: 0,
-        rotate: -18,   // your desktop value
+        rotate: -18,
         duration: 1.2,
         ease: "power3.out",
       })
@@ -390,9 +390,9 @@ useEffect(() => {
         ".mvp-card3",
         {
           opacity: 1,
-          x: 260,       // your desktop value
+          x: 260,
           y: 0,
-          rotate: 18,   // your desktop value
+          rotate: 18,
           duration: 1.2,
           ease: "power3.out",
         },
@@ -400,20 +400,14 @@ useEffect(() => {
       );
   });
 
-  // Mobile version (tweaked values)
+  // Mobile version (runs immediately on load, no scrollTrigger)
   mm.add("(max-width: 770px)", () => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: ".mvp-cardcon",
-        start: "top 100%",
-        toggleActions: "play none none none",
-      },
-    })
+    gsap.timeline()
       .to(".mvp-card1", {
         opacity: 1,
-        x: -150,      // closer in
+        x: -150,
         y: 0,
-        rotate: -20,  // softer tilt
+        rotate: -20,
         duration: 0.5,
         ease: "power3.out",
       })
@@ -427,24 +421,25 @@ useEffect(() => {
           duration: 0.6,
           ease: "power3.out",
         },
-        "-=0.9"
+        "-=0.4" // adjusted overlap since shorter durations
       )
       .to(
         ".mvp-card3",
         {
           opacity: 1,
-          x: 150,      // closer in
+          x: 150,
           y: 0,
-          rotate: 20,  // softer tilt
+          rotate: 20,
           duration: 0.7,
           ease: "power3.out",
         },
-        "-=0.9"
+        "-=0.4"
       );
   });
 
   return () => mm.revert(); // cleanup
 }, []);
+
 
 
 
@@ -506,7 +501,7 @@ useEffect(() => {
 useEffect(() => {
   let mm = gsap.matchMedia();
 
-  // Desktop
+  // Desktop (scroll-based)
   mm.add("(min-width: 771px)", () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -540,28 +535,23 @@ useEffect(() => {
     return () => ctx.revert();
   });
 
-  // Mobile
+  // Mobile (runs immediately on load, no scrollTrigger)
   mm.add("(max-width: 770px)", () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         velocityRef.current.children,
         {
-          y: 60,          // less distance = quicker entry
+          y: 60,
           opacity: 0,
-          scale: 0.98,    // keep it light
+          scale: 0.98,
         },
         {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.5,   // shorter duration for snappier feel
-          ease: "power2.out", // lighter easing
-          stagger: 0.1,   // faster stagger
-          scrollTrigger: {
-            trigger: velocityRef.current,
-            start: "top 100%",  // start a bit later so it’s always visible
-            toggleActions: "play none none none",
-          },
+          duration: 0.5,
+          ease: "power2.out",
+          stagger: 0.1,
         }
       );
     }, velocityRef);
@@ -571,6 +561,7 @@ useEffect(() => {
 
   return () => mm.revert();
 }, []);
+
 
 
   return (
