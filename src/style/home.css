@@ -687,7 +687,7 @@ height: 100%;
   position: absolute;
   top: 0%;
   left: 50%;
-  transform: translate(-50%, -50%); /* perfect center */
+  transform: translate(-50%); /* perfect center */
   width: 17rem;
   height: auto;
 }
@@ -1224,14 +1224,14 @@ height: 100%;
   }
 
     .blur-box{
-    height: 2rem !important;
+    height: 2.5rem !important;
     width: 90% !important;
     margin-right: 5px;
   }
 
   .image-box{
-    width: 2rem !important;
-  height: 2rem !important;
+    width: 2.5rem !important;
+  height: 2.5rem !important;
   }
 
 

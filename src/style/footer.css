@@ -256,3 +256,16 @@ font-size: 14px;
   font-size: 18px;
 }
 
+@media (max-width: 770px) {
+  .ft-num{
+    font-size: 14px !important;
+  }
+
+  .footer-pp{
+  font-size: 14px !important;
+}
+
+.ft-year{
+  font-size: 12px !important;
+}
+}

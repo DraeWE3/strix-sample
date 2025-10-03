@@ -58,12 +58,13 @@
 /* 🔹 Mobile responsive */
 @media (max-width: 770px) {
   .btn-aarr{
-    padding: 0.7rem 1.5rem;
+    padding: 0.5rem 1.5rem !important;
     background-size: 100% 100%; /* stays adaptive */
   }
 
   .btn-p {
      font-size: 13px !important;
+     margin-bottom: 13% !important;
   }
 
   .btn-arrow{

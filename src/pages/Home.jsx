@@ -405,7 +405,7 @@ useEffect(() => {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".mvp-cardcon",
-        start: getScrollStart(),
+        start: "top 80%",
         toggleActions: "play none none reverse",
       },
     })
@@ -503,7 +503,11 @@ useEffect(() => {
 
   const velocityRef = useRef(null);
 
-  useEffect(() => {
+useEffect(() => {
+  let mm = gsap.matchMedia();
+
+  // Desktop
+  mm.add("(min-width: 771px)", () => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         velocityRef.current.children,
@@ -534,7 +538,40 @@ useEffect(() => {
     }, velocityRef);
 
     return () => ctx.revert();
-  }, []);
+  });
+
+  // Mobile
+  mm.add("(max-width: 770px)", () => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        velocityRef.current.children,
+        {
+          y: 60,          // less distance = quicker entry
+          opacity: 0,
+          scale: 0.98,    // keep it light
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.9,   // shorter duration for snappier feel
+          ease: "power2.out", // lighter easing
+          stagger: 0.15,   // faster stagger
+          scrollTrigger: {
+            trigger: velocityRef.current,
+            start: "top 90%",  // start a bit later so it’s always visible
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, velocityRef);
+
+    return () => ctx.revert();
+  });
+
+  return () => mm.revert();
+}, []);
+
 
   return (
     <div>
@@ -693,7 +730,7 @@ useEffect(() => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={15}
+                  from={10}
                   to={20}
                   separator=","
                   direction="up"
@@ -708,7 +745,7 @@ useEffect(() => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={215}
+                  from={200}
                   to={220}
                   separator=","
                   direction="up"
@@ -723,7 +760,7 @@ useEffect(() => {
             <div className="num1">
               <div>
                 <CountUp
-                  from={85}
+                  from={80}
                   to={90}
                   separator=","
                   direction="up"
