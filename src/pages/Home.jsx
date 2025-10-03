@@ -406,7 +406,7 @@ useEffect(() => {
       scrollTrigger: {
         trigger: ".mvp-cardcon",
         start: "top 100%",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none none",
       },
     })
       .to(".mvp-card1", {
@@ -560,7 +560,7 @@ useEffect(() => {
           scrollTrigger: {
             trigger: velocityRef.current,
             start: "top 100%",  // start a bit later so it’s always visible
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
         }
       );
