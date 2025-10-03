@@ -30,7 +30,7 @@ export default function CountUp({
         ease: "power1.out",
         scrollTrigger: {
           trigger: ref.current,
-          start: "top 80%",
+          start: "top 95%",
           once: true, // run once
           onEnter: () => {
             if (typeof onStart === "function") onStart();
