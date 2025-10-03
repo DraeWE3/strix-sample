@@ -405,7 +405,7 @@ useEffect(() => {
     gsap.timeline({
       scrollTrigger: {
         trigger: ".mvp-cardcon",
-        start: "center 50%",
+        start: "top 100%",
         toggleActions: "play none none reverse",
       },
     })
@@ -414,7 +414,7 @@ useEffect(() => {
         x: -150,      // closer in
         y: 0,
         rotate: -20,  // softer tilt
-        duration: 1.2,
+        duration: 0.5,
         ease: "power3.out",
       })
       .to(
@@ -424,7 +424,7 @@ useEffect(() => {
           x: 0,
           y: 0,
           rotate: 0,
-          duration: 1.2,
+          duration: 0.6,
           ease: "power3.out",
         },
         "-=0.9"
@@ -436,7 +436,7 @@ useEffect(() => {
           x: 150,      // closer in
           y: 0,
           rotate: 20,  // softer tilt
-          duration: 1.2,
+          duration: 0.7,
           ease: "power3.out",
         },
         "-=0.9"
@@ -554,12 +554,12 @@ useEffect(() => {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.9,   // shorter duration for snappier feel
+          duration: 0.5,   // shorter duration for snappier feel
           ease: "power2.out", // lighter easing
-          stagger: 0.15,   // faster stagger
+          stagger: 0.1,   // faster stagger
           scrollTrigger: {
             trigger: velocityRef.current,
-            start: "center 50%",  // start a bit later so it’s always visible
+            start: "top 100%",  // start a bit later so it’s always visible
             toggleActions: "play none none reverse",
           },
         }
