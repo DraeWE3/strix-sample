@@ -10,6 +10,7 @@ import Icon5 from '../assets/img/dev-icon5.png'
 import Icon6 from '../assets/img/dev-icon6.png'
 import Arrow from '../assets/img/arr-left.png'
 import ButtonSmall from "./btn-small";
+import Mgrad from '../assets/img/dev-grad-mobile.webp'
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -46,6 +47,7 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
               <motion.div className="backdrop" onClick={onClose} variants={backdropVariants} />
               <motion.div className="modal-content2" variants={modalVariants}>
                   <img src={Grad} className="gradient" alt=""/>
+                  <img src={Mgrad} alt="" className="mgradient" />
                 <button className="close-btnmode " onClick={onClose}><img src={Arrow} alt="" /></button>
                 <h1>Development</h1>
                 <p className="mcp">Building fast, functional, and scalable digital experiences across platforms.</p>

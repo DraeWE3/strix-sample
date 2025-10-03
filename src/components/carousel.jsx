@@ -219,7 +219,7 @@ const Carousel = () => {
       position: 'relative',
       width: '100%',
       height: '100%',
-      borderRadius: '16px',
+      borderRadius: '2rem',
       overflow: 'hidden',
       boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.6)',
       transition: 'box-shadow 0.3s ease',

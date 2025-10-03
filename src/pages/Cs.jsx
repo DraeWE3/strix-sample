@@ -4,6 +4,7 @@ import Nav from "../components/Navbar";
 import Css from "../assets/img/cs.webp";
 import "../style/cs.css";
 import Cicon from "../assets/img/c-icon.webp";
+import ButtonArrow from "../components/button-arrow";
 
 const Cs = () => {
   const containerRef = useRef(null);
@@ -88,6 +89,10 @@ const Cs = () => {
         <span className="akar-icons--linkedin-v1-fill"></span>
         <img src={Cicon} className="cion" alt="cicon" />
       </div>
+
+     <div className="btccs">
+       <ButtonArrow text="Let's talk" />
+     </div>
     </div>
   );
 };

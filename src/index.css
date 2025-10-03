@@ -1,4 +1,23 @@
 /* src/index.css */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffffff, #302e31);
+  border-radius: 10rem !important;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #efefef transparent;
+}
 
 /* --- Font faces --- */
 @font-face {

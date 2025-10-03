@@ -9,6 +9,7 @@ import Icon4 from '../assets/img/pro-icon4.png'
 import Icon5 from '../assets/img/pro-icon5.png'
 import Arrow from '../assets/img/arr-left.png'
 import ButtonSmall from "./btn-small";
+import Mgrad from'../assets/img/pro-gradient.webp'
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -45,6 +46,7 @@ const ResearchModal = ({ isOpen, onClose }) => {
           <motion.div className="backdrop" onClick={onClose} variants={backdropVariants} />
           <motion.div className="modal-content2" variants={modalVariants}>
              <img src={Grad} alt="" className="gradient" />
+             <img src={Mgrad} alt="" className="mgradient" />
             <button className="close-btnmode arr-left" onClick={onClose}><img src={Arrow} alt="" /></button>
             <h1>Production</h1>
             <p className="mcp">Creating engaging video content and motion graphics that tell your story powerfully.</p>
