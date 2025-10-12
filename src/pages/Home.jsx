@@ -26,9 +26,9 @@ import Carousel from "../components/carousel";
 import Coin from "../assets/img/coin-video.webm";
 import Footer from "../components/Footer";
 import TestimonialCarousel from "../components/testimonial";
-import useTiltMotion from "../components/threecard";
-import ScrollReveal from "../animations/scroolReveal";
-import AnimatedContent from "../animations/fadeUp";
+// import useTiltMotion from "../components/threecard";
+// import ScrollReveal from "../animations/scroolReveal";
+// import AnimatedContent from "../animations/fadeUp";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -45,6 +45,8 @@ import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
 import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
+import ScrollTextReveal from "../animations/textanimation";
+
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -300,6 +302,7 @@ const useScrollAnimation = (ref) => {
 };
 
 const Home = () => {
+  
   const [openModal, setOpenModal] = useState(null);
   const titleRef = useRef(null);
   const subTextRef = useRef(null);
@@ -712,9 +715,13 @@ useEffect(() => {
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
-      <h1 className="section-header2">
-        Real Work. Real Results
-      </h1>
+
+<ScrollTextReveal 
+  text="Real Work. Real Results"
+  type="words"
+  animation="multi-line"
+/>
+
 
           <div className="number-container">
             <img src={Shadow4} className="shadow4" alt="" />
@@ -917,6 +924,7 @@ useEffect(() => {
                   <h1 className="section-header3">
                     Strix Production
                   </h1>
+
           <div className="coin-con">
             <video
               className="coin-anime"

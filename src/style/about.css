@@ -1,0 +1,534 @@
+.about-hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.about-hero-p{
+    font-size: 18px;
+    max-width: 60%;
+    text-align: center;
+    line-height: 1.8rem;
+    color: #E6E6E6;
+}
+
+@media (max-width: 770px) {
+    .about-hero-p{
+        max-width: 80%;
+        font-size: 15px;
+    }
+}
+
+
+/* ================family=================== */
+
+.family{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10% 10%;
+}
+
+.family h2{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 40%;
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.family-cards{
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.family-card{
+    width: 33%;
+    position: relative;
+    padding: 5% 0;
+    padding-bottom: 0;
+}
+
+.family-card img{
+   width: 100%;
+   height: auto;
+}
+
+.fam-detail{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.fam-detail img{
+    width: 50%;
+   height: auto;
+}
+
+.raj{
+    width: 70% !important;
+}
+
+.fam-detail h3{
+   margin: 0;
+   font-family: 'Clash Display', sans-serif;
+   font-weight: 200;
+   font-size: 23px;
+}
+
+
+    .fam-p{
+        font-size: 20px;
+        color: #E6E6E6;
+        text-align: center;
+    }
+
+@media (max-width: 880px) {
+    .family h2{
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 780px){
+    .family{
+        padding: 10% 5%;
+    }
+}
+
+@media (max-width: 680px){
+    .family h2{
+        max-width: 90%;
+        font-size: 30px;
+    }
+
+    .family-cards{
+        flex-direction: column;
+    }
+
+    .family-card{
+        width: 80%;
+    }
+
+    .fam-p{
+        font-size: 17px;
+        max-width: 70%;
+        line-height: 1.8rem;
+    }
+
+
+}
+
+
+/* ====================Team=================== */
+
+.team{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.team h1{
+       font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 40%;
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.team-fm-card{
+   width: 80%; 
+}
+
+.team-fm-detail img{
+    width: 30%;
+}
+
+.team-card-p{
+   font-size: 15px; 
+   max-width: 80%;
+   line-height: 1.6rem;
+   text-align: center;
+}
+
+.team-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 5;
+}
+
+.team-cards{
+    display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  z-index: 0;
+}
+
+
+.tblur {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+}
+
+.team-id1{
+  width: 20% !important;
+  margin-bottom: -2rem;
+}
+
+
+.team-id4{
+  width: 20% !important;
+  margin-bottom: -2rem;
+}
+
+.team-p{
+    text-align: center;
+    max-width: 70%;
+    font-size: 15px;
+    line-height: 1.8rem;
+    margin-top: 5%;
+    color: #E6E6E6;
+}
+
+
+
+@media (max-width: 1150px) {
+    .team{
+        padding: 5%;
+    }
+}
+
+
+@media (max-width: 770px) {
+    .team-cards{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .team h1{
+        max-width: 80%;
+        margin-bottom: 0;
+    }
+
+    .team-p{
+    max-width: 90%;
+}
+}
+
+
+
+
+/* =============positions============= */
+
+.positions{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.positions h1{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 40%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.po-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.po-top-left{
+    width: 32%;
+    position: relative;
+}
+
+.po-top-left img{
+    width: 100%;
+}
+
+.po-top-left-de{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.po-top-left-de h3{
+    font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.po-top-left-de p{
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;  
+}
+
+.po-top-right{
+    width: 65%;
+    position: relative;
+}
+
+.po-top-right img{
+    width: 100%;
+}
+
+.po-top-right-de{
+      position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 0 5%;
+}
+
+.po-top-right-de img{
+    width: 2rem;
+}
+
+.po-top-right-de div{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.po-top-right-de h3{
+        font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+  text-align: start;
+} 
+
+.po-top-right-de p{
+    font-size: 15px;
+    line-height: 1.8rem;
+}
+
+.po-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1.9rem;
+}
+
+
+@media (max-width: 1130px) {
+    .positions{
+       padding: 5%; 
+    }
+
+   .positions h1{
+     max-width: 70%;
+   }
+}
+
+.mobile-po{
+    display: none;
+}
+
+@media (max-width: 980px){
+   .desktop-po{
+    display: none;
+   }
+
+   .mobile-po{
+    display: flex;
+}
+
+.po-bottom{
+      display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  
+}
+
+.po-top-right{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.po-top-left{
+  width: 90%;
+  margin-bottom: 2rem;
+}
+}
+
+
+@media (max-width: 770px) {
+    .po-top-right-de h3{
+        font-size: 25px;
+    }
+
+     .po-top-right-de p{
+        font-size: 13px;
+        line-height: 1.2rem;
+    }
+}
+
+@media (max-width: 540px) {
+    
+      .po-top-right-de h3{
+        font-size: 20px;
+        line-height: 1.2rem;
+        margin-top: 4rem;
+    }
+.po-top-right{
+    margin-bottom: 2rem;
+}
+     .po-top-right-de p{
+        font-size: 12px;
+        line-height: 1rem;
+    }
+
+    .po-top-left-de p{
+        font-size: 12px;
+    }
+
+    .po-top-right-de img{
+    width: 1.5rem;
+}
+
+.po-top-right-de div{
+    gap: 0.4rem;
+}
+
+.po-top-left-de h3{
+    font-size: 20px;
+    line-height: 1.3rem;
+    }}
+/* ============dna=============== */
+
+.dna{
+        display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+
+.dna h1{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 100%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: start;
+  line-height: 3rem;
+}
+
+.dna-left{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+
+.dna-left h2{
+    text-align: start;
+}
+
+.dna-left p, .dna-right p{
+ max-width: 60%;
+}
+
+.dna-right p{
+    text-align: end;
+}
+
+.dna-left p, .dna-right p{
+    line-height: 2rem;
+}
+
+.dna-left h2, .dna-right h2{
+      font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  max-width: 40%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0;
+}
+
+.dna-right{
+   width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end; 
+}
+
+
+
+@media (max-width: 770px) {
+    .dna{
+        padding: 5%;
+    }
+
+    .dna h1, .positions h1, .team h1, .family h2{
+        font-size: 30px;
+        line-height: 1.8rem;
+        max-width: 90%;
+    }
+
+    .dna-left p, .dna-right p{
+ max-width: 80%;
+}
+}

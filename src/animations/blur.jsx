@@ -1,9 +1,12 @@
-// src/components/BlurText.jsx
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 const buildKeyframes = (from, steps) => {
-  const keys = new Set([...Object.keys(from), ...steps.flatMap((s) => Object.keys(s))]);
+  const keys = new Set([
+    ...Object.keys(from),
+    ...steps.flatMap((s) => Object.keys(s)),
+  ]);
+
   const keyframes = {};
   keys.forEach((k) => {
     keyframes[k] = [from[k], ...steps.map((s) => s[k])];
@@ -12,56 +15,43 @@ const buildKeyframes = (from, steps) => {
 };
 
 const BlurText = ({
-  text = "",
-  delay = 200, // ms per word/char stagger
+  children,
+  delay = 200,
   className = "",
-  animateBy = "words", // "words" or "chars"
-  direction = "top", // starting direction
-  threshold = 0.1,
-  rootMargin = "0px",
+  animateBy = "words",
+  direction = "top",
   animationFrom,
   animationTo,
-  easing = (t) => t,
+  easing = "easeOut",
   onAnimationComplete,
-  stepDuration = 0.35, // sec per step
-  maxWidth = "800px", // ✅ new prop for max width
+  stepDuration = 0.35,
+  triggerOnce = true,
 }) => {
-  const elements = animateBy === "words" ? text.split(" ") : text.split("");
-  const [inView, setInView] = useState(false);
   const ref = useRef(null);
+  const isInView = useInView(ref, { once: triggerOnce, margin: "-10% 0px" });
 
-  // IntersectionObserver to trigger on scroll
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(ref.current);
-        }
-      },
-      { threshold, rootMargin }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  // Extract text content from children (e.g., <h1>Hello</h1>)
+  const text =
+    typeof children === "string"
+      ? children
+      : children?.props?.children || "";
 
-  // Default animations
+  const elements =
+    animateBy === "words" ? text.split(" ") : text.split("");
+
   const defaultFrom = useMemo(
     () =>
       direction === "top"
-        ? { filter: "blur(10px)", opacity: 0, y: -50 }
-        : { filter: "blur(10px)", opacity: 0, y: 50 },
+        ? { filter: "blur(10px)", opacity: 0, y: -40 }
+        : direction === "bottom"
+        ? { filter: "blur(10px)", opacity: 0, y: 40 }
+        : { filter: "blur(10px)", opacity: 0, x: direction === "left" ? -40 : 40 },
     [direction]
   );
 
   const defaultTo = useMemo(
     () => [
-      {
-        filter: "blur(5px)",
-        opacity: 0.5,
-        y: direction === "top" ? 5 : -5,
-      },
+      { filter: "blur(5px)", opacity: 0.5, y: 5 },
       { filter: "blur(0px)", opacity: 1, y: 0 },
     ],
     [direction]
@@ -72,28 +62,24 @@ const BlurText = ({
 
   const stepCount = toSnapshots.length + 1;
   const totalDuration = stepDuration * (stepCount - 1);
-  const times = Array.from({ length: stepCount }, (_, i) =>
-    stepCount === 1 ? 0 : i / (stepCount - 1)
+  const times = Array.from(
+    { length: stepCount },
+    (_, i) => (stepCount === 1 ? 0 : i / (stepCount - 1))
   );
 
   return (
-  <p
-  ref={ref}
-  className={`flex flex-wrap justify-center ${className}`}
-  style={{
-    fontFamily: "syne-med",
-    fontSize: "clamp(2rem, 5vw, 3rem)", // ✅ scales from ~24px → 48px naturally
-    lineHeight: "clamp(1.4, 2vw, 1.6)", // ✅ more breathing space on small screens
-    margin: 0,
-    maxWidth: "90%", // ✅ use percentage so it adapts better than fixed px
-    textAlign: "center",
-    wordWrap: "break-word",
-    padding: "0 1rem",
+    <div
+      ref={ref}
+      className={className}
+      style={{
+    alignItems: "center",
+    overflow: "hidden",
+    wordBreak: "keep-all",
+    overflowWrap: "break-word" ,
   }}
->
+    >
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
-
         const spanTransition = {
           duration: totalDuration,
           times,
@@ -103,13 +89,15 @@ const BlurText = ({
 
         return (
           <motion.span
-            className="inline-block will-change-[transform,filter,opacity]"
             key={index}
+            className="inline-block will-change-[transform,filter,opacity]"
             initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
+            animate={isInView ? animateKeyframes : fromSnapshot}
             transition={spanTransition}
             onAnimationComplete={
-              index === elements.length - 1 ? onAnimationComplete : undefined
+              index === elements.length - 1
+                ? onAnimationComplete
+                : undefined
             }
           >
             {segment === " " ? "\u00A0" : segment}
@@ -117,7 +105,7 @@ const BlurText = ({
           </motion.span>
         );
       })}
-    </p>
+    </div>
   );
 };
 

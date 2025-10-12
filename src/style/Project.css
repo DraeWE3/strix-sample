@@ -1,0 +1,494 @@
+.project-hero{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 140vh;
+    position: relative;
+}
+
+.project-hero-h1{
+  font-family: syne-semi;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 100px;
+  margin: 0;
+  margin-top: 8%;
+}
+
+.project-hero-p{
+  max-width: 28rem;
+  text-align: center;
+  font-size: 20px;
+  line-height: 2.3rem;
+  color: #dcdcdc;
+}
+
+.project-carousel-con{  
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 4rem;
+  height: 32rem;
+}
+
+
+.ProjectCircle{
+  position: absolute;
+    position: absolute;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70rem !important;
+  height: auto;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.project-carousel-con h1{
+  font-family: cd-reg;
+  background: linear-gradient(to bottom, #000000, #363636);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+   filter: drop-shadow(0px 4px  rgba(0, 0, 0, 0.25));
+   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.474));
+     z-index: 2;
+  color: #000;
+  font-size: 2.7rem;
+  margin-bottom: 0;
+  margin-top: 3rem;
+}
+
+.project-p-btn{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: -2rem;
+   height: 2rem;
+}
+
+.project-p-btn p{
+  font-size:18px;
+  z-index: 3;
+  position: relative;
+}
+
+
+.link-button-all:hover{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem !important;
+  padding-bottom: 0.8rem !important;
+  border-radius: 5rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  /* Background image settings */
+  background-image: url('../assets/img/link-btn.webp');
+  background-position: center;
+  background-size: 100% 100%; 
+  background-repeat: no-repeat;
+
+  /* Makes button grow with text */
+  width: fit-content;
+  /* min-width: max-content;  */
+  height: 4rem;
+}
+
+
+.link-button-all:hover{
+  display: inline-flex;
+}
+
+
+@media (max-width: 1500px) {
+  .project-hero-h1{
+    margin-top: 10%;
+  }
+
+  .project-carousel-con{
+    margin-top: 2rem;
+  }
+
+  .ProjectCircle{
+    width: 75%;
+  }
+
+  .project-carousel-con h1{
+    font-size: 2.4rem;
+  }
+
+  .project-p-btn{
+    margin-top: 0;
+  }
+}
+
+
+@media (max-width: 1500px){
+  .project-hero-h1{
+    font-size: 90px;
+  }
+
+  .project-hero-p{
+    font-size: 18px;
+    max-width: 25rem;
+    line-height: 2rem;
+  }
+
+  .project-p-btn p{
+    font-size:16px;
+  }
+
+  .project-carousel-con{
+    height: 30rem;
+  }
+
+  .ProjectCircle{
+    width: 63rem !important;
+  }
+}
+
+
+
+@media (max-width: 400px){
+   .project-hero{
+    height: 100svh;
+   }
+
+   .project-hero-h1{
+    font-size: 20vw;
+    margin-top: 17%;
+   }
+
+   .project-hero-p{
+    max-width: 90%;
+   }
+
+   .ProjectCircle{
+    width: 150vw !important;
+   }
+
+   .project-carousel-con{
+    height: 53svh;
+    margin-top: -15%;
+   }
+
+   .project-carousel-con h1{
+     font-size: 2rem;
+      margin-bottom: 0;
+      margin-top: 7.5rem;
+   }
+
+   .project-p-btn{
+    margin-top: -5vh;
+   }
+}
+
+
+/* =================section2============================ */
+
+.section2{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5% 0;
+  padding-bottom: 3%;
+}
+
+.sec2-p{
+     background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2vw;
+  /* font-family: ep-light; */
+}
+
+.p-card-con{
+  width: 100%;
+ display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3% 10%;
+  position: relative;
+}
+
+.p-sec2-card{
+ width: 45%;
+}
+
+.linkkk{
+  display: inline-block;
+}
+
+.p-sec2-card-img{
+  width: 100%;
+  border-radius: 2rem;
+    background: linear-gradient(to bottom, #707070, #000);
+  padding: 1px; /* thickness of gradient border */
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+.p-sec2-card p{
+  font-size: 15px;
+  color: #8C8C8C;
+  margin: 0;
+  margin-left: 2px;
+  margin-top: 8px;
+}
+
+.p-sec2-card div{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.p-sec2-card div .icon{
+  background: none;
+  width: 1.2rem;
+  margin-bottom: 18px;
+}
+
+.p-sec2-card div h2{
+  margin-top: 0;
+  font-family: cd-reg;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.sec2-ptxt{
+  font-size: 19px;
+  margin-top: 2rem;
+}
+
+.project-logo-loop{
+  width: 100%;
+}
+
+@media (max-width: 770px) {
+  .p-card-con{
+    flex-direction: column;
+  }
+
+  .p-sec2-card{
+ width: 100%;
+}
+
+.sec2-p{
+  font-size: 18px;
+  text-align: center;
+  max-width: 85%;
+  line-height: 1.7rem;
+}
+
+.sec2-ptxt{
+  max-width: 85%;
+  text-align: center;
+}
+
+.section2{
+  padding-top: 15%;
+}
+}
+
+
+
+/* ======================Book call=================== */
+
+
+.book-container{
+  width: 100%;
+  padding: 8% 10%;
+  position: relative;
+}
+
+
+.bool-container-card{
+  padding: 0 10%;
+  position: relative;
+}
+
+.bookbg{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.book-ab{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+
+.book-ab h1{
+  font-family: cd-reg;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 50px;
+  line-height: 4rem;
+  margin-bottom: 10px;
+}
+
+.book-ab p{
+  margin: 0;
+  margin-bottom: 15%;
+  width: 70%;
+  line-height: 1.8rem;
+}
+
+.book-ab img{
+  width: 100%;
+}
+
+@media (max-width: 1300px) {
+  .book-ab h1{
+    font-size: 40px;
+    line-height: 3rem;
+  }
+
+  .book-ab p{
+    font-size: 13px;
+    line-height: 1.3rem;
+  }
+
+  .book-ab img{
+  width: 70%;
+}
+}
+
+@media (max-width: 770px){
+   .book-ab h1{
+    font-size: 26px;
+    line-height: 2rem;
+  }
+
+  .book-ab p{
+    font-size: 12px;
+    line-height: 1.3rem;
+    width: 90%;
+  }
+
+  .book-ab img{
+  width: 70%;
+}
+}
+
+@media (max-width: 600px){
+  .book-ab h1{
+    font-size: 20px;
+    line-height: 1.5rem;
+  }
+
+  .bool-container-card{
+    padding: 0%;
+  }
+
+  .book-ab p{
+    font-size: 10px;
+    line-height: 1.1rem;
+    width: 100%;
+  }
+
+  .book-ab img{
+  width: 70%;
+}
+}
+
+.p-blur1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10rem;
+  height: auto;
+  object-fit: cover;
+}
+
+.p-blur2{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12rem;
+  height: auto;
+  object-fit: cover;
+}
+
+
+.p-blur3{
+  position: absolute;
+  top: -5;
+  left: 0;
+  width: 35%;
+  height: auto;
+  object-fit: cover;
+}
+
+.p-blur4{
+  position: absolute;
+  top: -5%;
+  right: 0;
+  width: 35%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+.p-blur5{
+  position: absolute;
+  bottom: -5%;
+  left: 0;
+  width: 35%;
+  height: auto;
+  object-fit: cover;
+}
+
+.p-blur6{
+  position: absolute;
+  bottom: -5%;
+  right: 0;
+  width: 35%;
+  height: auto;
+  object-fit: cover;
+}
+
+.blur7{
+  position: absolute;
+  top: -50%;
+  right: 0;
+  width: 35%;
+  height: auto;
+  object-fit: cover;
+}
+
+.blur8{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+

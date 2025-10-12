@@ -346,7 +346,7 @@ width: 50% !important;
 
 .motion-p{
     font-family: ep-light;
-    max-width: 50%;
+    max-width: 60%;
     text-align: center;
     font-size: 19px;
     line-height: 2.5rem;
@@ -378,6 +378,10 @@ width: 50% !important;
     position: relative;
     padding-bottom: 10%;
 }
+
+/* .service-pro{
+  height: 50vh;
+} */
 
 
 .services h1{
@@ -1142,7 +1146,6 @@ height: 100%;
 
 @media (max-width: 770px) {
   .hero{
-    height: 100vh;
     margin-bottom: 0;
   }
   .underlay {
@@ -1664,7 +1667,7 @@ transform: none !important;
 }
 
 .hero{
-  height: 100vh !important;
+  min-height: 100vh;
 }
 
 .spread-txt{

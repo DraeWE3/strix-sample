@@ -7,6 +7,11 @@ import Cicon from "../assets/img/c-icon.webp";
 import Logo from "../assets/img/Header-s.webp";
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import BuildMVP from "../pages/Cs";
+import OurWork from "../pages/Project";
+import WhoWeAre from "../pages/About";
+import Blog from "../pages/Cs";
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -82,12 +87,20 @@ const ConnectModal = ({ isOpen, onClose }) => {
             </div>
 
             <div className="modal-links">
-              {["Build MVP", "Our work", "Who we are", "Blog"].map((text, i) => (
-                <motion.div key={i} custom={i + 3} variants={itemVariants}>
-                  <Link to="/" onClick={onClose}>{text}</Link>
-                </motion.div>
-              ))}
-            </div>
+  {[
+    { text: "Build MVP", path: "/Cs" },
+    { text: "Our work", path: "/project" },
+    { text: "Who we are", path: "/about" },
+    { text: "Blog", path: "/Cs" },
+  ].map(({ text, path }, i) => (
+    <motion.div key={i} custom={i + 3} variants={itemVariants}>
+      <Link to={path} onClick={onClose}>
+        {text}
+      </Link>
+    </motion.div>
+  ))}
+</div>
+
           </motion.div>
 
           {/* 📱 Mobile modal */}
@@ -106,13 +119,21 @@ const ConnectModal = ({ isOpen, onClose }) => {
               ></button>
             </div>
 
-            <div className="mobile-links">
-              {["Home", "About", "Services", "Projects", "Blogs"].map((text, i) => (
-                <motion.div key={i} custom={i} variants={itemVariants}>
-                  <Link to="/cs" onClick={onClose}>{text}</Link>
-                </motion.div>
-              ))}
-            </div>
+          <div className="mobile-links">
+  {[
+    { text: "Home", path: "/" },
+    { text: "About", path: "/about" },
+    { text: "Services", path: "/service" },
+    { text: "Projects", path: "/project" },
+    { text: "Blogs", path: "/Cs" },
+  ].map(({ text, path }, i) => (
+    <motion.div key={i} custom={i} variants={itemVariants}>
+      <Link to={path} onClick={onClose}>
+        {text}
+      </Link>
+    </motion.div>
+  ))}
+</div>
 
             <motion.div className="mobile-btn" custom={6} variants={itemVariants}>
               <ButtonSmall text="Let's Talk" />

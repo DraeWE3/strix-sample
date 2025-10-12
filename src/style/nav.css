@@ -54,7 +54,7 @@
   height: 60%;
 }
 
-.left .line{
+.left .linenav{
     width: 1.6px;
     height: 35%;
     background-color: #fff;
@@ -113,7 +113,7 @@
   width: 6rem;
 }
 
-.line {
+.linenav {
   height: 2px;
   background: white;
   border-radius: 2px;

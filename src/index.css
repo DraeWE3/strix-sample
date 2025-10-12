@@ -1,23 +1,15 @@
-/* src/index.css */
-/* Chrome, Edge, Safari */
-::-webkit-scrollbar {
-  width: 6px;
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ffffff, #302e31);
-  border-radius: 10rem !important;
-}
 
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #efefef transparent;
-}
 
 /* --- Font faces --- */
 @font-face {
@@ -25,6 +17,13 @@
   src: url("./assets/fonts/Syne-ExtraBold.ttf") format("truetype");
   font-display: swap;
 }
+
+@font-face {
+  font-family: "syne-semi";
+  src: url("./assets/fonts/Syne-SemiBold.ttf") format("truetype");
+  font-display: swap;
+}
+
 
 @font-face {
   font-family: "syne-bold";
@@ -88,6 +87,18 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "nasa";
+  src: url("./assets/fonts/nasalization.otf") format("opentype");
+  font-display: swap;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
 .section-header{
   font-family: syne-bold !important;
   background: linear-gradient(to bottom, #FCFCFD, #969697);
@@ -105,7 +116,7 @@
   -webkit-text-fill-color: transparent;
   font-size: 65px !important;
   text-align: center !important;
-  max-width: 50% !important;
+  max-width: 120vh !important;
 }
 
 .section-header2{
@@ -129,7 +140,7 @@
 
    .section-header2{
      font-size: 30px !important;
-     max-width: 80% !important;
+     max-width: 50% !important;
   }
 
   .service-pro{
@@ -158,6 +169,48 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #000000;
   color: #fff;
+}
+
+
+/* Copy Component Animation Styles */
+
+.line {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  will-change: transform;
+}
+
+[data-copy-wrapper] {
+  overflow: hidden;
+}
+
+/* Ensure smooth text rendering during animations */
+.line * {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Maintain text properties during split */
+.section-header,
+.section-header2,
+.section-header3,
+.motion-p,
+.services-p,
+.text-pp,
+.sr-mobile {
+  overflow: visible;
+}
+
+/* Prevent layout shift during animation */
+h1[data-copy-wrapper],
+p[data-copy-wrapper],
+h2[data-copy-wrapper],
+h3[data-copy-wrapper] {
+  min-height: 1em;
 }
 
 
@@ -194,7 +247,7 @@ button:focus-visible {
   /* Background image settings */
   background-image: url('./assets/img/link-btn.webp');
   background-position: center;
-  background-size: 100% 100%; /* Stretch image to cover full button */
+  background-size: 100% 100%; 
   background-repeat: no-repeat;
 
   /* Makes button grow with text */
@@ -207,6 +260,19 @@ button:focus-visible {
 .link-button:hover{
   display: inline-flex;
 }
+
+
+.line {
+  display: block;
+  overflow: hidden;
+  line-height: 10.2 !important; /* Adjust to your design */
+}
+
+.line div {
+  display: inline-block !important;
+  transform: translateY(100%) !important;
+}
+
 
 
 
@@ -222,4 +288,15 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+
+.linkkk{
+  position: relative;
+z-index: 30;
+}
+
+div{
+  z-index: 1;
 }

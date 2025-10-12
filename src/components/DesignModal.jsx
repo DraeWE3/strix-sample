@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "../style/module.css";
 import Grad from '../assets/img/design-gradient.webp'
@@ -53,13 +54,14 @@ const DesignModal = ({ isOpen, onClose }) => {
             <p className="mcp">Crafting intuitive, eye-catching designs for web, apps, and brands that stand out.</p>
        <div className="mcp-con">
           <div className="mcp-left">
+             <Link to='/uiux'>
              <div className="table">
               <img src={Icon1} alt="" className="t-icon" />
                <div className="t-txt">
                 <h2>UI/UX Design</h2>
                 <p>Web & Mobile App Design</p>
                 </div>
-            </div>
+            </div></Link>
 
             <div className="table">
               <img src={Icon2} alt="" className="t-icon" />

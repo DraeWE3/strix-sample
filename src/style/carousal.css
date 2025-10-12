@@ -23,3 +23,17 @@
 button:hover{
   border: none;
 }
+
+.p-carousel-container{
+  height: 40rem;
+}
+
+.p-carousel-con{
+  height: clamp(320px, 60vh, 400px);
+}
+
+@media (max-width: 770px){
+  .p-carousel-con{
+  height: 20rem !important;
+}
+}

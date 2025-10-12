@@ -1,0 +1,166 @@
+.uiux-hero{
+    height: 30rem;
+}
+
+
+.uiux-hero h1{
+    max-width: 100% !important;
+}
+
+.ui-hero-p{
+    font-size: 25px;
+}
+
+@media (max-width: 1400px) {
+    .uiux-hero{
+    height: 27rem;
+}
+
+.ui-hero-p{
+    font-size: 20px;
+    margin-top: -10px;
+    position: relative;
+ z-index: 8;
+}
+}
+
+
+@media (max-width: 700px){
+   .uiux-hero img{
+    width: 100vw !important;
+   } 
+
+   .uiux-hero{
+    margin-top: 10vh;
+    padding: 0;
+    height: 20rem;
+   }
+} 
+
+@media (max-width: 500px){
+   .uiux-hero img{
+    width: 100vw !important;
+   } 
+
+   .uiux-hero{
+    margin-top: 10vh;
+    padding: 0;
+   }
+
+   .uiux-hero h1{
+    width: 90vw !important;
+    font-size: 9vw;
+   }
+}
+
+
+
+
+/* ===================provide=================== */
+
+.provide-con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.provide-grid{
+    width: 100%;
+    padding: 3% 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap; 
+}
+
+.provide-card{
+    width: 40%;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 5%;
+}
+
+
+
+.p-top-card{
+    width: 100%;
+    position: relative;
+}
+
+.p-top-card img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.top-card-con{
+    position: absolute;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.top-card-con img{
+    width: 100%;
+}
+
+.top-card-con p{
+   font-family: cd-reg;
+   font-size: 18px;
+   background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.provide-card-p{
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5rem;
+    max-width: 90%;
+    color: #E6E6E6;
+}
+
+.top-card-con1{
+    width: 83% !important;
+}
+
+
+@media (max-width: 1000px) {
+    .provide-grid{
+        padding: 3% 1%;
+    }
+}
+
+@media (max-width: 850px) {
+    .provide-grid{
+        flex-direction: column;
+    }
+
+    .provide-card{
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .provide-card-p{
+        font-size: 12px;
+    }
+}
+
+.what-con{
+    margin-top: -10%;
+    margin-bottom: 15%;
+}
+
+.what-con p{
+    max-width: 60%;
+    line-height: 1.8rem;
+}
