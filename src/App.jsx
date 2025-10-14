@@ -5,16 +5,16 @@ import Home from "./pages/Home";
 import Cs from "./pages/Cs";
 import Project from "./pages/Project";
 import PageTransition from "./components/pageTransition";
+import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 import CaseStudy from "./pages/caseStudy";
 import Service from "./pages/service";
 import Uiux from "./pages/uiux";
 import About from "./pages/About";
-import ScrollToTop from "./components/ScrollToTop"; // <-- import it
 
 const App = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* <-- add this line */}
+      <ScrollToTop /> {/* ✅ Add this BEFORE PageTransition */}
       <PageTransition>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -13,7 +13,7 @@ const Nav = () => {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <div className="container">
+    <div className="containerNav">
       <div className="nav animate-nav">
         <div className="left">
           <img src={Logo} alt="Strix Logo" />

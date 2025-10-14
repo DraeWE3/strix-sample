@@ -1,4 +1,4 @@
-.modal {
+.cmodal {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -82,11 +82,14 @@ max-width: 95vw;       /* Prevent overflow on small screens */
   cursor: pointer;
   width: 3.2vw !important;
   height: 2.9vw  !important;
+  z-index: 10 !important;
 }
 
 
 .fluent--ios-arrow-24-filled {
   display: inline-block;
+    z-index: 10;
+    position: relative;
   
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -187,6 +190,8 @@ max-width: 95vw;       /* Prevent overflow on small screens */
 
   .mobile-btn {
     margin: 2rem 0;
+    position: relative;
+    z-index: 30;
   }
 
   .mobile-socials {
@@ -220,12 +225,16 @@ max-width: 95vw;       /* Prevent overflow on small screens */
 
 }
 
+.shadow1{
+  z-index: 0 !important;
+}
+
 .icon-park-outline--left {
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  position: relative;
-  z-index: 10;
+  position: relative !important;
+  z-index: 30 !important;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='4' d='M31 36L19 24l12-12'/%3E%3C/svg%3E");

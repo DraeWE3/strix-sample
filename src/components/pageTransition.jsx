@@ -13,9 +13,9 @@ const PageTransition = ({ children }) => {
   const isTransitioning = useRef(false);
   const revealTimeoutRef = useRef(null);
 
-  // ✅ Scroll to top when the route actually changes
+  // ✅ Instantly scroll to top when route changes (no smooth behavior)
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo(0, 0); // Instant scroll
   }, [location.pathname]);
 
   const handleRouteChange = useCallback(
@@ -30,7 +30,7 @@ const PageTransition = ({ children }) => {
   const onAnchorClick = useCallback(
     (e) => {
       const href = e.currentTarget.getAttribute("href");
-      if (!href.startsWith("/")) return; // Only handle internal links
+      if (!href.startsWith("/")) return;
       e.preventDefault();
 
       if (isTransitioning.current) return;
@@ -51,13 +51,14 @@ const PageTransition = ({ children }) => {
       stagger: 0.02,
       ease: "power2.out",
       transformOrigin: "right",
+      onStart: () => {
+        // ✅ Ensure page is at top before revealing
+        window.scrollTo(0, 0);
+      },
       onComplete: () => {
         isTransitioning.current = false;
         overlayRef.current.style.pointerEvents = "none";
         logoOverlayRef.current.style.pointerEvents = "none";
-
-        // ✅ Ensure scroll is reset after reveal
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       },
     });
 
@@ -98,12 +99,21 @@ const PageTransition = ({ children }) => {
   }, [location, onAnchorClick, revealPage]);
 
   const coverPage = (url) => {
+    // ✅ Scroll to top immediately when transition starts
+    window.scrollTo(0, 0);
+    
     overlayRef.current.style.pointerEvents = "auto";
     logoOverlayRef.current.style.pointerEvents = "auto";
 
     const tl = gsap.timeline({
+      onStart: () => {
+        // ✅ Force scroll again when animation starts
+        window.scrollTo(0, 0);
+      },
       onComplete: () => {
         navigate(url);
+        // ✅ Force scroll after navigation
+        window.scrollTo(0, 0);
       },
     });
 

@@ -18,6 +18,23 @@ import Team6 from '../assets/img/team6.png'
 import positionbg1 from '../assets/img/positionbg1.webp'
 import positionbg2 from '../assets/img/positionbg2.webp'
 import Dp from '../assets/img/dp.png'
+import Collab1 from '../assets/img/collab-icon1.png'
+import Collab2 from '../assets/img/collab-icon2.png'
+import Collab3 from '../assets/img/collab-icon3.png'
+import Collab4 from '../assets/img/collab-icon4.png'
+import ButtonB from '../components/ButtonB'
+import Etbg1 from '../assets/img/etbg1.webp'
+import Etbg2 from '../assets/img/etbg2.webp'
+import Etbg3 from '../assets/img/etbg3.webp'
+import Etbg4 from '../assets/img/etbg4.webp'
+import Etbg5 from '../assets/img/etbg5.webp'
+import Etbtn from '../assets/img/etarr.svg'
+import Ethcard1 from '../assets/img/etcard1.webp'
+import Ethcard2 from '../assets/img/etcard2.webp'
+import ValBg1 from '../assets/img/valuebg1.webp'
+import ValBg2 from '../assets/img/valuebg2.webp'
+import ValBg3 from '../assets/img/valuebg3.webp'
+
 
 const About = () => {
   return (
@@ -246,17 +263,316 @@ const About = () => {
 
 {/* =============collab=================== */}
 
-{/* <div className="collab">
+<div className="collab">
   <h1>
     Collaborative Design, Guaranteed Quality
   </h1>
   <div className="collab-cards">
     <div className="collab-card">
-      <img src="" alt="" />
-      <h4>Progress updates &<br/> tracked hours</h4>
+      <img src={Collab1} alt="" />
+      <p>Progress updates &<br/> tracked hours</p>
+    </div>
+
+     <div className="collab-card">
+      <img src={Collab2} alt="" />
+      <p>Progress updates &<br/> tracked hours</p>
+    </div>
+
+     <div className="collab-card">
+      <img src={Collab3} alt="" />
+      <p>Progress updates &<br/> tracked hours</p>
+    </div>
+
+     <div className="collab-card">
+      <img src={Collab4} alt="" />
+      <p>Progress updates &<br/> tracked hours</p>
     </div>
   </div>
-</div> */}
+
+  <ButtonB text='Book Appointment' />
+</div>
+
+
+
+  {/* ===================expert==================== */}
+
+  <div className="expert">
+    <h1>Design Expertise Across Industries</h1>
+    <div className='expert-top'>
+      <div className="et-top-card">
+        <img src={Etbg1} alt="" />
+        <div className="et-top-card-con">
+          <h3>SaaS</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>CRM & HR Tech</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Data Dashboards</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Product Design</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Brand Systems</p>
+            </div>
+          </div>
+          <div className="et-center">
+             <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>MVP Development</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+      <div className="et-top-card">
+        <img src={Etbg2} alt="" />
+        <div className="et-top-card-con">
+          <h3>Fintech</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard2} alt="" />
+              <p>App Design</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard2} alt="" />
+              <p>Trading Platforms</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard2} alt="" />
+              <p>Corporate Identity</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard2} alt="" />
+              <p>Digital Payments</p>
+            </div>
+          </div>
+          <div className="et-center et-d">
+             <div className='et-btn'>
+              <img src={Ethcard2} alt="" />
+              <p>Secure Web Portals</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+
+
+      <div className="et-top-card et-destop">
+        <img src={Etbg3} alt="" />
+        <div className="et-top-card-con">
+          <h3>E-commerce</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Online stores</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>B2B/B2C</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Product Promos</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>3D Commercials</p>
+            </div>
+          </div>
+          <div className="et-center">
+             <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>product configurators</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+      
+    </div>
+
+    <div className="expert-bottom">
+
+        <div className="et-top-card et-mobile">
+        <img src={Etbg3} alt="" />
+        <div className="et-top-card-con">
+          <h3>E-commerce</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Online stores</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>B2B/B2C</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Product Promos</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>3D Commercials</p>
+            </div>
+          </div>
+          <div className="et-center">
+             <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>product configurators</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+            <div className="et-top-card">
+        <img src={Etbg5} alt="" />
+        <div className="et-top-card-con">
+          <h3>Startups</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>MVP design</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>platform UX</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>mobile apps</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>dashboards</p>
+            </div>
+          </div>
+          <div className="et-center">
+             <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>developer tools</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+
+      <div className="et-top-card">
+        <img src={Etbg4} alt="" />
+        <div className="et-top-card-con">
+          <h3>Agencies</h3>
+          <div className="et-flex">
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Portfolio  site</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Brand Identity</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Client Portals</p>
+            </div>
+
+            <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Creative Assets</p>
+            </div>
+          </div>
+          <div className="et-center">
+             <div className='et-btn'>
+              <img src={Ethcard1} alt="" />
+              <p>Promotional Content</p>
+            </div>
+          </div>
+          <img className='etarr' src={Etbtn} alt="" />
+        </div>
+      </div>
+
+
+    </div>
+
+    <p className="et-pp">
+      Our product designers bring deep, cross-industry experience—crafting tailored design solutions that not only look great but also drive real business value. No matter the niche, we know how to make your digital product stand out and succeed.
+    </p>
+  </div>
+
+
+
+  {/* ======================Value==================== */}
+
+  <div className="value">
+    <h1>Our Values</h1>
+    <div className="value-cards">
+      <div className="value-card">
+        <img src={ValBg1} alt="" />
+        <div className="value-card-de">
+          <h2>Growth</h2>
+          <p>Evolving every day</p>
+        </div>
+      </div>
+
+      <div className="value-card">
+        <img src={ValBg2} alt="" />
+        <div className="value-card-de">
+          <h2>People</h2>
+          <p>Driven by humans</p>
+        </div>
+      </div>
+
+      <div className="value-card">
+        <img src={ValBg3} alt="" />
+        <div className="value-card-de">
+          <h2>Awareness</h2>
+          <p>Mindful by design</p>
+        </div>
+      </div>
+    </div>
+          <p className='value-p'>We grow with purpose, put people first, and create with awareness at every step</p>
+  </div>
+
+  <div className="create">
+    <h1>Let’s create amazing digital <br/>
+experiences together</h1>
+
+<p>Strix is a global remote team with a global footprint. <br />Don`t hesitate to reach out to us with your projects, ideas, and questions.</p>
+<div className="btnb-con">
+  <ButtonB text='Book Appointment' />
+</div>
+  </div>
 
 <Footer />
     </div>

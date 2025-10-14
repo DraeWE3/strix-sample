@@ -55,7 +55,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="modal"
+          className="cmodal"
           initial="hidden"
           animate="visible"
           exit="exit"

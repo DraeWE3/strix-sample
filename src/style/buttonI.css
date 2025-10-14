@@ -22,6 +22,10 @@
   height: 0;
 }
 
+.btnb{
+  padding: 2.7rem 2.2rem !important;
+}
+
 .btn-aarr:hover {
   background-image: url('../assets/img/btn-norm2.webp');
 }

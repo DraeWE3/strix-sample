@@ -1,4 +1,4 @@
-.container{
+.containerNav{
     width: 100%;
     position: fixed;
     top:5%;
@@ -23,6 +23,8 @@
     justify-content: space-between;
     border: 1px solid transparent; /* thickness of border */
     border-radius: 8rem !important;
+    position: relative;
+    
 
     
 }

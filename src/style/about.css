@@ -11,6 +11,8 @@
     text-align: center;
     line-height: 1.8rem;
     color: #E6E6E6;
+    position: relative;
+    z-index: 2;
 }
 
 @media (max-width: 770px) {
@@ -522,13 +524,464 @@
         padding: 5%;
     }
 
-    .dna h1, .positions h1, .team h1, .family h2{
-        font-size: 30px;
-        line-height: 1.8rem;
-        max-width: 90%;
-    }
+    
 
     .dna-left p, .dna-right p{
  max-width: 80%;
 }
+}
+
+
+
+
+/* ===================collab===================== */
+
+.collab{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.collab h1{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 40%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.collab-cards{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.collab-card{
+    width: 24%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.collab-card img{
+  width: 80%;
+  height: auto;
+  object-fit: cover;
+}
+
+.collab-card p{
+    text-align: center;
+    line-height: 1.7rem;
+      background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.book-btn{
+    display: none !important;
+}
+
+
+@media (max-width: 770px) {
+    .collab{
+        padding: 5%;
+    }
+    .collab-cards{
+          display: grid;
+  grid-template-columns: repeat(2, 1fr);
+    }
+
+    .collab-card{
+        width: 90%;
+    }
+}
+
+
+
+
+
+
+
+
+
+  .dna h1, .positions h1, .team h1, .family h2, .collab h1{
+        font-weight: 550 !important;
+    }
+
+
+@media (max-width: 770px) {
+    .dna h1, .positions h1, .team h1, .family h2, .collab h1{
+        font-size: 30px;
+        line-height: 1.8rem;
+        max-width: 90%;
+    }
+    
+}
+
+
+/* ==================expert=================== */
+
+.expert{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.expert h1{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 100%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+
+.expert-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+
+.et-top-card{
+    width: 35%;
+    position: relative;
+}
+
+.etarr{
+    position: absolute;
+    top: 8%;
+    right: 5%;
+    width: 1.5rem !important;
+    height: auto;
+    object-fit: cover;
+}
+
+.et-top-card h3{
+     font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.et-top-card img{
+    width: 100%;
+    height: auto;
+}
+
+.et-top-card-con{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.et-flex{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 1rem;
+    justify-items: center;
+  align-items: center;   
+  padding: 0 5%;
+}
+
+.et-btn{
+    position: relative;
+    width: 80%;
+}
+.et-btn img{
+    width: 100%;
+    height: auto;
+}
+
+.et-btn p{
+    position: absolute;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.et-center{
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.et-center .et-btn{
+    width: 40%;
+}
+
+
+.expert-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+
+.et-d{
+    margin-bottom: 1.5rem;
+}
+
+/* .expert-bottom .et-top-card{
+
+} */
+
+ .et-destop{
+        display: flex;
+    }
+
+    .et-mobile{
+        display: none;
+    }
+
+
+    .et-pp{
+      max-width: 80%;
+      text-align: center;
+      line-height: 1.7rem;
+      color: #E6E6E6;
+    }
+
+
+@media (max-width: 1400px) {
+    .et-destop{
+        display: none;
+    }
+
+    .et-mobile{
+        display: flex;
+    }
+
+    .expert-bottom{
+       display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center; 
+  padding-left: 4%;
+    }
+
+    .expert-bottom .et-top-card {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+
+    .expert-top{
+        justify-content: space-evenly;
+    }
+
+    .expert-top .et-top-card {
+        width: 45%;
+    }
+
+
+}
+
+
+@media (max-width: 1000px) {
+ .expert{
+    padding: 5%;
+ }   
+
+ .et-top-card h3{
+    font-size: 25px;
+ }
+
+ .et-flex{
+    gap: 0.5rem;
+ }
+}
+
+@media (max-width: 770px){
+    .expert-bottom, .expert-top{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .expert-top .et-top-card, .expert-bottom .et-top-card {
+        width: 100% !important;
+        max-width: 400px !important;
+    }
+
+    .et-center .et-btn{
+    width: 45%;
+}
+
+.et-pp{
+      max-width: 90%;
+}
+}
+
+
+/* ==============ValueBg=================== */
+
+.value{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.value h1{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 100%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.value-cards{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.value-card{
+    width: 30%;
+    position: relative;
+}
+
+.value-card img{
+    width: 100%;
+    height: auto;
+}
+
+.value-card-de{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100%;
+}
+
+.value-card-de h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  background: radial-gradient(circle, #FCFCFD 0%, #969697 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+  margin: 0 auto; /* centers the h1 block itself */
+}
+
+
+.value-card-de p{
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.value-p{
+    color: #E6E6E6;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+@media (max-width: 850px) {
+    .value-card-de h2{
+        font-size: 20px;
+    }
+
+  .value-card-de p {
+        font-size: 13px;
+    }
+
+    .value-p{
+        font-size: 15px;
+    }
+
+    .value{
+        padding: 5%;
+    }
+}
+
+@media (max-width: 770px) {
+    
+
+
+    .value-cards{
+        flex-direction: column;
+    }
+
+    .value-card{
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 1.5rem;
+    }
+
+    .btnb-con{
+
+    }
+}
+
+
+/* ================create===================== */
+
+.create{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5% 10%;
+}
+
+.create h1{
+      font-family: 'Clash Display', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  max-width: 100%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 3rem;
+}
+
+.create p{
+    text-align: center;
+    line-height: 1.8rem;
+    color: #E6E6E6;
 }

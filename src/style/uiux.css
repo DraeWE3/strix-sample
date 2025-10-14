@@ -9,7 +9,12 @@
 
 .ui-hero-p{
     font-size: 25px;
+    text-align: center;
+    line-height: 1.8rem;
+      position: relative;
+ z-index: 8;
 }
+
 
 @media (max-width: 1400px) {
     .uiux-hero{
@@ -35,6 +40,11 @@
     padding: 0;
     height: 20rem;
    }
+
+   .ui-hero-p{
+    font-size: 18px;
+    max-width: 90%;
+}
 } 
 
 @media (max-width: 500px){
@@ -51,9 +61,24 @@
     width: 90vw !important;
     font-size: 9vw;
    }
+
+   .ui-hero-p{
+    font-size: 15px;
+    margin-top: 1rem;
+    max-width: 90%;
+
 }
 
+.uiu-con{
+    margin-top: -10%;
+}
 
+}
+
+.p-inde{
+    position: relative;
+    z-index: 30;
+}
 
 
 /* ===================provide=================== */
@@ -153,7 +178,16 @@
     .provide-card-p{
         font-size: 12px;
     }
+
+    .p-inde{
+    position: relative;
+    z-index: 30;
+    max-width: 95%;
+    font-size: 15px !important;
 }
+
+}
+
 
 .what-con{
     margin-top: -10%;
@@ -163,4 +197,4 @@
 .what-con p{
     max-width: 60%;
     line-height: 1.8rem;
-}
+    }

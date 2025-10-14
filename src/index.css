@@ -119,6 +119,11 @@ a {
   max-width: 120vh !important;
 }
 
+/* button{
+  position: relative;
+  z-index: 30;
+} */
+
 .section-header2{
   font-family: syne-med !important;
  color: #fff;
@@ -300,3 +305,4 @@ z-index: 30;
 div{
   z-index: 1;
 }
+

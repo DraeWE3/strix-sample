@@ -39,7 +39,7 @@ const Uiux = () => {
           <h1>UI/UX design</h1>
         </div>
 
-        <div className="case-box-con">
+        <div className="case-box-con uiu-con">
           <img src={Blur3} className="blur3-hero-left" />
             <img src={Blur4} className="blur3-hero-right"/>
           <div className="video-card-container">
@@ -149,7 +149,7 @@ const Uiux = () => {
       <div className="sh-top uiux-hero what-con">
           <img src={Circleblur} alt="" />
           <h1>Why Choose us ?</h1>
-          <p>Our UI/UX practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
+          <p className="p-inde">Our UI/UX practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
         </div>
 
 

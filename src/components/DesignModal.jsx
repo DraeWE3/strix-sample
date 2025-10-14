@@ -44,7 +44,13 @@ const DesignModal = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div className="modal" initial="hidden" animate="visible" exit="exit">
+        <motion.div
+  style={{ zIndex: 999999999999 }}
+  className="modal"
+  initial="hidden"
+  animate="visible"
+  exit="exit"
+>
           <motion.div className="backdrop" onClick={onClose} variants={backdropVariants} />
           <motion.div className="modal-content2" variants={modalVariants}>
              <img src={Grad} alt="" className="gradient" />

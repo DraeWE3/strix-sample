@@ -716,11 +716,8 @@ useEffect(() => {
           <img src={VectorB} alt="" className="Vector1" />
 
 
-<ScrollTextReveal 
-  text="Real Work. Real Results"
-  type="words"
-  animation="multi-line"
-/>
+     
+       <h1 className="section-header3">Real Work. Real Results</h1>
 
 
           <div className="number-container">
