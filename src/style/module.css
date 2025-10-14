@@ -25,9 +25,9 @@
   width: 75vw; 
   height: 85vh;
   min-height: 500px; 
-  z-index: 10;
+  z-index: 9999999 !important;
   text-align: center;
-  background-color: #000;
+  background-color: #000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
