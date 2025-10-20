@@ -10,6 +10,7 @@ import CaseStudy from "./pages/caseStudy";
 import Service from "./pages/service";
 import Uiux from "./pages/uiux";
 import About from "./pages/About";
+import Contact from './pages/contact'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/service" element={<Service />} />
           <Route path="/uiux" element={<Uiux />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </PageTransition>
     </BrowserRouter>

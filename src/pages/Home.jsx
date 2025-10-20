@@ -12,6 +12,7 @@ import VectorB from '../assets/img/b-vector.webp'
 import Loop from "../components/Loop";
 import Card from "../assets/img/card.webp";
 import Star from "../assets/img/star.webp";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import Star2 from "../assets/img/star2.webp";
 import Card2 from "../assets/img/card1.webp";
 import Card3 from "../assets/img/card3.webp";
@@ -45,10 +46,11 @@ import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
 import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
-import ScrollTextReveal from "../animations/textanimation";
+import Spotlight from "../components/spotlight";
+import { Link } from "react-router-dom";
 
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
 
 // 🔹 Helper for responsive scrollTrigger start
 const getScrollStart = () => {
@@ -567,6 +569,105 @@ useEffect(() => {
 
 
 
+
+
+// ========================new set of animation============
+
+
+const section = useRef(null); // ✅ renamed from container → section
+
+  useEffect(() => {
+    // ✅ Create smooth scrolling wrapper
+    const smoother = ScrollSmoother.create({
+      wrapper: section.current,
+      content: section.current.querySelector(".content"),
+      smooth: 2.5,
+      effects: true,
+    });
+
+    // ✅ Animate each sectionCon
+    gsap.utils.toArray(".sectionCon").forEach((sec) => {
+      // Pull-in effect when entering
+      gsap.fromTo(
+        sec,
+        { y: 150, opacity: 0, filter: "blur(20px)" },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sec,
+            start: "top 85%",
+            end: "top 40%",
+            scrub: true,
+          },
+        }
+      );
+
+      // Blur-out effect when leaving
+      gsap.to(sec, {
+        filter: "blur(25px)",
+        opacity: 0,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: sec,
+          start: "bottom 70%",
+          end: "bottom 20%",
+          scrub: true,
+        },
+      });
+    });
+
+    return () => {
+      smoother.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
+
+
+// =======================link================
+
+
+//======================= Animate Carousel blur + fade-in
+
+ useEffect(() => {
+   
+
+
+    gsap.from(".cl", {
+      filter: "blur(30px)",
+      opacity: 0,
+      y: 30,
+      duration: 1.8,
+      ease: "power2.out",
+      marker: true,
+      scrollTrigger: {
+        trigger: ".portfolio",
+        start: "top center",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+  // Fade-in from top for Button
+    gsap.from(".cl-btn", {
+      opacity: 0,
+      y: -40,
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".portfolio",
+        start: "top top",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }, []);
+
+  
+
+
+
   return (
     <div>
       {/* Add CSS for animations */}
@@ -587,9 +688,9 @@ useEffect(() => {
         }
       `}</style>
 
-      <div className="app">
+      <div className="app" id="smooth-wrapper" ref={section}>
         <Nav />
-        <div className="hero">
+        <div className="hero sectionCon">
           <h1 className="spread-h1" ref={titleRef}>STRIX</h1>
           <p className="spread-txt" ref={subTextRef}>Where Creative Strategy Meets Scalable Technology</p>
            <div className="half-circle-container">
@@ -660,20 +761,22 @@ useEffect(() => {
         src={Shadow1}
         alt=""
         className="shadow1 absolute top-10 left-0 w-40"
-        variants={fadeInSide("left")}
+        variants={fadeInSide("right")}
       />
       <motion.img
         src={Shadow2}
         alt=""
         className="shadow2 absolute bottom-0 right-0 w-40"
-        variants={fadeInSide("right")}
+        variants={fadeInSide("left")}
       />
     </motion.div>
 
      
         </div>
 
-  <div className="explore relative overflow-hidden explore-desk">
+      {/* =================explore================ */}
+
+  <div className="sectionCon explore relative overflow-hidden explore-desk">
           <div className="section-container2">
       <div className="blur-box">
         <input type="text" placeholder="Type here..." />
@@ -711,14 +814,15 @@ useEffect(() => {
       />
     </div>
 
-        <div className="motion">
+  {/* ================motion================ */}
+
+        <div className="motion sectionCon">
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
 
      
-       <h1 className="section-header3">Real Work. Real Results</h1>
-
+       <h1 className="section-header2">Real Work. Real Results</h1>
 
           <div className="number-container">
             <img src={Shadow4} className="shadow4" alt="" />
@@ -782,11 +886,16 @@ useEffect(() => {
             <Button text="Explore Cases" />
         </div>
 
-        <div className="logo-loop">
+    {/* ==============logo-loop================= */}
+
+        <div className="logo-loop sectionCon">
           <Loop />
         </div>
 
-        <div className="services" >
+
+    {/* ==============service=============== */}
+
+        <div className="services sectionCon" >
              <h1 className="section-header">
                We Build Experiences that Breathe
              </h1>
@@ -849,7 +958,10 @@ useEffect(() => {
           <Button text="Our Services" />
         </div>
 
-        <div className="services services-mvp" >
+        {/* ==============mvp============= */}
+  
+
+        <div className="sectionCon services services-mvp" >
                   <h1 className="section-header">From Idea to Market in 4 Weeks</h1>
 
           <div className="mvp-cardcon mvp-desk">
@@ -893,7 +1005,7 @@ useEffect(() => {
             </div>
 
             <div className="mvp-card mvp-card3">
-              <img className="mvp-img" src={Mvp} alt="" />
+             <img className="mvp-img" src={Mvp} alt="" />
               <img className="mvp-img-ab" src={MvpReasearch} alt="" />
               <div className="mvp-content">
                 <h2>
@@ -906,10 +1018,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          
-
-
-
+           {/* <Spotlight /> */}
           <p className="services-p p-up">
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
@@ -917,29 +1026,29 @@ useEffect(() => {
           <ButtonSmall text="Build MVP" />
         </div>
 
-        <div className="services service-pro">
-                  <h1 className="section-header3">
-                    Strix Production
-                  </h1>
 
-          <div className="coin-con">
-            <video
-              className="coin-anime"
-              src={Coin}
-              autoPlay
-              loop
-              muted
-              playsInline
-            ></video>
-          </div>
-          <p className="services-p p-up">
-            Not just another agency — Strix combines design, development,
-            production, and MVP expertise to help brands and startups scale
-            faster.
-          </p>
-          
-          <BtnNormsall text="About us" />
-           <img
+      {/* ===============production================ */}
+
+       <section className="sectionCon services service-pro relative">
+      <h1 className="section-header3">Strix Production</h1>
+
+      <div className="coin-con flex justify-center items-center">
+        <video
+          className="coin-anime"
+          src={Coin}
+          playsInline
+          muted
+        ></video>
+      </div>
+
+      <p className="services-p p-up">
+        Not just another agency — Strix combines design, development,
+        production, and MVP expertise to help brands and startups scale faster.
+      </p>
+
+      <BtnNormsall text="About us" />
+
+      <img
         src={Shadow1}
         alt=""
         className="shadow1 absolute top-10 left-0 w-40"
@@ -949,40 +1058,46 @@ useEffect(() => {
         alt=""
         className="shadow2 absolute bottom-0 right-0 w-40"
       />
-        </div>
+    </section>
 
-        <div className="portfolio" >
-          <img
+
+      {/* =================portfolio============== */}
+
+          <div className="zle portfolio relative">
+      <img
         src={Shadow1}
         alt=""
-        className="shadow1 shadowmed  absolute top-10 left-0 w-40"
+        className="shadow1 shadowmed absolute top-10 left-0 w-40"
       />
       <img
         src={Shadow2}
         alt=""
-        className="shadow2 shadowmed  absolute bottom-0 right-0 w-40"
+        className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
       />
-                  <h1 className="section-header2 ">
-                    Our Craft, Your Expression.
-                  </h1>
-          <div className="links">
-            <p className="link-button">Branding</p>
-            <p className="link-button">Websites</p>
-            <p className="link-button">All</p>
-            <p className="link-button">UI/UX</p>
-            <p className="link-button">Media</p>
-          </div>
-          <div className="cl">
-            <img  className="circleblur2" src={CircleBlur} alt="" />
-            <Carousel />
-            <div className="cl-btn">
-            <ButtonSmall text="Portfolio" />
-          </div>
-          </div>
-          
-        </div>
 
-        <div className="testimonial-con" >
+      <h1 className="section-header2">Our Craft, Your Expression.</h1>
+
+      <div className="links">
+        <p className="link-button">Branding</p>
+        <p className="link-button">Websites</p>
+        <p className="link-button">All</p>
+        <p className="link-button">UI/UX</p>
+        <p className="link-button">Media</p>
+      </div>
+
+      <div className="cl relative flex flex-col items-center justify-center">
+        <img className="circleblur2 absolute" src={CircleBlur} alt="" />
+        <Carousel />
+        <div className="cl-btn mt-10">
+          <ButtonSmall text="Portfolio" />
+        </div>
+      </div>
+    </div>
+
+
+    {/* ==============test================== */}
+
+        <div className="sectionCon testimonial-con" >
            <h1 className="section-header2">
                     What our clients say
                   </h1>
@@ -993,7 +1108,10 @@ useEffect(() => {
           <TestimonialCarousel />
         </div>
 
-        <div className="booking" >
+
+    {/* ============booking================ */}
+
+        <div className="zle booking" >
            <h1 className="section-header2">
                     Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
                   </h1>
@@ -1003,19 +1121,20 @@ useEffect(() => {
                 <span>•</span>Leave a request
               </p>
 
-              <div className="right-booking right-booking2">
+              <Link to='/contact'><div className="right-booking right-booking2">
               <p>
                 Let's start <br /> your project
               </p>
-            </div>
+            </div></Link>
               <p className="sr-mobile" > We'd love to be challenged by you! Feel free to share your brief
                               with us</p>
             </div>
+           <Link to='/contact'>
             <div className="right-booking">
               <p>
                 Let's start <br /> your project
               </p>
-            </div>
+            </div></Link>
           </div>
           <Button text="Book Appointment" />
         </div>
