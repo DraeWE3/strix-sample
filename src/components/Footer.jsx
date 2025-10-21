@@ -5,6 +5,10 @@ import Cicon from "../assets/img/c-icon.webp";
 import Top from "../assets/img/top.webp";
 import Footerimg from "../assets/img/footer-video.webp";
 import FooterMobile from '../assets/img/footer-mobile.webp'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   useEffect(() => {
@@ -28,6 +32,38 @@ const Footer = () => {
       scrollBtn.removeEventListener("click", onScrollTopClick);
     };
   }, []); // run once on mount
+
+
+     useEffect(() => { 
+
+       const ftLastContainers = document.querySelectorAll('.ft-last');
+    
+    ftLastContainers.forEach((container) => {
+      const footStrix = container.querySelectorAll('.foot-strix');
+      
+      gsap.fromTo(footStrix,
+        {
+          x: 900,
+          opacity: 0
+        },
+        {
+          x: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          opacity: 1,
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 80%',
+            end: 'top 50%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+    
+ 
+  }, []);
 
   return (
     <div className="footer">
@@ -77,18 +113,22 @@ const Footer = () => {
       </div>
 
       <div className="ft-icon">
-        <div className="behance ri--behance-fill"></div>
-        <div className="icon-park-outline--dribble"></div>
-        <div className="mdi--instagram "></div>
-        <div className="ri--twitter-x-line"></div>
-        <div className="akar-icons--linkedin-v1-fill"></div>
-        <img src={Cicon} alt="cicon" />
+        <a href="https://www.behance.net/strixproductions"><div className="behance ri--behance-fill ft-icons"></div></a>
+        <a href="https://dribbble.com/StrixProduction"><div className="icon-park-outline--dribble ft-icons"></div></a>
+         <a href="https://www.instagram.com/strix_productions"><div className="mdi--instagram ft-icons "></div></a>
+        <a href="https://x.com/strixproduction"><div className="ri--twitter-x-line ft-icons" ></div></a>
+        <div className="akar-icons--linkedin-v1-fill ft-icons"></div>
+         <a href="https://clutch.co/profile/strix-production"><img src={Cicon} alt="cicon" /></a>
       </div>
 
       <div className="ft-line"></div>
 
       <div className="ft-last">
-        <h1>STRIX</h1>
+        <h1 className="foot-strix foot-strix1">S</h1>
+        <h1 className="foot-strix">T</h1>
+        <h1 className="foot-strix">R</h1>
+        <h1 className="foot-strix">I</h1>
+        <h1 className="foot-strix">X</h1>
       </div>
 
       <div className="ft-bottom">

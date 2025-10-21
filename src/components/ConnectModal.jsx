@@ -140,13 +140,14 @@ const ConnectModal = ({ isOpen, onClose }) => {
             </motion.div>
 
             <motion.div className="mobile-socials" custom={7} variants={itemVariants}>
-              <span className="bxl--upwork"></span>
-              <span className="ri--behance-fill"></span>
-              <span className="icon-park-outline--dribble"></span>
-              <span className="mdi--instagram"></span>
-              <span className="ri--twitter-x-line"></span>
-              <span className="akar-icons--linkedin-v1-fill"></span>
-              <img src={Cicon} className="cion" alt="cicon" />
+              
+              <a href="https://www.upwork.com/freelancers/~0156ff518eb002dd0a?companyReference=1678399476724211713&mp_source=share"><span className="bxl--upwork"></span></a>
+              <a href="https://www.behance.net/strixproductions"><span className="ri--behance-fill"></span></a>
+              <a href="https://dribbble.com/StrixProduction"><span className="icon-park-outline--dribble"></span></a>
+              <a href="https://www.instagram.com/strix_productions"><span className="mdi--instagram"></span></a>
+              <a href="https://x.com/strixproduction"><span className="ri--twitter-x-line"></span></a>
+              <a href=""><span className="akar-icons--linkedin-v1-fill"></span></a>
+              <a href="https://clutch.co/profile/strix-production"><img src={Cicon} className="cion" alt="cicon" /></a>
             </motion.div>
           </motion.div>
         </motion.div>

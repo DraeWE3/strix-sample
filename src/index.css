@@ -106,7 +106,6 @@ a {
   -webkit-text-fill-color: transparent;
   font-size: 50px;
   text-align: center;
-  max-width: 50%;
 }
 
 .section-header3{
@@ -133,9 +132,9 @@ a {
 
 @media (max-width: 770px) {
   .section-header{
-      font-size: 25px !important;
+  font-size: 25px !important;
   text-align: center;
-  max-width: 95%;
+  max-width: 85%;
   }
 
   .section-header3{

@@ -112,6 +112,12 @@
     padding-bottom: 15%;
 }
 
+@media (min-width: 1400px) {
+  .explore{
+    padding-bottom: 11%;
+  }
+}
+
 .explore-mobile{
   display: flex !important;
 
@@ -381,17 +387,8 @@ width: 50% !important;
 
 
 
-.services h1{
-  font-family: syne-med;
-  background: linear-gradient(to bottom, #FCFCFD, #969697);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 50px;
-  text-align: center;
-}
-
-.services div{
-
+.section-header{
+  display: inline-block !important;
 }
 
 .services-p{
@@ -406,6 +403,9 @@ width: 50% !important;
     margin-bottom: 2rem;
     line-height: 1.6;
 }
+
+
+
 
 
 /* -----------------card-------------------- */
@@ -939,13 +939,26 @@ height: 100%;
 }
 
 .booking h1{
-  font-family: cd-reg;
+  font-family: syne-med;
   font-size: 50px;
+  max-width: 59%;
   background: linear-gradient(to bottom, #FCFCFD, #969697bc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
   text-align: center;
+}
+
+@media (max-width: 770px) {
+  .booking h1{
+     max-width: 90%;
+  }
+
+    .circleblurtop{
+    top: 0% !important;
+  }
+
+
 }
 
 .booking .second{
@@ -1017,6 +1030,12 @@ height: 100%;
      text-align: start;
      letter-spacing: 0.1rem;
      line-height: 3.2rem;
+     display: inline-block;
+  }
+
+
+  .foot-strix{
+    margin-left: 0 !important;
   }
 
   .spread-h1,
@@ -1138,6 +1157,14 @@ height: 100%;
   display: flex;
   /* letter-spacing: 0.1em; */
 }
+
+.foot-strix1{
+  margin-left: 5% !important;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+
 
 
 @media (max-width: 770px) {
@@ -1302,7 +1329,7 @@ height: 100%;
 
   .p-up{
     font-size: 12px;
-    line-height: 18px;
+    line-height: 1.4;
     margin-bottom: 0 !important;
   }
 
@@ -1443,9 +1470,15 @@ transform: none !important;
 }
 
 .circleblur2{
-  height: 47rem;
-  top: 45%;
+  height: auto;
+  width: 130vw;
+  top: -20%;
+  left: 50%;
+  transform: translate(-50%, );
 }
+
+  .sr-mobile {
+    display: inline !important;}
 
 .services{
   padding:  0;
@@ -1607,6 +1640,12 @@ transform: none !important;
 
 .ft-line{
   width: 75% !important;
+}
+
+.ft-last{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ft-last h1{

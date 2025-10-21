@@ -266,38 +266,7 @@ const useScrollAnimation = (ref) => {
   useEffect(() => {
     if (!ref.current) return;
 
-    const ctx = gsap.context(() => {
-      const p = ref.current.querySelector(".p-up");
-      const buttons = ref.current.querySelectorAll(".button-p");
-
-      if (p) {
-        gsap.from(p, {
-          y: 40,
-          opacity: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: getScrollStart(),
-          },
-        });
-      }
-
-      if (buttons.length > 0) {
-        gsap.from(buttons, {
-          y: 50,
-          opacity: 0,
-          scale: 0.9,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ref.current,
-            start: getScrollStart(),
-          },
-        });
-      }
-    }, ref);
+   
 
     return () => ctx.revert();
   }, [ref]);
@@ -630,39 +599,222 @@ const section = useRef(null); // ✅ renamed from container → section
 // =======================link================
 
 
-//======================= Animate Carousel blur + fade-in
 
- useEffect(() => {
-   
+    
 
+// =================splitblur==================
 
-    gsap.from(".cl", {
-      filter: "blur(30px)",
-      opacity: 0,
-      y: 30,
-      duration: 1.8,
-      ease: "power2.out",
-      marker: true,
-      scrollTrigger: {
-        trigger: ".portfolio",
-        start: "top center",
-        toggleActions: "play none none reverse",
-      },
+useEffect(() => {
+    const elements = document.querySelectorAll('.splitblur');
+    
+    elements.forEach((el) => {
+      const text = el.textContent;
+      const words = text.split(' ');
+      
+      // Clear original text and create word spans
+      el.innerHTML = words
+        .map((word) => `<span class="word">${word}</span>`)
+        .join(' ');
+      
+      const wordSpans = el.querySelectorAll('.word');
+      
+      // Set initial state
+      gsap.set(wordSpans, {
+        opacity: 0,
+        y: 50,
+        filter: 'blur(40px)'
+      });
+      
+      // Create animation
+      gsap.to(wordSpans, {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power3.out',
+        delay: 0.2,
+        zIndex: 10,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+          end: 'top 50%',
+          toggleActions: 'play none none none'
+        }
+      });
     });
 
-  // Fade-in from top for Button
-    gsap.from(".cl-btn", {
-      opacity: 0,
-      y: -40,
-      duration: 1.5,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".portfolio",
-        start: "top top",
-        toggleActions: "play none none reverse",
-      },
+
+
+    //=======================scalein===============
+
+ const scaleElements = document.querySelectorAll('.scalein');
+    
+    scaleElements.forEach((el) => {
+      gsap.fromTo(el,
+        {
+          scale: 0,
+          opacity: 0
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: 'circ.out(1.7)',
+          scrollTrigger: {
+            trigger: el,
+          start: 'top 95%',
+            end: 'top 50%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
     });
+
+
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
   }, []);
+
+
+  // ================link=================
+
+   useEffect(() => {
+
+     // Links slide in animation
+    const linksContainers = document.querySelectorAll('.links');
+    
+    linksContainers.forEach((container) => {
+      const links = container.querySelectorAll('.link-button');
+      
+      gsap.fromTo(links,
+        {
+          x: 100,
+          opacity: 0
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 80%',
+            end: 'top 50%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+      return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, []);
+
+
+  // ==============psplit=================
+
+  useEffect(() => {
+
+   const psplitElements = document.querySelectorAll('.psplit');
+    
+    psplitElements.forEach((el) => {
+      const text = el.textContent;
+      const lines = text.split('\n').filter(line => line.trim() !== '');
+      
+      // Clear original text and create line divs
+      el.innerHTML = lines
+        .map((line) => `<div class="text-line"><span>${line.trim()}</span></div>`)
+        .join('');
+      
+      const lineSpans = el.querySelectorAll('.text-line span');
+      
+      // Animate each line with incremental delay
+      lineSpans.forEach((span, index) => {
+        gsap.fromTo(span,
+          {
+            y: 60,
+            opacity: 0
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: index * 0.15,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              end: 'top 50%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    });
+
+
+        return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, []);
+
+
+
+  // ==============dimtxt===============
+
+   useEffect(() => {
+
+     const dimTextElements = document.querySelectorAll('.dimtext');
+    
+    dimTextElements.forEach((el) => {
+      const text = el.textContent;
+      const words = text.split(' ');
+      
+      // Clear original text and create word spans
+      el.innerHTML = words
+        .map((word) => `<span class="dim-word">${word}</span>`)
+        .join(' ');
+      
+      const wordSpans = el.querySelectorAll('.dim-word');
+      
+      // Set initial dimmed state
+      gsap.set(wordSpans, {
+        opacity: 0.2
+      });
+      
+      // Create scrub animation for each word
+      wordSpans.forEach((word, index) => {
+        gsap.to(word, {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            // letterSpacing: 5,
+            end: 'bottom 20%',
+            scrub: 1,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const wordProgress = (progress * wordSpans.length) - index;
+              const clampedProgress = Math.max(0, Math.min(1, wordProgress));
+              gsap.set(word, { opacity: 0.2 + (clampedProgress * 0.8) });
+            }
+          }
+        });
+      });
+    });
+    
+    return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, []);
+
+
 
   
 
@@ -822,7 +974,7 @@ const section = useRef(null); // ✅ renamed from container → section
 
 
      
-       <h1 className="section-header2">Real Work. Real Results</h1>
+       <h1 className="section-header2 splitblur">Real Work. Real Results</h1>
 
           <div className="number-container">
             <img src={Shadow4} className="shadow4" alt="" />
@@ -879,7 +1031,7 @@ const section = useRef(null); // ✅ renamed from container → section
             </div>
           </div>
 
-            <p className="motion-p p-up">
+            <p className="motion-p p-up psplit">
               Trusted by brands that demand Excellence - we deliver creative-tech
               solutions that don't just look good, they perform where it matters
             </p>
@@ -895,15 +1047,15 @@ const section = useRef(null); // ✅ renamed from container → section
 
     {/* ==============service=============== */}
 
-        <div className="services sectionCon" >
-             <h1 className="section-header">
+        <div  className="services sectionCon" >
+             <h1 className="section-header splitblur">
                We Build Experiences that Breathe
              </h1>
 
-          <img className="circleblur"  src={CircleBlur} alt="" />
+          <img className="circleblur circleblurtop scalein"  src={CircleBlur} alt="" />
 
           <div ref={velocityRef} className="altcard flex gap-8 justify-center">
-      <div className="card-con">
+      <div className="card-con card-con1">
         <img src={Card} alt="" className="card-img" />
         <img src={Star} alt="" className="card-icon" />
         <img src={Star2} alt="" className="card-icon2" />
@@ -950,7 +1102,7 @@ const section = useRef(null); // ✅ renamed from container → section
       <DesignModal isOpen={openModal === "design"} onClose={() => setOpenModal(null)} />
       <ResearchModal isOpen={openModal === "research"} onClose={() => setOpenModal(null)} />
 
-          <p className="services-p p-up">
+          <p className="services-p p-up psplit">
             From visuals that speak to systems that scale - We deliver
             end-to-end solutions that define, design, and develop your brand's
             digital presence
@@ -962,8 +1114,7 @@ const section = useRef(null); // ✅ renamed from container → section
   
 
         <div className="sectionCon services services-mvp" >
-                  <h1 className="section-header">From Idea to Market in 4 Weeks</h1>
-
+          <h1 className="section-header splitblur">From Idea to Market in 4 Weeks</h1>
           <div className="mvp-cardcon mvp-desk">
              <img
         src={Shadow1}
@@ -1019,7 +1170,7 @@ const section = useRef(null); // ✅ renamed from container → section
             </div>
           </div>
            {/* <Spotlight /> */}
-          <p className="services-p p-up">
+          <p className="services-p p-up psplit">
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </p>
@@ -1030,7 +1181,7 @@ const section = useRef(null); // ✅ renamed from container → section
       {/* ===============production================ */}
 
        <section className="sectionCon services service-pro relative">
-      <h1 className="section-header3">Strix Production</h1>
+      <h1 className="section-header3 splitblur">Strix Production</h1>
 
       <div className="coin-con flex justify-center items-center">
         <video
@@ -1041,7 +1192,7 @@ const section = useRef(null); // ✅ renamed from container → section
         ></video>
       </div>
 
-      <p className="services-p p-up">
+      <p className="services-p p-up psplit">
         Not just another agency — Strix combines design, development,
         production, and MVP expertise to help brands and startups scale faster.
       </p>
@@ -1075,7 +1226,7 @@ const section = useRef(null); // ✅ renamed from container → section
         className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
       />
 
-      <h1 className="section-header2">Our Craft, Your Expression.</h1>
+      <h1 className="section-header2 splitblur">Our Craft, Your Expression.</h1>
 
       <div className="links">
         <p className="link-button">Branding</p>
@@ -1086,7 +1237,7 @@ const section = useRef(null); // ✅ renamed from container → section
       </div>
 
       <div className="cl relative flex flex-col items-center justify-center">
-        <img className="circleblur2 absolute" src={CircleBlur} alt="" />
+        <img className="circleblur2 absolute scalein" src={CircleBlur} alt="" />
         <Carousel />
         <div className="cl-btn mt-10">
           <ButtonSmall text="Portfolio" />
@@ -1098,7 +1249,7 @@ const section = useRef(null); // ✅ renamed from container → section
     {/* ==============test================== */}
 
         <div className="sectionCon testimonial-con" >
-           <h1 className="section-header2">
+           <h1 className="section-header2 splitblur">
                     What our clients say
                   </h1>
                     <p className="text-pp">
@@ -1112,7 +1263,7 @@ const section = useRef(null); // ✅ renamed from container → section
     {/* ============booking================ */}
 
         <div className="zle booking" >
-           <h1 className="section-header2">
+           <h1 className="splitblur">
                     Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
                   </h1>
           <div className="second">
@@ -1126,7 +1277,7 @@ const section = useRef(null); // ✅ renamed from container → section
                 Let's start <br /> your project
               </p>
             </div></Link>
-              <p className="sr-mobile" > We'd love to be challenged by you! Feel free to share your brief
+              <p className="sr-mobile dimtext" > We'd love to be challenged by you! Feel free to share your brief
                               with us</p>
             </div>
            <Link to='/contact'>
