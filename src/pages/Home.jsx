@@ -606,244 +606,171 @@ useEffect(() => {
 
 
     
+ useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-// =================splitblur==================
+    const isMobile = window.innerWidth <= 770;
 
-useEffect(() => {
-    const elements = document.querySelectorAll('.splitblur');
-    
-    elements.forEach((el) => {
+    // Helper to pick scroll start position
+    const startValue = isMobile ? "center center" : "top 80%";
+    const endValue = isMobile ? "center center" : "top 50%";
+
+    // ================= SPLITBLUR =================
+    const splitblurEls = document.querySelectorAll(".splitblur");
+    splitblurEls.forEach((el) => {
       const text = el.textContent;
-      const words = text.split(' ');
-      
-      // Clear original text and create word spans
-      el.innerHTML = words
-        .map((word) => `<span class="word">${word}</span>`)
-        .join(' ');
-      
-      const wordSpans = el.querySelectorAll('.word');
-      
-      // Set initial state
-      gsap.set(wordSpans, {
-        opacity: 0,
-        y: 50,
-        filter: 'blur(40px)'
-      });
-      
-      // Create animation
+      const words = text.split(" ");
+      el.innerHTML = words.map((w) => `<span class="word">${w}</span>`).join(" ");
+      const wordSpans = el.querySelectorAll(".word");
+
+      gsap.set(wordSpans, { opacity: 0, y: 50, filter: "blur(40px)" });
+
       gsap.to(wordSpans, {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
+        filter: "blur(0px)",
         duration: 1,
         stagger: 0.1,
-        ease: 'power3.out',
+        ease: "power3.out",
         delay: 0.2,
-        zIndex: 10,
         scrollTrigger: {
           trigger: el,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none none'
-        }
+          start: startValue,
+          end: endValue,
+          toggleActions: "play none none none",
+        },
       });
     });
 
-
-
-    //=======================scalein===============
-
- const scaleElements = document.querySelectorAll('.scalein');
-    
-    scaleElements.forEach((el) => {
-      gsap.fromTo(el,
-        {
-          scale: 0,
-          opacity: 0
-        },
+    // ================= SCALE-IN =================
+    const scaleEls = document.querySelectorAll(".scalein");
+    scaleEls.forEach((el) => {
+      gsap.fromTo(
+        el,
+        { scale: 0, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
           duration: 1,
           xPercent: -50,
           yPercent: -50,
-          ease: 'circ.out(1.7)',
+          ease: "circ.out(1.7)",
           scrollTrigger: {
             trigger: el,
-          start: 'top 95%',
-            end: 'top 50%',
-            toggleActions: 'play none none none'
-          }
+            start: startValue,
+            end: endValue,
+            toggleActions: "play none none none",
+          },
         }
       );
     });
 
-    const scaletElements = document.querySelectorAll('.scalein2');
-    
-    scaletElements.forEach((el) => {
-      gsap.fromTo(el,
-        {
-          scale: 0,
-          opacity: 0
-        },
+    const scale2Els = document.querySelectorAll(".scalein2");
+    scale2Els.forEach((el) => {
+      gsap.fromTo(
+        el,
+        { scale: 0, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
           duration: 1,
           xPercent: -50,
           yPercent: -50,
-          ease: 'circ.out(1.7)',
+          ease: "circ.out(1.7)",
           scrollTrigger: {
-            trigger: '.circcon',
-          start: 'top 95%',
-            end: 'top 50%',
-            toggleActions: 'play none none none'
-          }
+            trigger: ".circcon",
+            start: startValue,
+            end: endValue,
+            toggleActions: "play none none none",
+          },
         }
       );
     });
-    
 
-
-    
-    return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill());
-    };
-  }, []);
-
-
-  // ================link=================
-
-   useEffect(() => {
-
-     // Links slide in animation
-    const linksContainers = document.querySelectorAll('.links');
-    
+    // ================= LINKS =================
+    const linksContainers = document.querySelectorAll(".links");
     linksContainers.forEach((container) => {
-      const links = container.querySelectorAll('.link-button');
-      
-      gsap.fromTo(links,
-        {
-          x: 100,
-          opacity: 0
-        },
+      const links = container.querySelectorAll(".link-button");
+      gsap.fromTo(
+        links,
+        { x: 100, opacity: 0 },
         {
           x: 0,
           opacity: 1,
           duration: 0.8,
           stagger: 0.15,
-          ease: 'power3.out',
+          ease: "power3.out",
           scrollTrigger: {
             trigger: container,
-            start: 'top 80%',
-            end: 'top 50%',
-            toggleActions: 'play none none none'
-          }
+            start: startValue,
+            end: endValue,
+            toggleActions: "play none none none",
+          },
         }
       );
     });
 
-      return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill());
-    };
-  }, []);
-
-
-  // ==============psplit=================
-
-  useEffect(() => {
-
-   const psplitElements = document.querySelectorAll('.psplit');
-    
-    psplitElements.forEach((el) => {
-      const text = el.textContent;
-      const lines = text.split('\n').filter(line => line.trim() !== '');
-      
-      // Clear original text and create line divs
+    // ================= PSPLIT =================
+    const psplitEls = document.querySelectorAll(".psplit");
+    psplitEls.forEach((el) => {
+      const lines = el.textContent.split("\n").filter((l) => l.trim() !== "");
       el.innerHTML = lines
         .map((line) => `<div class="text-line"><span>${line.trim()}</span></div>`)
-        .join('');
-      
-      const lineSpans = el.querySelectorAll('.text-line span');
-      
-      // Animate each line with incremental delay
-      lineSpans.forEach((span, index) => {
-        gsap.fromTo(span,
-          {
-            y: 60,
-            opacity: 0
-          },
+        .join("");
+      const lineSpans = el.querySelectorAll(".text-line span");
+
+      lineSpans.forEach((span, i) => {
+        gsap.fromTo(
+          span,
+          { y: 60, opacity: 0 },
           {
             y: 0,
             opacity: 1,
             duration: 0.8,
-            delay: index * 0.15,
-            stagger: 0.15,
-            ease: 'power3.out',
+            delay: i * 0.15,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: el,
-              start: 'top 80%',
-              end: 'top 50%',
-              toggleActions: 'play none none none'
-            }
+              start: startValue,
+              end: endValue,
+              toggleActions: "play none none none",
+            },
           }
         );
       });
     });
 
+    // ================= DIMTEXT =================
+    const dimTextEls = document.querySelectorAll(".dimtext");
+    dimTextEls.forEach((el) => {
+      const words = el.textContent.split(" ");
+      el.innerHTML = words.map((w) => `<span class="dim-word">${w}</span>`).join(" ");
+      const wordSpans = el.querySelectorAll(".dim-word");
 
-        return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill());
-    };
-  }, []);
+      gsap.set(wordSpans, { opacity: 0.2 });
 
-
-
-  // ==============dimtxt===============
-
-   useEffect(() => {
-
-     const dimTextElements = document.querySelectorAll('.dimtext');
-    
-    dimTextElements.forEach((el) => {
-      const text = el.textContent;
-      const words = text.split(' ');
-      
-      // Clear original text and create word spans
-      el.innerHTML = words
-        .map((word) => `<span class="dim-word">${word}</span>`)
-        .join(' ');
-      
-      const wordSpans = el.querySelectorAll('.dim-word');
-      
-      // Set initial dimmed state
-      gsap.set(wordSpans, {
-        opacity: 0.2
-      });
-      
-      // Create scrub animation for each word
-      wordSpans.forEach((word, index) => {
+      wordSpans.forEach((word, i) => {
         gsap.to(word, {
           opacity: 1,
           scrollTrigger: {
             trigger: el,
-            start: 'top 80%',
-            // letterSpacing: 5,
-            end: 'bottom 20%',
+            start: isMobile ? "center 90%" : "top 80%",
+            end: isMobile ? "center 10%" : "bottom 20%",
             scrub: 1,
             onUpdate: (self) => {
               const progress = self.progress;
-              const wordProgress = (progress * wordSpans.length) - index;
-              const clampedProgress = Math.max(0, Math.min(1, wordProgress));
-              gsap.set(word, { opacity: 0.2 + (clampedProgress * 0.8) });
-            }
-          }
+              const wordProgress = progress * wordSpans.length - i;
+              const clamped = Math.max(0, Math.min(1, wordProgress));
+              gsap.set(word, { opacity: 0.2 + clamped * 0.8 });
+            },
+          },
         });
       });
     });
-    
+
+    // ================= CLEANUP =================
     return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill());
+      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
