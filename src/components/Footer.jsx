@@ -43,7 +43,7 @@ const Footer = () => {
       
       gsap.fromTo(footStrix,
         {
-          x: 900,
+          x: 100,
           opacity: 0
         },
         {
