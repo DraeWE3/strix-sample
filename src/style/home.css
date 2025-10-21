@@ -884,6 +884,16 @@ height: 100%;
       z-index: 10;
 }
 
+.splitblur{
+  max-width: 50% !important;
+}
+
+@media (max-width: 770px) {
+  .splitblur{
+  max-width: 90% !important;
+}
+}
+
 
 .circleblur2{
     position: absolute;
@@ -1036,6 +1046,7 @@ height: 100%;
 
   .foot-strix{
     margin-left: 0 !important;
+    opacity: 0;
   }
 
   .spread-h1,

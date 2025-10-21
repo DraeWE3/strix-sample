@@ -660,6 +660,8 @@ useEffect(() => {
           scale: 1,
           opacity: 1,
           duration: 1,
+          xPercent: -50,
+          yPercent: -50,
           ease: 'circ.out(1.7)',
           scrollTrigger: {
             trigger: el,
@@ -670,6 +672,32 @@ useEffect(() => {
         }
       );
     });
+
+    const scaletElements = document.querySelectorAll('.scalein2');
+    
+    scaletElements.forEach((el) => {
+      gsap.fromTo(el,
+        {
+          scale: 0,
+          opacity: 0
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          xPercent: -50,
+          yPercent: -50,
+          ease: 'circ.out(1.7)',
+          scrollTrigger: {
+            trigger: '.circcon',
+          start: 'top 95%',
+            end: 'top 50%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+    
 
 
     
@@ -1047,12 +1075,12 @@ useEffect(() => {
 
     {/* ==============service=============== */}
 
-        <div  className="services sectionCon" >
+        <div  className="services circcon sectionCon" >
              <h1 className="section-header splitblur">
                We Build Experiences that Breathe
              </h1>
 
-          <img className="circleblur circleblurtop scalein"  src={CircleBlur} alt="" />
+          <img className="circleblur circleblurtop scalein2"  src={CircleBlur} alt="" />
 
           <div ref={velocityRef} className="altcard flex gap-8 justify-center">
       <div className="card-con card-con1">
@@ -1214,7 +1242,7 @@ useEffect(() => {
 
       {/* =================portfolio============== */}
 
-          <div className="zle portfolio relative">
+          <div className="zle circcon portfolio relative">
       <img
         src={Shadow1}
         alt=""

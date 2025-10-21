@@ -34,7 +34,9 @@
 .block {
   flex: 1;
   height: 100%;
-background: #d8d8d8;
+ background: #000000;
+background: -webkit-radial-gradient(circle, #000000 0%, #232323 100%);
+background: radial-gradient(circle, #000000 0%, #232323 100%);
   transform: scaleX(0);
   transform-origin: left;
 }
