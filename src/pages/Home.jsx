@@ -545,54 +545,59 @@ useEffect(() => {
 
 const section = useRef(null); // ✅ renamed from container → section
 
-  useEffect(() => {
-    // ✅ Create smooth scrolling wrapper
-    const smoother = ScrollSmoother.create({
-      wrapper: section.current,
-      content: section.current.querySelector(".content"),
-      smooth: 2.5,
-      effects: true,
-    });
+useEffect(() => {
+  // Disable animation on mobile screens
+  if (window.innerWidth <= 770) return;
 
-    // ✅ Animate each sectionCon
-    gsap.utils.toArray(".sectionCon").forEach((sec) => {
-      // Pull-in effect when entering
-      gsap.fromTo(
-        sec,
-        { y: 150, opacity: 0, filter: "blur(20px)" },
-        {
-          y: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sec,
-            start: "top 85%",
-            end: "top 40%",
-            scrub: true,
-          },
-        }
-      );
+  // ✅ Create smooth scrolling wrapper
+  const smoother = ScrollSmoother.create({
+    wrapper: section.current,
+    content: section.current.querySelector(".content"),
+    smooth: 2.5,
+    effects: true,
+  });
 
-      // Blur-out effect when leaving
-      gsap.to(sec, {
-        filter: "blur(25px)",
-        opacity: 0,
-        ease: "power2.inOut",
+  // ✅ Animate each sectionCon
+  gsap.utils.toArray(".sectionCon").forEach((sec) => {
+    // Pull-in effect when entering
+    gsap.fromTo(
+      sec,
+      { y: 150, opacity: 0, filter: "blur(20px)" },
+      {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        ease: "power3.out",
         scrollTrigger: {
           trigger: sec,
-          start: "bottom 70%",
-          end: "bottom 20%",
+          start: "top 85%",
+          end: "top 40%",
           scrub: true,
         },
-      });
-    });
+      }
+    );
 
-    return () => {
-      smoother.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
+    // Blur-out effect when leaving
+    gsap.to(sec, {
+      filter: "blur(25px)",
+      opacity: 0,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: sec,
+        start: "bottom 70%",
+        end: "bottom 20%",
+        scrub: true,
+      },
+    });
+  });
+
+  // ✅ Cleanup on unmount
+  return () => {
+    smoother.kill();
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  };
+}, []);
+
 
 
 
