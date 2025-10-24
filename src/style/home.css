@@ -598,13 +598,19 @@ height: 100%;
 
 
 
-.circleblur{
+.circleblur {
+  position: absolute;
+  height: 100% !important;
+  width: auto;
+          top: "0%",
+}
+
+.circleblur2{
     position: absolute;
-    height: 100% !important;
+    height: 57rem;
     width: auto;
-    top: 44%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+            top: "0%",
+
 }
 
 .card-content{
@@ -895,15 +901,7 @@ height: 100%;
 }
 
 
-.circleblur2{
-    position: absolute;
-    height: 57rem;
-    width: auto;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
-}
 
 
   /* ================testimonial=================== */
@@ -1369,7 +1367,13 @@ height: 100%;
 .circleblur{
   height: auto !important;
     width: 100%;
-  top: 17%;
+  top: 3% !important;
+}
+
+.circleblur2{
+  height: auto;
+  width: 130vw;
+  top: -10% !important;
 }
 
 .altcard{
@@ -1480,13 +1484,7 @@ transform: none !important;
   visibility:visible;
 }
 
-.circleblur2{
-  height: auto;
-  width: 130vw;
-  top: -20%;
-  left: 50%;
-  transform: translate(-50%, );
-}
+
 
   .sr-mobile {
     display: inline !important;}
@@ -1518,6 +1516,13 @@ transform: none !important;
 .portfolio{
   padding: 10% 0;
 }
+.link-button {
+  @apply text-lg font-medium tracking-wide leading-snug m-0;
+  padding: 0 !important;
+  gap: 0.7rem !important;
+
+}
+
 
  .portfolio .links{
   width: 85%;

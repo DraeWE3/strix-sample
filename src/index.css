@@ -260,11 +260,16 @@ button:focus-visible {
   height: 3rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 .link-button:hover{
   display: inline-flex;
 }
-
+.link-button {
+  @apply text-lg font-medium tracking-wide leading-snug m-0;
+}
 
 .line {
   display: block;
