@@ -122,6 +122,38 @@ a {
   position: relative;
   z-index: 30;
 } */
+/* Disable default tap/click effects globally */
+button,
+a,
+input[type="button"],
+input[type="submit"] {
+  -webkit-tap-highlight-color: transparent; /* Removes tap highlight */
+  -webkit-user-select: none; /* Prevents text selection on tap */
+  -webkit-touch-callout: none; /* Disables long-press menu on iOS */
+  outline: none;
+  border: none;
+  background: none;
+  appearance: none;
+  transition: none;
+}
+
+/* Prevent “pressed” shrinking or flashing */
+button:active,
+a:active,
+input[type="button"]:active,
+input[type="submit"]:active {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Optional: keep hover-only states working normally */
+button:hover,
+a:hover {
+  opacity: 1;
+}
+
 
 .section-header2{
   font-family: syne-med !important;
@@ -144,7 +176,7 @@ a {
 
    .section-header2{
      font-size: 30px !important;
-     max-width: 50% !important;
+     max-width: 90% !important;
   }
 
   .service-pro{

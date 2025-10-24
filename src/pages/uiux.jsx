@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Nav from '../components/Navbar'
 import Circleblur from '../assets/img/sr-img.webp'
+import Connect from '../assets/img/connect.svg'
 import BtnNormsall from '../components/normSmall-btn';
 import Footer from '../components/Footer'
 import Blur1 from '../assets/img/p-blur2.png'
@@ -176,6 +177,7 @@ const Uiux = () => {
                 </p>
   
                 <div className="right-booking right-booking2">
+                  <img className="right-booking-img" src={Connect} alt="" />
                 <p>
                   Let's start <br /> your project
                 </p>
@@ -184,6 +186,7 @@ const Uiux = () => {
                                 with us</p>
               </div>
               <div className="right-booking">
+                <img className="right-booking-img" src={Connect} alt="" />
                 <p>
                   Let's start <br /> your project
                 </p>

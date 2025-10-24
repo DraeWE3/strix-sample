@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import '../style/contact.css';
 import Blur1 from '../assets/img/conb1.webp';
 import Blur2 from '../assets/img/conb2.webp';
+import Connect from '../assets/img/connect.svg'
 import Blur3 from '../assets/img/conb3.webp';
 
 const USER_ID = '8APvl15ZOGswhSl3A'; // keep your user id here
@@ -161,9 +162,9 @@ const ContactForm = () => {
             </div>
 
             <div className="flex-con-btn">
-              <div className="right-booking right-booking2" onClick={handleNext}><p>Next</p></div>
+              <div className="right-booking right-booking2" onClick={handleNext}><img className="right-booking-img" src={Connect} alt="" /><p>Next</p></div>
               <div className="progress">03 ———— 04</div>
-              <div className="right-booking" onClick={handleNext}><p>Next</p></div>
+              <div className="right-booking" onClick={handleNext}><img className="right-booking-img" src={Connect} alt="" /><p>Next</p></div>
             </div>
             <img src={Blur1} className='sectsion1-blur1' alt="" />
             <img src={Blur2} className='sectsion1-blur2' alt="" />
@@ -186,9 +187,9 @@ const ContactForm = () => {
             </div>
 
             <div className="flex-con-btn">
-              <div onClick={handleSubmit} className="right-booking right-booking2" disabled={!formData.agreedToTerms || sending}><p>{sending ? 'Sending...' : 'Send'}</p></div>
+              <div onClick={handleSubmit} className="right-booking right-booking2" disabled={!formData.agreedToTerms || sending}><img className="right-booking-img" src={Connect} alt="" /><p>{sending ? 'Sending...' : 'Send'}</p></div>
               <div className="progress">04 ———— 04</div>
-              <div onClick={handleSubmit} className="right-booking" disabled={!formData.agreedToTerms || sending}><p>{sending ? 'Sending...' : 'Send'}</p></div>
+              <div onClick={handleSubmit} className="right-booking" disabled={!formData.agreedToTerms || sending}><img className="right-booking-img" src={Connect} alt="" /><p>{sending ? 'Sending...' : 'Send'}</p></div>
             </div>
             <img src={Blur3} className='sectsion1-blur3' alt="" />
           </div>
@@ -197,8 +198,8 @@ const ContactForm = () => {
         {/* Section 5 */}
         {currentSection === 5 && (
           <div className="section thank-you">
-            <div className="right-booking"><p>Explore <br /> More</p></div>
-            <div className="right-booking right-booking2"><p>Explore <br /> More</p></div>
+            <div className="right-booking"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
+            <div className="right-booking right-booking2"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
             <h1 className="thank-you-title section-header2">Thank you for contacting us.<br />We will come back to you as soon as possible.</h1>
             <img src={Blur3} className='sectsion1-blur4' alt="" />
           </div>

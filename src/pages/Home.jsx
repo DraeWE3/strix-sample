@@ -6,6 +6,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Connect from '../assets/img/connect.svg'
 
 gsap.registerPlugin(ScrollTrigger);
 import Shadow1 from "../assets/img/shadow1.webp";
@@ -828,6 +829,7 @@ const Home = () => {
 
               <Link to='/contact'>
                 <div className="right-booking right-booking2">
+                  <img className="right-booking-img" src={Connect} alt="" />
                   <p>
                     Let's start <br /> your project
                   </p>
@@ -839,6 +841,7 @@ const Home = () => {
             </div>
             <Link to='/contact'>
               <div className="right-booking">
+                <img className="right-booking-img" src={Connect} alt="" />
                 <p>
                   Let's start <br /> your project
                 </p>

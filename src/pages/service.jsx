@@ -31,6 +31,7 @@ import Blur4 from '../assets/img/Ellipse 8.png'
 import Blur5 from '../assets/img/p-blur3.png'
 import Blur6 from '../assets/img/p-blur4.png'
 import HeroImg from '../assets/img/service-hero.webp'
+import Connect from '../assets/img/connect.svg'
 
 const Service = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -582,6 +583,7 @@ Strix Production?</h1>
               </p>
 
               <div className="right-booking right-booking2">
+                <img className="right-booking-img" src={Connect} alt="" />
               <p>
                 Let's start <br /> your project
               </p>
@@ -590,6 +592,7 @@ Strix Production?</h1>
                               with us</p>
             </div>
             <div className="right-booking">
+              <img className="right-booking-img" src={Connect} alt="" />
               <p>
                 Let's start <br /> your project
               </p>

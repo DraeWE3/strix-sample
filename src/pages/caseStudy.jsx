@@ -35,6 +35,7 @@ import ResCard3 from '../assets/img/res-card1.webp'
 import ResCard4 from '../assets/img/res-card1.webp'
 import ResCard5 from '../assets/img/res-card1.webp'
 import ResCard6 from '../assets/img/res-card1.webp'
+import Connect from '../assets/img/connect.svg'
 import ResCard7 from '../assets/img/res-card1.webp'
 import ResCard8 from '../assets/img/res-card1.webp'
 import ResRight from '../assets/img/res-right.svg'
@@ -384,6 +385,7 @@ efficiency</h3>
               </p>
 
               <div className="right-booking right-booking2">
+                <img className="right-booking-img" src={Connect} alt="" />
               <p>
                 Let's start <br /> your project
               </p>
@@ -392,6 +394,7 @@ efficiency</h3>
                               with us</p>
             </div>
             <div className="right-booking">
+              <img className="right-booking-img" src={Connect} alt="" />
               <p>
                 Let's start <br /> your project
               </p>
