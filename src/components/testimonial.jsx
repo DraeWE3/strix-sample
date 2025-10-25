@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import T1 from "../assets/img/hiren.webp";
+import T2 from '../assets/img/interpolitian.jpg'
+import T3 from '../assets/img/zenith.png'
+import T4 from '../assets/img/itc.png'
+import T5 from '../assets/img/wroott.png'
+import T6 from '../assets/img/T6.png'
 import '../style/carousal.css';
 import '../style/test.css';
 
@@ -34,7 +39,7 @@ const TestimonialCarousel = () => {
   const testimonialData = [
     {
       id: 1,
-      image: T1,
+      image: T2,
       name: "Hiren",
       position: "Design Head, Interpolitan Money",
       text:
@@ -42,7 +47,7 @@ const TestimonialCarousel = () => {
     },
     {
       id: 2,
-      image: T1,
+      image: T4,
       name: "Rick Wickelton",
       position: "CTO , IT Empire",
       text:
@@ -50,7 +55,7 @@ const TestimonialCarousel = () => {
     },
     {
       id: 3,
-      image: T1,
+      image: T3,
       name: "Sameer",
       position: "CEO, Zenith Wellness",
       text:
@@ -58,7 +63,7 @@ const TestimonialCarousel = () => {
     },
     {
       id: 4,
-      image: T1,
+      image: T5,
       name: "Akshay Dave",
       position: "Marketing Head, Wroot",
       text:
@@ -66,11 +71,11 @@ const TestimonialCarousel = () => {
     },
     {
       id: 5,
-      image: T1,
-      name: "Anjali",
-      position: "Project Lead, FinSecure Logistics",
+      image: T6,
+      name: "Abhishek",
+      position: "Founder, The Kundli Pro",
       text:
-        "We had a highly complex web portal project. Their development team delivered a robust, secure, and elegant solution that has drastically improved our efficiency. True technical experts."
+        "They made promo for The Kundli Pro app and it was exceptional. The final video was dynamic, flawless and perfectly captured our app’s essence. A powerful marketing tool, we highly recommend their work!"
     }
   ];
 
