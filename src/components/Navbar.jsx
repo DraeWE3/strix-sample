@@ -23,8 +23,8 @@ const Nav = () => {
 
         <div className="mid">
           <div><Link className="nav-link link-button" to="/">Home</Link></div>
-          <div><Link className="nav-link link-button" to="/service">Services</Link></div>
-          <div><Link className="nav-link link-button" to="/Project">Projects</Link></div>
+          <div><Link className="nav-link link-button" to="/cs">Services</Link></div>
+          <div><Link className="nav-link link-button" to="/cs">Projects</Link></div>
         </div>
 
            <button className="hamburger" onClick={openModal}>

@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useInView, useMotionValue, useSpring, animate } from "framer-motion";
 
 export default function CountUp({
   to,
@@ -14,56 +11,35 @@ export default function CountUp({
   onEnd,
 }) {
   const ref = useRef(null);
+  const count = useMotionValue(from);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -5% 0px" });
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !isInView) return;
 
-    // Reset text to start number
-    ref.current.textContent = from;
+    // Trigger onStart callback
+    if (typeof onStart === "function") onStart();
 
-    let ctx = gsap.context(() => {
-      let obj = { val: from };
+    // Animate the count
+    const controls = animate(count, to, {
+      duration,
+      ease: "easeOut",
+      onUpdate: (latest) => {
+        if (ref.current) {
+          const currentVal = Math.floor(latest);
+          const formattedNumber = separator
+            ? currentVal.toLocaleString("en-US").replace(/,/g, separator)
+            : currentVal.toLocaleString("en-US");
+          ref.current.textContent = formattedNumber;
+        }
+      },
+      onComplete: () => {
+        if (typeof onEnd === "function") onEnd();
+      },
+    });
 
-      gsap.to(obj, {
-        val: to,
-        duration,
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top 95%",
-          once: true, // run once
-          onEnter: () => {
-            if (typeof onStart === "function") onStart();
-          },
-        },
-        onUpdate: () => {
-          if (ref.current) {
-            // round value to integer
-            const currentVal = Math.floor(obj.val);
+    return () => controls.stop();
+  }, [isInView, from, to, duration, separator, onStart, onEnd, count]);
 
-            const formattedNumber = separator
-              ? currentVal.toLocaleString("en-US").replace(/,/g, separator)
-              : currentVal.toLocaleString("en-US");
-
-            // Update number text
-            ref.current.textContent = formattedNumber;
-
-            // Fade-in animation on every update
-            gsap.fromTo(
-              ref.current,
-              { opacity: 1, y: 5 },
-              { opacity: 1, y: 0, duration: 0.2, overwrite: "auto" }
-            );
-          }
-        },
-        onComplete: () => {
-          if (typeof onEnd === "function") onEnd();
-        },
-      });
-    }, ref);
-
-    return () => ctx.revert();
-  }, [from, to, duration, separator, onStart, onEnd]);
-
-  return <span className={className} ref={ref} />;
+  return <span className={className} ref={ref}>{from}</span>;
 }
