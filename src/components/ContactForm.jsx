@@ -64,6 +64,24 @@ const ContactForm = () => {
     setTimeout(() => handleNext(), 300);
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+
+// Check if all required fields are filled
+const isFormComplete = ['firstName', 'lastName', 'email', 'phone', 'country'].every(
+  field => formData[field] && formData[field].trim() !== ''
+);
+
+const handleNextWithValidation = () => {
+  if (!isFormComplete) {
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2000);
+    return;
+  }
+  handleNext();
+};
+
   const openModal = (success, message) => {
     setModal({ visible: true, success, message });
     // auto close after 2.4s
@@ -111,7 +129,7 @@ const ContactForm = () => {
         {/* Section 1 */}
         {currentSection === 1 && (
           <div className="section">
-            <div className="section-header">
+            <div className="section-hflex">
               <div className="diamond-icon">◇</div>
               <p className="ct-section-title">Contact</p>
             </div>
@@ -151,30 +169,70 @@ const ContactForm = () => {
 
         {/* Section 3 */}
         {currentSection === 3 && (
-          <div className="section">
-            <div className="form-grid">
-              {['firstName', 'lastName', 'email', 'phone', 'country'].map((field, i) => (
-                <div key={i} className={`form-group ${field === 'country' ? 'full-width' : ''}`}>
-                  <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                  <input type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'} name={field} value={formData[field]} onChange={handleInputChange} className="form-input" />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex-con-btn">
-              <div className="right-booking right-booking2" onClick={handleNext}><img className="right-booking-img" src={Connect} alt="" /><p>Next</p></div>
-              <div className="progress">03 ———— 04</div>
-              <div className="right-booking" onClick={handleNext}><img className="right-booking-img" src={Connect} alt="" /><p>Next</p></div>
-            </div>
-            <img src={Blur1} className='sectsion1-blur1' alt="" />
-            <img src={Blur2} className='sectsion1-blur2' alt="" />
-          </div>
+         <div className="section">
+  <div className="form-grid">
+    {['firstName', 'lastName', 'email', 'phone', 'country'].map((field, i) => (
+      <div key={i} className={`form-group ${field === 'country' ? 'full-width' : ''}`}>
+        <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+        <input 
+          type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'} 
+          name={field} 
+          value={formData[field]} 
+          onChange={handleInputChange} 
+          className="form-input" 
+          required 
+        />
+      </div>
+    ))}
+  </div>
+  
+  {showPopup && (
+    <div style={{
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: '#ff4444',
+      color: 'white',
+      padding: '20px 40px',
+      borderRadius: '8px',
+      zIndex: 1000,
+      fontSize: '16px',
+      fontWeight: '500',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+    }}>
+      Complete Form
+    </div>
+  )}
+  
+  <div className="flex-con-btn">
+    <div 
+      className={`right-booking right-booking2 ${!isFormComplete ? 'disabled' : ''}`} 
+      onClick={handleNextWithValidation}
+      style={{ opacity: !isFormComplete ? 0.5 : 1, cursor: !isFormComplete ? 'not-allowed' : 'pointer' }}
+    >
+      <img className="right-booking-img" src={Connect} alt="" />
+      <p>Next</p>
+    </div>
+    <div className="progress">03 ———— 04</div>
+    <div 
+      className={`right-booking ${!isFormComplete ? 'disabled' : ''}`} 
+      onClick={handleNextWithValidation}
+      style={{ opacity: !isFormComplete ? 0.5 : 1, cursor: !isFormComplete ? 'not-allowed' : 'pointer' }}
+    >
+      <img className="right-booking-img" src={Connect} alt="" />
+      <p>Next</p>
+    </div>
+  </div>
+  <img src={Blur1} className='sectsion1-blur1' alt="" />
+  <img src={Blur2} className='sectsion1-blur2' alt="" />
+</div>
         )}
 
         {/* Section 4 */}
         {currentSection === 4 && (
           <div className="section">
-            <div className="section-header"><div className="diamond-icon">◇</div><h1 className="mess-section-title">Your Message</h1></div>
+            <div className="section-hflex"><div className="diamond-icon">◇</div><h1 className="mess-section-title">Your Message</h1></div>
             <textarea name="message" value={formData.message} onChange={handleInputChange} className="message-textarea" />
 
             <div className="checkbox-container">
@@ -200,7 +258,7 @@ const ContactForm = () => {
           <div className="section thank-you">
             <div className="right-booking"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
             <div className="right-booking right-booking2"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
-            <h1 className="thank-you-title section-header2">Thank you for contacting us.<br />We will come back to you as soon as possible.</h1>
+            <h1 className="thank-you-title section-hflex2">Thank you for contacting us.<br />We will come back to you as soon as possible.</h1>
             <img src={Blur3} className='sectsion1-blur4' alt="" />
           </div>
         )}

@@ -10,7 +10,7 @@ const BtnNormsall = ({ text = "Log In", onClick }) => {
       className="btn-norm"
       onClick={onClick}
     >
-      <p className='btn-p'>{text}</p>
+      <div className="space-btn"><p className='btn-p'>{text}</p></div>
     </div>
   );
 };

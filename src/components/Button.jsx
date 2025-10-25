@@ -11,7 +11,7 @@ const Button = ({ text = "Log In", onClick }) => {
       className="btn"
       onClick={onClick}
     >
-      <p className='bbtn-p'>{text}</p>
+      <div className="space-btn"><p className='bbtn-p'>{text}</p></div>
     </div>
   );
 };

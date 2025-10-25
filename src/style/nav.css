@@ -11,10 +11,10 @@
 .nav{
     height: 6rem;
     width: 90%;
-    background: rgba(0,0,0,0.3);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.3) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
     color: #fff ;
     height: 3.5rem;
     padding: 0 2%;

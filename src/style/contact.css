@@ -38,7 +38,7 @@
   min-height: 60vh;
 }
 
-.section-header {
+.section-hflex {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -398,7 +398,7 @@
      margin-bottom: 2rem;
   }
 
-  .section-header{
+  .section-hflex{
     margin-bottom: 20px;
   }
 
@@ -465,3 +465,4 @@
     font-size: 20px;
   }
 }
+

@@ -94,52 +94,22 @@ const BlurTextReveal = ({ children, className = "" }) => {
   );
 };
 
-// Random text scramble animation component
+/// Blur-in animation component (scroll-triggered)
 const ScrambleText = ({ children, className = "" }) => {
   const ref = useRef(null);
+  // This hook triggers when element enters viewport
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayText, setDisplayText] = useState(children);
-  const originalText = children;
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()';
-    let iteration = 0;
-    const totalIterations = 30;
-
-    const interval = setInterval(() => {
-      setDisplayText(
-        originalText
-          .split('')
-          .map((char, index) => {
-            if (char === ' ') return ' ';
-            if (index < iteration) return originalText[index];
-            return chars[Math.floor(Math.random() * chars.length)];
-          })
-          .join('')
-      );
-
-      iteration += 1;
-
-      if (iteration > originalText.length) {
-        clearInterval(interval);
-        setDisplayText(originalText);
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [isInView, originalText]);
 
   return (
     <motion.p
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      ref={ref} // Attached to element for scroll detection
+      initial={{ opacity: 0, filter: "blur(10px)" }}
+      // Animation only triggers when isInView is true
+      animate={isInView ? { opacity: 1, filter: "blur(0px)" } : { opacity: 0, filter: "blur(10px)" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className={className}
     >
-      {displayText}
+      {children}
     </motion.p>
   );
 };
@@ -752,6 +722,8 @@ const Home = () => {
               src={Coin}
               playsInline
               muted
+              autoPlay
+              loop
             ></video>
           </div>
 

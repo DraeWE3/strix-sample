@@ -2,37 +2,41 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 2rem 1.9rem !important;
-  border-radius: 5rem;
   cursor: pointer;
   font-weight: 500;
   color: #fff;
   transition: all 0.5s ease-in-out;
   position: relative;
-  /* Background image settings */
   background-image: url('../assets/img/btn-norm.webp');
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
-
-  /* Makes button grow with text */
-  width: auto;
-  min-width: max-content; 
-  height: 3rem;
+  width: fit-content;
+  min-width: max-content;
+  padding-top: 1rem;
+  padding-bottom: 1.8rem;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
 }
+
+.space-btn{
+  width: 100%;
+  height: 100%;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
 
 .btn-norm:hover {
   background-image: url('../assets/img/btn-norm2.webp');
 }
 
-.btn-p {
-  margin: 0;
-  padding: 0 1rem; /* Ensures spacing inside */
+.space-btn .btn-p {
+  margin: 0 !important;
   text-align: center;
   font-size: 1rem;
-  margin-bottom: 10%;
-  /* line-height: 1.2; */
 }
 
 .btn-norm:active{
@@ -41,10 +45,7 @@
 
 /* 🔹 Mobile responsive */
 @media (max-width: 770px) {
-  .btn-norm {
-    padding: 0.7rem 1.5rem;
-    background-size: 100% 100%; /* stays adaptive */
-  }
+  
 
   .btn-p {
     font-size: 14px;

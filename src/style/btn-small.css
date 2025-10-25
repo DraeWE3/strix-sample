@@ -2,37 +2,34 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4.1% 4%;
-  padding: 1.9rem 1.8rem;
-  border-radius: 5rem;
   cursor: pointer;
-  font-weight: 500;
   color: #fff;
   transition: all 0.5s ease-in-out;
   gap: 7px !important;
-  /* Background image settings */
   background-image: url('../assets/img/btn-norm.webp');
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
   z-index: 10;
-position: relative;
-  /* Makes button grow with text */
-  width: auto;
-  min-width: max-content; 
-  height: 0;
+  position: relative;
+  width: fit-content;
+  min-width: max-content;
+  padding-top: 1rem;
+  padding-bottom: 1.8rem;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
 }
 
-@media (min-width: 140px) {
-  .btn-small{
-    padding: 2.6vw 2.7vw;
-  }
-
-  .btn-small-p{
-    font-size: 1.2vw;
-  }
-
+.space-btn{
+  width: 100%;
+  height: 100%;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
+
+
 
 .btn-small:hover {
   background-image: url('../assets/img/btn-norm2.webp');
@@ -44,8 +41,7 @@ position: relative;
   text-align: center;
   font-size: 1rem;
   font-family: cd-reg;
-  margin-bottom: 10% !important;
-  /* line-height: 1.2; */
+  margin-right: 0.3rem;  /* line-height: 1.2; */
 }
 
 .small-btn-arrow{
@@ -54,23 +50,32 @@ position: relative;
   height: 1vw;
   background-size: cover;
   background-size: cover;
-  margin-bottom: 10%;
-    transition: all 0.5s ease-in-out;
+   transition: transform 0.5s ease;
 }
 
 .btn-small:hover .small-btn-arrow{
-  background-image: url('../assets/img/btn-arrow2.webp');
-  width: 1.2vw;
+  transform: rotate(44deg);
 }
 
 .btn-small:active{
   background-image: url('../assets/img/btn-active.webp');
 }
 
+@media (min-width: 140px) {
+  /* .btn-small{
+    padding: 2.6vw 2.7vw;
+  } */
+
+  .btn-small-p{
+    font-size: 1.2vw;
+  }
+
+}
+
 /* 🔹 Mobile responsive */
 @media (max-width: 770px) {
   .btn-small {
-    padding: 1.7rem 1.5rem;
+    /* padding: 1.7rem 1.5rem; */
     background-size: 100% 100%; /* stays adaptive */
   }
 
