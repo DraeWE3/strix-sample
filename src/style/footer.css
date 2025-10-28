@@ -236,7 +236,7 @@ font-size: 14px;
 }
 
 .nothing{
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .footerImg{

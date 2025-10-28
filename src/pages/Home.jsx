@@ -450,8 +450,10 @@ const Home = () => {
             </motion.div>
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
-              <ButtonArrow text="Get Started" />
-              <Button text="Explore Work" />
+              
+              <Link to='/'><ButtonArrow text="Get Started" /></Link>
+              <Link><Button text="Explore Work" /></Link>
+              
             </motion.div>
 
             <motion.img

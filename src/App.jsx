@@ -11,6 +11,7 @@ import Service from "./pages/service";
 import Uiux from "./pages/uiux";
 import About from "./pages/About";
 import Contact from './pages/contact'
+import Url from "./components/route";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/uiux" element={<Uiux />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/Url" element={<Url />} />
         </Routes>
       </PageTransition>
     </BrowserRouter>

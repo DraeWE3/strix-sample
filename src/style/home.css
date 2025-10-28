@@ -1776,3 +1776,13 @@ transform: none !important;
 @media (max-width: 470px) {
 
 }
+
+.url-con{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5vh;
+  width: 100%;
+  height: 100vh;
+}

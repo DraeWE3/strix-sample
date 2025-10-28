@@ -8,6 +8,7 @@ import FooterMobile from "../assets/img/footer-mobile.webp";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView } from "framer-motion";
 import gsap from "gsap";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -140,7 +141,7 @@ const Footer = () => {
 
       <div className="ft-bottom">
         <div className="nothing">
-          <p>scroll Top</p> <img src={Top} alt="top" />
+          <Link to='/Url'><p>dot</p></Link>
         </div>
         <p className="ft-year">© 2025 – Strix Production All Rights Reserved</p>
         <div className="scroll-top">
