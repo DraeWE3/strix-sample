@@ -237,6 +237,7 @@
   padding: 1px; /* thickness of gradient border */
   background-clip: padding-box;
   border: 2px solid transparent;
+  /* transform: rotate(18deg); */
 }
 
 .p-sec2-card p{

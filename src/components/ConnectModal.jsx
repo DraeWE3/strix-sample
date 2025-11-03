@@ -12,6 +12,8 @@ import BuildMVP from "../pages/Cs";
 import OurWork from "../pages/Project";
 import WhoWeAre from "../pages/About";
 import Blog from "../pages/Cs";
+import Modalbg from '../assets/img/menu.webp'
+import Blur1 from '../assets/img/p-blur1.png'
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -69,20 +71,32 @@ const ConnectModal = ({ isOpen, onClose }) => {
 
           {/* 🖥️ Desktop modal */}
           <motion.div className="modal-content desktop-modal" variants={modalVariants}>
-            <button
+
+           <motion.img 
+              className="modal-bgg" 
+              src={Modalbg} 
+              alt=""
+              initial={{ scale: 0.999, filter: "blur(10px)" }}
+              animate={{ scale: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            />  
+
+            
+            <div className="modal-con">
+              <button
               className="close-btn fluent--ios-arrow-24-filled"
               onClick={onClose}
             ></button>
             <div className="nav-left">
               <motion.div custom={0} variants={itemVariants}>
-                <div>●</div>
-                <p>Connect With Us</p>
+                <div className="nav-left-div-div">●</div>
+                <p className="nav-left-div-p">Connect With Us</p>
               </motion.div>
               <motion.p custom={1} variants={itemVariants} className="nav-left-p">
                 Working On Something Exciting? Let's Talk.
               </motion.p>
               <motion.div custom={2} variants={itemVariants}>
-                <ButtonSmall text="Let's Talk" />
+               <Link to='/contact'> <ButtonSmall text="Let's Talk" /></Link>
               </motion.div>
             </div>
 
@@ -100,8 +114,12 @@ const ConnectModal = ({ isOpen, onClose }) => {
     </motion.div>
   ))}
 </div>
+            </div>
 
           </motion.div>
+
+
+
 
           {/* 📱 Mobile modal */}
           <motion.div className="modal-content mobile-modal" variants={modalVariants}>

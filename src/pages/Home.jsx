@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Connect from '../assets/img/connect.svg'
-
+import SmoothScrollGSAP from "../components/SmoothScrollGSAP";
 gsap.registerPlugin(ScrollTrigger);
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
@@ -200,93 +200,61 @@ const Home = () => {
   }, []);
 
   // MVP Card animation
-  useEffect(() => {
-    gsap.set(".mvp-card", { opacity: 0 });
+useEffect(() => {
+  gsap.set(".mvp-card", { opacity: 0 });
 
-    let mm = gsap.matchMedia();
+  let mm = gsap.matchMedia();
 
-    // Desktop version (scroll-based)
-    mm.add("(min-width: 771px)", () => {
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".mvp-cardcon",
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
+  // Desktop animation only (scroll-based)
+  mm.add("(min-width: 771px)", () => {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mvp-cardcon",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
+      },
+    })
+      .to(".mvp-card1", {
+        opacity: 1,
+        x: -260,
+        rotate: -18,
+        duration: 1.2,
+        ease: "power3.out",
       })
-        .to(".mvp-card1", {
+      .to(
+        ".mvp-card2",
+        {
           opacity: 1,
-          x: -260,
-          y: 0,
-          rotate: -18,
+          x: 0,
+          rotate: 0,
           duration: 1.2,
           ease: "power3.out",
-        })
-        .to(
-          ".mvp-card2",
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            rotate: 0,
-            duration: 1.2,
-            ease: "power3.out",
-          },
-          "-=0.9"
-        )
-        .to(
-          ".mvp-card3",
-          {
-            opacity: 1,
-            x: 260,
-            y: 0,
-            rotate: 18,
-            duration: 1.2,
-            ease: "power3.out",
-          },
-          "-=0.9"
-        );
-    });
-
-    // Mobile version (runs immediately on load, no scrollTrigger)
-    mm.add("(max-width: 770px)", () => {
-      gsap.timeline()
-        .to(".mvp-card1", {
+        },
+        "-=0.9"
+      )
+      .to(
+        ".mvp-card3",
+        {
           opacity: 1,
-          x: -150,
-          y: 0,
-          rotate: -20,
-          duration: 0.5,
+          x: 260,
+          rotate: 18,
+          duration: 1.2,
           ease: "power3.out",
-        })
-        .to(
-          ".mvp-card2",
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            rotate: 0,
-            duration: 0.6,
-            ease: "power3.out",
-          },
-          "-=0.4"
-        )
-        .to(
-          ".mvp-card3",
-          {
-            opacity: 1,
-            x: 150,
-            y: 0,
-            rotate: 20,
-            duration: 0.7,
-            ease: "power3.out",
-          },
-          "-=0.4"
-        );
-    });
+        },
+        "-=0.9"
+      );
+  });
 
-    return () => mm.revert();
-  }, []);
+  // Mobile — NO animation, show instantly
+  mm.add("(max-width: 770px)", () => {
+    gsap.set(".mvp-card1", { opacity: 1, x: "0", rotate: 0 });
+    gsap.set(".mvp-card2", { opacity: 1, x: "0", rotate: 0 });
+    gsap.set(".mvp-card3", { opacity: 1, x: "0", rotate: 0 });
+  });
+
+  return () => mm.revert();
+}, []);
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -391,8 +359,10 @@ const Home = () => {
   return (
     <div>
       <div className="app" id="smooth-wrapper" ref={section}>
+        <SmoothScrollGSAP />
         <Nav />
-        <div className="hero sectionCon">
+        {/* =============hero section============== */}
+        <div  className="hero sectionCon smoothsection">
           <h1 className="spread-h1" ref={titleRef}>STRIX</h1>
           <p className="spread-txt" ref={subTextRef}>Where Creative Strategy Meets Scalable Technology</p>
           <div className="half-circle-container">
@@ -471,7 +441,9 @@ const Home = () => {
           </motion.div>
         </div>
 
-        <div className="sectionCon explore relative overflow-hidden explore-desk">
+
+          {/* =============section 2============== */}
+        <div className="smoothsection sectionCon explore relative overflow-hidden explore-desk">
           <div className="section-container2">
             <div className="blur-box">
               <input type="text" placeholder="Type here..." />
@@ -508,16 +480,17 @@ const Home = () => {
             className="shadow2 absolute bottom-0 right-0 w-40"
           />
         </div>
-
-        <div className="motion sectionCon">
+        
+        {/* =============section 3============== */}
+        <div className="smoothsection motion sectionCon">
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
-          <SmoothTextReveal as="h1" className="section-header2">Real Work. Real Results</SmoothTextReveal>
+          <SmoothTextReveal as="h1" className="section-header2 delay1">Real Work. Real Results</SmoothTextReveal>
 
           <div className="number-container">
             <img src={Shadow4} className="shadow4" alt="" />
-            <div className="num1">
+            <div className="num1 delay2">
               <div>
                 <CountUp
                   from={10}
@@ -576,13 +549,18 @@ const Home = () => {
           </SmoothTextReveal>
           <Button text="Explore Cases" />
         </div>
+        
 
-        <div className="logo-loop sectionCon">
+        {/* =============section 4============== */}
+        <div className="smoothsection logo-loop sectionCon">
           <Loop />
         </div>
 
-        <div className="services circcon sectionCon">
-          <SmoothTextReveal as="h1" className="section-header">
+
+
+        {/* =============section 5============== */}
+        <div className="smoothsection services circcon sectionCon">
+          <SmoothTextReveal as="h1" className="section-header delay3">
             We Build Experiences that Breathe
           </SmoothTextReveal>
 
@@ -650,9 +628,12 @@ const Home = () => {
           </SmoothTextReveal>
           <Button text="Our Services" />
         </div>
+      
 
-        <div className="sectionCon services services-mvp">
-          <SmoothTextReveal as="h1" className="section-header">From Idea to Market in 4 Weeks</SmoothTextReveal>
+
+      {/* =============section 6============== */}
+        <div className="smoothsection sectionCon services services-mvp">
+          <SmoothTextReveal as="h1" className="section-header delay3">From Idea to Market in 4 Weeks</SmoothTextReveal>
           <div className="mvp-cardcon mvp-desk">
             <img
               src={Shadow1}
@@ -715,8 +696,11 @@ const Home = () => {
           <ButtonSmall text="Build MVP" />
         </div>
 
-        <section className="sectionCon services service-pro relative">
-          <SmoothTextReveal as="h1" className="section-header3">Strix Production</SmoothTextReveal>
+
+
+        {/* =============section 7============== */}
+        <section className="smoothsection sectionCon services service-pro relative">
+          <SmoothTextReveal as="h1" className="section-header3 delay3">Strix Production</SmoothTextReveal>
 
           <div className="coin-con flex justify-center items-center">
             <video
@@ -748,7 +732,10 @@ const Home = () => {
           />
         </section>
 
-        <div className="zle circcon portfolio relative">
+
+
+       {/* =============section 8============== */}
+        <div className="smoothsection zle circcon portfolio relative">
           <img
             src={Shadow1}
             alt=""
@@ -760,7 +747,7 @@ const Home = () => {
             className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
           />
 
-          <SmoothTextReveal as="h1" className="section-header2">Our Craft, Your Expression.</SmoothTextReveal>
+          <SmoothTextReveal as="h1" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
 
           <div className="links">
             <PortfolioLink delay={0}>Branding</PortfolioLink>
@@ -780,18 +767,24 @@ const Home = () => {
           </div>
         </div>
 
+
+
+       {/* =============section 10============== */}
         <div className="sectionCon testimonial-con">
-          <SmoothTextReveal as="h1" className="section-header2">
+          <SmoothTextReveal as="h1" className="section-header2 delay2">
             What our clients say
           </SmoothTextReveal>
-          <SmoothTextReveal as="p" className="text-pp" delay={0.2}>
+          <SmoothTextReveal as="p" className="text-pp delay3" delay={0.2}>
             Real stories from the brands and people we've helped grow, design,
             and stand out
           </SmoothTextReveal>
           <TestimonialCarousel />
         </div>
 
-        <div className="zle booking">
+
+
+ {/* =============section 10============== */}
+        <div className="zle booking delay3">
           <BlurTextReveal>
             Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
           </BlurTextReveal>

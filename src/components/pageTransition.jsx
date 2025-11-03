@@ -15,28 +15,22 @@ const PageTransition = ({ children }) => {
 
   // ✅ Instantly scroll to top when route changes (no smooth behavior)
   useEffect(() => {
-    window.scrollTo(0, 0); // Instant scroll
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const handleRouteChange = useCallback(
-    (url) => {
-      if (isTransitioning.current) return;
-      isTransitioning.current = true;
-      coverPage(url);
-    },
-    []
-  );
+  const handleRouteChange = useCallback((url) => {
+    if (isTransitioning.current) return;
+    isTransitioning.current = true;
+    coverPage(url);
+  }, []);
 
   const onAnchorClick = useCallback(
     (e) => {
       const href = e.currentTarget.getAttribute("href");
       if (!href.startsWith("/")) return;
       e.preventDefault();
-
       if (isTransitioning.current) return;
-      if (href !== location.pathname) {
-        handleRouteChange(href);
-      }
+      if (href !== location.pathname) handleRouteChange(href);
     },
     [location.pathname, handleRouteChange]
   );
@@ -44,25 +38,31 @@ const PageTransition = ({ children }) => {
   const revealPage = useCallback(() => {
     if (revealTimeoutRef.current) clearTimeout(revealTimeoutRef.current);
 
+    if (!blocksRef.current.length) return;
+
     gsap.set(blocksRef.current, { scaleX: 1, transformOrigin: "right" });
+
     gsap.to(blocksRef.current, {
       scaleX: 0,
       duration: 0.4,
       stagger: 0.02,
       ease: "power2.out",
       transformOrigin: "right",
-      onStart: () => {
-        // ✅ Ensure page is at top before revealing
-        window.scrollTo(0, 0);
-      },
+      onStart: () => window.scrollTo(0, 0),
       onComplete: () => {
         isTransitioning.current = false;
-        overlayRef.current.style.pointerEvents = "none";
-        logoOverlayRef.current.style.pointerEvents = "none";
+
+        if (overlayRef.current)
+          overlayRef.current.style.pointerEvents = "none";
+
+        if (logoOverlayRef.current)
+          logoOverlayRef.current.style.pointerEvents = "none";
       },
     });
 
     revealTimeoutRef.current = setTimeout(() => {
+      if (!blocksRef.current.length) return;
+
       gsap.to(blocksRef.current, {
         scaleX: 0,
         duration: 0.2,
@@ -93,39 +93,45 @@ const PageTransition = ({ children }) => {
     links.forEach((link) => link.addEventListener("click", onAnchorClick));
 
     return () => {
-      links.forEach((link) => link.removeEventListener("click", onAnchorClick));
-      if (revealTimeoutRef.current) clearTimeout(revealTimeoutRef.current);
+      links.forEach((link) =>
+        link.removeEventListener("click", onAnchorClick)
+      );
+
+      if (revealTimeoutRef.current)
+        clearTimeout(revealTimeoutRef.current);
     };
   }, [location, onAnchorClick, revealPage]);
 
   const coverPage = (url) => {
-    // ✅ Scroll to top immediately when transition starts
     window.scrollTo(0, 0);
-    
-    overlayRef.current.style.pointerEvents = "auto";
-    logoOverlayRef.current.style.pointerEvents = "auto";
+
+    if (overlayRef.current)
+      overlayRef.current.style.pointerEvents = "auto";
+    if (logoOverlayRef.current)
+      logoOverlayRef.current.style.pointerEvents = "auto";
 
     const tl = gsap.timeline({
-      onStart: () => {
-        // ✅ Force scroll again when animation starts
-        window.scrollTo(0, 0);
-      },
+      onStart: () => window.scrollTo(0, 0),
       onComplete: () => {
         navigate(url);
-        // ✅ Force scroll after navigation
         window.scrollTo(0, 0);
       },
     });
 
-    tl.to(blocksRef.current, {
-      scaleX: 1,
-      duration: 0.4,
-      stagger: 0.02,
-      ease: "power2.out",
-      transformOrigin: "left",
-    })
-      .to(logoOverlayRef.current, { opacity: 1, duration: 0.2 }, "-=0.2")
-      .to(logoOverlayRef.current, { opacity: 0, duration: 0.25 }, "+=0.5");
+    if (blocksRef.current.length) {
+      tl.to(blocksRef.current, {
+        scaleX: 1,
+        duration: 0.4,
+        stagger: 0.02,
+        ease: "power2.out",
+        transformOrigin: "left",
+      });
+    }
+
+    if (logoOverlayRef.current) {
+      tl.to(logoOverlayRef.current, { opacity: 1, duration: 0.2 }, "-=0.2")
+        .to(logoOverlayRef.current, { opacity: 0, duration: 0.25 }, "+=0.5");
+    }
   };
 
   return (

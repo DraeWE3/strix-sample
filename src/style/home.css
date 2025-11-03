@@ -694,7 +694,7 @@ height: 100%;
   position: absolute;
   top: 0%;
   left: 50%;
-  transform: translate(-50%); /* perfect center */
+  transform: translate(-50%);
   width: 17rem;
   height: auto;
 }
@@ -1463,13 +1463,13 @@ height: 100%;
 }
 
 .mvp-cardcon{
-  height: 20rem;
+  height: fit-content;
   margin-top: 2rem;
 }
 
 
 .mvp-card{
-  width: 14rem;
+  width: 14.5rem !important;
 }
 
 .mvp-card {
@@ -1785,4 +1785,26 @@ transform: none !important;
   gap: 5vh;
   width: 100%;
   height: 100vh;
+}
+
+
+
+
+@media (max-width: 770px) {
+  .altcard.mobile-stack {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* This creates scroll space for the pinning effect */
+    padding-bottom: 100vh;
+  }
+  
+  .altcard.mobile-stack > * {
+    width: 100%;
+  }
+
+.mvp-card {
+  position: relative;
+  margin-bottom: 2rem;
+}
 }
