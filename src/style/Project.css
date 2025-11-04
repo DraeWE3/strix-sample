@@ -338,8 +338,10 @@
 .book-container{
   width: 100%;
   padding: 8% 10%;
-  /* padding-bottom: 0 !important; */
+  padding-bottom: 2% !important;
   position: relative;
+  height: fit-content;
+  overflow-y: hidden;                                                                                                                                                         
 }
 
 
@@ -362,7 +364,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  width: 60%;
   text-align: center;
   display: flex;
   align-items: center;
@@ -383,7 +385,7 @@
 
 .book-ab p{
   margin: 0;
-  margin-bottom: 15%;
+  margin-bottom: 9%;
   width: 70%;
   line-height: 1.8rem;
 }
@@ -425,26 +427,7 @@
 }
 }
 
-@media (max-width: 600px){
-  .book-ab h1{
-    font-size: 20px;
-    line-height: 1.5rem;
-  }
 
-  .bool-container-card{
-    padding: 0%;
-  }
-
-  .book-ab p{
-    font-size: 10px;
-    line-height: 1.1rem;
-    width: 100%;
-  }
-
-  .book-ab img{
-  width: 70%;
-}
-}
 
 .p-blur1{
   position: absolute;
@@ -504,7 +487,7 @@
 
 .blur7{
   position: absolute;
-  top: -50%;
+  top: -20%;
   right: 0;
   width: 35%;
   height: auto;
@@ -565,4 +548,95 @@
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
   transform: scale(1.02);
   filter: brightness(1) contrast(1.05);
+}
+
+
+.logo-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  animation: scrollLogos 20s linear infinite;
+  width: max-content;
+}
+
+.loop-img {
+  height: 50px; /* adjust if needed */
+  opacity: 0.8;
+  transition: opacity 3.3s ease;
+}
+
+.loop-img:hover {
+  opacity: 1;
+}
+
+@keyframes scrollLogos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 600px){
+  .book-ab h1{
+    font-size: 20px;
+    line-height: 1.5rem;
+  }
+
+  .bool-container-card{
+    padding: 0%;
+  }
+
+  .book-ab p{
+    font-size: 10px;
+    line-height: 1.1rem;
+    width: 100%;
+  }
+
+  .book-ab img{
+  width: 70%;
+}
+
+.book-container{
+  padding: 10% 5%;
+}
+
+.bookbg{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.loop-img {
+  height: 30px; 
+}
+
+.sec2-ptxt {
+  font-size: 18px;
+}
+
+.sec2-btn-con{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.sec2-btn-con div p{
+  font-size: 12px !important;
+}
+
+.sec2-btn-con div{
+}
+
+.project-logo-loop{
+  padding: 10% 0;
+}
 }

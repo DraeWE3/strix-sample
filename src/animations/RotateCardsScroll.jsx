@@ -30,7 +30,7 @@ export default function RotateCardsScroll() {
             ease: "power3.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 85%",
+              start: "top 95%",
               end: "top 40%",
               scrub: 1.2,
               toggleActions: "play reverse play reverse",

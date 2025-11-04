@@ -138,8 +138,8 @@ const Project = () => {
                 <img src={Blur5} className='p-blur5' />
                 <img src={Blur6} className='p-blur6' />
               </div>
-              <p className='sec2-ptxt slidein'>Projects tailored to your industry or need are available on request.</p>
-              <BtnNormsall text="Know More" />
+              <p className='sec2-ptxt '>Projects tailored to your industry or need are available on request.</p>
+              <BtnNormsall className='' text="Know More" />
             
           </div>
 
@@ -156,7 +156,23 @@ const Project = () => {
             <div className="book-ab">
               <h1 className='delay2'>Turn Your Vision Into an Experience That Lasts</h1>
               <p className='delay3'>You have a story worth sharing — we help you tell it in a way that’s impossible to ignore.</p>
-              <img src={BookTxt} alt="" />
+              
+            <div className="logo-slider">
+  <div className="logo-track">
+    {[...Array(2)].map((_, i) => (
+      <>
+        <img key={`logo1-${i}`} src={BookTxt} alt="" className="loop-img" />
+        <img key={`logo2-${i}`} src={BookTxt} alt="" className="loop-img" />
+        <img key={`logo3-${i}`} src={BookTxt} alt="" className="loop-img" />
+        <img key={`logo4-${i}`} src={BookTxt} alt="" className="loop-img" />
+        <img key={`logo5-${i}`} src={BookTxt} alt="" className="loop-img" />
+        <img key={`logo6-${i}`} src={BookTxt} alt="" className="loop-img" />
+      </>
+    ))}
+  </div>
+</div>
+
+
             </div>
           </div>
 
