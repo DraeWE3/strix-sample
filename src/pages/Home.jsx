@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Connect from '../assets/img/connect.svg'
-import SmoothScrollGSAP from "../components/SmoothScrollGSAP";
+import SmoothScrollGSAP from "../animations/SmoothScrollGSAP";
 gsap.registerPlugin(ScrollTrigger);
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";

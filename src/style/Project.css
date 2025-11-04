@@ -15,6 +15,7 @@
   -webkit-text-fill-color: transparent;
   font-size: 100px;
   margin: 0;
+  opacity: 0;
   margin-top: 8%;
 }
 
@@ -24,6 +25,7 @@
   font-size: 20px;
   line-height: 2.3rem;
   color: #dcdcdc;
+  opacity: 0;
 }
 
 .project-carousel-con{  
@@ -41,9 +43,10 @@
 .ProjectCircle{
   position: absolute;
     position: absolute;
-    top: 50%;
+    /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  top: -70% !important;
   width: 70rem !important;
   height: auto;
   object-fit: cover;
@@ -89,7 +92,7 @@
   cursor: pointer;
   font-weight: 500;
   color: #fff;
-  margin: 0;
+  margin-top: 1.8rem;
   /* Background image settings */
   background-image: url('../assets/img/link-btn.webp');
   background-position: center;
@@ -224,6 +227,11 @@
 
 .p-sec2-card{
  width: 45%;
+  /* transform: rotate(18deg); */
+}
+
+.p-sec2-card1{
+  /* transform: rotate(-18deg); */
 }
 
 .linkkk{
@@ -237,7 +245,7 @@
   padding: 1px; /* thickness of gradient border */
   background-clip: padding-box;
   border: 2px solid transparent;
-  /* transform: rotate(18deg); */
+ 
 }
 
 .p-sec2-card p{
@@ -258,7 +266,18 @@
   background: none;
   width: 1.2rem;
   margin-bottom: 18px;
+  transition: 
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
 }
+
+/* Smooth rotate + soft pop */
+.p-sec2-card div .icon:hover{
+  transform: rotate(43deg) scale(1.12);
+  filter: brightness(1.1);
+}
+
 
 .p-sec2-card div h2{
   margin-top: 0;
@@ -305,6 +324,12 @@
 }
 }
 
+.p-sec2-card,
+.p-sec2-card1 {
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
+}
+
 
 
 /* ======================Book call=================== */
@@ -313,6 +338,7 @@
 .book-container{
   width: 100%;
   padding: 8% 10%;
+  /* padding-bottom: 0 !important; */
   position: relative;
 }
 
@@ -320,10 +346,13 @@
 .bool-container-card{
   padding: 0 10%;
   position: relative;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bookbg{
-  width: 100%;
+  width: 90%;
   height: auto;
   object-fit: cover;
 }
@@ -347,8 +376,8 @@
   background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 50px;
-  line-height: 4rem;
+  font-size: 40px;
+  line-height: 3rem;
   margin-bottom: 10px;
 }
 
@@ -491,5 +520,49 @@
   object-fit: cover;
 }
 
+.p-carousel-container{
+   animation: fadeIn 1s ease-out 2s forwards;
+   opacity: 0;
+}
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+@media (max-width: 400px) {
+   .ProjectCircle{
+    top: -25% !important;
+   }
+
+   .project-hero-h1{
+    font-size: 17vw;
+   }
+}
+
+.p-sec2-card-img {
+  width: 100%;
+  display: block;
+  transform-origin: center;
+  
+  /* fade bottom to dark */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  
+  /* smooth animation */
+  transition:
+    mask-image 0.55s cubic-bezier(0.25, 1, 0.30, 1),
+    -webkit-mask-image 0.55s cubic-bezier(0.25, 1, 0.30, 1),
+    transform 0.55s cubic-bezier(0.25, 1, 0.30, 1),
+    filter 0.55s cubic-bezier(0.25, 1, 0.30, 1);
+  
+  filter: brightness(0.88) contrast(0.95);
+}
+
+/* Hover reveal + cinematic zoom */
+.p-sec2-card-img:hover {
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%);
+  transform: scale(1.02);
+  filter: brightness(1) contrast(1.05);
+}

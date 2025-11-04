@@ -3,6 +3,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Pi1 from "../assets/img/proca1.webp";
 import Pi2 from "../assets/img/proca2.webp";
 import Pi3 from "../assets/img/proca3.webp";
+import Pi4 from '../assets/img/pi4.webp'
+import Pi5 from '../assets/img/pi5.webp'
+import Pi6 from '../assets/img/pi6.webp'
+import Pi7 from '../assets/img/pi7.webp'
 import '../style/carousal.css';
 
 const ProjectCarousel = () => {
@@ -31,10 +35,10 @@ const ProjectCarousel = () => {
     { id: 1, image: Pi1, title: "Modern Architecture" },
     { id: 2, image: Pi2, title: "Futuristic Design" },
     { id: 3, image: Pi3, title: "Eco Smart Home" },
-    { id: 4, image: Pi1, title: "Urban Lifestyle" },
-    { id: 5, image: Pi2, title: "Luxury Interior" },
-    { id: 6, image: Pi3, title: "Creative Workspace" },
-    { id: 7, image: Pi1, title: "Minimalist Haven" },
+    { id: 4, image: Pi4, title: "Urban Lifestyle" },
+    { id: 5, image: Pi5, title: "Luxury Interior" },
+    { id: 6, image: Pi6, title: "Creative Workspace" },
+    { id: 7, image: Pi7, title: "Minimalist Haven" },
   ];
 
   const infiniteItems = [...carouselData, ...carouselData, ...carouselData];
