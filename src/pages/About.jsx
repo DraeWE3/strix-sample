@@ -34,14 +34,20 @@ import Ethcard2 from '../assets/img/etcard2.webp'
 import ValBg1 from '../assets/img/valuebg1.webp'
 import ValBg2 from '../assets/img/valuebg2.webp'
 import ValBg3 from '../assets/img/valuebg3.webp'
+import SlideInFramerAuto from '../animations/SlideInFramer'
+import SplitTextOnLoad from '../animations/SplitTextOnLoad'
 
 
 const About = () => {
   return (
     <div>
       <Nav />
+      <SlideInFramerAuto />
+      <SplitTextOnLoad />
+
+
       <div className="about-hero">
-          <div className="sh-top uiux-hero">
+          <div className="slidein sh-top uiux-hero">
                   <img src={Circleblur} alt="" />
                   <h1>We craft impact. <br/>Not noise.</h1>
                 </div>

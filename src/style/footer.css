@@ -17,6 +17,7 @@
   flex-direction: column;
   position: relative;
       z-index: 5;
+      margin-bottom: 1rem !important;
 }
 
 .quote {
@@ -72,17 +73,20 @@ font-size: 14px;
 
 .ft-links .hea{
     margin-bottom: 5px;
+    color: #fff !important;
 }
 
 .ft-num{
     color: #fff !important;
-    font-size: 18px !important;
+    font-size: 15px !important;
     text-align: start !important;
     margin-bottom: 0;
 }
 
 .hea{
-    font-family: cd-reg;
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 550;
+    margin-bottom: 1.2rem !important;
 }
 
 .ft-icon{
@@ -254,6 +258,7 @@ font-size: 14px;
 
 .footer-pp{
   font-size: 18px;
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 770px) {

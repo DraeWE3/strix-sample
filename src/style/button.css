@@ -16,6 +16,7 @@
   padding-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  font-family: cd-red;
 }
 
 .space-btn{
@@ -35,6 +36,8 @@
   margin: 0;
   text-align: center;
   font-size: 1rem;
+   font-family: 'Clash Display', sans-serif;
+   font-weight: 500;
 }
 
 .btn:active{

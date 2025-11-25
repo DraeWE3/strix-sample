@@ -421,8 +421,8 @@ useEffect(() => {
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
               
-              <Link to='/'><ButtonArrow text="Get Started" /></Link>
-              <Link><Button text="Explore Work" /></Link>
+              <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
+              <Link to='/project'><Button text="Explore Work" /></Link>
               
             </motion.div>
 
