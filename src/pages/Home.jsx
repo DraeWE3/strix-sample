@@ -421,8 +421,8 @@ useEffect(() => {
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
               
-              <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
-              <Link to='/project'><Button text="Explore Work" /></Link>
+              <Link to='/cs'><ButtonArrow text="Get Started" /></Link>
+              <Link to='/cs'><Button text="Explore Work" /></Link>
               
             </motion.div>
 
@@ -547,7 +547,10 @@ useEffect(() => {
             Trusted by brands that demand Excellence - we deliver creative-tech
             solutions that don't just look good, they perform where it matters
           </SmoothTextReveal>
+         <Link to="/cs">
           <Button text="Explore Cases" />
+         </Link>
+         
         </div>
         
 
@@ -626,7 +629,10 @@ useEffect(() => {
             end-to-end solutions that define, design, and develop your brand's
             digital presence
           </SmoothTextReveal>
+          <Link to="/cs">
           <Button text="Our Services" />
+          </Link>
+          
         </div>
       
 
@@ -655,7 +661,10 @@ useEffect(() => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Shape your concept into a roadmap</p>
-                  <CardBtn text="Know more" />
+                  <Link to="/cs">
+                   <CardBtn text="Know more" />
+                  </Link>
+                 
                 </div>
               </div>
             </div>
@@ -669,7 +678,10 @@ useEffect(() => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Create intuitive flows, protoypes & More</p>
-                  <CardBtn text="Know more" />
+                 
+                   <Link to="/cs">
+                   <CardBtn text="Know more" />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -683,7 +695,10 @@ useEffect(() => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Full-stack, scalable builds</p>
+                  
+                   <Link to="/cs">
                   <CardBtn text="Know more" />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -762,7 +777,10 @@ useEffect(() => {
 
             <Carousel />
             <div className="cl-btn mt-10">
-              <ButtonSmall text="Portfolio" />
+               <Link to="/cs">
+                          <ButtonSmall text="Portfolio" />
+                  </Link>
+      
             </div>
           </div>
         </div>
@@ -815,7 +833,10 @@ useEffect(() => {
               </div>
             </Link>
           </div>
-          <Button text="Book Appointment" />
+          <a target="_blank" href="https://calendly.com/strixmufasa/30min">
+           <Button text="Book Appointment" />
+          </a>
+         
         </div>
       </div>
 

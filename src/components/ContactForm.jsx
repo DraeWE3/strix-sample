@@ -179,7 +179,7 @@ const handleNextWithValidation = () => {
           name={field} 
           value={formData[field]} 
           onChange={handleInputChange} 
-          className="form-input" 
+          className="form-inputc" 
           required 
         />
       </div>
@@ -233,7 +233,7 @@ const handleNextWithValidation = () => {
         {currentSection === 4 && (
           <div className="section">
             <div className="section-hflex"><div className="diamond-icon">◇</div><h1 className="mess-section-title">Your Message</h1></div>
-            <textarea name="message" value={formData.message} onChange={handleInputChange} className="message-textarea" />
+            <textarea name="message" placeholder='Ask you query....' value={formData.message} onChange={handleInputChange} className="message-textarea" />
 
             <div className="checkbox-container">
               <label className="container-toggle">

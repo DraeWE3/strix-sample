@@ -96,7 +96,7 @@ const DesignModal = ({ isOpen, onClose }) => {
 
             <div className="mcp-con">
               <div className="mcp-left">
-                <Link to="/uiux">
+                <Link to="/cs">
                   <div className="table">
                     <img src={Icon1} alt="" className="t-icon" />
                     <div className="t-txt">
