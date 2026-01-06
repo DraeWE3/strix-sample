@@ -20,7 +20,7 @@ export default function SlideInFramerLoad() {
           { opacity: 1, y: 0, filter: "blur(0px)" },
           { duration: 0.9, ease: "easeOut" }
         );
-      }, delay * 1000);
+      }, delay * 3000);
     });
   }, []);
 

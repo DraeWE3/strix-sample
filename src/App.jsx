@@ -14,6 +14,10 @@ import Url from "./components/route";
 import AdminPanel from "./admin/admin";
 import Blog from "./pages/Blog";
 import BlogDetails from "./pages/BlogDetails";
+import Mvp from "./pages/Mvp";
+import Cookies from "./pages/Cookies";
+import Policy from "./pages/Policy";
+import Term from "./pages/Term";
 
 const App = () => {
   return (
@@ -33,6 +37,10 @@ const App = () => {
           <Route path="/Url" element={<Url />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/mvp" element={<Mvp />} />
+          <Route path="/cookies" element={<Cookies />} />
+          <Route path="/term" element={<Term />} />
+          <Route path="/policy" element={<Policy />} />
         </Routes>
       </PageTransition>
     </BrowserRouter>

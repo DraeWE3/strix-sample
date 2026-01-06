@@ -58,13 +58,11 @@
     justify-content: center;
     position: relative;
 }
-.video-card-container {
-         
-          width: 70vw;
-          aspect-ratio: calc(70 / 75);
-          height: 75vh;
+.video-card-container {        
+          width: 78vw;
+          height: 85vh;
           background: #000;
-          border-radius: 2rem;
+          border-radius: 4rem;
           overflow: hidden;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
           position: relative;
@@ -165,10 +163,7 @@ border: 1px solid rgba(255, 255, 255, 0.5);
 
         /* Responsive styles */
         @media (max-width: 1365px) {
-          .video-card-container {
-            width: 90vw;
-            height: 75vh;
-          }
+        
 
           .play-button {
             width: 70px;
@@ -185,11 +180,7 @@ border: 1px solid rgba(255, 255, 255, 0.5);
           }
         }
 
-        @media (max-width: 1365px){
-            .video-card-container{
-                height: 50vw;
-            }
-        }
+    
 
         @media (max-width: 768px) {
           .video-card-container {

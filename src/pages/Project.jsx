@@ -169,7 +169,7 @@ const Project = () => {
       <StaggerOnScroll />
 
       <div className="project-hero">
-        <h1 className='project-hero-h1 splitheader'>Projects</h1>
+        <h1 className='project-hero-h1 slideinLoad'>Projects</h1>
         <p className='project-hero-p slideinLoad'>Explore how we craft experiences that work and wow - one project at a time</p>
         <div className='project-carousel-con'>
           <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle"/>

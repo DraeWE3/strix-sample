@@ -109,9 +109,9 @@ const Footer = () => {
 
         <div className="ft-links">
           <p className="hea">Legal</p>
-          <p className="ft-num">Terms of Services</p>
-          <p className="ft-num">Privacy Policy</p>
-          <p className="ft-num">Cookie Policy</p>
+          <Link to="/term"><p className="ft-num">Terms of Services</p></Link>
+          <Link to="/policy"><p className="ft-num">Privacy Policy</p></Link>
+          <Link to="/cookies"> <p className="ft-num">Cookie Policy</p></Link>           
         </div>
       </div>
 

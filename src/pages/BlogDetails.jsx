@@ -10,6 +10,9 @@ import { collection, getDocs, doc, updateDoc, increment } from 'firebase/firesto
 import { db } from '../admin/firebaseconfig';
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
+import Love from "../assets/img/love.svg"
+import Save from "../assets/img/save.svg"
+import Share from "../assets/img/share.svg"
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -194,30 +197,30 @@ const BlogDetails = () => {
 
             {/* Social Icons */}
             <div className="blog-iconn">
-              <button 
+              <div
                 className={`blog-action-btn love ${liked ? 'active' : ''}`} 
                 onClick={handleLike}
                 title="Like"
               >
-                <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
+                <img className='reaction' src={Love} alt="" />
                 {likeCount > 0 && <span className="like-count">{likeCount}</span>}
-              </button>
+              </div>
               
-              <button 
+              <div
                 className={`blog-action-btn favourite ${bookmarked ? 'active' : ''}`} 
                 onClick={handleBookmark}
                 title="Bookmark"
               >
-                <Bookmark size={20} fill={bookmarked ? 'currentColor' : 'none'} />
-              </button>
+                <img className='reaction' src={Save} alt="" />
+              </div>
               
-              <button 
+              <div 
                 className="blog-action-btn share" 
                 onClick={handleShare}
                 title="Share"
               >
-                <Share2 size={20} />
-              </button>
+                <img className='reaction' src={Share} alt="" />
+              </div>
             </div>
 
             {/* Remaining content */}

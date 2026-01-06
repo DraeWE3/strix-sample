@@ -5,6 +5,7 @@ import '../style/home.css'
 const Url = () => {
   return (
     <div className='url-con'>
+      <Link to='/mvp'>MVP</Link>
       <Link to='/service'>Services</Link>
       <Link to="/about">About</Link>
       <Link to="/Project">Project</Link>

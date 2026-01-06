@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import BtnNormsall from '../components/normSmall-btn';
@@ -30,84 +30,316 @@ import Blur3 from '../assets/img/Ellipse 7.png'
 import Blur4 from '../assets/img/Ellipse 8.png'
 import Blur5 from '../assets/img/p-blur3.png'
 import Blur6 from '../assets/img/p-blur4.png'
-import HeroImg from '../assets/img/service-hero.webp'
+import HeroImg from '../assets/img/serv.webp'
 import Connect from '../assets/img/connect.svg'
+import DotGrid from "../animations/DotGrid";
+import ScaleInLoad from '../animations/ScaleInLoad'
+import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
+import ScrollAnimation from "../animations/scrollReveal";
+import gsap from "gsap";
+import Dev1 from "../assets/img/devc1.webp"
+import Dev2 from "../assets/img/devc2.webp"
+import Dev3 from "../assets/img/devc3.webp"
+import Dev4 from "../assets/img/devc4.webp"
+import Dev5 from "../assets/img/devc5.webp"
+import Dev6 from "../assets/img/devc6.webp"
+import Pro1 from "../assets/img/proc1.webp"
+import Pro2 from "../assets/img/proc2.webp"
+import Pro3 from "../assets/img/proc3.webp"
+import Pro4 from "../assets/img/proc4.webp"
+import Pro5 from "../assets/img/proc5.webp"
+import De1 from "../assets/img/dec1.webp"
+import De2 from "../assets/img/dec2.webp"
+import De3 from "../assets/img/dec3.webp"
+import De4 from "../assets/img/dec4.webp"
+import De5 from "../assets/img/dec5.webp"
+import De6 from "../assets/img/dec6.webp"
+import Devicon1 from "../assets/img/dev-i1.svg"
+import Devicon2 from "../assets/img/dev-i2.svg"
+import Devicon3 from "../assets/img/dev-i3.svg"
+import Devicon4 from "../assets/img/dev-i4.svg"
+import Devicon5 from "../assets/img/dev-i5.svg"
+import Devicon6 from "../assets/img/dev-i6.svg"
+import Proicon1 from "../assets/img/pro-i1.svg"
+import Proicon2 from "../assets/img/pro-i2.svg"
+import Proicon3 from "../assets/img/pro-i3.svg"
+import Proicon4 from "../assets/img/pro-i4.svg"
+import Proicon5 from "../assets/img/pro-i5.svg"
+
+
 
 const Service = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoexRef = useRef(null)
+  
+  // Parallax refs
+  const heroRef = useRef(null);
+  const designRef = useRef(null);
+  const devRef = useRef(null);
+  const proRef = useRef(null);
+  
+  // Parallax scroll values
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const { scrollYProgress: designScroll } = useScroll({
+    target: designRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const { scrollYProgress: devScroll } = useScroll({
+    target: devRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const { scrollYProgress: proScroll } = useScroll({
+    target: proRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Transform values for parallax effects
+  const heroY = useTransform(heroScroll, [0, 1], ["0%", "50%"]);
+  const heroOpacity = useTransform(heroScroll, [0, 0.5, 1], [1, 0.8, 0.3]);
+  
+  const designY = useTransform(designScroll, [0, 1], ["10%", "-10%"]);
+  const devY = useTransform(devScroll, [0, 1], ["10%", "-10%"]);
+  const proY = useTransform(proScroll, [0, 1], ["10%", "-10%"]);
+  
+  const blur1Y = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
+  const blur2Y = useTransform(heroScroll, [0, 1], ["0%", "-20%"]);
+
+  const CircleBlurAnimation = ({ src, className = "" }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+    return (
+      <motion.img
+        ref={ref}
+        src={src}
+        className={className}
+        initial={{
+          scale: 0.7,
+          opacity: 0,
+          x: "-50%",
+        }}
+        animate={
+          isInView
+            ? { scale: 1, opacity: 1, x: "-50%", } 
+            : { x: "-50%" }
+        }
+        transition={{
+          duration: 1.2,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+        style={{
+          position: "absolute",
+          left: "50%",
+          transformOrigin: "center center",
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+    if (window.innerWidth < 768) return
+    if (!videoexRef.current) return
+    const element = videoexRef.current
+
+    const ctx = gsap.context(() => {
+      gsap.to(element, {
+        width: '95vw',
+        height: '90vh',
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 80%',
+          end: 'top 20%',
+          scrub: 1,
+          toggleActions: 'play none none reverse',
+        },
+      })
+    })
+
+    return () => ctx.revert()
+  }, [])
 
   const handlePlay = () => {
     setIsPlaying(true);
   };
 
-const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
-  const [current, setCurrent] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const startX = useRef(0);
-  const moveX = useRef(0);
-  const autoSlideRef = useRef(null);
+  // DESIGN CAROUSEL STATE
+  const designSlides = [De1, De2, De3, De4, De5, De6];
+  const [designCurrent, setDesignCurrent] = useState(0);
+  const [designIsDragging, setDesignIsDragging] = useState(false);
+  const designStartX = useRef(0);
+  const designMoveX = useRef(0);
+  const designAutoSlideRef = useRef(null);
 
-  // Auto-slide every 6 seconds
   useEffect(() => {
-    startAutoSlide();
-    return () => clearInterval(autoSlideRef.current);
-  }, [current]);
+    startDesignAutoSlide();
+    return () => clearInterval(designAutoSlideRef.current);
+  }, [designCurrent]);
 
-  const startAutoSlide = () => {
-    clearInterval(autoSlideRef.current);
-    autoSlideRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+  const startDesignAutoSlide = () => {
+    clearInterval(designAutoSlideRef.current);
+    designAutoSlideRef.current = setInterval(() => {
+      setDesignCurrent((prev) => (prev + 1) % designSlides.length);
     }, 6000);
   };
 
-  const goToSlide = (index) => setCurrent(index);
+  const goToDesignSlide = (index) => setDesignCurrent(index);
 
-  // Drag/swipe handlers
-  const handleDragStart = (e) => {
-    setIsDragging(true);
-    startX.current = e.clientX || e.touches[0].clientX;
+  const handleDesignDragStart = (e) => {
+    setDesignIsDragging(true);
+    designStartX.current = e.clientX || e.touches[0].clientX;
   };
 
-  const handleDragMove = (e) => {
-    if (!isDragging) return;
-    moveX.current = e.clientX || e.touches[0].clientX;
+  const handleDesignDragMove = (e) => {
+    if (!designIsDragging) return;
+    designMoveX.current = e.clientX || e.touches[0].clientX;
   };
 
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    const diff = startX.current - moveX.current;
+  const handleDesignDragEnd = () => {
+    if (!designIsDragging) return;
+    const diff = designStartX.current - designMoveX.current;
     if (diff > 70) {
-      // swipe left
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setDesignCurrent((prev) => (prev + 1) % designSlides.length);
     } else if (diff < -70) {
-      // swipe right
-      setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+      setDesignCurrent((prev) => (prev - 1 + designSlides.length) % designSlides.length);
     }
-    setIsDragging(false);
+    setDesignIsDragging(false);
   };
 
+  // DEVELOPMENT CAROUSEL STATE
+  const devSlides = [Dev1, Dev2, Dev3, Dev4, Dev5, Dev6];
+  const [devCurrent, setDevCurrent] = useState(0);
+  const [devIsDragging, setDevIsDragging] = useState(false);
+  const devStartX = useRef(0);
+  const devMoveX = useRef(0);
+  const devAutoSlideRef = useRef(null);
+
+  useEffect(() => {
+    startDevAutoSlide();
+    return () => clearInterval(devAutoSlideRef.current);
+  }, [devCurrent]);
+
+  const startDevAutoSlide = () => {
+    clearInterval(devAutoSlideRef.current);
+    devAutoSlideRef.current = setInterval(() => {
+      setDevCurrent((prev) => (prev + 1) % devSlides.length);
+    }, 6000);
+  };
+
+  const goToDevSlide = (index) => setDevCurrent(index);
+
+  const handleDevDragStart = (e) => {
+    setDevIsDragging(true);
+    devStartX.current = e.clientX || e.touches[0].clientX;
+  };
+
+  const handleDevDragMove = (e) => {
+    if (!devIsDragging) return;
+    devMoveX.current = e.clientX || e.touches[0].clientX;
+  };
+
+  const handleDevDragEnd = () => {
+    if (!devIsDragging) return;
+    const diff = devStartX.current - devMoveX.current;
+    if (diff > 70) {
+      setDevCurrent((prev) => (prev + 1) % devSlides.length);
+    } else if (diff < -70) {
+      setDevCurrent((prev) => (prev - 1 + devSlides.length) % devSlides.length);
+    }
+    setDevIsDragging(false);
+  };
+
+  // PRODUCTION CAROUSEL STATE
+  const proSlides = [Pro1, Pro2, Pro3, Pro4, Pro5];
+  const [proCurrent, setProCurrent] = useState(0);
+  const [proIsDragging, setProIsDragging] = useState(false);
+  const proStartX = useRef(0);
+  const proMoveX = useRef(0);
+  const proAutoSlideRef = useRef(null);
+
+  useEffect(() => {
+    startProAutoSlide();
+    return () => clearInterval(proAutoSlideRef.current);
+  }, [proCurrent]);
+
+  const startProAutoSlide = () => {
+    clearInterval(proAutoSlideRef.current);
+    proAutoSlideRef.current = setInterval(() => {
+      setProCurrent((prev) => (prev + 1) % proSlides.length);
+    }, 6000);
+  };
+
+  const goToProSlide = (index) => setProCurrent(index);
+
+  const handleProDragStart = (e) => {
+    setProIsDragging(true);
+    proStartX.current = e.clientX || e.touches[0].clientX;
+  };
+
+  const handleProDragMove = (e) => {
+    if (!proIsDragging) return;
+    proMoveX.current = e.clientX || e.touches[0].clientX;
+  };
+
+  const handleProDragEnd = () => {
+    if (!proIsDragging) return;
+    const diff = proStartX.current - proMoveX.current;
+    if (diff > 70) {
+      setProCurrent((prev) => (prev + 1) % proSlides.length);
+    } else if (diff < -70) {
+      setProCurrent((prev) => (prev - 1 + proSlides.length) % proSlides.length);
+    }
+    setProIsDragging(false);
+  };
 
   return (
     <div>
+        <DotGrid
+          dotSize={2}
+          gap={24}
+          activeColor="#ffffff"
+        />
+         <ScaleInLoad />
+          <SlideInFramerOnLoad />
+          <ScrollAnimation />
       <Nav />
 
       {/* =============== service-hero ============ */}
-      <div className="service-hero">
-        <div className="sh-top">
+      <div className="service-hero" ref={heroRef}>
+        <motion.div 
+          className="sh-top sh-top-hero"
+          style={{ y: heroY, opacity: heroOpacity }}
+        >
           <img src={Circleblur} alt="" />
-          <h1>The Architects of Digital Excellence.</h1>
-          <p className="sh-top-p">
-            Empowering brands with future-ready solutions in Design,
-            Development, and Production that drive engagement, scalability, and
-            growth.
-          </p>
-          <BtnNormsall text='Know more' />
-        </div>
+          <h1 className="slideinLoad">The Architects of<br/> Digital Excellence.</h1>
+        </motion.div>
 
         <div className="case-box-con">
-          <img src={Blur3} className="blur3-hero-left" />
-            <img src={Blur4} className="blur3-hero-right"/>
-          <div className="video-card-container">
+          <motion.img 
+            src={Blur3} 
+            className="blur3-hero-left"
+            style={{ y: blur1Y }}
+          />
+          <motion.img 
+            src={Blur4} 
+            className="blur3-hero-right"
+            style={{ y: blur2Y }}
+          />
+          <div
+           ref={videoexRef}
+      style={{
+        width: '78vw',
+        height: '85vh'
+      }}
+
+      
+           className="video-card-container">
             {!isPlaying ? (
               <div className="video-thumbnail">
                 <img
@@ -144,51 +376,50 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
           </div>
 
         </div>
-                         <img src={Blur1} className='p-blur1' />
-                 <img src={Blur2} className='p-blur2' />
+        <motion.img src={Blur1} className='p-blur1' style={{ y: blur1Y }} />
+        <motion.img src={Blur2} className='p-blur2' style={{ y: blur2Y }} />
       </div>
 
       {/* =============== sr-txt-con============ */}
       <div className="service-hero sr-txt-con norm-pad">
-        <div className="sh-top">
+        <div className="sh-top sh-top-section">
           <img src={Circleblur} alt="" />
-          <h1>What we do at Strix Production?</h1>
-          <p className="sh-top-p">
+          <h1 className="scrollReveal">What we do at Strix Production?</h1>
+          <p className="sh-top-p scrollReveal">
              We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.
           </p>
-          <BtnNormsall text='Know more' />
+          <BtnNormsall className="scrollReveal" text='Know more' />
         </div>
       </div>
 
 
     {/* ===============Sr design============ */}
-    <div className="sr-design">
-        <h1 className='sr-design-h1'>Design</h1>
+    <motion.div className="sr-design" ref={designRef} style={{ y: designY }}>
+        <h1 className='sr-design-h1 scrollReveal'>Design</h1>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
   <div className="sr-carousel-con">
       <div
         className="sr-carousel-items"
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
+        onMouseDown={handleDesignDragStart}
+        onMouseMove={handleDesignDragMove}
+        onMouseUp={handleDesignDragEnd}
+        onMouseLeave={handleDesignDragEnd}
+        onTouchStart={handleDesignDragStart}
+        onTouchMove={handleDesignDragMove}
+        onTouchEnd={handleDesignDragEnd}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
-    transform: `translateX(-${current * (100 / 6)}%)`, // consistent step
-    width: "600%", // 6 slides * 100%
+    transition: designIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transform: `translateX(-${designCurrent * (100 / designSlides.length)}%)`,
+    width: `${designSlides.length * 100}%`,
   }}
 >
 
-          {/* Your exact same structure below */}
-          <div className="sr-carousel-item">
-            <img src={DesignC1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De1} alt="" />
             <div className="sr-items">
               <h1>UI/UX Design</h1>
               <p>
@@ -198,9 +429,9 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC2} alt="" />
-            <div className="sr-items">
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De2} alt="" />
+            <div className="sr-items sr-items2">
               <h1>Product Design</h1>
               <p>
                 From concept to launch, we meticulously shape digital products
@@ -209,8 +440,8 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De3} alt="" />
             <div className="sr-items">
               <h1>Mobile app Design</h1>
               <p>
@@ -220,8 +451,8 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De4} alt="" />
             <div className="sr-items">
               <h1>Creative Design</h1>
               <p>
@@ -231,8 +462,8 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De5} alt="" />
             <div className="sr-items">
               <h1>Website Design</h1>
               <p>
@@ -242,8 +473,8 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC6} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={De6} alt="" />
             <div className="sr-items">
               <h1>Branding</h1>
               <p>
@@ -267,11 +498,11 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
         </div>
 
         <div className="sr-indicator">
-          {slides.map((_, index) => (
+          {designSlides.map((_, index) => (
             <span
               key={index}
-              className={`dot ${current === index ? "active" : ""}`}
-              onClick={() => goToSlide(index)}
+              className={`dot ${designCurrent === index ? "active" : ""}`}
+              onClick={() => goToDesignSlide(index)}
             ></span>
           ))}
         </div>
@@ -282,98 +513,91 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
         </p>
       </div>
     </div>
-    </div>
+    </motion.div>
 
 
 
      {/* ===============Sr development============ */}
-    <div className="sr-design">
+    <motion.div className="sr-design" ref={devRef} style={{ y: devY }}>
         <h1 className='sr-dev-h1'>Development</h1>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
   <div className="sr-carousel-con">
       <div
         className="sr-carousel-items"
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
+        onMouseDown={handleDevDragStart}
+        onMouseMove={handleDevDragMove}
+        onMouseUp={handleDevDragEnd}
+        onMouseLeave={handleDevDragEnd}
+        onTouchStart={handleDevDragStart}
+        onTouchMove={handleDevDragMove}
+        onTouchEnd={handleDevDragEnd}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
-    transform: `translateX(-${current * (100 / 6)}%)`, // consistent step
-    width: "600%", // 6 slides * 100%
+    transition: devIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transform: `translateX(-${devCurrent * (100 / devSlides.length)}%)`,
+    width: `${devSlides.length * 100}%`,
   }}
 >
 
-          {/* Your exact same structure below */}
-          <div className="sr-carousel-item">
-            <img src={DesignC1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev1} alt="" />
             <div className="sr-items">
-              <h1>UI/UX Design</h1>
+              <h1>Web Applications</h1>
               <p>
-                Beyond beautiful interfaces, we build seamless user journeys
-                that drive engagement and conversion.
+            From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC2} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev2} alt="" />
             <div className="sr-items">
-              <h1>Product Design</h1>
+              <h1>E-Commerce</h1>
               <p>
-                From concept to launch, we meticulously shape digital products
-                for unparalleled user satisfaction and business impact.
+              From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev3} alt="" />
             <div className="sr-items">
-              <h1>Mobile app Design</h1>
+              <h1>Website Development</h1>
               <p>
-                Strategically designed mobile experiences that are intuitive,
-                beautiful, and built for your users' on-the-go lifestyle.
+               From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev4} alt="" />
             <div className="sr-items">
-              <h1>Creative Design</h1>
+              <h1>Mobile Applications</h1>
               <p>
-                A team of creative visionaries delivering high-impact graphics,
-                thumbnails, and presentations that leave a lasting impression.
+               Beyond beautiful interfaces, we build seamless user journeys that drive engagement and conversion.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev5} alt="" />
             <div className="sr-items">
-              <h1>Website Design</h1>
+              <h1>Interactive Websites</h1>
               <p>
-                Bespoke websites and landing pages built to be the digital
-                cornerstone of your business.
+               From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC6} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Dev6} alt="" />
             <div className="sr-items">
-              <h1>Branding</h1>
+              <h1>Maintenance &  Hosting</h1>
               <p>
-                We forge powerful brand identities and comprehensive guidelines
-                that articulate your mission and vision with clarity.
+               From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
@@ -383,165 +607,147 @@ const slides = [DesignC1, DesignC2, DesignC3, DesignC4, DesignC5, DesignC6];
       <div className="sr-carousel-select">
         <BtnNormsall text="Explore" />
         <div className="sr-icons">
-          <img src={SrIcon1} alt="" />
-          <img src={SrIcon2} alt="" />
-          <img src={SrIcon3} alt="" />
-          <img src={SrIcon4} alt="" />
-          <img src={SrIcon5} alt="" />
-          <img src={SrIcon6} alt="" />
+          <img src={Devicon1} alt="" />
+          <img src={Devicon2} alt="" />
+          <img src={Devicon3} alt="" />
+          <img src={Devicon4} alt="" />
+          <img src={Devicon5} alt="" />
+          <img src={Devicon6} alt="" />
         </div>
 
         <div className="sr-indicator">
-          {slides.map((_, index) => (
+          {devSlides.map((_, index) => (
             <span
               key={index}
-              className={`dot ${current === index ? "active" : ""}`}
-              onClick={() => goToSlide(index)}
+              className={`dot ${devCurrent === index ? "active" : ""}`}
+              onClick={() => goToDevSlide(index)}
             ></span>
           ))}
         </div>
 
         <p className="sr-carousel-select-p">
-          We create intuitive, eye-catching designs for web, apps, and brands
-          that stand out in a crowded digital landscape.
+        We create intuitive, eye-catching designs for web, apps, and brands that stand out in a crowded digital landscape.
         </p>
       </div>
     </div>
-    </div>
+    </motion.div>
 
 
 
       {/* ===============Sr Production============ */}
-    <div className="sr-design">
+    <motion.div className="sr-design" ref={proRef} style={{ y: proY }}>
         <h1 className='sr-pro-h1'>Production</h1>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
   <div className="sr-carousel-con">
       <div
         className="sr-carousel-items"
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
+        onMouseDown={handleProDragStart}
+        onMouseMove={handleProDragMove}
+        onMouseUp={handleProDragEnd}
+        onMouseLeave={handleProDragEnd}
+        onTouchStart={handleProDragStart}
+        onTouchMove={handleProDragMove}
+        onTouchEnd={handleProDragEnd}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
-    transform: `translateX(-${current * (100 / 6)}%)`, // consistent step
-    width: "600%", // 6 slides * 100%
+    transition: proIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transform: `translateX(-${proCurrent * (100 / proSlides.length)}%)`,
+    width: `${proSlides.length * 100}%`,
   }}
 >
 
-          {/* Your exact same structure below */}
-          <div className="sr-carousel-item">
-            <img src={DesignC1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Pro1} alt="" />
             <div className="sr-items">
-              <h1>UI/UX Design</h1>
+              <h1>3D Animations</h1>
               <p>
-                Beyond beautiful interfaces, we build seamless user journeys
-                that drive engagement and conversion.
+                From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC2} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Pro2} alt="" />
             <div className="sr-items">
-              <h1>Product Design</h1>
+              <h1>Commercials & Promos</h1>
               <p>
-                From concept to launch, we meticulously shape digital products
-                for unparalleled user satisfaction and business impact.
+             From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Pro3} alt="" />
             <div className="sr-items">
-              <h1>Mobile app Design</h1>
+              <h1>Reels & Shorts</h1>
               <p>
-                Strategically designed mobile experiences that are intuitive,
-                beautiful, and built for your users' on-the-go lifestyle.
+              From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Pro4} alt="" />
             <div className="sr-items">
-              <h1>Creative Design</h1>
+              <h1>Long Format Content</h1>
               <p>
-                A team of creative visionaries delivering high-impact graphics,
-                thumbnails, and presentations that leave a lasting impression.
+                From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
+            <img src={Pro5} alt="" />
             <div className="sr-items">
-              <h1>Website Design</h1>
+              <h1>Motion Graphics</h1>
               <p>
-                Bespoke websites and landing pages built to be the digital
-                cornerstone of your business.
+               From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.
               </p>
             </div>
           </div>
 
-          <div className="sr-carousel-item">
-            <img src={DesignC6} alt="" />
-            <div className="sr-items">
-              <h1>Branding</h1>
-              <p>
-                We forge powerful brand identities and comprehensive guidelines
-                that articulate your mission and vision with clarity.
-              </p>
-            </div>
-          </div>
+       
         </div>
       </div>
 
       <div className="sr-carousel-select">
         <BtnNormsall text="Explore" />
         <div className="sr-icons">
-          <img src={SrIcon1} alt="" />
-          <img src={SrIcon2} alt="" />
-          <img src={SrIcon3} alt="" />
-          <img src={SrIcon4} alt="" />
-          <img src={SrIcon5} alt="" />
-          <img src={SrIcon6} alt="" />
+          <img src={Proicon1} alt="" />
+          <img src={Proicon2} alt="" />
+          <img src={Proicon3} alt="" />
+          <img src={Proicon4} alt="" />
+          <img src={Proicon5} alt="" />
         </div>
 
         <div className="sr-indicator">
-          {slides.map((_, index) => (
+          {proSlides.map((_, index) => (
             <span
               key={index}
-              className={`dot ${current === index ? "active" : ""}`}
-              onClick={() => goToSlide(index)}
+              className={`dot ${proCurrent === index ? "active" : ""}`}
+              onClick={() => goToProSlide(index)}
             ></span>
           ))}
         </div>
 
         <p className="sr-carousel-select-p">
-          We create intuitive, eye-catching designs for web, apps, and brands
-          that stand out in a crowded digital landscape.
+         We create intuitive, eye-catching designs for web, apps, and brands that stand out in a crowded digital landscape.
         </p>
       </div>
     </div>
-    </div>
+    </motion.div>
 
      
      {/* =============== sr-txt-con============ */}
       <div className="service-hero norm-pad">
         <div className="sh-top">
           <img src={Circleblur} alt="" />
-          <h1 className="sh-top-h1">Why
+          <h1 className="sh-top-h1 scrollReveal">Why
 Strix Production?</h1>
-          <p className="sh-top-p">
+          <p className="sh-top-p scrollReveal">
              We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.
           </p>
           <BtnNormsall text='Know more' />
@@ -553,11 +759,12 @@ Strix Production?</h1>
 
        <div className="portfolio sr-portfolio" >
        
-                  <h1 className="section-header2 ">
+                  <h1 className="section-header2 scrollReveal">
                     Our Curated Portfolio
                   </h1>
           <div className="cl">
-            <img  className="circleblur2" src={CircleBlur} alt="" />
+            {/* <img  className="circleblur2" src={CircleBlur} alt="" /> */}
+            <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
             <Carousel />
             <div className="cl-btn">
             <ButtonSmall text="Portfolio" />

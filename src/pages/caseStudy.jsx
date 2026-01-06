@@ -482,7 +482,7 @@ if (loading) {
       <div className="case-hero">
         <motion.div 
           className="case-return-btn" 
-          onClick={() => navigate('/projects')} 
+          onClick={() => navigate('/project')} 
           style={{ cursor: 'pointer' }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}

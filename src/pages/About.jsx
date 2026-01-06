@@ -36,6 +36,26 @@ import ValBg2 from '../assets/img/valuebg2.webp'
 import ValBg3 from '../assets/img/valuebg3.webp'
 import SlideInFramerAuto from '../animations/SlideInFramer'
 import SplitTextOnLoad from '../animations/SplitTextOnLoad'
+import ScrollAnimation from '../animations/scrollReveal'
+import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
+import Ab1 from "../assets/img/ab1.webp"
+import Ab2 from "../assets/img/ab2.webp"
+import Ab3 from "../assets/img/ab3.webp"
+import Ab4 from "../assets/img/ab4.webp"
+import Ab5 from "../assets/img/ab5.webp"
+import Ab6 from "../assets/img/ab6.webp"
+import Ab7 from "../assets/img/ab7.webp"
+import Ab8 from "../assets/img/ab8.webp"
+import Linkedin from "../assets/img/linkedin.svg"
+import Mail from "../assets/img/mail.svg"
+import Insta from "../assets/img/insta.svg"
+import Blur1 from "../assets/img/blurship1.png"
+import Blur2 from "../assets/img/blurship2.png"
+import DotGrid from "../animations/DotGrid";
+import RotateCardsScroll from '../animations/RotateCardsScroll'
+import ScrollSlideAnimations from '../animations/slideins'
+import Stagger from '../animations/stagger'
+
 
 
 const About = () => {
@@ -44,14 +64,28 @@ const About = () => {
       <Nav />
       <SlideInFramerAuto />
       <SplitTextOnLoad />
+         <SlideInFramerOnLoad />
+                <ScrollAnimation />
+                <RotateCardsScroll />
+                <ScrollSlideAnimations />
+                <Stagger />
+                         <DotGrid
+                
+                    dotSize={2}
+                
+                    gap={24}
+                
+                    activeColor="#ffffff"
+                
+                  />
 
 
       <div className="about-hero">
           <div className="slidein sh-top uiux-hero">
                   <img src={Circleblur} alt="" />
-                  <h1>We craft impact. <br/>Not noise.</h1>
+                  <h1 className='slideinLoad'>We craft impact. <br/>Not noise.</h1>
                 </div>
-                <p className='about-hero-p'>At Strix Productions, we design, develop, and deliver world-class visuals and experience that help ambitious brands move faster, scale bigger, and stand out globally.</p>
+                <p className='about-hero-p slideinLoad'>At Strix Productions, we design, develop, and deliver world-class visuals and experience that help ambitious brands move faster, scale bigger, and stand out globally.</p>
                 <BtnNormsall text='Know more' />
       </div>
 
@@ -60,23 +94,33 @@ const About = () => {
       {/* ==========Family=============== */}
 
       <div className="family">
-        <h2>Strix  is not just a Production, it’s family</h2>
+        <p className='scrollReveal family-p'>Strix  is not just a Production, it’s family</p>
         <div className="family-cards">
             <div className="family-card">
             <img src={FamilyBg} alt="" />
             <div className="fam-detail">
-            <img src={Ashim} alt="" />
+            <img src={Ab1} alt="" />
             <h3>Ashmin</h3>
             <p>Production Head</p>
+              <div className="ab-icongrid">
+              <a href=""><img src={Linkedin} alt="Linkedin" /></a>
+              <a href=""><img src={Mail} alt="Mail" /></a>
+              <a href=""><img src={Insta} alt="Instagram" /></a>
+            </div>
             </div>
             </div>
 
               <div className="family-card">
             <img src={FamilyBg} alt="" />
             <div className="fam-detail">
-            <img className='raj' src={Raj} alt="" />
-            <h3>Ashmin</h3>
-            <p>Production Head</p>
+            <img className='raj' src={Ab2} alt="" />
+            <h3>Rajnandan </h3>
+            <p>Founder & Creative Director</p>
+             <div className="ab-icongrid">
+              <a href=""><img src={Linkedin} alt="Linkedin" /></a>
+              <a href=""><img src={Mail} alt="Mail" /></a>
+              <a href=""><img src={Insta} alt="Instagram" /></a>
+            </div>
             </div>
             </div>
 
@@ -84,9 +128,14 @@ const About = () => {
               <div className="family-card">
             <img src={FamilyBg} alt="" />
             <div className="fam-detail">
-            <img src={Ashim} alt="" />
-            <h3>Ashmin</h3>
-            <p>Production Head</p>
+            <img src={Ab1} alt="" />
+            <h3>Darius</h3>
+            <p>Development Head</p>
+             <div className="ab-icongrid">
+              <a href=""><img src={Linkedin} alt="Linkedin" /></a>
+              <a href=""><img src={Mail} alt="Mail" /></a>
+              <a href=""><img src={Insta} alt="Instagram" /></a>
+            </div>
             </div>
             </div>
 
@@ -98,13 +147,15 @@ const About = () => {
 
     {/* ==============Our teams=============== */}
     <div className="team">
-        <h1>Our Teams</h1>
+        <p className='scrollReveal team-h1'>Our Teams</p>
         <div className="team-cards">
-          <div className="team-card">
+
+
+          <div className="team-card p-sec2-card1">
             <div className="family-card team-fm-card">
             <img  src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id1' src={Team1} alt="" />
+            <img className='team-id1 fam-detail-img' src={Ab3} alt="" />
             <h3>Ashmin</h3>
             <p>Production Head</p>
             </div>
@@ -114,11 +165,11 @@ const About = () => {
           </div>
 
 
-             <div className="team-card">
+             <div className="team-card p-sec2-card2">
             <div className="family-card team-fm-card">
             <img src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id2' src={Team2} alt="" />
+            <img className='team-id2 fam-detail-img' src={Ab4} alt="" />
             <h3>UX/UI</h3>
             <p>Experience Wizards</p>
             </div>
@@ -129,11 +180,11 @@ const About = () => {
 
 
 
-             <div className="team-card">
+             <div className="team-card p-sec2-card1">
             <div className="family-card team-fm-card">
             <img src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id3' src={Team3} alt="" />
+            <img className='team-id3 fam-detail-img' src={Ab5} alt="" />
             <h3>Graphic Designers</h3>
             <p>Visual Alchemists</p>
             </div>
@@ -145,11 +196,11 @@ const About = () => {
 
 
 
-             <div className="team-card">
+             <div className="team-card p-sec2-card2">
             <div className="family-card team-fm-card">
             <img src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id4' src={Team4} alt="" />
+            <img className='team-id4 fam-detail-img' src={Ab6} alt="" />
             <h3>Video Editors</h3>
             <p>Frame Magicians</p>
             </div>
@@ -159,11 +210,11 @@ const About = () => {
           </div>
 
 
-           <div className="team-card">
+           <div className="team-card p-sec2-card1">
             <div className="family-card team-fm-card">
             <img src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id5' src={Team5} alt="" />
+            <img className='team-id5 fam-detail-img' src={Ab7} alt="" />
             <h3>Sales</h3>
             <p>Growth Hackers</p>
             </div>
@@ -173,11 +224,11 @@ const About = () => {
           </div>
 
 
-           <div className="team-card">
+           <div className="team-card p-sec2-card2XZ">
             <div className="family-card team-fm-card">
             <img src={Teambg} alt="" />
             <div className="fam-detail team-fm-detail">
-            <img className='team-id6' src={Team6} alt="" />
+            <img className='team-id6 fam-detail-img ' src={Ab8} alt="" />
             <h3>3d & Animations</h3>
             <p>Reality Benders</p>
             </div>
@@ -193,21 +244,26 @@ const About = () => {
 
 {/* ==============Position=============== */}
 <div className="positions">
-    <h1>Rising positions and recognitions</h1>
+  <img className='abblur1' src={Blur1} alt="" />
+   <img className='abblur2' src={Blur2} alt="" />
+
+
+    <p className='scrollReveal positions-p'>Rising positions and recognitions</p>
     <div className="po-top">
-        <div className="po-top-left desktop-po">
-         <img src={positionbg1} alt="" />
+        <div className="po-top-left slideInLeft desktop-po">
+         <img className='bg-out' src={positionbg1} alt="" />
+         <div className="oval-blur"></div>
          <div className="po-top-left-de">
-            <h3>2 + <br/> years</h3>
+            <h3 className='hover-text'>2 + <br/> years</h3>
             <p>Building global presence</p>
          </div>
         </div>
 
-         <div className="po-top-right">
+         <div className="po-top-right slideInRight">
          <img src={positionbg2} alt="" />
          <div className="po-top-right-de">
-            <h3>10+ successfully developed startups </h3>
-            <p>I'm glad I decided to work with you.  It's really great how easy your websites are to update and manage.</p>
+            <h3 className='hover-text' >10+ successfully developed startups </h3>
+            <p className='no-forec'>I'm glad I decided to work with you. It's really great how easy your websites are to update and manage.</p>
             <div>
                 <img src={Dp} alt="" />
                 <p>Abhishek Verma</p>
@@ -217,34 +273,34 @@ const About = () => {
 
     </div>
     <div className="po-bottom">
-        <div className="po-top-left mobile-po">
+        <div className="po-top-left mobile-po slideInTopLeft">
          <img src={positionbg1} alt="" />
          <div className="po-top-left-de">
-            <h3>2 + <br/> years</h3>
+            <h3 className='hover-text'>2 + <br/> years</h3>
             <p>Building global presence</p>
          </div>
         </div>
 
-      <div className="po-top-left">
+      <div className="po-top-left slideInBottomLeft">
          <img src={positionbg1} alt="" />
          <div className="po-top-left-de">
-            <h3>220 + <br/> Projects</h3>
+            <h3 className='hover-text'>220 + <br/> Projects</h3>
             <p>Delivered Successfully</p>
          </div>
         </div>
 
-         <div className="po-top-left">
+         <div className="po-top-left scrollReveal">
          <img src={positionbg1} alt="" />
          <div className="po-top-left-de">
-            <h3>10 + <br/> Team of</h3>
+            <h3 className='hover-text'>10 + <br/> Team of</h3>
             <p>Storytellers and makers</p>
          </div>
         </div> 
 
-         <div className="po-top-left">
+         <div className="po-top-left slideInBottomRight">
          <img src={positionbg1} alt="" />
          <div className="po-top-left-de">
-            <h3>15 + <br/> Services</h3>
+            <h3 className='hover-text'>15 + <br/> Services</h3>
             <p>One creative hub</p>
          </div>
         </div>
@@ -254,12 +310,12 @@ const About = () => {
 
 {/* ==============DNA=============== */}
 <div className="dna">
-  <h1>What is imprinted in our DNA ?</h1>
-  <div className="dna-left">
+  <p className='dna-h1 slideInTopLeft'>What is imprinted in our DNA ?</p>
+  <div className="dna-left slideInTopLeft">
     <h2>Mission</h2>
     <p>We partner with funded startups, technology SMEs, and Fortune 500 companies to deliver high-impact design, development, and production solutions that fuel growth.</p>
     </div>
-  <div className="dna-right">
+  <div className="dna-right slideInBottomRight">
     <h2>Vision</h2>
     <p>We, at Strix, aim to become the go-to creative powerhouse for brands seeking premium, innovative, and scalable results.</p>
   </div>
@@ -270,26 +326,27 @@ const About = () => {
 {/* =============collab=================== */}
 
 <div className="collab">
-  <h1>
+  <p className="scrollReveal collab-h1" >
     Collaborative Design, Guaranteed Quality
-  </h1>
+  </p>
   <div className="collab-cards">
-    <div className="collab-card">
+
+    <div className="collab-card stagger1">
       <img src={Collab1} alt="" />
       <p>Progress updates &<br/> tracked hours</p>
     </div>
 
-     <div className="collab-card">
+     <div className="collab-card stagger2">
       <img src={Collab2} alt="" />
       <p>Progress updates &<br/> tracked hours</p>
     </div>
 
-     <div className="collab-card">
+     <div className="collab-card stagger3">
       <img src={Collab3} alt="" />
       <p>Progress updates &<br/> tracked hours</p>
     </div>
 
-     <div className="collab-card">
+     <div className="collab-card stagger4">
       <img src={Collab4} alt="" />
       <p>Progress updates &<br/> tracked hours</p>
     </div>
@@ -303,36 +360,41 @@ const About = () => {
   {/* ===================expert==================== */}
 
   <div className="expert">
-    <h1>Design Expertise Across Industries</h1>
+    <h1 className="scrollReveal" >Design Expertise Across Industries</h1>
     <div className='expert-top'>
       <div className="et-top-card">
         <img src={Etbg1} alt="" />
         <div className="et-top-card-con">
-          <h3>SaaS</h3>
+          <h3 className='saas'>SaaS</h3>
           <div className="et-flex">
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>CRM & HR Tech</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>Data Dashboards</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>Product Design</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>Brand Systems</p>
             </div>
           </div>
           <div className="et-center">
              <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>MVP Development</p>
             </div>
           </div>
@@ -344,31 +406,36 @@ const About = () => {
       <div className="et-top-card">
         <img src={Etbg2} alt="" />
         <div className="et-top-card-con">
-          <h3>Fintech</h3>
+          <h3 className='saas'>Fintech</h3>
           <div className="et-flex">
             <div className='et-btn'>
-              <img src={Ethcard2} alt="" />
+              <img className='ontop' src={Ethcard2} alt="" />
+              <img className='onbottom'src={Ethcard1} alt="" />
               <p>App Design</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard2} alt="" />
+              <img className='ontop' src={Ethcard2} alt="" />
+              <img className='onbottom'src={Ethcard1} alt="" />
               <p>Trading Platforms</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard2} alt="" />
+              <img className='ontop' src={Ethcard2} alt="" />
+              <img className='onbottom'src={Ethcard1} alt="" />
               <p>Corporate Identity</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard2} alt="" />
+              <img className='ontop' src={Ethcard2} alt="" />
+              <img className='onbottom'src={Ethcard1} alt="" />
               <p>Digital Payments</p>
             </div>
           </div>
           <div className="et-center et-d">
              <div className='et-btn'>
-              <img src={Ethcard2} alt="" />
+              <img className='ontop' src={Ethcard2} alt="" />
+              <img className='onbottom'src={Ethcard1} alt="" />
               <p>Secure Web Portals</p>
             </div>
           </div>
@@ -382,31 +449,36 @@ const About = () => {
       <div className="et-top-card et-destop">
         <img src={Etbg3} alt="" />
         <div className="et-top-card-con">
-          <h3>E-commerce</h3>
+          <h3 className='saas'>E-commerce</h3>
           <div className="et-flex">
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>Online stores</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>B2B/B2C</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>Product Promos</p>
             </div>
 
             <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>3D Commercials</p>
             </div>
           </div>
           <div className="et-center">
              <div className='et-btn'>
-              <img src={Ethcard1} alt="" />
+              <img className='ontop' src={Ethcard1} alt="" />
+              <img className='onbottom' src={Ethcard2} alt="" />
               <p>product configurators</p>
             </div>
           </div>
@@ -423,7 +495,7 @@ const About = () => {
         <div className="et-top-card et-mobile">
         <img src={Etbg3} alt="" />
         <div className="et-top-card-con">
-          <h3>E-commerce</h3>
+          <h3 className='saas'>E-commerce</h3>
           <div className="et-flex">
             <div className='et-btn'>
               <img src={Ethcard1} alt="" />
@@ -459,7 +531,7 @@ const About = () => {
             <div className="et-top-card">
         <img src={Etbg5} alt="" />
         <div className="et-top-card-con">
-          <h3>Startups</h3>
+          <h3 className='saas'>Startups</h3>
           <div className="et-flex">
             <div className='et-btn'>
               <img src={Ethcard1} alt="" />
@@ -496,7 +568,7 @@ const About = () => {
       <div className="et-top-card">
         <img src={Etbg4} alt="" />
         <div className="et-top-card-con">
-          <h3>Agencies</h3>
+          <h3 className='saas'>Agencies</h3>
           <div className="et-flex">
             <div className='et-btn'>
               <img src={Ethcard1} alt="" />
@@ -531,7 +603,7 @@ const About = () => {
 
     </div>
 
-    <p className="et-pp">
+    <p className="et-pp scrollReveal">
       Our product designers bring deep, cross-industry experience—crafting tailored design solutions that not only look great but also drive real business value. No matter the niche, we know how to make your digital product stand out and succeed.
     </p>
   </div>
@@ -541,40 +613,40 @@ const About = () => {
   {/* ======================Value==================== */}
 
   <div className="value">
-    <h1>Our Values</h1>
+    <h1 className="scrollReveal">Our Values</h1>
     <div className="value-cards">
-      <div className="value-card">
-        <img src={ValBg1} alt="" />
+      <div className="value-card slideInLeft">
+        <img className='vci' src={ValBg1} alt="" />
         <div className="value-card-de">
-          <h2>Growth</h2>
+          <h2 className='hover-text'>Growth</h2>
           <p>Evolving every day</p>
         </div>
       </div>
 
-      <div className="value-card">
-        <img src={ValBg2} alt="" />
+      <div className="value-card scrollReveal">
+        <img className='vci vcim' src={ValBg2} alt="" />
         <div className="value-card-de">
-          <h2>People</h2>
+          <h2 className='hover-text'>People</h2>
           <p>Driven by humans</p>
         </div>
       </div>
 
-      <div className="value-card">
-        <img src={ValBg3} alt="" />
+      <div className="value-card slideInRight">
+        <img className='vci' src={ValBg3} alt="" />
         <div className="value-card-de">
-          <h2>Awareness</h2>
+          <h2 className='hover-text'>Awareness</h2>
           <p>Mindful by design</p>
         </div>
       </div>
     </div>
-          <p className='value-p'>We grow with purpose, put people first, and create with awareness at every step</p>
+          <p className='value-p scrollReveal'>We grow with purpose, put people first, and create with awareness at every step</p>
   </div>
 
   <div className="create">
-    <h1>Let’s create amazing digital <br/>
+    <h1  className="scrollReveal">Let’s create amazing digital <br/>
 experiences together</h1>
 
-<p>Strix is a global remote team with a global footprint. <br />Don`t hesitate to reach out to us with your projects, ideas, and questions.</p>
+<p className="scrollReveal">Strix is a global remote team with a global footprint. <br />Don`t hesitate to reach out to us with your projects, ideas, and questions.</p>
 <div className="btnb-con">
   <ButtonB text='Book Appointment' />
 </div>

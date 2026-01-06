@@ -164,6 +164,10 @@ a:hover {
   text-align: center;
 }
 
+.slideinLoad{
+  opacity: 0;
+}
+
 @media (max-width: 770px) {
   .section-header{
   font-size: 25px !important;

@@ -43,6 +43,7 @@ import ResearchModal from "../components/production";
 import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
 import { Link } from "react-router-dom";
+import DotGrid from "../animations/DotGrid";
 
 // Smooth text reveal animation component
 const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) => {
@@ -360,6 +361,15 @@ useEffect(() => {
     <div>
       <div className="app" id="smooth-wrapper" ref={section}>
         <SmoothScrollGSAP />
+         <DotGrid
+
+    dotSize={2}
+
+    gap={24}
+
+    activeColor="#ffffff"
+
+  />
         <Nav />
         {/* =============hero section============== */}
         <div  className="hero sectionCon smoothsection">

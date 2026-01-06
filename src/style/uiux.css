@@ -13,6 +13,7 @@
     line-height: 1.8rem;
       position: relative;
  z-index: 8;
+ margin-top: 2rem !important;
 }
 
 
@@ -31,7 +32,7 @@
 
 
 @media (max-width: 700px){
-   .uiux-hero img{
+   /* .uiux-hero img{
     width: 100vw !important;
    } 
 
@@ -44,7 +45,7 @@
    .ui-hero-p{
     font-size: 18px;
     max-width: 90%;
-}
+} */
 } 
 
 @media (max-width: 500px){
@@ -186,6 +187,12 @@
     font-size: 15px !important;
 }
 
+}
+
+@media (max-width: 680px){
+    .p-inde {
+        max-width: 90% !important;
+    }
 }
 
 

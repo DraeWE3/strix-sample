@@ -9,6 +9,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../admin/firebaseconfig'; // Adjust path as needed
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
+import ScrollAnimation from '../animations/scrollReveal'
+import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -89,6 +91,8 @@ const Blog = () => {
   return (
     <div>
         <Nav />
+          <ScrollAnimation />
+           <SlideInFramerOnLoad />
         <div className="blog">
             <img
             src={Shadow1}
@@ -106,10 +110,10 @@ const Blog = () => {
                 </button></Link>
           </div>
 
-          <h1 className='blog-header'>Our Space to Think and Share</h1>
+          <h1 className='blog-header slideinLoad'>Our Space to Think and Share</h1>
 
             <div className="blog-con">
-                <div className="blog-nav">
+                <div className="blog-nav slideInLeft">
                   <BlogNav
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
@@ -134,7 +138,7 @@ const Blog = () => {
                         to={`/blog/${blog.id}`}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        <div className="blogcard">
+                        <div className="blogcard scrollReveal">
                           <div className="blog-card">
                             <img 
                               src={blog.image || '/placeholder.png'} 
