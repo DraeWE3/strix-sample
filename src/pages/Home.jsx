@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Connect from '../assets/img/connect.svg'
-import SmoothScrollGSAP from "../animations/SmoothScrollGSAP";
+import SmoothScroll from "../animations/SmoothScrollGSAP";
 gsap.registerPlugin(ScrollTrigger);
 import Shadow1 from "../assets/img/shadow1.webp";
 import Shadow2 from "../assets/img/shadow2.webp";
@@ -44,6 +44,7 @@ import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
+import MobileSlideIn from "../animations/mslide";
 
 // Smooth text reveal animation component
 const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) => {
@@ -358,9 +359,19 @@ useEffect(() => {
 
 
   return (
-    <div>
+    <>
+     <Nav />
+
+       <SmoothScroll 
+      intensity={1}      // Scroll distance multiplier
+      ease={1}           // Lower = smoother, higher = snappier
+      skew={1}             // Skew amount during scroll
+      enableSkew={true}    // Toggle skew effect
+      mobile={false}        // Enable on mobile devices
+    >
+
+      
       <div className="app" id="smooth-wrapper" ref={section}>
-        <SmoothScrollGSAP />
          <DotGrid
 
     dotSize={2}
@@ -370,7 +381,8 @@ useEffect(() => {
     activeColor="#ffffff"
 
   />
-        <Nav />
+  <MobileSlideIn />
+       
         {/* =============hero section============== */}
         <div  className="hero sectionCon smoothsection">
           <h1 className="spread-h1" ref={titleRef}>STRIX</h1>
@@ -573,7 +585,7 @@ useEffect(() => {
 
         {/* =============section 5============== */}
         <div className="smoothsection services circcon sectionCon">
-          <SmoothTextReveal as="h1" className="section-header delay3">
+          <SmoothTextReveal as="h1" className="section-header delay3 ">
             We Build Experiences that Breathe
           </SmoothTextReveal>
 
@@ -662,7 +674,7 @@ useEffect(() => {
               className="shadow2 mpv-shad shdowsmall absolute bottom-0 right-0 w-40"
             />
 
-            <div className="mvp-card mvp-card1">
+            <div className="mvp-card mvp-card1 ">
               <img className="mvp-img" src={Mvp} alt="" />
               <img className="mvp-img-ab" src={MvpDev} alt="" />
               <div className="mvp-content">
@@ -725,7 +737,7 @@ useEffect(() => {
 
         {/* =============section 7============== */}
         <section className="smoothsection sectionCon services service-pro relative">
-          <SmoothTextReveal as="h1" className="section-header3 delay3">Strix Production</SmoothTextReveal>
+          <SmoothTextReveal as="h1" className="bold-head delay3">Strix Production</SmoothTextReveal>
 
           <div className="coin-con flex justify-center items-center">
             <video
@@ -851,7 +863,8 @@ useEffect(() => {
       </div>
 
       <Footer />
-    </div>
+      </SmoothScroll>
+    </>
   );
 };
 

@@ -58,11 +58,7 @@ body {
   font-display: swap;
 }
 
-@font-face {
-  font-family: "cd-bold";
-  src: url("./assets/fonts/ClashDisplay-Semibold.otf") format("truetype");
-  font-display: swap;
-}
+
 
 @font-face {
   font-family: "ep-med";

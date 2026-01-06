@@ -1,98 +1,117 @@
-import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef, useState } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
+const SmoothScroll = ({ 
+  children, 
+  intensity = 1.2,
+  mobile = true,
+  mobileBreakpoint = 768,
+  ease = 0.1,
+  direction = 'vertical',
+  skew = 2,
+  enableSkew = true,
+  disabled = false
+}) => {
+  const scrollRef = useRef(null);
+  const contentRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  const data = useRef({
+    ease,
+    current: 0,
+    previous: 0,
+    rounded: 0,
+    skewTarget: 0,
+    skewCurrent: 0
+  }).current;
 
-export default function SmoothScrollGSAP() {
   useEffect(() => {
-    if (window.innerWidth < 770) return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < mobileBreakpoint);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [mobileBreakpoint]);
 
-    const sections = document.querySelectorAll(".smoothsection");
+  useEffect(() => {
+    if (disabled || (isMobile && !mobile)) {
+      document.body.style.height = 'auto';
+      document.body.style.overflow = 'auto';
+      if (contentRef.current) {
+        contentRef.current.style.transform = 'none';
+      }
+      return;
+    }
 
-    gsap.set(sections, {
-      transformStyle: "preserve-3d",
-      perspective: 1200,
-      willChange: "transform, opacity, filter"
-    });
+    const setBodyHeight = () => {
+      if (contentRef.current) {
+        document.body.style.height = `${contentRef.current.getBoundingClientRect().height * intensity}px`;
+      }
+    };
 
-    sections.forEach((section, i) => {
-      const next = sections[i + 1];
+    setBodyHeight();
+    window.addEventListener('resize', setBodyHeight);
 
-      // Exit animation
-      gsap.fromTo(
-        section,
-        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-        {
-          opacity: 0,
-          y: -140,
-          scale: 0.92,
-          filter: "blur(20px)",
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        }
-      );
+    const onScroll = () => {
+      data.current = window.scrollY;
+    };
 
-      // Enter animation
-      if (next) {
-        gsap.fromTo(
-          next,
-          { opacity: 0, y: 250, scale: 1.15, filter: "blur(26px)", zIndex: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-            duration: 1.6,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: next,
-              start: "top bottom",
-              end: "top 50%",
-              scrub: 2,
-            },
-          }
-        );
+    window.addEventListener('scroll', onScroll);
+
+    let rafId;
+    const smoothScroll = () => {
+      data.previous = data.current;
+      data.current = window.scrollY;
+      data.rounded = Math.round(data.current * 100) / 100;
+
+      const difference = data.current - data.previous;
+      const acceleration = difference / (window.innerWidth / 2);
+      
+      if (enableSkew) {
+        data.skewTarget = acceleration * skew;
+        data.skewCurrent += (data.skewTarget - data.skewCurrent) * ease;
       }
 
-      // ✅ Slide-from-top element animations
-      const animatedEls = section.querySelectorAll(".delay1, .delay2, .delay3");
+      const delta = (data.current - data.rounded) * ease;
+      data.rounded += delta;
 
-      animatedEls.forEach((el) => {
-        let delay = 0;
+      if (contentRef.current) {
+        if (direction === 'vertical') {
+          contentRef.current.style.transform = enableSkew
+            ? `translate3d(0, -${data.rounded}px, 0) skewY(${data.skewCurrent}deg)`
+            : `translate3d(0, -${data.rounded}px, 0)`;
+        } else {
+          contentRef.current.style.transform = enableSkew
+            ? `translate3d(-${data.rounded}px, 0, 0) skewX(${data.skewCurrent}deg)`
+            : `translate3d(-${data.rounded}px, 0, 0)`;
+        }
+      }
 
-        if (el.classList.contains("delay1")) delay = 0.1;
-        if (el.classList.contains("delay2")) delay = 0.35;
-        if (el.classList.contains("delay3")) delay = 0.6;
+      rafId = requestAnimationFrame(smoothScroll);
+    };
 
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: -40, filter: "blur(10px)" },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 1.2,
-            ease: "power3.out",
-            delay,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      });
+    rafId = requestAnimationFrame(smoothScroll);
 
-    });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', setBodyHeight);
+      cancelAnimationFrame(rafId);
+      document.body.style.height = 'auto';
+      document.body.style.overflow = 'auto';
+    };
+  }, [intensity, ease, direction, skew, enableSkew, disabled, mobile, isMobile]);
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
-  }, []);
+  if (disabled || (isMobile && !mobile)) {
+    return <>{children}</>;
+  }
 
-  return null;
-}
+  return (
+    <div ref={scrollRef} style={{ position: 'fixed', top: 0, left: 0, width: '100%', overflow: 'hidden' }}>
+      <div ref={contentRef} style={{ willChange: 'transform' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default SmoothScroll;

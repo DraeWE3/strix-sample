@@ -389,6 +389,17 @@ width: 50% !important;
 
 .section-header{
   display: inline-block !important;
+  max-width: 50%;
+}
+
+.bold-head{
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 600;
+    background: linear-gradient(to bottom, #FCFCFD, #1a1a1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  text-align: center;
 }
 
 .services-p{
@@ -1740,7 +1751,13 @@ transform: none !important;
 
 .power-mobile{
   display: flex ;
+  margin: 1rem 0;
 }
+
+.bold-head {
+   font-size: 30px;
+}
+
 
 .power-desk{
   display: none;
