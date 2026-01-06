@@ -44,7 +44,7 @@ import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
-import MobileSlideIn from "../animations/mslide";
+
 
 // Smooth text reveal animation component
 const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) => {
@@ -381,7 +381,7 @@ useEffect(() => {
     activeColor="#ffffff"
 
   />
-  <MobileSlideIn />
+
        
         {/* =============hero section============== */}
         <div  className="hero sectionCon smoothsection">
