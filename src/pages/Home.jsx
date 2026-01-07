@@ -367,7 +367,7 @@ useEffect(() => {
       ease={1}           // Lower = smoother, higher = snappier
       skew={1}             // Skew amount during scroll
       enableSkew={true}    // Toggle skew effect
-      mobile={false}        // Enable on mobile devices
+      mobile={true}        // Enable on mobile devices
     >
 
       
