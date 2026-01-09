@@ -291,8 +291,8 @@ const Mvp = () => {
       </div>
 
       {/* =================provide=========== */}
-      <div className="provide-con mpvcard-section">
-        <div className="sh-top uiux-hero">
+      <div className="provide-con mpvcard-section ">
+        <div className="sh-top uiux-hero mvp-conn">
           <img src={Circleblur} alt="" />
           <h1 className="scrollReveal mvp-why">Why MVP with Strix ?</h1>
           <p className="mvp-hero-p scrollReveal mvp-why-p"> We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
@@ -347,7 +347,7 @@ const Mvp = () => {
       </div>
 
       {/* ===================why================== */}
-      <div className="sh-top uiux-hero what-con">
+      <div className="sh-top uiux-hero what-con mvp-connn">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Our 4-Week <br/>MVP Framework</h1>
         <p className="p-inde scrollReveal">At Strix Productions, we design, develop, and deliver world-class visuals and experience that help ambitious brands move faster, scale bigger, and stand out globally.</p>

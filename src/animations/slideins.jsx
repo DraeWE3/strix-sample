@@ -1,41 +1,35 @@
-// className="slideInTopLeft"
-// className="slideInBottomLeft"
-// className="slideInTopRight"
-// className="slideInBottomRight"
-// className="scrollReveal"
-// className="slideinLoad"
-// className="slideInLeft"
-// className="slideInRight"
-// className="stagger1"
-
 import { useEffect } from "react";
 import { animate } from "framer-motion";
 
 export default function ScrollSlideAnimations() {
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    
+    // Mobile: reduced distance, no blur, faster duration
+    // Desktop: full effects
     const animationConfigs = {
       slideInTopLeft: {
-        initial: { opacity: 0, x: -80, y: -80, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? -30 : -80, y: isMobile ? -30 : -80, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       },
       slideInBottomLeft: {
-        initial: { opacity: 0, x: -80, y: 80, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? -30 : -80, y: isMobile ? 30 : 80, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       },
       slideInTopRight: {
-        initial: { opacity: 0, x: 80, y: -80, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? 30 : 80, y: isMobile ? -30 : -80, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       },
       slideInBottomRight: {
-        initial: { opacity: 0, x: 80, y: 80, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? 30 : 80, y: isMobile ? 30 : 80, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       },
       slideInLeft: {
-        initial: { opacity: 0, x: -80, y: 0, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? -30 : -80, y: 0, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       },
       slideInRight: {
-        initial: { opacity: 0, x: 80, y: 0, filter: "blur(14px)" },
+        initial: { opacity: 0, x: isMobile ? 30 : 80, y: 0, filter: isMobile ? "blur(0px)" : "blur(14px)" },
         animate: { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }
       }
     };
@@ -56,13 +50,19 @@ export default function ScrollSlideAnimations() {
               animate(
                 el,
                 config.animate,
-                { duration: 0.9, ease: "easeOut" }
+                { 
+                  duration: isMobile ? 0.5 : 0.9,
+                  ease: isMobile ? [0.25, 0.1, 0.25, 1] : "easeOut"
+                }
               );
             }
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
+      { 
+        threshold: isMobile ? 0.05 : 0.1,
+        rootMargin: isMobile ? "0px 0px -50px 0px" : "0px 0px -100px 0px"
+      }
     );
 
     Object.keys(animationConfigs).forEach(animationType => {
@@ -71,8 +71,13 @@ export default function ScrollSlideAnimations() {
         const config = animationConfigs[animationType];
         el.style.opacity = config.initial.opacity;
         el.style.transform = `translate(${config.initial.x}px, ${config.initial.y}px)`;
-        el.style.filter = config.initial.filter;
-        el.style.willChange = "transform, opacity, filter";
+        if (!isMobile) {
+          el.style.filter = config.initial.filter;
+        }
+        // Hardware acceleration
+        el.style.willChange = isMobile ? "transform, opacity" : "transform, opacity, filter";
+        el.style.backfaceVisibility = "hidden";
+        el.style.perspective = "1000px";
         observer.observe(el);
       });
     });
