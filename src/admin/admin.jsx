@@ -941,29 +941,40 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             placeholder="Project description"
           />
           <div className="image-grid">
-            {[0, 1, 2].map(i => (
-              <div key={i} className="image-upload-box">
-                <label className="form-label-small">Image {i + 1}</label>
-                <input 
-                  type="file" 
-                  accept="image/*" 
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      convertToBase64(file).then(base64 => {
-                        setFormData(prev => {
-                          const images = [...prev.aboutProject.images];
-                          images[i] = base64;
-                          return { ...prev, aboutProject: { ...prev.aboutProject, images } };
-                        });
-                      });
-                    }
-                  }} 
-                  className="form-input-file-small" 
-                />
-                {formData.aboutProject.images[i] && <img src={formData.aboutProject.images[i]} className="grid-image-preview" alt={`About ${i+1}`} />}
-              </div>
-            ))}
+           {[0, 1, 2].map(i => (
+  <div key={i} className="image-upload-box">
+    <label className="form-label-small">Image {i + 1}</label>
+    <input 
+      type="file" 
+      accept="image/*" 
+      onChange={(e) => {
+        const file = e.target.files[0];
+        if (file) {
+          convertToBase64(file).then(base64 => {
+            setFormData(prev => {
+              // Safe access with fallback
+              const currentImages = prev.aboutProject?.images || ['', '', ''];
+              const images = [...currentImages];
+              images[i] = base64;
+              return { 
+                ...prev, 
+                aboutProject: { 
+                  ...prev.aboutProject, 
+                  description: prev.aboutProject?.description || '',
+                  images 
+                } 
+              };
+            });
+          });
+        }
+      }} 
+      className="form-input-file-small" 
+    />
+    {formData.aboutProject?.images?.[i] && (
+      <img src={formData.aboutProject.images[i]} className="grid-image-preview" alt={`About ${i+1}`} />
+    )}
+  </div>
+))}
           </div>
         </div>
 
