@@ -992,3 +992,115 @@ body {
 .blog-content-image{
   height: 40vh;
 }
+
+
+/* Technology Selection Styles */
+.tech-category {
+  margin-bottom: 24px;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.tech-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  background: rgb(255, 255, 255);
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.tech-option:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);
+}
+
+/* 👇 SELECTED STATE - CLEAR BLUE BACKGROUND */
+.tech-option-selected {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.tech-option-selected:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.tech-icon {
+  font-size: 32px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+/* Icon scales up when selected */
+.tech-option-selected .tech-icon {
+  transform: scale(1.1);
+}
+
+.tech-name {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+  color: #374151;
+}
+
+/* White text when selected */
+.tech-option-selected .tech-name {
+  color: white;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+  }
+  
+  .tech-option {
+    padding: 12px 8px;
+  }
+  
+  .tech-icon {
+    font-size: 28px;
+  }
+  
+  .tech-name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 6px;
+  }
+  
+  .tech-option {
+    padding: 10px 6px;
+  }
+  
+  .tech-icon {
+    font-size: 24px;
+  }
+  
+  .tech-name {
+    font-size: 11px;
+  }
+}

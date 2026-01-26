@@ -149,8 +149,8 @@ const Service = () => {
 
     const ctx = gsap.context(() => {
       gsap.to(element, {
-        width: '95vw',
-        height: '90vh',
+        width: '85vw',
+      height: '90vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: element,
@@ -194,6 +194,7 @@ const Service = () => {
   const handleDesignDragStart = (e) => {
     setDesignIsDragging(true);
     designStartX.current = e.clientX || e.touches[0].clientX;
+    designMoveX.current = e.clientX || e.touches[0].clientX;
   };
 
   const handleDesignDragMove = (e) => {
@@ -204,9 +205,9 @@ const Service = () => {
   const handleDesignDragEnd = () => {
     if (!designIsDragging) return;
     const diff = designStartX.current - designMoveX.current;
-    if (diff > 70) {
+    if (diff > 30) {
       setDesignCurrent((prev) => (prev + 1) % designSlides.length);
-    } else if (diff < -70) {
+    } else if (diff < -30) {
       setDesignCurrent((prev) => (prev - 1 + designSlides.length) % designSlides.length);
     }
     setDesignIsDragging(false);
@@ -237,6 +238,7 @@ const Service = () => {
   const handleDevDragStart = (e) => {
     setDevIsDragging(true);
     devStartX.current = e.clientX || e.touches[0].clientX;
+    devMoveX.current = e.clientX || e.touches[0].clientX;
   };
 
   const handleDevDragMove = (e) => {
@@ -247,9 +249,9 @@ const Service = () => {
   const handleDevDragEnd = () => {
     if (!devIsDragging) return;
     const diff = devStartX.current - devMoveX.current;
-    if (diff > 70) {
+    if (diff > 30) {
       setDevCurrent((prev) => (prev + 1) % devSlides.length);
-    } else if (diff < -70) {
+    } else if (diff < -30) {
       setDevCurrent((prev) => (prev - 1 + devSlides.length) % devSlides.length);
     }
     setDevIsDragging(false);
@@ -280,6 +282,7 @@ const Service = () => {
   const handleProDragStart = (e) => {
     setProIsDragging(true);
     proStartX.current = e.clientX || e.touches[0].clientX;
+    proMoveX.current = e.clientX || e.touches[0].clientX;
   };
 
   const handleProDragMove = (e) => {
@@ -290,9 +293,9 @@ const Service = () => {
   const handleProDragEnd = () => {
     if (!proIsDragging) return;
     const diff = proStartX.current - proMoveX.current;
-    if (diff > 70) {
+    if (diff > 30) {
       setProCurrent((prev) => (prev + 1) % proSlides.length);
-    } else if (diff < -70) {
+    } else if (diff < -30) {
       setProCurrent((prev) => (prev - 1 + proSlides.length) % proSlides.length);
     }
     setProIsDragging(false);
@@ -407,19 +410,21 @@ const Service = () => {
         onTouchStart={handleDesignDragStart}
         onTouchMove={handleDesignDragMove}
         onTouchEnd={handleDesignDragEnd}
+        style={{ cursor: designIsDragging ? 'grabbing' : 'grab' }}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: designIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: designIsDragging ? "none" : "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
     transform: `translateX(-${designCurrent * (100 / designSlides.length)}%)`,
     width: `${designSlides.length * 100}%`,
+    willChange: "transform"
   }}
 >
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>UI/UX Design</h1>
               <p>
@@ -429,8 +434,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De2} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items sr-items2">
               <h1>Product Design</h1>
               <p>
@@ -440,8 +445,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Mobile app Design</h1>
               <p>
@@ -451,8 +456,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Creative Design</h1>
               <p>
@@ -462,8 +467,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Website Design</h1>
               <p>
@@ -473,8 +478,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={De6} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / designSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={De6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Branding</h1>
               <p>
@@ -531,19 +536,21 @@ const Service = () => {
         onTouchStart={handleDevDragStart}
         onTouchMove={handleDevDragMove}
         onTouchEnd={handleDevDragEnd}
+        style={{ cursor: devIsDragging ? 'grabbing' : 'grab' }}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: devIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: devIsDragging ? "none" : "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
     transform: `translateX(-${devCurrent * (100 / devSlides.length)}%)`,
     width: `${devSlides.length * 100}%`,
+    willChange: "transform"
   }}
 >
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Web Applications</h1>
               <p>
@@ -552,8 +559,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev2} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>E-Commerce</h1>
               <p>
@@ -562,8 +569,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Website Development</h1>
               <p>
@@ -572,8 +579,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Mobile Applications</h1>
               <p>
@@ -582,8 +589,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Interactive Websites</h1>
               <p>
@@ -592,8 +599,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Dev6} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / devSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Dev6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Maintenance &  Hosting</h1>
               <p>
@@ -648,19 +655,21 @@ const Service = () => {
         onTouchStart={handleProDragStart}
         onTouchMove={handleProDragMove}
         onTouchEnd={handleProDragEnd}
+        style={{ cursor: proIsDragging ? 'grabbing' : 'grab' }}
       >
        <div
   className="sr-carousel-inner"
   style={{
     display: "flex",
-    transition: proIsDragging ? "none" : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+    transition: proIsDragging ? "none" : "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
     transform: `translateX(-${proCurrent * (100 / proSlides.length)}%)`,
     width: `${proSlides.length * 100}%`,
+    willChange: "transform"
   }}
 >
 
-          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Pro1} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Pro1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>3D Animations</h1>
               <p>
@@ -669,8 +678,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Pro2} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Pro2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Commercials & Promos</h1>
               <p>
@@ -679,8 +688,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Pro3} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Pro3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Reels & Shorts</h1>
               <p>
@@ -689,8 +698,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Pro4} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Pro4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Long Format Content</h1>
               <p>
@@ -699,8 +708,8 @@ const Service = () => {
             </div>
           </div>
 
-          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 2rem' }}>
-            <img src={Pro5} alt="" />
+          <div className="sr-carousel-item" style={{ width: `${100 / proSlides.length}%`, flexShrink: 0, padding: '0 min(2rem, 4vw)' }}>
+            <img src={Pro5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} />
             <div className="sr-items">
               <h1>Motion Graphics</h1>
               <p>

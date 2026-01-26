@@ -18,13 +18,34 @@ const getDataSize = (data) => {
   return new Blob([JSON.stringify(data)]).size;
 };
 
+const TECHNOLOGY_OPTIONS = {
+  design: [
+    { name: 'Figma' },
+    { name: 'Illustrator' },
+    { name: 'Photoshop' }
+  ],
+  development: [
+    { name: 'HTML5' },
+    { name: 'CSS3' },
+    { name: 'React' },
+    { name: 'Next.js' },
+    { name: 'JavaScript' }
+  ],
+  production: [
+    { name: 'After Effects' },
+    { name: 'Blender' },
+    { name: 'Premiere Pro' }
+  ]
+};
+
+
 const splitSectionData = (sectionName, sectionData) => {
   const result = { main: {}, chunks: {} };
   const dataSize = getDataSize(sectionData);
   
   console.log(`Section ${sectionName} size: ${dataSize} bytes`);
   
-  if (dataSize < 400000) {
+  if (dataSize < 150000) {
     result.main = sectionData;
     return result;
   }
@@ -52,18 +73,21 @@ const splitSectionData = (sectionName, sectionData) => {
       break;
       
     case 'about':
-      result.main = {
-        aboutProject: {
-          description: sectionData.aboutProject?.description || ''
-        }
-      };
-      const aboutImages = sectionData.aboutProject?.images || [];
-      aboutImages.forEach((img, index) => {
-        if (img) {
-          result.chunks[`about_image_${index}`] = { image: img, index };
-        }
-      });
-      break;
+  result.main = {
+    aboutProject: {
+      description: sectionData.aboutProject?.description || '',
+      experienceLink: sectionData.aboutProject?.experienceLink || ''
+    }
+  };
+  const aboutImages = sectionData.aboutProject?.images || [];
+  if (Array.isArray(aboutImages)) {
+    aboutImages.forEach((img, index) => {
+      if (img) {
+        result.chunks[`about_image_${index}`] = { image: img, index };
+      }
+    });
+  }
+  break;
       
     case 'process':
       result.main = { processCards: [] };
@@ -74,18 +98,14 @@ const splitSectionData = (sectionName, sectionData) => {
       break;
       
     case 'concepts':
-      result.main = { conceptSlides: [] };
-      const conceptSlides = sectionData.conceptSlides || [];
-      for (let i = 0; i < conceptSlides.length; i += 3) {
-        const chunk = conceptSlides.slice(i, i + 3);
-        if (chunk.some(slide => slide)) {
-          result.chunks[`concepts_${Math.floor(i / 3)}`] = { 
-            slides: chunk, 
-            startIndex: i 
-          };
-        }
-      }
-      break;
+  result.main = { conceptSlides: [] };
+  const conceptSlides = sectionData.conceptSlides || [];
+  conceptSlides.forEach((slide, index) => {
+    if (slide) {
+      result.chunks[`concept_slide_${index}`] = { slide, index };
+    }
+  });
+  break;
       
     case 'design':
       result.main = { designSystemImage: '' };
@@ -95,18 +115,14 @@ const splitSectionData = (sectionName, sectionData) => {
       break;
       
     case 'responsive':
-      result.main = { responsiveImages: [] };
-      const responsiveImages = sectionData.responsiveImages || [];
-      for (let i = 0; i < responsiveImages.length; i += 2) {
-        const chunk = responsiveImages.slice(i, i + 2);
-        if (chunk.some(img => img)) {
-          result.chunks[`responsive_${Math.floor(i / 2)}`] = { 
-            images: chunk, 
-            startIndex: i 
-          };
-        }
-      }
-      break;
+  result.main = { responsiveImages: [] };
+  const responsiveImages = sectionData.responsiveImages || [];
+  responsiveImages.forEach((img, index) => {
+    if (img) {
+      result.chunks[`responsive_image_${index}`] = { image: img, index };
+    }
+  });
+  break;
       
     default:
       result.main = sectionData;
@@ -129,30 +145,42 @@ const reconstructSectionData = (mainData, chunks) => {
       reconstructed.client.logo = data.logo;
     }
     else if (sectionName.startsWith('about_image_')) {
-      if (!reconstructed.aboutProject) reconstructed.aboutProject = { description: '', images: [] };
-      if (!reconstructed.aboutProject.images) reconstructed.aboutProject.images = [];
-      reconstructed.aboutProject.images[data.index] = data.image;
-    }
+  if (!reconstructed.aboutProject) {
+    reconstructed.aboutProject = { 
+      description: '', 
+      experienceLink: '', 
+      images: [] 
+    };
+  }
+  if (!Array.isArray(reconstructed.aboutProject.images)) {
+    reconstructed.aboutProject.images = [];
+  }
+  // Preserve experienceLink from main data if it exists
+  if (reconstructed.aboutProject.experienceLink === '' && mainData.aboutProject?.experienceLink) {
+    reconstructed.aboutProject.experienceLink = mainData.aboutProject.experienceLink;
+  }
+  reconstructed.aboutProject.images[data.index] = data.image;
+}
     else if (sectionName.startsWith('process_card_')) {
-      if (!reconstructed.processCards) reconstructed.processCards = [];
+      if (!Array.isArray(reconstructed.processCards)) {
+        reconstructed.processCards = [];
+      }
       reconstructed.processCards[data.index] = data.card;
     }
-    else if (sectionName.startsWith('concepts_')) {
-      if (!reconstructed.conceptSlides) reconstructed.conceptSlides = Array(9).fill('');
-      const { slides, startIndex } = data;
-      slides.forEach((slide, i) => {
-        if (slide) reconstructed.conceptSlides[startIndex + i] = slide;
-      });
+    else if (sectionName.startsWith('concept_slide_')) {
+      if (!Array.isArray(reconstructed.conceptSlides)) {
+        reconstructed.conceptSlides = Array(9).fill('');
+      }
+      reconstructed.conceptSlides[data.index] = data.slide;
     }
     else if (sectionName === 'design_image') {
       reconstructed.designSystemImage = data.designSystemImage;
     }
-    else if (sectionName.startsWith('responsive_')) {
-      if (!reconstructed.responsiveImages) reconstructed.responsiveImages = Array(8).fill('');
-      const { images, startIndex } = data;
-      images.forEach((img, i) => {
-        if (img) reconstructed.responsiveImages[startIndex + i] = img;
-      });
+    else if (sectionName.startsWith('responsive_image_')) {
+      if (!Array.isArray(reconstructed.responsiveImages)) {
+        reconstructed.responsiveImages = Array(8).fill('');
+      }
+      reconstructed.responsiveImages[data.index] = data.image;
     }
   });
   
@@ -192,14 +220,40 @@ const AdminPanel = () => {
 
       const caseSnap = await getDocs(query(collection(db, 'caseStudies'), orderBy('createdAt', 'desc')));
       
-      const caseStudiesWithChunks = await Promise.all(
-        caseSnap.docs.map(async (caseDoc) => {
-          const mainData = { id: caseDoc.id, ...caseDoc.data() };
-          const chunksSnap = await getDocs(collection(db, `caseStudies/${caseDoc.id}/chunks`));
-          const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          return reconstructSectionData(mainData, chunks);
-        })
-      );
+     const caseStudiesWithChunks = await Promise.all(
+  caseSnap.docs.map(async (caseDoc) => {
+    const mainData = { id: caseDoc.id, ...caseDoc.data() };
+    const chunksSnap = await getDocs(collection(db, `caseStudies/${caseDoc.id}/chunks`));
+    const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    // Add defensive check
+    const reconstructed = reconstructSectionData(mainData, chunks);
+    
+    // Ensure all arrays exist with default values
+    return {
+      ...reconstructed,
+      aboutProject: {
+        description: reconstructed.aboutProject?.description || '',
+        images: Array.isArray(reconstructed.aboutProject?.images) 
+          ? reconstructed.aboutProject.images 
+          : ['', '', '']
+      },
+      processCards: Array.isArray(reconstructed.processCards) 
+        ? reconstructed.processCards 
+        : Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
+      conceptSlides: Array.isArray(reconstructed.conceptSlides) 
+        ? reconstructed.conceptSlides 
+        : Array(9).fill(''),
+      responsiveImages: Array.isArray(reconstructed.responsiveImages) 
+        ? reconstructed.responsiveImages 
+        : Array(8).fill(''),
+      technologies: reconstructed.technologies || { design: [], development: [], production: [] },
+      results: Array.isArray(reconstructed.results) 
+        ? reconstructed.results 
+        : Array(4).fill(null).map(() => ({ title: '', description: '' }))
+    };
+  })
+);
       
       setCaseStudies(caseStudiesWithChunks);
     } catch (error) {
@@ -515,7 +569,7 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
     heroThumbnail: '',
     projectTitle: '',
     client: { name: '', logo: '', industry: '', country: '', services: '' },
-    aboutProject: { description: '', images: ['', '', ''] },
+    aboutProject: { description: '', experienceLink: '', images: ['', '', ''] },
     processCards: Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
     conceptSlides: Array(9).fill(''),
     designSystemImage: '',
@@ -546,13 +600,13 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
         heroThumbnail: editingItem.heroThumbnail || '',
         projectTitle: editingItem.projectTitle || '',
         client: editingItem.client || { name: '', logo: '', industry: '', country: '', services: '' },
-        aboutProject: editingItem.aboutProject || { description: '', images: ['', '', ''] },
+        aboutProject: editingItem.aboutProject || { description: '', experienceLink: '', images: ['', '', ''] },
         processCards: editingItem.processCards || Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
         conceptSlides: editingItem.conceptSlides || Array(9).fill(''),
         designSystemImage: editingItem.designSystemImage || '',
         responsiveImages: editingItem.responsiveImages || Array(8).fill(''),
-        technologies: editingItem.technologies || { design: [], development: [], production: [] },
-        results: editingItem.results || Array(4).fill(null).map(() => ({ title: '', description: '' }))
+technologies: editingItem.technologies || { design: [], development: [], production: [] },
+      results: editingItem.results || Array(4).fill(null).map(() => ({ title: '', description: '' }))
       });
       setSavedSections({
         basic: true,
@@ -574,13 +628,13 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
         heroThumbnail: '',
         projectTitle: '',
         client: { name: '', logo: '', industry: '', country: '', services: '' },
-        aboutProject: { description: '', images: ['', '', ''] },
+        aboutProject: { description: '', experienceLink: '', images: ['', '', ''] },
         processCards: Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
         conceptSlides: Array(9).fill(''),
         designSystemImage: '',
         responsiveImages: Array(8).fill(''),
-        technologies: { design: [], development: [], production: [] },
-        results: Array(4).fill(null).map(() => ({ title: '', description: '' }))
+     technologies: { design: [], development: [], production: [] },
+      results: Array(4).fill(null).map(() => ({ title: '', description: '' }))
       });
       setSavedSections({
         basic: false,
@@ -613,14 +667,20 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
           return updated;
         });
       } else if (index !== null) {
-        setFormData(prev => {
-          const updated = { ...prev };
-          const arr = Array.isArray(updated[field]) ? [...updated[field]] : [];
-          arr[index] = base64;
-          updated[field] = arr;
-          return updated;
-        });
-      } else if (subfield) {
+  setFormData(prev => {
+    const updated = { ...prev };
+    // Ensure array exists with proper length
+    let arr = Array.isArray(updated[field]) ? [...updated[field]] : [];
+    if (field === 'responsiveImages' && arr.length < 8) {
+      arr = Array(8).fill('');
+    } else if (field === 'conceptSlides' && arr.length < 9) {
+      arr = Array(9).fill('');
+    }
+    arr[index] = base64;
+    updated[field] = arr;
+    return updated;
+  });
+} else if (subfield) {
         setFormData(prev => ({
           ...prev,
           [field]: { ...prev[field], [subfield]: base64 }
@@ -702,6 +762,30 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
       alert(`Error saving ${sectionName}: ${error.message}`);
     }
   };
+
+  const toggleTechnology = (category, value) => {
+  console.log('🔥 Toggle clicked!', category, value);
+  console.log('Current technologies:', formData.technologies);
+  
+  setFormData(prev => {
+    const technologies = { ...prev.technologies };
+    console.log('Before toggle:', technologies[category]);
+    
+    const index = technologies[category].indexOf(value);
+    console.log('Index found:', index);
+    
+    if (index > -1) {
+      technologies[category] = technologies[category].filter(v => v !== value);
+      console.log('Removed:', value);
+    } else {
+      technologies[category] = [...technologies[category], value];
+      console.log('Added:', value);
+    }
+    
+    console.log('After toggle:', technologies[category]);
+    return { ...prev, technologies };
+  });
+};
 
   return (
     <div className="form-container case-study-form">
@@ -812,16 +896,45 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Hero Video URL (YouTube embed)</label>
-            <input
-              type="text"
-              value={formData.heroVideo}
-              onChange={(e) => setFormData({ ...formData, heroVideo: e.target.value })}
-              className="form-input"
-              placeholder="https://www.youtube.com/embed/..."
-            />
-          </div>
+        <div className="form-group">
+  <label className="form-label">Hero Video URL (YouTube embed)</label>
+  <input
+    type="text"
+    value={formData.heroVideo}
+    onChange={(e) => setFormData({ ...formData, heroVideo: e.target.value })}
+    className="form-input"
+    placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ"
+  />
+  <p style={{ 
+    fontSize: '13px', 
+    color: '#666', 
+    marginTop: '8px',
+    background: '#f0f0f0',
+    padding: '12px',
+    borderRadius: '6px',
+    lineHeight: '1.6'
+  }}>
+    ⚠️ <strong>Important:</strong> Use the <strong>embed URL</strong> format:<br/>
+    ✅ Correct: <code style={{ background: '#e0e0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/embed/VIDEO_ID</code><br/>
+    ❌ Wrong: <code style={{ background: '#ffe0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/watch?v=VIDEO_ID</code><br/>
+    <br/>
+    <strong>How to get embed URL:</strong><br/>
+    1. Go to your YouTube video<br/>
+    2. Click "Share" → "Embed"<br/>
+    3. Copy the URL from the src attribute
+  </p>
+  {formData.heroVideo && (
+    <div className="video-preview-container" style={{ marginTop: '16px' }}>
+      <iframe
+        src={formData.heroVideo}
+        title="Hero Video Preview"
+        className="video-preview"
+        style={{ width: '100%', height: '400px', border: 'none', borderRadius: '8px' }}
+        allowFullScreen
+      />
+    </div>
+  )}
+</div>
           <div className="form-group">
             <label className="form-label">Hero Thumbnail</label>
             <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'heroThumbnail')} className="form-input-file" />
@@ -940,6 +1053,25 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             className="form-textarea"
             placeholder="Project description"
           />
+
+            <div className="form-group" style={{ marginTop: '16px' }}>
+    <label className="form-label">Experience Button Link</label>
+    <input
+      type="url"
+      value={formData.aboutProject.experienceLink || ''}
+      onChange={(e) => setFormData({ 
+        ...formData, 
+        aboutProject: { 
+          ...formData.aboutProject, 
+          experienceLink: e.target.value 
+        } 
+      })}
+      className="form-input"
+      placeholder="https://example.com or /page-slug"
+    />
+  </div>
+
+
           <div className="image-grid">
            {[0, 1, 2].map(i => (
   <div key={i} className="image-upload-box">
@@ -1062,50 +1194,57 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
           ))}
         </div>
 
-        {/* SECTION 6: Initial Concepts */}
-        <div className="form-section chunked-section">
-          <div className="section-header-with-save">
-            <h3 className="section-title">6. Initial Concepts (9 slides)</h3>
-            <div className="button-group">
-              {!savedSections.concepts ? (
-                <button
-                  type="button"
-                  onClick={() => saveSection('concepts', {
-                    conceptSlides: formData.conceptSlides
-                  })}
-                  className="save-section-button"
-                >
-                  <Save size={16} /> Save Section
-                </button>
-              ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
-              )}
-              {savedSections.concepts && (
-                <button
-                  type="button"
-                  onClick={() => saveSection('concepts', {
-                    conceptSlides: formData.conceptSlides
-                  })}
-                  className="update-section-button"
-                >
-                  <Save size={16} /> Update
-                </button>
-              )}
-            </div>
-          </div>
+       {/* SECTION 6: Initial Concepts */}
+<div className="form-section chunked-section">
+  <div className="section-header-with-save">
+    <h3 className="section-title">6. Initial Concepts (9 slides)</h3>
+    <div className="button-group">
+      {!savedSections.concepts ? (
+        <button
+          type="button"
+          onClick={() => saveSection('concepts', {
+            conceptSlides: formData.conceptSlides
+          })}
+          className="save-section-button"
+        >
+          <Save size={16} /> Save Section
+        </button>
+      ) : (
+        <button className="save-section-button saved">
+          <Check size={16} /> Saved
+        </button>
+      )}
+      {savedSections.concepts && (
+        <button
+          type="button"
+          onClick={() => saveSection('concepts', {
+            conceptSlides: formData.conceptSlides
+          })}
+          className="update-section-button"
+        >
+          <Save size={16} /> Update
+        </button>
+      )}
+    </div>
+  </div>
 
-          <div className="slides-grid">
-            {formData.conceptSlides.map((slide, i) => (
-              <div key={i} className="slide-upload-box">
-                <label className="form-label-small">Slide {i + 1}</label>
-                <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'conceptSlides', i)} className="form-input-file-small" />
-                {slide && <img src={slide} className="slide-preview" alt={`Slide ${i+1}`} />}
-              </div>
-            ))}
-          </div>
-        </div>
+  <div className="slides-grid">
+    {Array.from({ length: 9 }).map((_, i) => (
+      <div key={i} className="slide-upload-box">
+        <label className="form-label-small">Slide {i + 1}</label>
+        <input 
+          type="file" 
+          accept="image/*" 
+          onChange={(e) => handleFileUpload(e, 'conceptSlides', i)} 
+          className="form-input-file-small" 
+        />
+        {formData.conceptSlides[i] && (
+          <img src={formData.conceptSlides[i]} className="slide-preview" alt={`Slide ${i+1}`} />
+        )}
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* SECTION 7: Design System */}
         <div className="form-section chunked-section">
@@ -1180,14 +1319,21 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
           </div>
 
           <div className="responsive-grid">
-            {formData.responsiveImages.map((img, i) => (
-              <div key={i} className="responsive-upload-box">
-                <label className="form-label-small">Image {i + 1}</label>
-                <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'responsiveImages', i)} className="form-input-file-small" />
-                {img && <img src={img} className="responsive-preview" alt={`Responsive ${i+1}`} />}
-              </div>
-            ))}
-          </div>
+  {Array.from({ length: 8 }).map((_, i) => (
+    <div key={i} className="responsive-upload-box">
+      <label className="form-label-small">Image {i + 1}</label>
+      <input 
+        type="file" 
+        accept="image/*" 
+        onChange={(e) => handleFileUpload(e, 'responsiveImages', i)} 
+        className="form-input-file-small" 
+      />
+      {formData.responsiveImages[i] && (
+        <img src={formData.responsiveImages[i]} className="responsive-preview" alt={`Responsive ${i+1}`} />
+      )}
+    </div>
+  ))}
+</div>
         </div>
 
         {/* SECTION 9: Technologies */}
@@ -1224,24 +1370,31 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             </div>
           </div>
 
-          {['design', 'development', 'production'].map(category => (
-            <div key={category} className="form-group">
-              <label className="form-label">{category.charAt(0).toUpperCase() + category.slice(1)} Tools (comma separated)</label>
-              <input
-                type="text"
-                value={formData.technologies[category].join(', ')}
-                onChange={(e) => setFormData({
-                  ...formData,
-                  technologies: {
-                    ...formData.technologies,
-                    [category]: e.target.value.split(',').map(s => s.trim())
-                  }
-                })}
-                className="form-input"
-                placeholder="e.g., Figma, Photoshop, Illustrator"
-              />
-            </div>
-          ))}
+      {['design', 'development', 'production'].map(category => (
+  <div key={category} className="tech-category">
+    <h4 className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)} Tools</h4>
+    <div className="tech-grid">
+      {TECHNOLOGY_OPTIONS[category].map(tech => {
+        const isSelected = formData.technologies[category].includes(tech.name);
+        
+        return (
+          <button
+            key={tech.name}
+            type="button"
+            onClick={() => {
+              console.log('Button clicked:', category, tech.name);
+              toggleTechnology(category, tech.name);
+            }}
+            className={`tech-option ${isSelected ? 'tech-option-selected' : ''}`}
+          >
+            <span className="tech-icon">{tech.icon}</span>
+            <span className="tech-name">{tech.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  </div>
+))}
         </div>
 
         {/* SECTION 10: Results */}

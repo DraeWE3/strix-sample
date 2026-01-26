@@ -25,6 +25,7 @@ import Icon7 from '../assets/img/tech-icon7.svg'
 import Icon8 from '../assets/img/tech-icon8.svg'
 import Icon9 from '../assets/img/tech-icon9.svg'
 import Icon10 from '../assets/img/tech-icon10.svg'
+import Icon11 from '../assets/img/blender.svg'
 import Blur7 from '../assets/img/blur5.png'
 import Blur8 from '../assets/img/p-blur6.png'
 import BookBg from '../assets/img/book-con.webp'
@@ -45,16 +46,17 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Technology icon mapping
 const TECH_ICONS = {
-  'Figma': Icon1,
-  'Photoshop': Icon2,
-  'Illustrator': Icon3,
-  'React': Icon4,
-  'Node.js': Icon5,
-  'MongoDB': Icon6,
-  'Express': Icon7,
-  'Firebase': Icon8,
-  'After Effects': Icon9,
-  'Premiere Pro': Icon10,
+  'Figma': Icon1,           // Figma icon
+  'Illustrator': Icon2,     // Ai icon
+  'Photoshop': Icon3,       // Ps icon
+  'HTML5': Icon4,           // HTML5 icon
+  'CSS3': Icon5,            // CSS3 icon
+  'React': Icon6,           // React icon
+  'Next.js': Icon7,         // Next.js icon (wavy icon)
+  'JavaScript': Icon8,      // JS icon
+  'After Effects': Icon9,   // Ae icon
+  'Blender': Icon11,        // Blender icon
+  'Premiere Pro': Icon10   // Pr icon (you can use Icon9 or add another)
 }
 
 // Process icon mapping
@@ -68,10 +70,56 @@ const PROCESS_ICONS = {
 }
 
 // Helper function to reconstruct data from chunks
+// Helper function to reconstruct data from chunks
 const reconstructSectionData = (mainData, chunks) => {
   const reconstructed = { ...mainData };
   
+  // Initialize all arrays with default values FIRST
+  if (!reconstructed.aboutProject) {
+    reconstructed.aboutProject = { 
+      description: '', 
+      experienceLink: '',  // 👈 ADD THIS
+      images: ['', '', ''] 
+    };
+  }
+   else {
+    if (!reconstructed.aboutProject.experienceLink) {
+      reconstructed.aboutProject.experienceLink = mainData.aboutProject?.experienceLink || '';
+    }
+
+    if (!Array.isArray(reconstructed.aboutProject.images)) {
+      reconstructed.aboutProject.images = ['', '', ''];
+    }
+  }
+  
+  if (!Array.isArray(reconstructed.processCards)) {
+    reconstructed.processCards = [];
+  }
+  
+  if (!Array.isArray(reconstructed.conceptSlides)) {
+    reconstructed.conceptSlides = Array(9).fill('');
+  }
+  
+  if (!Array.isArray(reconstructed.responsiveImages)) {
+    reconstructed.responsiveImages = Array(8).fill('');
+  }
+  
+  if (!reconstructed.technologies) {
+    reconstructed.technologies = { design: [], development: [], production: [] };
+  }
+  
+  if (!Array.isArray(reconstructed.results)) {
+    reconstructed.results = Array(4).fill(null).map(() => ({ title: '', description: '' }));
+  }
+  
+  // Now safely process chunks
+  if (!Array.isArray(chunks)) {
+    return reconstructed;
+  }
+  
   chunks.forEach(chunk => {
+    if (!chunk || !chunk.sectionName || !chunk.data) return;
+    
     const { sectionName, data } = chunk;
     
     if (sectionName === 'hero_thumbnail') {
@@ -82,30 +130,27 @@ const reconstructSectionData = (mainData, chunks) => {
       reconstructed.client.logo = data.logo;
     }
     else if (sectionName.startsWith('about_image_')) {
-      if (!reconstructed.aboutProject) reconstructed.aboutProject = { description: '', images: [] };
-      if (!reconstructed.aboutProject.images) reconstructed.aboutProject.images = [];
-      reconstructed.aboutProject.images[data.index] = data.image;
+      if (data.index !== undefined && data.image) {
+        reconstructed.aboutProject.images[data.index] = data.image;
+      }
     }
     else if (sectionName.startsWith('process_card_')) {
-      if (!reconstructed.processCards) reconstructed.processCards = [];
-      reconstructed.processCards[data.index] = data.card;
+      if (data.index !== undefined && data.card) {
+        reconstructed.processCards[data.index] = data.card;
+      }
     }
-    else if (sectionName.startsWith('concepts_')) {
-      if (!reconstructed.conceptSlides) reconstructed.conceptSlides = Array(9).fill('');
-      const { slides, startIndex } = data;
-      slides.forEach((slide, i) => {
-        if (slide) reconstructed.conceptSlides[startIndex + i] = slide;
-      });
+    else if (sectionName.startsWith('concept_slide_')) {
+      if (data.index !== undefined && data.slide) {
+        reconstructed.conceptSlides[data.index] = data.slide;
+      }
     }
     else if (sectionName === 'design_image') {
       reconstructed.designSystemImage = data.designSystemImage;
     }
-    else if (sectionName.startsWith('responsive_')) {
-      if (!reconstructed.responsiveImages) reconstructed.responsiveImages = Array(8).fill('');
-      const { images, startIndex } = data;
-      images.forEach((img, i) => {
-        if (img) reconstructed.responsiveImages[startIndex + i] = img;
-      });
+    else if (sectionName.startsWith('responsive_image_')) {
+      if (data.index !== undefined && data.image) {
+        reconstructed.responsiveImages[data.index] = data.image;
+      }
     }
   });
   
@@ -125,7 +170,7 @@ useEffect(() => {
 
   const ctx = gsap.context(() => {
     gsap.to(element, {
-      width: '95vw',
+      width: '85vw',
       height: '90vh',
       ease: 'power2.out',
       scrollTrigger: {
@@ -175,17 +220,18 @@ useEffect(() => {
           )}
         </div>
       ) : (
-        <div className="video-player">
-          <iframe
-            width="100%"
-            height="100%"
-            src={`${caseStudy.heroVideo}?autoplay=1`}
-            title="Video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
+       <div className="video-player">
+  <iframe
+    width="100%"
+    height="100%"
+    src={`${caseStudy.heroVideo}?autoplay=1`}
+    title="Video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowFullScreen
+    referrerPolicy="strict-origin-when-cross-origin"
+  ></iframe>
+</div>
       )}
     </div>
   )
@@ -205,72 +251,99 @@ const CaseStudy = () => {
     fetchCaseStudy()
   }, [id])
 
-  const fetchCaseStudy = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      
-      console.log('Fetching case study for project ID:', id)
-      
-      const caseStudiesQuery = query(
-        collection(db, 'caseStudies'),
-        where('projectId', '==', id),
-        limit(1)
-      )
-      
-      const caseStudiesSnap = await getDocs(caseStudiesQuery)
-      
-      if (caseStudiesSnap.empty) {
-        console.log('No case study found for project ID:', id)
-        setError('No case study has been created for this project yet.')
-        setLoading(false)
-        return
-      }
-
-      const caseStudyDoc = caseStudiesSnap.docs[0]
-      const mainData = { id: caseStudyDoc.id, ...caseStudyDoc.data() }
-      
-      // Load chunks from subcollection
-      const chunksSnap = await getDocs(collection(db, `caseStudies/${caseStudyDoc.id}/chunks`))
-      const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-      
-      console.log('Loaded chunks:', chunks.length)
-      
-      // Reconstruct full data with chunks
-      const fullData = reconstructSectionData(mainData, chunks)
-      
-      console.log('Case study loaded with chunks:', fullData)
-      console.log('Concept slides:', fullData.conceptSlides)
-      
-      setCaseStudy(fullData)
-
-      // Load next project
-      const allCaseStudiesQuery = query(
-        collection(db, 'caseStudies'),
-        orderBy('createdAt', 'desc')
-      )
-      const allCaseStudiesSnap = await getDocs(allCaseStudiesQuery)
-      const allCaseStudies = allCaseStudiesSnap.docs.map(d => ({ id: d.id, ...d.data() }))
-      
-      const currentIndex = allCaseStudies.findIndex(cs => cs.id === caseStudyDoc.id)
-      console.log('Current index:', currentIndex, 'Total case studies:', allCaseStudies.length)
-      
-      if (currentIndex !== -1 && allCaseStudies.length > 1) {
-        const nextIndex = (currentIndex + 1) % allCaseStudies.length
-        const nextProj = allCaseStudies[nextIndex]
-        console.log('Next project:', nextProj)
-        setNextProject(nextProj)
-      } else {
-        console.log('No next project found or only one case study')
-      }
-
+const fetchCaseStudy = async () => {
+  try {
+    setLoading(true)
+    setError(null)
+    
+    console.log('Fetching case study for project ID:', id)
+    
+    const caseStudiesQuery = query(
+      collection(db, 'caseStudies'),
+      where('projectId', '==', id),
+      limit(1)
+    )
+    
+    const caseStudiesSnap = await getDocs(caseStudiesQuery)
+    
+    if (caseStudiesSnap.empty) {
+      console.log('No case study found for project ID:', id)
+      setError('No case study has been created for this project yet.')
       setLoading(false)
-    } catch (error) {
-      console.error('Error fetching case study:', error)
-      setError('Error loading case study: ' + error.message)
-      setLoading(false)
+      return
     }
+
+    const caseStudyDoc = caseStudiesSnap.docs[0]
+    const mainData = { id: caseStudyDoc.id, ...caseStudyDoc.data() }
+    
+    // Load chunks from subcollection
+    const chunksRef = collection(db, `caseStudies/${caseStudyDoc.id}/chunks`)
+    const chunksSnap = await getDocs(chunksRef)
+    const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    
+    console.log('Loaded chunks:', chunks.length)
+    console.log('Main data:', mainData)
+    
+    // Reconstruct full data with chunks
+    const fullData = reconstructSectionData(mainData, chunks)
+    
+    // Final validation to ensure all arrays exist
+    const validatedData = {
+      ...fullData,
+      aboutProject: {
+  description: fullData.aboutProject?.description || '',
+  experienceLink: fullData.aboutProject?.experienceLink || '',  // 👈 ADD THIS LINE
+  images: Array.isArray(fullData.aboutProject?.images) 
+    ? fullData.aboutProject.images 
+    : ['', '', '']
+},
+      processCards: Array.isArray(fullData.processCards) && fullData.processCards.length > 0
+        ? fullData.processCards 
+        : [],
+      conceptSlides: Array.isArray(fullData.conceptSlides) 
+        ? fullData.conceptSlides 
+        : Array(9).fill(''),
+      responsiveImages: Array.isArray(fullData.responsiveImages) 
+        ? fullData.responsiveImages 
+        : Array(8).fill(''),
+      technologies: fullData.technologies || { design: [], development: [], production: [] },
+      results: Array.isArray(fullData.results) && fullData.results.length > 0
+        ? fullData.results 
+        : []
+    };
+    
+    console.log('Final validated data:', validatedData)
+    
+    setCaseStudy(validatedData)
+
+    // Load next project
+    const allCaseStudiesQuery = query(
+      collection(db, 'caseStudies'),
+      orderBy('createdAt', 'desc')
+    )
+    const allCaseStudiesSnap = await getDocs(allCaseStudiesQuery)
+    const allCaseStudies = allCaseStudiesSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+    
+    const currentIndex = allCaseStudies.findIndex(cs => cs.id === caseStudyDoc.id)
+    console.log('Current index:', currentIndex, 'Total case studies:', allCaseStudies.length)
+    
+    if (currentIndex !== -1 && allCaseStudies.length > 1) {
+      const nextIndex = (currentIndex + 1) % allCaseStudies.length
+      const nextProj = allCaseStudies[nextIndex]
+      console.log('Next project:', nextProj)
+      setNextProject(nextProj)
+    } else {
+      console.log('No next project found or only one case study')
+    }
+
+    setLoading(false)
+  } catch (error) {
+    console.error('Error fetching case study:', error)
+    console.error('Error stack:', error.stack)
+    setError('Error loading case study: ' + error.message)
+    setLoading(false)
   }
+}
 
   const scroll = (direction) => {
     const container = carouselRef.current
@@ -323,79 +396,75 @@ if (loading) {
           position: 'relative'
         }}
       >
-        {/* Uiverse Spinner */}
-        <div className="spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <section className="dots-container">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+        </section>
 
-        {/* <p>Loading case study...</p> */}
-
-        {/* Inject CSS for spinner */}
         <style>{`
-          .spinner {
-            width: 70.4px;
-            height: 70.4px;
-            --clr: rgba(255, 255, 255, 1);
-            --clr-alpha: rgba(255, 255, 255, 0.1);
-            animation: spinner 1.6s infinite ease;
-            transform-style: preserve-3d;
-            position: relative;
-          }
+          .dots-container {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;
+width: 100%;
+}
 
-          .spinner > div {
-            background-color: var(--clr-alpha);
-            height: 100%;
-            position: absolute;
-            width: 100%;
-            border: 3.5px solid var(--clr);
-          }
 
-          .spinner div:nth-of-type(1) {
-            transform: translateZ(-35.2px) rotateY(180deg);
-          }
+.dot {
+  height: 12px;
+  width: 12px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  animation: pulse 1.5s infinite ease-in-out;
+}
 
-          .spinner div:nth-of-type(2) {
-            transform: rotateY(-270deg) translateX(50%);
-            transform-origin: top right;
-          }
 
-          .spinner div:nth-of-type(3) {
-            transform: rotateY(270deg) translateX(-50%);
-            transform-origin: center left;
-          }
+.dot:last-child {
+margin-right: 0;
+}
 
-          .spinner div:nth-of-type(4) {
-            transform: rotateX(90deg) translateY(-50%);
-            transform-origin: top center;
-          }
 
-          .spinner div:nth-of-type(5) {
-            transform: rotateX(-90deg) translateY(50%);
-            transform-origin: bottom center;
-          }
+.dot:nth-child(1) {
+animation-delay: -0.3s;
+}
 
-          .spinner div:nth-of-type(6) {
-            transform: translateZ(35.2px);
-          }
 
-          @keyframes spinner {
-            0% {
-              transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-            }
-          
-            50% {
-              transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-            }
-          
-            100% {
-              transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-            }
-          }
+.dot:nth-child(2) {
+animation-delay: -0.1s;
+}
+
+
+.dot:nth-child(3) {
+animation-delay: 0.1s;
+}
+
+
+@keyframes pulse {
+0% {
+transform: scale(0.8);
+background-color: #e5e7eb; /* very light grey */
+box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+}
+
+
+50% {
+transform: scale(1.2);
+background-color: #ffffff; /* white */
+box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+}
+
+
+100% {
+transform: scale(0.8);
+background-color: #e5e7eb;
+box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+}
+}
         `}</style>
       </div>
       <Footer />
@@ -710,9 +779,16 @@ const AboutProjectSection = ({ caseStudy }) => {
           </div>
         </div>
       )}
-      <div className="aboutprojectbtn">
-        <ButtonArrow text='Experience' />
-      </div>
+           <div className="aboutprojectbtn">
+  {caseStudy.aboutProject?.experienceLink ? (
+    <a href={caseStudy.aboutProject.experienceLink} target="_blank" rel="noopener noreferrer">
+      <ButtonArrow text='Experience' />
+    </a>
+  ) : (
+    <ButtonArrow text='Experience' />
+  )}
+</div>
+
       <img src={Blur4} className='p-blur4' alt="" />
       <img src={Blur5} className='p-blur5' alt="" />
     </div>

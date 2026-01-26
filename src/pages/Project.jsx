@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "../style/Project.css"
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
-import ProjectCarousel from '../components/projectCarouel'
+import Carousel from '../components/carousel'
 import ProjectCircle from '../assets/img/project-circle.webp'
 import BtnNormsall from '../components/normSmall-btn'
 import Connect from '../assets/img/connect.svg'
@@ -174,7 +174,7 @@ const Project = () => {
         <div className='project-carousel-con'>
           <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle"/>
           <h1>Latest Projects</h1>
-          <ProjectCarousel />
+          <Carousel />
         </div>
         <img src={Blur1} className='p-blur1' alt="Blur" />
         <img src={Blur2} className='p-blur2' alt="Blur" />
