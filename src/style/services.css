@@ -521,3 +521,12 @@ font-family: 'Clash Display', sans-serif;
     position: relative;
 }
 
+.sr-design{
+   margin-bottom: 2rem; 
+}
+
+@media (max-width: 750px) {
+    .strix-why{
+    margin-top: 40% !important;
+}
+}

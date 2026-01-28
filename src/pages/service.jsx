@@ -425,7 +425,7 @@ const Service = () => {
       <div className="service-hero norm-pad">
         <div className="sh-top">
           <img src={Circleblur} alt="" />
-          <h1 className="sh-top-h1 scrollReveal">Why Strix Production?</h1>
+          <h1 className="sh-top-h1 strix-why scrollReveal">Why Strix Production?</h1>
           <p className="sh-top-p scrollReveal">We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
           <BtnNormsall text='Know more' />
         </div>
