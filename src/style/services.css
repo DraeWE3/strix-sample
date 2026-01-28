@@ -371,6 +371,17 @@ font-family: 'Clash Display', sans-serif;
   transform: scale(1.2);
 }
 
+@media (max-width: 800px) {
+    .sr-items p{
+    max-width: 60vw;
+    margin-bottom: 0 !important;
+}
+
+    .sr-items{
+        height: 40% !important;
+    }
+}
+
 
 /* ======================Sr development================== */
 
