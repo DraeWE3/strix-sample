@@ -174,7 +174,7 @@ const Project = () => {
         <div className='project-carousel-con'>
           <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle"/>
           <h1>Latest Projects</h1>
-          <Carousel />
+            <Carousel />
         </div>
         <img src={Blur1} className='p-blur1' alt="Blur" />
         <img src={Blur2} className='p-blur2' alt="Blur" />

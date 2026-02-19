@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, orderBy } from 'firebase/firestore';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, LogOut, Check } from 'lucide-react';
-import { auth, db, convertToBase64 } from './firebaseconfig';
+import { auth, db } from './firebaseconfig';
+import { uploadImage } from './storage';
 import { setLogLevel } from "firebase/firestore";
 setLogLevel('debug');
 
@@ -42,22 +43,22 @@ const TECHNOLOGY_OPTIONS = {
 const splitSectionData = (sectionName, sectionData) => {
   const result = { main: {}, chunks: {} };
   const dataSize = getDataSize(sectionData);
-  
+
   console.log(`Section ${sectionName} size: ${dataSize} bytes`);
-  
+
   if (dataSize < 150000) {
     result.main = sectionData;
     return result;
   }
-  
-  switch(sectionName) {
+
+  switch (sectionName) {
     case 'hero':
       result.main = { heroVideo: sectionData.heroVideo };
       if (sectionData.heroThumbnail) {
         result.chunks['hero_thumbnail'] = { heroThumbnail: sectionData.heroThumbnail };
       }
       break;
-      
+
     case 'client':
       result.main = {
         client: {
@@ -71,24 +72,24 @@ const splitSectionData = (sectionName, sectionData) => {
         result.chunks['client_logo'] = { logo: sectionData.client.logo };
       }
       break;
-      
+
     case 'about':
-  result.main = {
-    aboutProject: {
-      description: sectionData.aboutProject?.description || '',
-      experienceLink: sectionData.aboutProject?.experienceLink || ''
-    }
-  };
-  const aboutImages = sectionData.aboutProject?.images || [];
-  if (Array.isArray(aboutImages)) {
-    aboutImages.forEach((img, index) => {
-      if (img) {
-        result.chunks[`about_image_${index}`] = { image: img, index };
+      result.main = {
+        aboutProject: {
+          description: sectionData.aboutProject?.description || '',
+          experienceLink: sectionData.aboutProject?.experienceLink || ''
+        }
+      };
+      const aboutImages = sectionData.aboutProject?.images || [];
+      if (Array.isArray(aboutImages)) {
+        aboutImages.forEach((img, index) => {
+          if (img) {
+            result.chunks[`about_image_${index}`] = { image: img, index };
+          }
+        });
       }
-    });
-  }
-  break;
-      
+      break;
+
     case 'process':
       result.main = { processCards: [] };
       const processCards = sectionData.processCards || [];
@@ -96,71 +97,71 @@ const splitSectionData = (sectionName, sectionData) => {
         result.chunks[`process_card_${index}`] = { card, index };
       });
       break;
-      
+
     case 'concepts':
-  result.main = { conceptSlides: [] };
-  const conceptSlides = sectionData.conceptSlides || [];
-  conceptSlides.forEach((slide, index) => {
-    if (slide) {
-      result.chunks[`concept_slide_${index}`] = { slide, index };
-    }
-  });
-  break;
-      
+      result.main = { conceptSlides: [] };
+      const conceptSlides = sectionData.conceptSlides || [];
+      conceptSlides.forEach((slide, index) => {
+        if (slide) {
+          result.chunks[`concept_slide_${index}`] = { slide, index };
+        }
+      });
+      break;
+
     case 'design':
       result.main = { designSystemImage: '' };
       if (sectionData.designSystemImage) {
         result.chunks['design_image'] = { designSystemImage: sectionData.designSystemImage };
       }
       break;
-      
+
     case 'responsive':
-  result.main = { responsiveImages: [] };
-  const responsiveImages = sectionData.responsiveImages || [];
-  responsiveImages.forEach((img, index) => {
-    if (img) {
-      result.chunks[`responsive_image_${index}`] = { image: img, index };
-    }
-  });
-  break;
-      
+      result.main = { responsiveImages: [] };
+      const responsiveImages = sectionData.responsiveImages || [];
+      responsiveImages.forEach((img, index) => {
+        if (img) {
+          result.chunks[`responsive_image_${index}`] = { image: img, index };
+        }
+      });
+      break;
+
     default:
       result.main = sectionData;
   }
-  
+
   return result;
 };
 
 const reconstructSectionData = (mainData, chunks) => {
   const reconstructed = { ...mainData };
-  
+
   chunks.forEach(chunk => {
     const { sectionName, data } = chunk;
-    
+
     if (sectionName === 'hero_thumbnail') {
       reconstructed.heroThumbnail = data.heroThumbnail;
-    } 
+    }
     else if (sectionName === 'client_logo') {
       if (!reconstructed.client) reconstructed.client = {};
       reconstructed.client.logo = data.logo;
     }
     else if (sectionName.startsWith('about_image_')) {
-  if (!reconstructed.aboutProject) {
-    reconstructed.aboutProject = { 
-      description: '', 
-      experienceLink: '', 
-      images: [] 
-    };
-  }
-  if (!Array.isArray(reconstructed.aboutProject.images)) {
-    reconstructed.aboutProject.images = [];
-  }
-  // Preserve experienceLink from main data if it exists
-  if (reconstructed.aboutProject.experienceLink === '' && mainData.aboutProject?.experienceLink) {
-    reconstructed.aboutProject.experienceLink = mainData.aboutProject.experienceLink;
-  }
-  reconstructed.aboutProject.images[data.index] = data.image;
-}
+      if (!reconstructed.aboutProject) {
+        reconstructed.aboutProject = {
+          description: '',
+          experienceLink: '',
+          images: []
+        };
+      }
+      if (!Array.isArray(reconstructed.aboutProject.images)) {
+        reconstructed.aboutProject.images = [];
+      }
+      // Preserve experienceLink from main data if it exists
+      if (reconstructed.aboutProject.experienceLink === '' && mainData.aboutProject?.experienceLink) {
+        reconstructed.aboutProject.experienceLink = mainData.aboutProject.experienceLink;
+      }
+      reconstructed.aboutProject.images[data.index] = data.image;
+    }
     else if (sectionName.startsWith('process_card_')) {
       if (!Array.isArray(reconstructed.processCards)) {
         reconstructed.processCards = [];
@@ -183,7 +184,7 @@ const reconstructSectionData = (mainData, chunks) => {
       reconstructed.responsiveImages[data.index] = data.image;
     }
   });
-  
+
   return reconstructed;
 };
 
@@ -219,42 +220,42 @@ const AdminPanel = () => {
       setBlogs(blogsSnap.docs.map(d => ({ id: d.id, ...d.data() })));
 
       const caseSnap = await getDocs(query(collection(db, 'caseStudies'), orderBy('createdAt', 'desc')));
-      
-     const caseStudiesWithChunks = await Promise.all(
-  caseSnap.docs.map(async (caseDoc) => {
-    const mainData = { id: caseDoc.id, ...caseDoc.data() };
-    const chunksSnap = await getDocs(collection(db, `caseStudies/${caseDoc.id}/chunks`));
-    const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    
-    // Add defensive check
-    const reconstructed = reconstructSectionData(mainData, chunks);
-    
-    // Ensure all arrays exist with default values
-    return {
-      ...reconstructed,
-      aboutProject: {
-        description: reconstructed.aboutProject?.description || '',
-        images: Array.isArray(reconstructed.aboutProject?.images) 
-          ? reconstructed.aboutProject.images 
-          : ['', '', '']
-      },
-      processCards: Array.isArray(reconstructed.processCards) 
-        ? reconstructed.processCards 
-        : Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
-      conceptSlides: Array.isArray(reconstructed.conceptSlides) 
-        ? reconstructed.conceptSlides 
-        : Array(9).fill(''),
-      responsiveImages: Array.isArray(reconstructed.responsiveImages) 
-        ? reconstructed.responsiveImages 
-        : Array(8).fill(''),
-      technologies: reconstructed.technologies || { design: [], development: [], production: [] },
-      results: Array.isArray(reconstructed.results) 
-        ? reconstructed.results 
-        : Array(4).fill(null).map(() => ({ title: '', description: '' }))
-    };
-  })
-);
-      
+
+      const caseStudiesWithChunks = await Promise.all(
+        caseSnap.docs.map(async (caseDoc) => {
+          const mainData = { id: caseDoc.id, ...caseDoc.data() };
+          const chunksSnap = await getDocs(collection(db, `caseStudies/${caseDoc.id}/chunks`));
+          const chunks = chunksSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+          // Add defensive check
+          const reconstructed = reconstructSectionData(mainData, chunks);
+
+          // Ensure all arrays exist with default values
+          return {
+            ...reconstructed,
+            aboutProject: {
+              description: reconstructed.aboutProject?.description || '',
+              images: Array.isArray(reconstructed.aboutProject?.images)
+                ? reconstructed.aboutProject.images
+                : ['', '', '']
+            },
+            processCards: Array.isArray(reconstructed.processCards)
+              ? reconstructed.processCards
+              : Array(3).fill(null).map(() => ({ icon: '', hours: '', title: '', details: ['', '', ''] })),
+            conceptSlides: Array.isArray(reconstructed.conceptSlides)
+              ? reconstructed.conceptSlides
+              : Array(9).fill(''),
+            responsiveImages: Array.isArray(reconstructed.responsiveImages)
+              ? reconstructed.responsiveImages
+              : Array(8).fill(''),
+            technologies: reconstructed.technologies || { design: [], development: [], production: [] },
+            results: Array.isArray(reconstructed.results)
+              ? reconstructed.results
+              : Array(4).fill(null).map(() => ({ title: '', description: '' }))
+          };
+        })
+      );
+
       setCaseStudies(caseStudiesWithChunks);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -287,32 +288,29 @@ const AdminPanel = () => {
       <Header user={user} handleLogout={handleLogout} />
       <div className="admin-container">
         <Tabs activeTab={activeTab} setActiveTab={setActiveTab} setShowForm={setShowForm} setEditingItem={setEditingItem} />
-        
+
         {showForm ? (
           activeTab === 'projects' ? (
-            <ProjectForm 
-              editingItem={editingItem} 
-              setEditingItem={setEditingItem} 
-              setShowForm={setShowForm} 
+            <ProjectForm
+              editingItem={editingItem}
+              setEditingItem={setEditingItem}
+              setShowForm={setShowForm}
               loadData={loadData}
-              convertToBase64={convertToBase64}
             />
           ) : activeTab === 'caseStudies' ? (
-            <CaseStudyForm 
+            <CaseStudyForm
               projects={projects}
-              editingItem={editingItem} 
-              setEditingItem={setEditingItem} 
-              setShowForm={setShowForm} 
+              editingItem={editingItem}
+              setEditingItem={setEditingItem}
+              setShowForm={setShowForm}
               loadData={loadData}
-              convertToBase64={convertToBase64}
             />
           ) : (
-            <BlogForm 
-              editingItem={editingItem} 
-              setEditingItem={setEditingItem} 
-              setShowForm={setShowForm} 
+            <BlogForm
+              editingItem={editingItem}
+              setEditingItem={setEditingItem}
+              setShowForm={setShowForm}
               loadData={loadData}
-              convertToBase64={convertToBase64}
             />
           )
         ) : (
@@ -398,7 +396,7 @@ const Tabs = ({ activeTab, setActiveTab, setShowForm, setEditingItem }) => (
   </div>
 );
 
-const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertToBase64 }) => {
+const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
   const [formData, setFormData] = useState({
     title: '',
     categoryText: '',
@@ -432,7 +430,14 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData, conve
     try {
       let imageUrl = formData.image;
       if (imageFile) {
-        imageUrl = await convertToBase64(imageFile);
+        setSaving(true);
+        try {
+          imageUrl = await uploadImage(imageFile);
+        } catch (error) {
+          alert("Image upload failed: " + error.message);
+          setSaving(false);
+          return;
+        }
       }
 
       const data = { ...formData, image: imageUrl, updatedAt: new Date().toISOString() };
@@ -443,7 +448,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData, conve
         await addDoc(collection(db, 'projects'), { ...data, createdAt: new Date().toISOString() });
       }
 
-      await loadData();
+      await loadData('projects');
       setShowForm(false);
       setEditingItem(null);
     } catch (error) {
@@ -561,7 +566,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData, conve
   );
 };
 
-const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loadData, convertToBase64 }) => {
+const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loadData }) => {
   const [caseStudyId, setCaseStudyId] = useState(null);
   const [formData, setFormData] = useState({
     projectId: '',
@@ -605,8 +610,8 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
         conceptSlides: editingItem.conceptSlides || Array(9).fill(''),
         designSystemImage: editingItem.designSystemImage || '',
         responsiveImages: editingItem.responsiveImages || Array(8).fill(''),
-technologies: editingItem.technologies || { design: [], development: [], production: [] },
-      results: editingItem.results || Array(4).fill(null).map(() => ({ title: '', description: '' }))
+        technologies: editingItem.technologies || { design: [], development: [], production: [] },
+        results: editingItem.results || Array(4).fill(null).map(() => ({ title: '', description: '' }))
       });
       setSavedSections({
         basic: true,
@@ -633,8 +638,8 @@ technologies: editingItem.technologies || { design: [], development: [], product
         conceptSlides: Array(9).fill(''),
         designSystemImage: '',
         responsiveImages: Array(8).fill(''),
-     technologies: { design: [], development: [], production: [] },
-      results: Array(4).fill(null).map(() => ({ title: '', description: '' }))
+        technologies: { design: [], development: [], production: [] },
+        results: Array(4).fill(null).map(() => ({ title: '', description: '' }))
       });
       setSavedSections({
         basic: false,
@@ -651,45 +656,48 @@ technologies: editingItem.technologies || { design: [], development: [], product
     }
   }, [editingItem]);
 
+  /* New upload handler using Cloudinary */
   const handleFileUpload = async (e, field, index = null, subfield = null) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Optional: show a loading toast or small indicator if desired
+    // For now we'll just await the upload
+
     try {
-      const base64 = await convertToBase64(file);
+      const imageUrl = await uploadImage(file);
 
       if (index !== null && subfield) {
         setFormData(prev => {
           const updated = { ...prev };
           if (!updated[field]) updated[field] = [];
           if (!updated[field][index]) updated[field][index] = {};
-          updated[field][index][subfield] = base64;
+          updated[field][index][subfield] = imageUrl;
           return updated;
         });
       } else if (index !== null) {
-  setFormData(prev => {
-    const updated = { ...prev };
-    // Ensure array exists with proper length
-    let arr = Array.isArray(updated[field]) ? [...updated[field]] : [];
-    if (field === 'responsiveImages' && arr.length < 8) {
-      arr = Array(8).fill('');
-    } else if (field === 'conceptSlides' && arr.length < 9) {
-      arr = Array(9).fill('');
-    }
-    arr[index] = base64;
-    updated[field] = arr;
-    return updated;
-  });
-} else if (subfield) {
+        setFormData(prev => {
+          const updated = { ...prev };
+          let arr = Array.isArray(updated[field]) ? [...updated[field]] : [];
+          if (field === 'responsiveImages' && arr.length < 8) {
+            arr = Array(8).fill('');
+          } else if (field === 'conceptSlides' && arr.length < 9) {
+            arr = Array(9).fill('');
+          }
+          arr[index] = imageUrl;
+          updated[field] = arr;
+          return updated;
+        });
+      } else if (subfield) {
         setFormData(prev => ({
           ...prev,
-          [field]: { ...prev[field], [subfield]: base64 }
+          [field]: { ...prev[field], [subfield]: imageUrl }
         }));
       } else {
-        setFormData(prev => ({ ...prev, [field]: base64 }));
+        setFormData(prev => ({ ...prev, [field]: imageUrl }));
       }
     } catch (error) {
-      alert('Error uploading file: ' + error.message);
+      alert('Error uploading file to Cloudinary: ' + error.message);
     }
   };
 
@@ -697,22 +705,22 @@ technologies: editingItem.technologies || { design: [], development: [], product
     try {
       const timestamp = new Date().toISOString();
       const { main, chunks } = splitSectionData(sectionName, sectionData);
-      
+
       console.log(`Saving section ${sectionName}:`, {
         mainSize: getDataSize(main),
         chunksCount: Object.keys(chunks).length
       });
-      
+
       if (!caseStudyId) {
         const docRef = await addDoc(collection(db, 'caseStudies'), {
           ...main,
           createdAt: timestamp,
           updatedAt: timestamp
         });
-        
+
         const newId = docRef.id;
         setCaseStudyId(newId);
-        
+
         for (const [chunkName, chunkData] of Object.entries(chunks)) {
           await addDoc(collection(db, `caseStudies/${newId}/chunks`), {
             sectionName: chunkName,
@@ -720,7 +728,7 @@ technologies: editingItem.technologies || { design: [], development: [], product
             createdAt: timestamp
           });
         }
-        
+
         setSavedSections(prev => ({ ...prev, [sectionName]: true }));
         alert(`✅ ${sectionName} section saved successfully!`);
       } else {
@@ -728,21 +736,21 @@ technologies: editingItem.technologies || { design: [], development: [], product
           ...main,
           updatedAt: timestamp
         });
-        
+
         const chunksRef = collection(db, `caseStudies/${caseStudyId}/chunks`);
         const existingChunksSnap = await getDocs(chunksRef);
-        
+
         const deletePromises = [];
         existingChunksSnap.forEach(chunkDoc => {
           const data = chunkDoc.data();
-          if (data.sectionName && 
-              (data.sectionName.startsWith(`${sectionName}_`) || 
-               data.sectionName === sectionName)) {
+          if (data.sectionName &&
+            (data.sectionName.startsWith(`${sectionName}_`) ||
+              data.sectionName === sectionName)) {
             deletePromises.push(deleteDoc(doc(db, `caseStudies/${caseStudyId}/chunks`, chunkDoc.id)));
           }
         });
         await Promise.all(deletePromises);
-        
+
         for (const [chunkName, chunkData] of Object.entries(chunks)) {
           await addDoc(collection(db, `caseStudies/${caseStudyId}/chunks`), {
             sectionName: chunkName,
@@ -751,11 +759,11 @@ technologies: editingItem.technologies || { design: [], development: [], product
             updatedAt: timestamp
           });
         }
-        
+
         setSavedSections(prev => ({ ...prev, [sectionName]: true }));
         alert(`✅ ${sectionName} section updated successfully!`);
       }
-      
+
       await loadData();
     } catch (error) {
       console.error(`Error saving ${sectionName}:`, error);
@@ -764,28 +772,28 @@ technologies: editingItem.technologies || { design: [], development: [], product
   };
 
   const toggleTechnology = (category, value) => {
-  console.log('🔥 Toggle clicked!', category, value);
-  console.log('Current technologies:', formData.technologies);
-  
-  setFormData(prev => {
-    const technologies = { ...prev.technologies };
-    console.log('Before toggle:', technologies[category]);
-    
-    const index = technologies[category].indexOf(value);
-    console.log('Index found:', index);
-    
-    if (index > -1) {
-      technologies[category] = technologies[category].filter(v => v !== value);
-      console.log('Removed:', value);
-    } else {
-      technologies[category] = [...technologies[category], value];
-      console.log('Added:', value);
-    }
-    
-    console.log('After toggle:', technologies[category]);
-    return { ...prev, technologies };
-  });
-};
+    console.log('🔥 Toggle clicked!', category, value);
+    console.log('Current technologies:', formData.technologies);
+
+    setFormData(prev => {
+      const technologies = { ...prev.technologies };
+      console.log('Before toggle:', technologies[category]);
+
+      const index = technologies[category].indexOf(value);
+      console.log('Index found:', index);
+
+      if (index > -1) {
+        technologies[category] = technologies[category].filter(v => v !== value);
+        console.log('Removed:', value);
+      } else {
+        technologies[category] = [...technologies[category], value];
+        console.log('Added:', value);
+      }
+
+      console.log('After toggle:', technologies[category]);
+      return { ...prev, technologies };
+    });
+  };
 
   return (
     <div className="form-container case-study-form">
@@ -832,7 +840,7 @@ technologies: editingItem.technologies || { design: [], development: [], product
               )}
             </div>
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">Select Project</label>
             <select
@@ -896,45 +904,45 @@ technologies: editingItem.technologies || { design: [], development: [], product
             </div>
           </div>
 
-        <div className="form-group">
-  <label className="form-label">Hero Video URL (YouTube embed)</label>
-  <input
-    type="text"
-    value={formData.heroVideo}
-    onChange={(e) => setFormData({ ...formData, heroVideo: e.target.value })}
-    className="form-input"
-    placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ"
-  />
-  <p style={{ 
-    fontSize: '13px', 
-    color: '#666', 
-    marginTop: '8px',
-    background: '#f0f0f0',
-    padding: '12px',
-    borderRadius: '6px',
-    lineHeight: '1.6'
-  }}>
-    ⚠️ <strong>Important:</strong> Use the <strong>embed URL</strong> format:<br/>
-    ✅ Correct: <code style={{ background: '#e0e0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/embed/VIDEO_ID</code><br/>
-    ❌ Wrong: <code style={{ background: '#ffe0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/watch?v=VIDEO_ID</code><br/>
-    <br/>
-    <strong>How to get embed URL:</strong><br/>
-    1. Go to your YouTube video<br/>
-    2. Click "Share" → "Embed"<br/>
-    3. Copy the URL from the src attribute
-  </p>
-  {formData.heroVideo && (
-    <div className="video-preview-container" style={{ marginTop: '16px' }}>
-      <iframe
-        src={formData.heroVideo}
-        title="Hero Video Preview"
-        className="video-preview"
-        style={{ width: '100%', height: '400px', border: 'none', borderRadius: '8px' }}
-        allowFullScreen
-      />
-    </div>
-  )}
-</div>
+          <div className="form-group">
+            <label className="form-label">Hero Video URL (YouTube embed)</label>
+            <input
+              type="text"
+              value={formData.heroVideo}
+              onChange={(e) => setFormData({ ...formData, heroVideo: e.target.value })}
+              className="form-input"
+              placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            />
+            <p style={{
+              fontSize: '13px',
+              color: '#666',
+              marginTop: '8px',
+              background: '#f0f0f0',
+              padding: '12px',
+              borderRadius: '6px',
+              lineHeight: '1.6'
+            }}>
+              ⚠️ <strong>Important:</strong> Use the <strong>embed URL</strong> format:<br />
+              ✅ Correct: <code style={{ background: '#e0e0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/embed/VIDEO_ID</code><br />
+              ❌ Wrong: <code style={{ background: '#ffe0e0', padding: '2px 6px', borderRadius: '3px' }}>https://www.youtube.com/watch?v=VIDEO_ID</code><br />
+              <br />
+              <strong>How to get embed URL:</strong><br />
+              1. Go to your YouTube video<br />
+              2. Click "Share" → "Embed"<br />
+              3. Copy the URL from the src attribute
+            </p>
+            {formData.heroVideo && (
+              <div className="video-preview-container" style={{ marginTop: '16px' }}>
+                <iframe
+                  src={formData.heroVideo}
+                  title="Hero Video Preview"
+                  className="video-preview"
+                  style={{ width: '100%', height: '400px', border: 'none', borderRadius: '8px' }}
+                  allowFullScreen
+                />
+              </div>
+            )}
+          </div>
           <div className="form-group">
             <label className="form-label">Hero Thumbnail</label>
             <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'heroThumbnail')} className="form-input-file" />
@@ -1054,59 +1062,59 @@ technologies: editingItem.technologies || { design: [], development: [], product
             placeholder="Project description"
           />
 
-            <div className="form-group" style={{ marginTop: '16px' }}>
-    <label className="form-label">Experience Button Link</label>
-    <input
-      type="url"
-      value={formData.aboutProject.experienceLink || ''}
-      onChange={(e) => setFormData({ 
-        ...formData, 
-        aboutProject: { 
-          ...formData.aboutProject, 
-          experienceLink: e.target.value 
-        } 
-      })}
-      className="form-input"
-      placeholder="https://example.com or /page-slug"
-    />
-  </div>
+          <div className="form-group" style={{ marginTop: '16px' }}>
+            <label className="form-label">Experience Button Link</label>
+            <input
+              type="url"
+              value={formData.aboutProject.experienceLink || ''}
+              onChange={(e) => setFormData({
+                ...formData,
+                aboutProject: {
+                  ...formData.aboutProject,
+                  experienceLink: e.target.value
+                }
+              })}
+              className="form-input"
+              placeholder="https://example.com or /page-slug"
+            />
+          </div>
 
 
           <div className="image-grid">
-           {[0, 1, 2].map(i => (
-  <div key={i} className="image-upload-box">
-    <label className="form-label-small">Image {i + 1}</label>
-    <input 
-      type="file" 
-      accept="image/*" 
-      onChange={(e) => {
-        const file = e.target.files[0];
-        if (file) {
-          convertToBase64(file).then(base64 => {
-            setFormData(prev => {
-              // Safe access with fallback
-              const currentImages = prev.aboutProject?.images || ['', '', ''];
-              const images = [...currentImages];
-              images[i] = base64;
-              return { 
-                ...prev, 
-                aboutProject: { 
-                  ...prev.aboutProject, 
-                  description: prev.aboutProject?.description || '',
-                  images 
-                } 
-              };
-            });
-          });
-        }
-      }} 
-      className="form-input-file-small" 
-    />
-    {formData.aboutProject?.images?.[i] && (
-      <img src={formData.aboutProject.images[i]} className="grid-image-preview" alt={`About ${i+1}`} />
-    )}
-  </div>
-))}
+            {[0, 1, 2].map(i => (
+              <div key={i} className="image-upload-box">
+                <label className="form-label-small">Image {i + 1}</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      convertToBase64(file).then(base64 => {
+                        setFormData(prev => {
+                          // Safe access with fallback
+                          const currentImages = prev.aboutProject?.images || ['', '', ''];
+                          const images = [...currentImages];
+                          images[i] = base64;
+                          return {
+                            ...prev,
+                            aboutProject: {
+                              ...prev.aboutProject,
+                              description: prev.aboutProject?.description || '',
+                              images
+                            }
+                          };
+                        });
+                      });
+                    }
+                  }}
+                  className="form-input-file-small"
+                />
+                {formData.aboutProject?.images?.[i] && (
+                  <img src={formData.aboutProject.images[i]} className="grid-image-preview" alt={`About ${i + 1}`} />
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -1194,57 +1202,57 @@ technologies: editingItem.technologies || { design: [], development: [], product
           ))}
         </div>
 
-       {/* SECTION 6: Initial Concepts */}
-<div className="form-section chunked-section">
-  <div className="section-header-with-save">
-    <h3 className="section-title">6. Initial Concepts (9 slides)</h3>
-    <div className="button-group">
-      {!savedSections.concepts ? (
-        <button
-          type="button"
-          onClick={() => saveSection('concepts', {
-            conceptSlides: formData.conceptSlides
-          })}
-          className="save-section-button"
-        >
-          <Save size={16} /> Save Section
-        </button>
-      ) : (
-        <button className="save-section-button saved">
-          <Check size={16} /> Saved
-        </button>
-      )}
-      {savedSections.concepts && (
-        <button
-          type="button"
-          onClick={() => saveSection('concepts', {
-            conceptSlides: formData.conceptSlides
-          })}
-          className="update-section-button"
-        >
-          <Save size={16} /> Update
-        </button>
-      )}
-    </div>
-  </div>
+        {/* SECTION 6: Initial Concepts */}
+        <div className="form-section chunked-section">
+          <div className="section-header-with-save">
+            <h3 className="section-title">6. Initial Concepts (9 slides)</h3>
+            <div className="button-group">
+              {!savedSections.concepts ? (
+                <button
+                  type="button"
+                  onClick={() => saveSection('concepts', {
+                    conceptSlides: formData.conceptSlides
+                  })}
+                  className="save-section-button"
+                >
+                  <Save size={16} /> Save Section
+                </button>
+              ) : (
+                <button className="save-section-button saved">
+                  <Check size={16} /> Saved
+                </button>
+              )}
+              {savedSections.concepts && (
+                <button
+                  type="button"
+                  onClick={() => saveSection('concepts', {
+                    conceptSlides: formData.conceptSlides
+                  })}
+                  className="update-section-button"
+                >
+                  <Save size={16} /> Update
+                </button>
+              )}
+            </div>
+          </div>
 
-  <div className="slides-grid">
-    {Array.from({ length: 9 }).map((_, i) => (
-      <div key={i} className="slide-upload-box">
-        <label className="form-label-small">Slide {i + 1}</label>
-        <input 
-          type="file" 
-          accept="image/*" 
-          onChange={(e) => handleFileUpload(e, 'conceptSlides', i)} 
-          className="form-input-file-small" 
-        />
-        {formData.conceptSlides[i] && (
-          <img src={formData.conceptSlides[i]} className="slide-preview" alt={`Slide ${i+1}`} />
-        )}
-      </div>
-    ))}
-  </div>
-</div>
+          <div className="slides-grid">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div key={i} className="slide-upload-box">
+                <label className="form-label-small">Slide {i + 1}</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileUpload(e, 'conceptSlides', i)}
+                  className="form-input-file-small"
+                />
+                {formData.conceptSlides[i] && (
+                  <img src={formData.conceptSlides[i]} className="slide-preview" alt={`Slide ${i + 1}`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* SECTION 7: Design System */}
         <div className="form-section chunked-section">
@@ -1319,21 +1327,21 @@ technologies: editingItem.technologies || { design: [], development: [], product
           </div>
 
           <div className="responsive-grid">
-  {Array.from({ length: 8 }).map((_, i) => (
-    <div key={i} className="responsive-upload-box">
-      <label className="form-label-small">Image {i + 1}</label>
-      <input 
-        type="file" 
-        accept="image/*" 
-        onChange={(e) => handleFileUpload(e, 'responsiveImages', i)} 
-        className="form-input-file-small" 
-      />
-      {formData.responsiveImages[i] && (
-        <img src={formData.responsiveImages[i]} className="responsive-preview" alt={`Responsive ${i+1}`} />
-      )}
-    </div>
-  ))}
-</div>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="responsive-upload-box">
+                <label className="form-label-small">Image {i + 1}</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileUpload(e, 'responsiveImages', i)}
+                  className="form-input-file-small"
+                />
+                {formData.responsiveImages[i] && (
+                  <img src={formData.responsiveImages[i]} className="responsive-preview" alt={`Responsive ${i + 1}`} />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* SECTION 9: Technologies */}
@@ -1370,31 +1378,31 @@ technologies: editingItem.technologies || { design: [], development: [], product
             </div>
           </div>
 
-      {['design', 'development', 'production'].map(category => (
-  <div key={category} className="tech-category">
-    <h4 className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)} Tools</h4>
-    <div className="tech-grid">
-      {TECHNOLOGY_OPTIONS[category].map(tech => {
-        const isSelected = formData.technologies[category].includes(tech.name);
-        
-        return (
-          <button
-            key={tech.name}
-            type="button"
-            onClick={() => {
-              console.log('Button clicked:', category, tech.name);
-              toggleTechnology(category, tech.name);
-            }}
-            className={`tech-option ${isSelected ? 'tech-option-selected' : ''}`}
-          >
-            <span className="tech-icon">{tech.icon}</span>
-            <span className="tech-name">{tech.name}</span>
-          </button>
-        );
-      })}
-    </div>
-  </div>
-))}
+          {['design', 'development', 'production'].map(category => (
+            <div key={category} className="tech-category">
+              <h4 className="filter-category-title">{category.charAt(0).toUpperCase() + category.slice(1)} Tools</h4>
+              <div className="tech-grid">
+                {TECHNOLOGY_OPTIONS[category].map(tech => {
+                  const isSelected = formData.technologies[category].includes(tech.name);
+
+                  return (
+                    <button
+                      key={tech.name}
+                      type="button"
+                      onClick={() => {
+                        console.log('Button clicked:', category, tech.name);
+                        toggleTechnology(category, tech.name);
+                      }}
+                      className={`tech-option ${isSelected ? 'tech-option-selected' : ''}`}
+                    >
+                      <span className="tech-icon">{tech.icon}</span>
+                      <span className="tech-name">{tech.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* SECTION 10: Results */}
@@ -1485,7 +1493,7 @@ technologies: editingItem.technologies || { design: [], development: [], product
   );
 };
 
-const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertToBase64 }) => {
+const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
   const [formData, setFormData] = useState({
     image: '', // Card image
     tag: '',
@@ -1533,7 +1541,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
   const updateContentBlock = (id, field, value) => {
     setFormData(prev => ({
       ...prev,
-      content: prev.content.map(block => 
+      content: prev.content.map(block =>
         block.id === id ? { ...block, [field]: value } : block
       )
     }));
@@ -1549,14 +1557,14 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
   const moveContentBlock = (id, direction) => {
     const index = formData.content.findIndex(block => block.id === id);
     if (
-      (direction === 'up' && index === 0) || 
+      (direction === 'up' && index === 0) ||
       (direction === 'down' && index === formData.content.length - 1)
     ) return;
 
     const newContent = [...formData.content];
     const newIndex = direction === 'up' ? index - 1 : index + 1;
     [newContent[index], newContent[newIndex]] = [newContent[newIndex], newContent[index]];
-    
+
     setFormData(prev => ({ ...prev, content: newContent }));
   };
 
@@ -1565,10 +1573,10 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
     if (!file) return;
 
     try {
-      const base64 = await convertToBase64(file);
-      updateContentBlock(blockId, 'content', base64);
+      const imageUrl = await uploadImage(file);
+      updateContentBlock(blockId, 'content', imageUrl);
     } catch (error) {
-      alert('Error uploading image: ' + error.message);
+      alert('Error uploading image to Cloudinary: ' + error.message);
     }
   };
 
@@ -1604,10 +1612,22 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
       let detailsImageUrl = formData.detailsImage;
 
       if (imageFile) {
-        imageUrl = await convertToBase64(imageFile);
+        try {
+          imageUrl = await uploadImage(imageFile);
+        } catch (error) {
+          alert("Card image upload failed: " + error.message);
+          setSaving(false);
+          return;
+        }
       }
       if (detailsImageFile) {
-        detailsImageUrl = await convertToBase64(detailsImageFile);
+        try {
+          detailsImageUrl = await uploadImage(detailsImageFile);
+        } catch (error) {
+          alert("Header image upload failed: " + error.message);
+          setSaving(false);
+          return;
+        }
       }
 
       const data = {
@@ -1645,7 +1665,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
         {/* Blog Card Information */}
         <div className="form-section">
           <h3 className="section-title">Blog Card Information</h3>
-          
+
           <div className="form-group">
             <label className="form-label">Card Image</label>
             <input
@@ -1696,7 +1716,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
         {/* Blog Details Page Header */}
         <div className="form-section">
           <h3 className="section-title">Blog Details Page Header</h3>
-          
+
           <div className="form-group">
             <label className="form-label">Header Image</label>
             <input
@@ -1724,7 +1744,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
         {/* Content Builder */}
         <div className="form-section">
           <h3 className="section-title">Blog Content</h3>
-          
+
           <div className="content-builder">
             {formData.content.map((block, index) => (
               <div key={block.id} className="content-block">
@@ -1812,7 +1832,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
                 Add Image
               </button>
               <button type="button" onClick={() => addContentBlock('subheading')} className="add-content-btn">
-               Add Subheading
+                Add Subheading
               </button>
               <button type="button" onClick={() => addContentBlock('keypoints')} className="add-content-btn">
                 Add Key Points
@@ -1843,14 +1863,14 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData, convertT
 const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) => {
   const handleDelete = async (id, collectionName) => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
-    
+
     try {
       if (collectionName === 'caseStudies') {
         const chunksSnap = await getDocs(collection(db, `caseStudies/${id}/chunks`));
         const deletePromises = chunksSnap.docs.map(doc => deleteDoc(doc.ref));
         await Promise.all(deletePromises);
       }
-      
+
       await deleteDoc(doc(db, collectionName, id));
       await loadData();
     } catch (error) {

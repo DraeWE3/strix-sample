@@ -39,6 +39,10 @@
   height: 32rem;
 }
 
+.carouselp-con{
+  background-color: red;
+}
+
 
 .ProjectCircle{
   position: absolute;
