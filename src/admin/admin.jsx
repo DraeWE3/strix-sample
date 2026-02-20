@@ -401,6 +401,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
     title: '',
     categoryText: '',
     link: '',
+    externalLink: '',
     image: '',
     filters: { Design: [], Development: [], Production: [] },
     status: 'draft'
@@ -414,6 +415,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
         title: '',
         categoryText: '',
         link: '',
+        externalLink: '',
         image: '',
         filters: { Design: [], Development: [], Production: [] },
         status: 'draft'
@@ -503,7 +505,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
         </div>
 
         <div className="form-group">
-          <label className="form-label">Link/Slug</label>
+          <label className="form-label">Link/Slug (Internal)</label>
           <input
             type="text"
             value={formData.link}
@@ -511,6 +513,17 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
             className="form-input"
             placeholder="e.g., /case-study/project-name"
             required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Experiment / External Link</label>
+          <input
+            type="url"
+            value={formData.externalLink || ''}
+            onChange={(e) => setFormData({ ...formData, externalLink: e.target.value })}
+            className="form-input"
+            placeholder="https://example.com/experiment"
           />
         </div>
 
