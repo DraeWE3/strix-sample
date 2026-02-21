@@ -1,33 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Nav from '../components/Navbar'
-import Circleblur from '../assets/img/sr-img.webp'
-import Connect from '../assets/img/connect.svg'
-import BtnNormsall from '../components/normSmall-btn';
-import Footer from '../components/Footer'
-import Blur1 from '../assets/img/p-blur2.png'
-import Blur2 from '../assets/img/p-blur1.png'
-import Blur3 from '../assets/img/Ellipse 7.png'
-import Blur4 from '../assets/img/Ellipse 8.png'
-import Kundali from '../assets/img/kundali-case-study.webp'
+import Nav from '../../components/Navbar'
+import Circleblur from '../../assets/img/sr-img.webp'
+import Connect from '../../assets/img/connect.svg'
+import BtnNormsall from '../../components/normSmall-btn';
+import Footer from '../../components/Footer'
+import Blur1 from '../../assets/img/p-blur2.png'
+import Blur2 from '../../assets/img/p-blur1.png'
+import Blur3 from '../../assets/img/Ellipse 7.png'
+import Blur4 from '../../assets/img/Ellipse 8.png'
+import Kundali from '../../assets/img/kundali-case-study.webp'
 import { Play } from 'lucide-react';
-import Circle from '../assets/img/updown-circle.webp'
-import '../style/uiux.css'
-import CardImg from '../assets/img/ui-card.webp'
-import Cardcon1 from '../assets/img/ui-card1.png'
-import Cardcon2 from '../assets/img/ui-card2.png'
-import ProjectCarousel from "../components/projectCarouel";
-import Button from "../components/Button";
-import ProjectCircle from '../assets/img/project-circle.webp'
-import HeroImg from '../assets/img/serv.webp'
+import Circle from '../../assets/img/updown-circle.webp'
+import '../../style/uiux.css'
+import CardImg from '../../assets/img/ui-card.webp'
+import Cardcon1 from '../../assets/img/ui-card1.png'
+import Cardcon2 from '../../assets/img/ui-card2.png'
+import ProjectCarousel from "../../components/projectCarouel";
+import Button from "../../components/Button";
+import ProjectCircle from '../../assets/img/project-circle.webp'
+import HeroImg from '../../assets/img/serv.webp'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import DotGrid from "../animations/DotGrid";
-import RotateCardsScroll from '../animations/RotateCardsScroll'
-import ScrollSlideAnimations from '../animations/slideins'
-import Stagger from '../animations/stagger'
-import ScrollAnimation from '../animations/scrollReveal'
-import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
+import DotGrid from "../../animations/DotGrid";
+import RotateCardsScroll from '../../animations/RotateCardsScroll'
+import ScrollSlideAnimations from '../../animations/slideins'
+import Stagger from '../../animations/stagger'
+import ScrollAnimation from '../../animations/scrollReveal'
+import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,8 +46,8 @@ const Uiux = () => {
 
     const ctx = gsap.context(() => {
       gsap.to(element, {
-        width: '95vw',
-        height: '90vh',
+        width: '85vw',
+      height: '90vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: element,

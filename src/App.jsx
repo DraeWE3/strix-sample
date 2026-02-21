@@ -7,7 +7,7 @@ import PageTransition from "./components/pageTransition";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 import CaseStudy from "./pages/caseStudy";
 import Service from "./pages/service";
-import Uiux from "./pages/uiux";
+import Uiux from "./pages/designServices/uiux";
 import About from "./pages/About";
 import Contact from './pages/contact'
 import Url from "./components/route";

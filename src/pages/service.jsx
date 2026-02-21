@@ -147,7 +147,7 @@ const Service = () => {
         }}
       />
     );
-  };
+  };F
 
   useEffect(() => {
     if (window.innerWidth < 768) return

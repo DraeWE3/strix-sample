@@ -1100,25 +1100,27 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     const file = e.target.files[0];
-                    if (file) {
-                      convertToBase64(file).then(base64 => {
-                        setFormData(prev => {
-                          // Safe access with fallback
-                          const currentImages = prev.aboutProject?.images || ['', '', ''];
-                          const images = [...currentImages];
-                          images[i] = base64;
-                          return {
-                            ...prev,
-                            aboutProject: {
-                              ...prev.aboutProject,
-                              description: prev.aboutProject?.description || '',
-                              images
-                            }
-                          };
-                        });
+                    if (!file) return;
+                    try {
+                      const imageUrl = await uploadImage(file);
+                      setFormData(prev => {
+                        const currentImages = prev.aboutProject?.images || ['', '', ''];
+                        const images = [...currentImages];
+                        images[i] = imageUrl;
+                        return {
+                          ...prev,
+                          aboutProject: {
+                            ...prev.aboutProject,
+                            description: prev.aboutProject?.description || '',
+                            experienceLink: prev.aboutProject?.experienceLink || '',
+                            images
+                          }
+                        };
                       });
+                    } catch (error) {
+                      alert('Error uploading image: ' + error.message);
                     }
                   }}
                   className="form-input-file-small"
