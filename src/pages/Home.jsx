@@ -44,6 +44,7 @@ import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
+import ServiceSearch from "../components/ServiceSearch";
 
 
 // Smooth text reveal animation component
@@ -57,9 +58,9 @@ const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) =
       ref={ref}
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ 
-        duration: 0.8, 
-        delay, 
+      transition={{
+        duration: 0.8,
+        delay,
         ease: [0.25, 0.4, 0.25, 1]
       }}
       className={className}
@@ -78,15 +79,15 @@ const BlurTextReveal = ({ children, className = "" }) => {
     <motion.h1
       ref={ref}
       initial={{ opacity: 0, filter: "blur(10px)" }}
-      animate={isInView ? { 
-        opacity: 1, 
+      animate={isInView ? {
+        opacity: 1,
         filter: "blur(0px)"
-      } : { 
-        opacity: 0, 
+      } : {
+        opacity: 0,
         filter: "blur(10px)"
       }}
-      transition={{ 
-        duration: 1, 
+      transition={{
+        duration: 1,
         ease: [0.25, 0.4, 0.25, 1]
       }}
       className={className}
@@ -131,11 +132,11 @@ const CircleBlurAnimation = ({ src, className = "" }) => {
         scale: 0.7,
         opacity: 0,
         x: "-50%",
-         // preserve centering
+        // preserve centering
       }}
       animate={
         isInView
-          ? { scale: 1, opacity: 1, x: "-50%",  } // keep translate during animation
+          ? { scale: 1, opacity: 1, x: "-50%", } // keep translate during animation
           : { x: "-50%" }
       }
       transition={{
@@ -202,60 +203,60 @@ const Home = () => {
   }, []);
 
   // MVP Card animation
-useEffect(() => {
-  gsap.set(".mvp-card", { opacity: 0 });
+  useEffect(() => {
+    gsap.set(".mvp-card", { opacity: 0 });
 
-  let mm = gsap.matchMedia();
+    let mm = gsap.matchMedia();
 
-  // Desktop animation only (scroll-based)
-  mm.add("(min-width: 771px)", () => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: ".mvp-cardcon",
-        start: "top 80%",
-        toggleActions: "play none none reverse",
-      },
-    })
-      .to(".mvp-card1", {
-        opacity: 1,
-        x: -260,
-        rotate: -18,
-        duration: 1.2,
-        ease: "power3.out",
+    // Desktop animation only (scroll-based)
+    mm.add("(min-width: 771px)", () => {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".mvp-cardcon",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
       })
-      .to(
-        ".mvp-card2",
-        {
+        .to(".mvp-card1", {
           opacity: 1,
-          x: 0,
-          rotate: 0,
+          x: -260,
+          rotate: -18,
           duration: 1.2,
           ease: "power3.out",
-        },
-        "-=0.9"
-      )
-      .to(
-        ".mvp-card3",
-        {
-          opacity: 1,
-          x: 260,
-          rotate: 18,
-          duration: 1.2,
-          ease: "power3.out",
-        },
-        "-=0.9"
-      );
-  });
+        })
+        .to(
+          ".mvp-card2",
+          {
+            opacity: 1,
+            x: 0,
+            rotate: 0,
+            duration: 1.2,
+            ease: "power3.out",
+          },
+          "-=0.9"
+        )
+        .to(
+          ".mvp-card3",
+          {
+            opacity: 1,
+            x: 260,
+            rotate: 18,
+            duration: 1.2,
+            ease: "power3.out",
+          },
+          "-=0.9"
+        );
+    });
 
-  // Mobile — NO animation, show instantly
-  mm.add("(max-width: 770px)", () => {
-    gsap.set(".mvp-card1", { opacity: 1, x: "0", rotate: 0 });
-    gsap.set(".mvp-card2", { opacity: 1, x: "0", rotate: 0 });
-    gsap.set(".mvp-card3", { opacity: 1, x: "0", rotate: 0 });
-  });
+    // Mobile — NO animation, show instantly
+    mm.add("(max-width: 770px)", () => {
+      gsap.set(".mvp-card1", { opacity: 1, x: "0", rotate: 0 });
+      gsap.set(".mvp-card2", { opacity: 1, x: "0", rotate: 0 });
+      gsap.set(".mvp-card3", { opacity: 1, x: "0", rotate: 0 });
+    });
 
-  return () => mm.revert();
-}, []);
+    return () => mm.revert();
+  }, []);
 
 
   const containerVariants = {
@@ -292,26 +293,26 @@ useEffect(() => {
     return (
       <motion.div
         ref={ref}
-        initial={{ 
-          opacity: 0, 
-          y: 100, 
+        initial={{
+          opacity: 0,
+          y: 100,
           scale: 0.8,
           rotateX: 45
         }}
-        animate={isInView ? { 
-          opacity: 1, 
-          y: 0, 
+        animate={isInView ? {
+          opacity: 1,
+          y: 0,
           scale: 1,
           rotateX: 0
-        } : { 
-          opacity: 0, 
-          y: 100, 
+        } : {
+          opacity: 0,
+          y: 100,
           scale: 0.8,
           rotateX: 45
         }}
-        transition={{ 
-          duration: 1, 
-          delay, 
+        transition={{
+          duration: 1,
+          delay,
           ease: [0.25, 0.4, 0.25, 1],
           type: "spring",
           stiffness: 50,
@@ -321,7 +322,7 @@ useEffect(() => {
           y: -10,
           transition: { duration: 0.3 }
         }}
-        style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         {children}
       </motion.div>
@@ -329,62 +330,62 @@ useEffect(() => {
   };
 
   const PortfolioLink = ({ children, delay = 0 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // detect screen width
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+    // detect screen width
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
 
-  return (
-    <motion.p
-      ref={ref}
-      className="link-button"
-      initial={isMobile ? false : { opacity: 0, x: -50 }}
-      animate={isMobile ? false : (isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 })}
-      transition={
-        isMobile
-          ? { duration: 0 } // disable animation entirely
-          : { duration: 0.6, delay, ease: [0.25, 0.4, 0.25, 1] }
-      }
-      whileHover={
-        isMobile
-          ? {} // no hover animation on mobile
-          : { scale: 1.05, transition: { duration: 0.2 } }
-      }
-    >
-      {children}
-    </motion.p>
-  );
-};
+    return (
+      <motion.p
+        ref={ref}
+        className="link-button"
+        initial={isMobile ? false : { opacity: 0, x: -50 }}
+        animate={isMobile ? false : (isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 })}
+        transition={
+          isMobile
+            ? { duration: 0 } // disable animation entirely
+            : { duration: 0.6, delay, ease: [0.25, 0.4, 0.25, 1] }
+        }
+        whileHover={
+          isMobile
+            ? {} // no hover animation on mobile
+            : { scale: 1.05, transition: { duration: 0.2 } }
+        }
+      >
+        {children}
+      </motion.p>
+    );
+  };
 
 
   return (
     <>
-     <Nav />
+      <Nav />
 
-       <SmoothScroll 
+      {/* <SmoothScroll 
       intensity={1}      // Scroll distance multiplier
       ease={1}           // Lower = smoother, higher = snappier
       skew={1}             // Skew amount during scroll
       enableSkew={true}    // Toggle skew effect
       mobile={true}        // Enable on mobile devices
-    >
+    > */}
 
-      
+
       <div className="app" id="smooth-wrapper" ref={section}>
-         <DotGrid
+        <DotGrid
 
-    dotSize={2}
+          dotSize={2}
 
-    gap={24}
+          gap={24}
 
-    activeColor="#ffffff"
+          activeColor="#ffffff"
 
-  />
+        />
 
-       
+
         {/* =============hero section============== */}
-        <div  className="hero sectionCon smoothsection">
+        <div className="hero sectionCon smoothsection">
           <h1 className="spread-h1" ref={titleRef}>STRIX</h1>
           <p className="spread-txt" ref={subTextRef}>Where Creative Strategy Meets Scalable Technology</p>
           <div className="half-circle-container">
@@ -409,16 +410,7 @@ useEffect(() => {
             animate="visible"
           >
             <motion.div className="section-container2" variants={itemVariants}>
-              <div className="blur-box">
-                <motion.input
-                  type="text"
-                  placeholder="Type here..."
-                  variants={itemVariants}
-                />
-              </div>
-              <motion.div className="image-box" variants={itemVariants}>
-                <p></p>
-              </motion.div>
+              <ServiceSearch variants={itemVariants} />
             </motion.div>
 
             <motion.h1 className="power-desk" variants={itemVariants}>
@@ -429,23 +421,14 @@ useEffect(() => {
             </motion.p>
 
             <motion.div className="section-container" variants={itemVariants}>
-              <div className="blur-box">
-                <motion.input
-                  type="text"
-                  placeholder="Type here..."
-                  variants={itemVariants}
-                />
-              </div>
-              <motion.div className="image-box" variants={itemVariants}>
-                <p></p>
-              </motion.div>
+              <ServiceSearch variants={itemVariants} />
             </motion.div>
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
-              
+
               <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
               <Link to='/cs'><Button text="Explore Work" /></Link>
-              
+
             </motion.div>
 
             <motion.img
@@ -464,27 +447,17 @@ useEffect(() => {
         </div>
 
 
-          {/* =============section 2============== */}
+        {/* =============section 2============== */}
         <div className="smoothsection sectionCon explore relative overflow-hidden explore-desk">
           <div className="section-container2">
-            <div className="blur-box">
-              <input type="text" placeholder="Type here..." />
-            </div>
-            <div className="image-box">
-              <p></p>
-            </div>
+            <ServiceSearch isMotion={false} />
           </div>
 
           <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
           <p className="power-mobile">Powering Brands with Design & Technology</p>
 
           <div className="section-container">
-            <div className="blur-box">
-              <input type="text" placeholder="Type here..." />
-            </div>
-            <div className="image-box">
-              <p></p>
-            </div>
+            <ServiceSearch isMotion={false} />
           </div>
 
           <div className="button-p flex gap-4 mt-6">
@@ -502,7 +475,7 @@ useEffect(() => {
             className="shadow2 absolute bottom-0 right-0 w-40"
           />
         </div>
-        
+
         {/* =============section 3============== */}
         <div className="smoothsection motion sectionCon">
           <img src={Shadow3} alt="" className="shadow3" />
@@ -569,12 +542,12 @@ useEffect(() => {
             Trusted by brands that demand Excellence - we deliver creative-tech
             solutions that don't just look good, they perform where it matters
           </SmoothTextReveal>
-         <Link to="/cs">
-          <Button text="Explore Cases" />
-         </Link>
-         
+          <Link to="/cs">
+            <Button text="Explore Cases" />
+          </Link>
+
         </div>
-        
+
 
         {/* =============section 4============== */}
         <div className="smoothsection logo-loop sectionCon">
@@ -589,7 +562,7 @@ useEffect(() => {
             We Build Experiences that Breathe
           </SmoothTextReveal>
 
-       <CircleBlurAnimation className="circleblur circleblurtop" src={CircleBlur} />
+          <CircleBlurAnimation className="circleblur circleblurtop" src={CircleBlur} />
 
 
           <div ref={velocityRef} className="altcard flex gap-8 justify-center">
@@ -652,14 +625,14 @@ useEffect(() => {
             digital presence
           </SmoothTextReveal>
           <Link to="/cs">
-          <Button text="Our Services" />
+            <Button text="Our Services" />
           </Link>
-          
+
         </div>
-      
 
 
-      {/* =============section 6============== */}
+
+        {/* =============section 6============== */}
         <div className="smoothsection sectionCon services services-mvp">
           <SmoothTextReveal as="h1" className="section-header delay3">From Idea to Market in 4 Weeks</SmoothTextReveal>
           <div className="mvp-cardcon mvp-desk">
@@ -684,9 +657,9 @@ useEffect(() => {
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Shape your concept into a roadmap</p>
                   <Link to="/cs">
-                   <CardBtn text="Know more" />
+                    <CardBtn text="Know more" />
                   </Link>
-                 
+
                 </div>
               </div>
             </div>
@@ -700,9 +673,9 @@ useEffect(() => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Create intuitive flows, protoypes & More</p>
-                 
-                   <Link to="/cs">
-                   <CardBtn text="Know more" />
+
+                  <Link to="/cs">
+                    <CardBtn text="Know more" />
                   </Link>
                 </div>
               </div>
@@ -717,9 +690,9 @@ useEffect(() => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Full-stack, scalable builds</p>
-                  
-                   <Link to="/cs">
-                  <CardBtn text="Know more" />
+
+                  <Link to="/cs">
+                    <CardBtn text="Know more" />
                   </Link>
                 </div>
               </div>
@@ -771,7 +744,7 @@ useEffect(() => {
 
 
 
-       {/* =============section 8============== */}
+        {/* =============section 8============== */}
         <div className="smoothsection zle circcon portfolio relative">
           <img
             src={Shadow1}
@@ -795,21 +768,21 @@ useEffect(() => {
           </div>
 
           <div className="cl relative flex flex-col items-center justify-center">
-         <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
+            <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
 
             <Carousel />
             <div className="cl-btn mt-10">
-               <Link to="/cs">
-                          <ButtonSmall text="Portfolio" />
-                  </Link>
-      
+              <Link to="/cs">
+                <ButtonSmall text="Portfolio" />
+              </Link>
+
             </div>
           </div>
         </div>
 
 
 
-       {/* =============section 10============== */}
+        {/* =============section 10============== */}
         <div className="sectionCon testimonial-con">
           <SmoothTextReveal as="h1" className="section-header2 delay2">
             What our clients say
@@ -823,7 +796,7 @@ useEffect(() => {
 
 
 
- {/* =============section 10============== */}
+        {/* =============section 10============== */}
         <div className="zle booking delay3">
           <BlurTextReveal>
             Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
@@ -856,14 +829,14 @@ useEffect(() => {
             </Link>
           </div>
           <a target="_blank" href="https://calendly.com/strixmufasa/30min">
-           <Button text="Book Appointment" />
+            <Button text="Book Appointment" />
           </a>
-         
+
         </div>
       </div>
 
       <Footer />
-      </SmoothScroll>
+      {/* </SmoothScroll> */}
     </>
   );
 };

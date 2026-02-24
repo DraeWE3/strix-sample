@@ -12,6 +12,7 @@ import Icon6 from "../assets/img/dev-icon6.png";
 import Arrow from "../assets/img/arr-left.png";
 import ButtonSmall from "./btn-small";
 import Mgrad from "../assets/img/dev-grad-mobile.webp";
+import { Link } from "react-router-dom";
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -67,54 +68,71 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
               Building fast, functional, and scalable digital experiences across
               platforms.
             </p>
-            <div className="mcp-con">
-              <div className="mcp-left">
-                <div className="table">
-                  <img src={Icon1} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Web Applications</h2>
-                    <p>Site builder solutions</p>
-                  </div>
-                </div>
-                <div className="table">
-                  <img src={Icon2} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Interactive Websites</h2>
-                    <p>Real-time interactions</p>
-                  </div>
-                </div>
-                <div className="table">
-                  <img src={Icon3} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Website Development</h2>
-                    <p>Front-End & Back-End Development</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mcp-left">
-                <div className="table">
-                  <img src={Icon4} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Mobile App Development</h2>
-                    <p>IOS, Android, Cross-platform</p>
-                  </div>
-                </div>
-                <div className="table">
-                  <img src={Icon5} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>E-Commerce</h2>
-                    <p>Custom e-commerce platforms</p>
-                  </div>
-                </div>
-                <div className="table">
-                  <img src={Icon6} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Maintenance & Hosting</h2>
-                    <p>Performance optimization, Setup</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+           <div className="mcp-con">
+  <div className="mcp-left">
+    <Link to="/webapp">
+      <div className="table">
+        <img src={Icon1} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Web Applications</h2>
+          <p>Site builder solutions</p>
+        </div>
+      </div>
+    </Link>
+
+    <Link to="/intaweb">
+      <div className="table">
+        <img src={Icon2} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Interactive Websites</h2>
+          <p>Real-time interactions</p>
+        </div>
+      </div>
+    </Link>
+
+    <Link to="/webdev">
+      <div className="table">
+        <img src={Icon3} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Website Development</h2>
+          <p>Front-End & Back-End Development</p>
+        </div>
+      </div>
+    </Link>
+  </div>
+
+  <div className="mcp-left">
+    <Link to="/appdev">
+      <div className="table">
+        <img src={Icon4} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Mobile App Development</h2>
+          <p>IOS, Android, Cross-platform</p>
+        </div>
+      </div>
+    </Link>
+
+    <Link to="/ecommerce">
+      <div className="table">
+        <img src={Icon5} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>E-Commerce</h2>
+          <p>Custom e-commerce platforms</p>
+        </div>
+      </div>
+    </Link>
+
+    <Link to="/softwaredev">
+      <div className="table">
+        <img src={Icon6} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Maintenance & Hosting</h2>
+          <p>Performance optimization, Setup</p>
+        </div>
+      </div>
+    </Link>
+  </div>
+</div>
             <ButtonSmall text="Portfolio" />
           </motion.div>
         </motion.div>

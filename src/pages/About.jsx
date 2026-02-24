@@ -55,6 +55,8 @@ import DotGrid from "../animations/DotGrid";
 import RotateCardsScroll from '../animations/RotateCardsScroll'
 import ScrollSlideAnimations from '../animations/slideins'
 import Stagger from '../animations/stagger'
+import Aster from "../assets/img/aster.png"
+import Mansi from "../assets/img/mansi.png"
 
 
 
@@ -99,9 +101,9 @@ const About = () => {
             <div className="family-card">
             <img src={FamilyBg} alt="" />
             <div className="fam-detail">
-            <img src={Ab1} alt="" />
-            <h3>Ashmin</h3>
-            <p>Production Head</p>
+            <img src={Aster} alt="" />
+            <h3>Aster</h3>
+            <p>Development Head</p>
               <div className="ab-icongrid">
               <a href=""><img src={Linkedin} alt="Linkedin" /></a>
               <a href=""><img src={Mail} alt="Mail" /></a>
@@ -128,9 +130,9 @@ const About = () => {
               <div className="family-card">
             <img src={FamilyBg} alt="" />
             <div className="fam-detail">
-            <img src={Ab1} alt="" />
-            <h3>Darius</h3>
-            <p>Development Head</p>
+            <img src={Mansi} alt="" />
+            <h3>Mansi</h3>
+            <p>Creative Head</p>
              <div className="ab-icongrid">
               <a href=""><img src={Linkedin} alt="Linkedin" /></a>
               <a href=""><img src={Mail} alt="Mail" /></a>

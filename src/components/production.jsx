@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
 import "../style/module.css";
-
+import { Link } from "react-router-dom";
 import Grad from "../assets/img/pro-gradient.webp";
 import Icon1 from "../assets/img/pro-icon1.png";
 import Icon2 from "../assets/img/pro-icon2.png";
@@ -92,51 +92,69 @@ const ResearchModal = ({ isOpen, onClose }) => {
               story powerfully.
             </p>
 
-            <div className="mcp-con">
-              <div className="mcp-left">
-                <div className="table">
-                  <img src={Icon1} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Commercials</h2>
-                    <p>Product promos, ads, teasers</p>
-                  </div>
-                </div>
+          <div className="mcp-con">
+  <div className="mcp-left">
+    <Link to="/commercials">
+      <div className="table">
+        <img src={Icon1} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Commercials</h2>
+          <p>Product promos, ads, teasers</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon2} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Reels & Shorts</h2>
-                    <p>Engaging short format content</p>
-                  </div>
-                </div>
-              </div>
+    <Link to="/reel">
+      <div className="table">
+        <img src={Icon2} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Reels & Shorts</h2>
+          <p>Engaging short format content</p>
+        </div>
+      </div>
+    </Link>
+  </div>
 
-              <div className="mcp-left">
-                <div className="table">
-                  <img src={Icon3} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Long Format Content</h2>
-                    <p>Vlogs, Documentaries, Podcasts etc.</p>
-                  </div>
-                </div>
+  <div className="mcp-left">
+    <Link to="/longform">
+      <div className="table">
+        <img src={Icon3} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Long Format Content</h2>
+          <p>Vlogs, Documentaries, Podcasts etc.</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon4} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Motion Graphics</h2>
-                    <p>High quality After Effects animations</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <Link to="/motion">
+      <div className="table">
+        <img src={Icon4} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Motion Graphics</h2>
+          <p>High quality After Effects animations</p>
+        </div>
+      </div>
+    </Link>
+  </div>
+</div>
 
-            <div className="table threed">
+<Link to="/threed">
+  <div className="table threed">
+    <img src={Icon5} alt="" className="t-icon" />
+    <div className="t-txt">
+      <h2>3D Animations</h2>
+      <p>Pixar level visuals and rendering</p>
+    </div>
+  </div>
+</Link>
+
+            {/* <div className="table threed">
               <img src={Icon5} alt="" className="t-icon" />
               <div className="t-txt">
                 <h2>3D Animations</h2>
                 <p>Pixar level visuals and rendering</p>
               </div>
-            </div>
+            </div> */}
 
             <ButtonSmall text="Portfolio" />
           </motion.div>

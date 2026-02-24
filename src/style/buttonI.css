@@ -20,6 +20,7 @@
   padding-left: 2rem;
   padding-right: 2rem;
   font-family: cd-red;
+  z-index: 7;
 }
 
 .space-btn{

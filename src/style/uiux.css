@@ -8,12 +8,33 @@
 }
 
 .ui-hero-p{
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
     line-height: 1.8rem;
       position: relative;
  z-index: 8;
  margin-top: 2rem !important;
+ max-width: 90%;
+}
+
+.viewwork2{
+       background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+}
+
+.uiuxproinfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.uiuxproinfo p{
+    font-size: 18px;
 }
 
 
@@ -139,6 +160,23 @@
     width: 100%;
 }
 
+.ui1{
+  width: 70% !important;
+}
+
+.ui2{
+  width: 60% !important;
+}
+
+.ui3{
+    width: 80% !important;
+}
+
+.ui4{
+  width: 40% !important;
+}
+
+
 .top-card-con p{
    font-family: cd-reg;
    font-size: 18px;
@@ -205,3 +243,69 @@
     max-width: 60%;
     line-height: 1.8rem;
     }
+
+
+    
+.logo-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.logo-slider2{
+    margin-top: 1.5rem;
+}
+
+.logo-track {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  animation: scrollLogos 20s linear infinite;
+  width: max-content;
+}
+
+.logo-track2{
+    animation: scrollLogos 40s linear infinite;
+}
+
+.loop-img {
+  height: 70px; /* adjust if needed */
+  opacity: 0.8;
+  transition: opacity 3.3s ease;
+}
+
+.logo-track2 .loop-img{
+    height: 110px;
+}
+
+.loop-img:hover {
+  opacity: 1;
+}
+
+@keyframes scrollLogos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.returnNext{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    padding: 0 5%;
+    z-index: 6;
+}
+
+.back-button{
+     background: linear-gradient(to bottom, #0000fd, #595959);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

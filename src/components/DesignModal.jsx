@@ -94,61 +94,71 @@ const DesignModal = ({ isOpen, onClose }) => {
               that stand out.
             </p>
 
-            <div className="mcp-con">
-              <div className="mcp-left">
-                <Link to="/cs">
-                  <div className="table">
-                    <img src={Icon1} alt="" className="t-icon" />
-                    <div className="t-txt">
-                      <h2>UI/UX Design</h2>
-                      <p>Web & Mobile App Design</p>
-                    </div>
-                  </div>
-                </Link>
+           <div className="mcp-con">
+  <div className="mcp-left">
+    <Link to="/uiux">
+      <div className="table">
+        <img src={Icon1} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>UI/UX Design</h2>
+          <p>Web & Mobile App Design</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon2} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Product Design</h2>
-                    <p>Digital Product, User Experience</p>
-                  </div>
-                </div>
+    <Link to="/product">
+      <div className="table">
+        <img src={Icon2} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Product Design</h2>
+          <p>Digital Product, User Experience</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon3} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Mobile App Design</h2>
-                    <p>User-Friendly Applications</p>
-                  </div>
-                </div>
-              </div>
+    <Link to="/appdesign">
+      <div className="table">
+        <img src={Icon3} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Mobile App Design</h2>
+          <p>User-Friendly Applications</p>
+        </div>
+      </div>
+    </Link>
+  </div>
 
-              <div className="mcp-left">
-                <div className="table">
-                  <img src={Icon4} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Branding</h2>
-                    <p>Identity, Strategy, Guidelines</p>
-                  </div>
-                </div>
+  <div className="mcp-left">
+    <Link to="/branding">
+      <div className="table">
+        <img src={Icon4} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Branding</h2>
+          <p>Identity, Strategy, Guidelines</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon5} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Creative Design</h2>
-                    <p>Graphics, Thumbnails, Presentations</p>
-                  </div>
-                </div>
+    <Link to="/cdesign">
+      <div className="table">
+        <img src={Icon5} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Creative Design</h2>
+          <p>Graphics, Thumbnails, Presentations</p>
+        </div>
+      </div>
+    </Link>
 
-                <div className="table">
-                  <img src={Icon6} alt="" className="t-icon" />
-                  <div className="t-txt">
-                    <h2>Website Design</h2>
-                    <p>Custom Websites, Landing page</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <Link to="/webdesign">
+      <div className="table">
+        <img src={Icon6} alt="" className="t-icon" />
+        <div className="t-txt">
+          <h2>Website Design</h2>
+          <p>Custom Websites, Landing page</p>
+        </div>
+      </div>
+    </Link>
+  </div>
+</div>
 
             <ButtonSmall text="Portfolio" />
           </motion.div>

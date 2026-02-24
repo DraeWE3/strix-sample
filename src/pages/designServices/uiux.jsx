@@ -14,8 +14,10 @@ import { Play } from 'lucide-react';
 import Circle from '../../assets/img/updown-circle.webp'
 import '../../style/uiux.css'
 import CardImg from '../../assets/img/ui-card.webp'
-import Cardcon1 from '../../assets/img/ui-card1.png'
-import Cardcon2 from '../../assets/img/ui-card2.png'
+import Cardcon1 from '../../assets/img/ui1.png'
+import Cardcon2 from '../../assets/img/ui2.png'
+import Cardcon3 from '../../assets/img/ui3.png'
+import Cardcon4 from '../../assets/img/ui4.png'
 import ProjectCarousel from "../../components/projectCarouel";
 import Button from "../../components/Button";
 import ProjectCircle from '../../assets/img/project-circle.webp'
@@ -28,6 +30,8 @@ import ScrollSlideAnimations from '../../animations/slideins'
 import Stagger from '../../animations/stagger'
 import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,7 +51,7 @@ const Uiux = () => {
     const ctx = gsap.context(() => {
       gsap.to(element, {
         width: '85vw',
-      height: '90vh',
+        height: '90vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: element,
@@ -78,7 +82,7 @@ const Uiux = () => {
         }}
         animate={
           isInView
-            ? { scale: 1, opacity: 1, x: "-50%", } 
+            ? { scale: 1, opacity: 1, x: "-50%", }
             : { x: "-50%" }
         }
         transition={{
@@ -110,6 +114,16 @@ const Uiux = () => {
 
       {/* =============== service-hero ============ */}
       <div className="service-hero">
+        <div className="returnNext" >
+          <Link to='/service'><button className="back-button">
+            <ArrowLeft size={16} /> Return to Service
+          </button></Link>
+
+          <Link to='/webdesign'><button className="back-button">
+            Next Service <ArrowRight size={16} />
+          </button></Link>
+        </div>
+
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
           <h1 className="slideinLoad">UI/UX design</h1>
@@ -138,7 +152,7 @@ const Uiux = () => {
                     className="play-button-sr"
                     aria-label="Play video"
                   >
-                    <h1 className="sr-watch">Watch showreel</h1>
+                    <h1 className="sr-watch viewwork">Watch showreel</h1>
                     <span className="play-line"></span>
                     <Play className="play-icon" fill="white" />
                   </button>
@@ -176,12 +190,12 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img src={Cardcon1} alt="" />
+                <img class="ui1" src={Cardcon1} alt="" />
                 <p>SaaS Interfaces</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -193,31 +207,31 @@ const Uiux = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img src={Cardcon1} alt="" />
+                <img class="ui1" src={Cardcon3} alt="" />
                 <p>Enterprise Applications</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img src={Cardcon1} alt="" />
+                <img class="ui1" src={Cardcon4} alt="" />
                 <p>User Flows & Wireframes</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
         </div>
       </div>
@@ -238,7 +252,7 @@ const Uiux = () => {
       {/* ==================booking====================== */}
       <div className="booking" >
         <h1 className="section-header2">
-          Have a project that <br/> deserves attention ?
+          Have a project that <br /> deserves attention ?
         </h1>
         <div className="second">
 

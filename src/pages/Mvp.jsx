@@ -264,7 +264,7 @@ const Mvp = () => {
                     className="play-button-sr"
                     aria-label="Play video"
                   >
-                    <h1 className="sr-watch">Watch showreel</h1>
+                    <h1 className="sr-watch viewwork">Watch showreel</h1>
                     <span className="play-line"></span>
                     <Play className="play-icon" fill="white" />
                   </button>

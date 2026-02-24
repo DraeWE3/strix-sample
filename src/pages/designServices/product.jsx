@@ -8,11 +8,13 @@ import Footer from '../../components/Footer'
 import Blur1 from '../../assets/img/p-blur2.png'
 import Blur2 from '../../assets/img/p-blur1.png'
 import Blur3 from '../../assets/img/Ellipse 7.png'
+import BookTxt from '../../assets/img/Book-txt.png'
 import Blur4 from '../../assets/img/Ellipse 8.png'
 import Kundali from '../../assets/img/kundali-case-study.webp'
 import { Play } from 'lucide-react';
 import Circle from '../../assets/img/updown-circle.webp'
 import '../../style/uiux.css'
+import { Link } from 'react-router-dom'
 import CardImg from '../../assets/img/ui-card.webp'
 import Cardcon1 from '../../assets/img/ui-card1.png'
 import Cardcon2 from '../../assets/img/ui-card2.png'
@@ -28,10 +30,12 @@ import ScrollSlideAnimations from '../../animations/slideins'
 import Stagger from '../../animations/stagger'
 import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Uiux = () => {
+const Product = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoexRef = useRef(null)
 
@@ -47,7 +51,7 @@ const Uiux = () => {
     const ctx = gsap.context(() => {
       gsap.to(element, {
         width: '85vw',
-      height: '90vh',
+        height: '90vh',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: element,
@@ -78,7 +82,7 @@ const Uiux = () => {
         }}
         animate={
           isInView
-            ? { scale: 1, opacity: 1, x: "-50%", } 
+            ? { scale: 1, opacity: 1, x: "-50%", }
             : { x: "-50%" }
         }
         transition={{
@@ -108,11 +112,23 @@ const Uiux = () => {
         activeColor="#ffffff"
       />
 
+
+
+
       {/* =============== service-hero ============ */}
       <div className="service-hero">
+        <div className="returnNext" >
+          <Link to='/service'><button className="back-button">
+            <ArrowLeft size={16} /> Return to Service
+          </button></Link>
+
+          <Link to='/cdesign'><button className="back-button">
+            Next Service <ArrowRight size={16} />
+          </button></Link>
+        </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">UI/UX design</h1>
+          <h1 className="slideinLoad">Product design</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -133,15 +149,8 @@ const Uiux = () => {
                   className="thumbnail-image"
                 />
                 <div className="play-button-overlay">
-                  <button
-                    onClick={handlePlay}
-                    className="play-button-sr"
-                    aria-label="Play video"
-                  >
-                    <h1 className="sr-watch">Watch showreel</h1>
-                    <span className="play-line"></span>
-                    <Play className="play-icon" fill="white" />
-                  </button>
+                  <h1 className="sr-watch viewwork2">View work</h1>
+
                 </div>
               </div>
             ) : (
@@ -159,7 +168,7 @@ const Uiux = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">From concept to launch, we design products that captivate users and elevate businesses.</p>
+        <p className="ui-hero-p scrollReveal">We craft end-to-end product designs that bring bold ideas to life - balancing aesthetics, usability, and functionality for market-ready impact.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -176,12 +185,12 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img src={Cardcon1} alt="" />
-                <p>SaaS Interfaces</p>
+                <img  src={Cardcon1} alt="" />
+                <p>Build your on MVP</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -189,11 +198,11 @@ const Uiux = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="top-card-con1" src={Cardcon2} alt="" />
-                <p>Dashboards</p>
+                <p>Hardware + Digital Interfaces</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
@@ -201,11 +210,11 @@ const Uiux = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon1} alt="" />
-                <p>Enterprise Applications</p>
+                <p>Product Concept Development</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -213,12 +222,14 @@ const Uiux = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon1} alt="" />
-                <p>User Flows & Wireframes</p>
+                <p>Interactive product mockup</p>
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Hire Team"/>
+            <BtnNormsall text="Get a quote" to="/contact" />
           </div>
+
+
         </div>
       </div>
 
@@ -234,38 +245,28 @@ const Uiux = () => {
         <h1>Related Projects</h1>
         <ProjectCarousel />
       </div>
+      <div className="uiuxproinfo">
+        <p>Projects tailored to your industry or need are available on request.</p>
+        <BtnNormsall className="scrollReveal" text='Know more' />
+      </div>
 
       {/* ==================booking====================== */}
       <div className="booking" >
-        <h1 className="section-header2">
-          Have a project that <br/> deserves attention ?
-        </h1>
-        <div className="second">
-
-
-          <div className="left-booking slideInLeft">
-            <p className="leave">
-              <span>•</span>Leave a request
-            </p>
-
-            <div className="right-booking right-booking2">
-              <img className="right-booking-img" src={Connect} alt="" />
-              <p>
-                Let's start <br /> your project
-              </p>
-            </div>
-            <p className="sr-mobile" > We'd love to be challenged by you! Feel free to share your brief with us</p>
-          </div>
-
-
-          <div className="right-booking slideInRight">
-            <img className="right-booking-img" src={Connect} alt="" />
-            <p>
-              Let's start <br /> your project
-            </p>
+        <h1 className='delay2'>Turn Your Vision Into an Experience That Lasts</h1>
+        <div className="logo-slider logo-slider2">
+          <div className="logo-track logo-track2">
+            {[...Array(2)].map((_, i) => (
+              <React.Fragment key={i}>
+                <img src={BookTxt} alt="" className="loop-img" />
+                <img src={BookTxt} alt="" className="loop-img" />
+                <img src={BookTxt} alt="" className="loop-img" />
+                <img src={BookTxt} alt="" className="loop-img" />
+                <img src={BookTxt} alt="" className="loop-img" />
+                <img src={BookTxt} alt="" className="loop-img" />
+              </React.Fragment>
+            ))}
           </div>
         </div>
-        <Button text="Book Appointment" />
       </div>
 
       <Footer />
@@ -273,4 +274,4 @@ const Uiux = () => {
   )
 }
 
-export default Uiux
+export default Product

@@ -89,23 +89,23 @@ const Footer = () => {
           <p className="ft-num">New Delhi, India</p>
         </div>
 
-        <div className="ft-links">
-          <p className="hea">Quick Links</p>
-          <p className="ft-num">Home</p>
-          <p className="ft-num">Projects</p>
-          <p className="ft-num">About</p>
-          <p className="ft-num">Blogs</p>
-        </div>
+       <div className="ft-links">
+  <p className="hea">Quick Links</p>
+  <Link to="/"><p className="ft-num">Home</p></Link>
+  <Link to="/Project"><p className="ft-num">Projects</p></Link>
+  <Link to="/about"><p className="ft-num">About</p></Link>
+  <Link to="/blog"><p className="ft-num">Blogs</p></Link>
+</div>
 
-        <div className="ft-links">
-          <p className="hea">Services</p>
-          <ul>
-            <li className="ft-num">Build MVP</li>
-            <li className="ft-num">UI/UX Design</li>
-            <li className="ft-num">Website</li>
-            <li className="ft-num">SaaS Promos</li>
-          </ul>
-        </div>
+<div className="ft-links">
+  <p className="hea">Services</p>
+  <ul>
+    <li className="ft-num"><Link to="/mvp">Build MVP</Link></li>
+    <li className="ft-num"><Link to="/uiux">UI/UX Design</Link></li>
+    <li className="ft-num"><Link to="/webdesign">Website</Link></li>
+    <li className="ft-num"><Link to="/commercials">SaaS Promos</Link></li>
+  </ul>
+</div>
 
         <div className="ft-links">
           <p className="hea">Legal</p>

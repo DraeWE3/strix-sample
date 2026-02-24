@@ -102,10 +102,10 @@ const ConnectModal = ({ isOpen, onClose }) => {
 
             <div className="modal-links">
   {[
-    { text: "Build MVP", path: "/Cs" },
-    { text: "Our work", path: "/cs" },
-    { text: "Who we are", path: "/cs" },
-    { text: "Blog", path: "/Cs" },
+    { text: "Build MVP", path: "/mvp" },
+    { text: "Our work", path: "/Project" },
+    { text: "Who we are", path: "/about" },
+    { text: "Blog", path: "/blog" },
   ].map(({ text, path }, i) => (
     <motion.div key={i} custom={i + 3} variants={itemVariants}>
       <Link to={path} onClick={onClose}>
@@ -140,10 +140,10 @@ const ConnectModal = ({ isOpen, onClose }) => {
           <div className="mobile-links">
   {[
     { text: "Home", path: "/" },
-    { text: "About", path: "/cs" },
-    { text: "Services", path: "/cs" },
-    { text: "Projects", path: "/cs" },
-    { text: "Blogs", path: "/Cs" },
+    { text: "About", path: "/about" },
+    { text: "Services", path: "/service" },
+    { text: "Projects", path: "/Project" },
+    { text: "Blogs", path: "/blog" },
   ].map(({ text, path }, i) => (
     <motion.div key={i} custom={i} variants={itemVariants}>
       <Link to={path} onClick={onClose}>
@@ -154,7 +154,8 @@ const ConnectModal = ({ isOpen, onClose }) => {
 </div>
 
             <motion.div className="mobile-btn" custom={6} variants={itemVariants}>
-              <ButtonSmall text="Let's Talk" />
+              <Link to="/contact"><ButtonSmall text="Let's Talk" /></Link>
+              
             </motion.div>
 
             <motion.div className="mobile-socials" custom={7} variants={itemVariants}>
