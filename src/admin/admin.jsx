@@ -924,7 +924,7 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
               value={formData.heroVideo}
               onChange={(e) => setFormData({ ...formData, heroVideo: e.target.value })}
               className="form-input"
-              placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              placeholder="https://www.youtube.com/embed/zk0mGoyUrLo"
             />
             <p style={{
               fontSize: '13px',
