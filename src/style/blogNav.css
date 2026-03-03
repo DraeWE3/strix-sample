@@ -9,8 +9,12 @@
     top: 2rem; /* Stick 2rem from top when scrolling */
     max-height: calc(100vh - 4rem); /* Limit height */
     padding-right: 1rem; /* Add padding for scrollbar */
+    z-index: 70 !important;
 }
 
+.bgsha{
+    z-index: 1 !important;
+}
 
 
 .blog-logo{

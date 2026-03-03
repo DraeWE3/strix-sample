@@ -44,6 +44,7 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore'
 import Open from "../assets/img/open.svg"
 import Close from "../assets/img/close.svg"
+import SEO from "../components/SEO";
 
 
 
@@ -138,7 +139,7 @@ const Mvp = () => {
         }}
         animate={
           isInView
-            ? { scale: 1, opacity: 1, x: "-50%", } 
+            ? { scale: 1, opacity: 1, x: "-50%", }
             : { x: "-50%" }
         }
         transition={{
@@ -174,28 +175,28 @@ const Mvp = () => {
       duration: 0.25,
       ease: "power2.inOut"
     })
-    .to(extendRef.current, {
-      height: "50%",
-      duration: 0.25,
-      ease: "power2.inOut"
-    })
-    .to(extendRef.current, {
-      height: "75%",
-      duration: 0.25,
-      ease: "power2.inOut"
-    })
-    .to(extendRef.current, {
-      height: "100%",
-      duration: 0.25,
-      ease: "power2.inOut"
-    });
+      .to(extendRef.current, {
+        height: "50%",
+        duration: 0.25,
+        ease: "power2.inOut"
+      })
+      .to(extendRef.current, {
+        height: "75%",
+        duration: 0.25,
+        ease: "power2.inOut"
+      })
+      .to(extendRef.current, {
+        height: "100%",
+        duration: 0.25,
+        ease: "power2.inOut"
+      });
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
-    const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {
@@ -223,6 +224,10 @@ const Mvp = () => {
   return (
     <div>
       <Nav />
+      <SEO
+        title="Build Your MVP"
+        description="Craft Minimum Viable Products designed to validate, impress, and scale. We turn ideas into working prototypes in as little as 4-6 weeks."
+      />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
       <RotateCardsScroll />
@@ -237,13 +242,13 @@ const Mvp = () => {
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="sh-top uiux-hero">
-          <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad mvp-hero-h1">Get flawless <br/>product from scratch</h1>
+          <img src={Circleblur} alt="Design background blur" />
+          <h1 className="slideinLoad mvp-hero-h1">Get flawless <br />product from scratch</h1>
         </div>
 
         <div className="case-box-con uiu-con mvp-video">
-          <img src={Blur3} className="blur3-hero-left" alt="" />
-          <img src={Blur4} className="blur3-hero-right" alt="" />
+          <img src={Blur3} className="blur3-hero-left" alt="Light effect left" />
+          <img src={Blur4} className="blur3-hero-right" alt="Light effect right" />
           <div
             ref={videoexRef}
             style={{
@@ -286,178 +291,178 @@ const Mvp = () => {
           </div>
         </div>
         <p className="ui-hero-p scrollReveal ">We don't just build apps. We craft Minimum Viable Products designed to validate, Impress, and last.</p>
-        <img src={Blur1} className='p-blur1' alt="" />
-        <img src={Blur2} className='p-blur2' alt="" />
+        <img src={Blur1} className='p-blur1' alt="Gradient blur 1" />
+        <img src={Blur2} className='p-blur2' alt="Gradient blur 2" />
       </div>
 
       {/* =================provide=========== */}
       <div className="provide-con mpvcard-section ">
         <div className="sh-top uiux-hero mvp-conn">
-          <img src={Circleblur} alt="" />
+          <img src={Circleblur} alt="Design background blur" />
           <h1 className="scrollReveal mvp-why">Why MVP with Strix ?</h1>
           <p className="mvp-hero-p scrollReveal mvp-why-p"> We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
         </div>
 
-       <div className="mvp3cards">
-         <div className="mvp3card slideInBottomLeft">
-            <img className="mvp3card-bg" src={BgMvp3card} alt="" />
-            <img className="mvp3card-bg-h" src={HbgMvp3card} alt="" />
+        <div className="mvp3cards">
+          <div className="mvp3card slideInBottomLeft">
+            <img className="mvp3card-bg" src={BgMvp3card} alt="Card background" />
+            <img className="mvp3card-bg-h" src={HbgMvp3card} alt="Card background hover" />
             <div className="mvp3card-details">
-                <img className="speed" src={Speed} alt="" />
-                <img className="speed-h" src={Speed2} alt="" />
-            <p className="mvp3card-head">Speed</p>
-            <p className="mvp3card-title">Launch faster, validate smarter ideas - we turn ideas into <strong>working prototype</strong> before competitors even start planning.</p>
-            <p className="mvp3card-title-h">We build <strong>MVPs</strong> that move at the pace of innovation - designed, developed, and deployed in as little as <strong>4-6</strong> weeks.</p>
-            <div className="mvp3card-btn">
+              <img className="speed" src={Speed} alt="Speed icon" />
+              <img className="speed-h" src={Speed2} alt="Speed icon hover" />
+              <p className="mvp3card-head">Speed</p>
+              <p className="mvp3card-title">Launch faster, validate smarter ideas - we turn ideas into <strong>working prototype</strong> before competitors even start planning.</p>
+              <p className="mvp3card-title-h">We build <strong>MVPs</strong> that move at the pace of innovation - designed, developed, and deployed in as little as <strong>4-6</strong> weeks.</p>
+              <div className="mvp3card-btn">
                 <CardBtn text="Know more" />
+              </div>
             </div>
-            </div>
-         </div>
+          </div>
 
           <div className="mvp3card scrollReveal">
-            <img className="mvp3card-bg" src={BgMvp3card2} alt="" />
-            <img className="mvp3card-bg-h" src={HbgMvp3card2} alt="" />
+            <img className="mvp3card-bg" src={BgMvp3card2} alt="Card background" />
+            <img className="mvp3card-bg-h" src={HbgMvp3card2} alt="Card background hover" />
             <div className="mvp3card-details">
-                <img className="speed" src={Scala} alt="" />
-                <img className="speed-h" src={ScalaH} alt="" />
-            <p className="mvp3card-head">Scalability</p>
-            <p className="mvp3card-title">Your MVP isn't a one-off experiment - it's the foundation of your <strong>future product.</strong></p>
-            <p className="mvp3card-title-h">Every line of code, every screen, and every interaction is built with <strong>scalability</strong> in mind - so you can evolve, expand, and scale without starting over.</p>
-            <div className="mvp3card-btn">
+              <img className="speed" src={Scala} alt="Scalability icon" />
+              <img className="speed-h" src={ScalaH} alt="Scalability icon hover" />
+              <p className="mvp3card-head">Scalability</p>
+              <p className="mvp3card-title">Your MVP isn't a one-off experiment - it's the foundation of your <strong>future product.</strong></p>
+              <p className="mvp3card-title-h">Every line of code, every screen, and every interaction is built with <strong>scalability</strong> in mind - so you can evolve, expand, and scale without starting over.</p>
+              <div className="mvp3card-btn">
                 <CardBtn text="Know more" />
+              </div>
             </div>
-            </div>
-         </div>
+          </div>
 
           <div className="mvp3card slideInBottomRight">
-            <img className="mvp3card-bg" src={BgMvp3card} alt="" />
-            <img className="mvp3card-bg-h" src={HbgMvp3card3} alt="" />
+            <img className="mvp3card-bg" src={BgMvp3card} alt="Card background" />
+            <img className="mvp3card-bg-h" src={HbgMvp3card3} alt="Card background hover" />
             <div className="mvp3card-details">
-                <img className="speed" src={Stra} alt="" />
-                <img className="speed-h" src={StraH} alt="" />
-            <p className="mvp3card-head">Strategy</p>
-            <p className="mvp3card-title">A <strong>great MVP</strong> isn't just about what you build, but why you build it. </p>
-            <p className="mvp3card-title-h">We align every feature with your business model, market fit and audience behavior - ensuring your MVP doesn't just work, it <strong>Wins.</strong> </p>
-            <div className="mvp3card-btn">
+              <img className="speed" src={Stra} alt="Strategy icon" />
+              <img className="speed-h" src={StraH} alt="Strategy icon hover" />
+              <p className="mvp3card-head">Strategy</p>
+              <p className="mvp3card-title">A <strong>great MVP</strong> isn't just about what you build, but why you build it. </p>
+              <p className="mvp3card-title-h">We align every feature with your business model, market fit and audience behavior - ensuring your MVP doesn't just work, it <strong>Wins.</strong> </p>
+              <div className="mvp3card-btn">
                 <CardBtn text="Know more" />
+              </div>
             </div>
-            </div>
-         </div>
-       </div>
+          </div>
+        </div>
       </div>
 
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con mvp-connn">
-        <img src={Circleblur} alt="" />
-        <h1 className="scrollReveal">Our 4-Week <br/>MVP Framework</h1>
+        <img src={Circleblur} alt="Design background blur" />
+        <h1 className="scrollReveal">Our 4-Week <br />MVP Framework</h1>
         <p className="p-inde scrollReveal">At Strix Productions, we design, develop, and deliver world-class visuals and experience that help ambitious brands move faster, scale bigger, and stand out globally.</p>
       </div>
 
-     <div className="gemini-con">
-         <img className="gemini" src={Gemini} alt="" />
-     </div>
+      <div className="gemini-con">
+        <img className="gemini" src={Gemini} alt="Framework visual" />
+      </div>
 
       <div className="timeline" ref={timelineRef}>
-      <div className="timeline-con">
-        <div className="time-left">
-          <div className="time-con time-con1">
-            <img src={TimeIcon} alt="" />
-            <p className="time-con-head">Discovery & Wireframes</p>
-            <p className="time-con-p">
-              We define your core idea, map user journeys, and create wireframes that lock your product vision with direction.
-            </p>
-          </div>
+        <div className="timeline-con">
+          <div className="time-left">
+            <div className="time-con time-con1">
+              <img src={TimeIcon} alt="Timeline milestone icon" />
+              <p className="time-con-head">Discovery & Wireframes</p>
+              <p className="time-con-p">
+                We define your core idea, map user journeys, and create wireframes that lock your product vision with direction.
+              </p>
+            </div>
 
-          <div className="time-con time-con2">
-            <img src={TimeIcon} alt="" />
-            <p className="time-con-head">Development & Iterations</p>
-            <p className="time-con-p">
-              We develop the MVP with clean, scalable code & refine through quick sprints to keep results aligned with the vision.
-            </p>
-          </div>
-        </div>
-
-        <div className="time-mid">
-          <div className="line-time">
-            <div className="extend" ref={extendRef}>
-              <div className="time-dot"></div>
-              <div className="time-circle"></div>
+            <div className="time-con time-con2">
+              <img src={TimeIcon} alt="Timeline milestone icon" />
+              <p className="time-con-head">Development & Iterations</p>
+              <p className="time-con-p">
+                We develop the MVP with clean, scalable code & refine through quick sprints to keep results aligned with the vision.
+              </p>
             </div>
           </div>
-        </div>
 
-        <div className="time-right">
-          <div className="time-con time-con3">
-            <img src={TimeIcon} alt="" />
-            <p className="time-con-head">Design & Validation</p>
-            <p className="time-con-p">
-              High-fidelity visuals, interactive prototypes, and feedback loops - ensuring every screen looks and feels right before development.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="time-con time-con5">
-        <img src={TimeIcon} alt="" />
-        <p className="time-con-head">Test, Launch & Scale</p>
-        <p className="time-con-p">
-          Before going live, we stress-test every feature for smooth performance, scalability, and future expansion.
-        </p>
-      </div>
-    </div>
-
-    {/* ===================Project Section================== */}
-    <div className="project-section-mvp">
-       <h1 className="project-section-mvp-h1">MVPs Delivered</h1>
-       <p className="project-section-mvp-p">From Concept to launch - a process built for clarity, precision, and speed.</p>
-      <div className="section2">
-        <div className="p-card-con">
-          {loading ? (
-            <div className="loading-state">
-              <p>Loading projects...</p>
-            </div>
-          ) : projects.length === 0 ? (
-            <div className="empty-state">
-              <p>No projects available at the moment.</p>
-            </div>
-          ) : (
-            projects.map((project, index) => (
-              <div 
-                key={project.id} 
-                className={`p-sec2-card ${index % 2 === 0 ? 'p-sec2-card1' : 'p-sec2-card2'}`}
-              >
-                <img 
-                  className='p-sec2-card-img' 
-                  src={project.image} 
-                  alt={project.title} 
-                />
-                <p>{project.categoryText}</p>
-                <Link className='linkkk' to={`/case-study/${project.id}`}>
-                  <div>
-                    <h2>{project.title}</h2> 
-                    <img src={Arrow} className='icon' alt="Arrow"/>
-                  </div>
-                </Link>
+          <div className="time-mid">
+            <div className="line-time">
+              <div className="extend" ref={extendRef}>
+                <div className="time-dot"></div>
+                <div className="time-circle"></div>
               </div>
-            ))
-          )}
+            </div>
+          </div>
 
-          <img src={Blur5} className='p-blur3' alt="Blur" />
-          <img src={Blur6} className='p-blur4' alt="Blur" />
+          <div className="time-right">
+            <div className="time-con time-con3">
+              <img src={TimeIcon} alt="Timeline milestone icon" />
+              <p className="time-con-head">Design & Validation</p>
+              <p className="time-con-p">
+                High-fidelity visuals, interactive prototypes, and feedback loops - ensuring every screen looks and feels right before development.
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <Link to="/project">
-            <BtnNormsall text="View All Projects" />
-          </Link>
+
+        <div className="time-con time-con5">
+          <img src={TimeIcon} alt="Timeline milestone icon" />
+          <p className="time-con-head">Test, Launch & Scale</p>
+          <p className="time-con-p">
+            Before going live, we stress-test every feature for smooth performance, scalability, and future expansion.
+          </p>
         </div>
       </div>
-    </div>
+
+      {/* ===================Project Section================== */}
+      <div className="project-section-mvp">
+        <h1 className="project-section-mvp-h1">MVPs Delivered</h1>
+        <p className="project-section-mvp-p">From Concept to launch - a process built for clarity, precision, and speed.</p>
+        <div className="section2">
+          <div className="p-card-con">
+            {loading ? (
+              <div className="loading-state">
+                <p>Loading projects...</p>
+              </div>
+            ) : projects.length === 0 ? (
+              <div className="empty-state">
+                <p>No projects available at the moment.</p>
+              </div>
+            ) : (
+              projects.map((project, index) => (
+                <div
+                  key={project.id}
+                  className={`p-sec2-card ${index % 2 === 0 ? 'p-sec2-card1' : 'p-sec2-card2'}`}
+                >
+                  <img
+                    className='p-sec2-card-img'
+                    src={project.image}
+                    alt={project.title}
+                  />
+                  <p>{project.categoryText}</p>
+                  <Link className='linkkk' to={`/case-study/${project.id}`}>
+                    <div>
+                      <h2>{project.title}</h2>
+                      <img src={Arrow} className='icon' alt="Arrow" />
+                    </div>
+                  </Link>
+                </div>
+              ))
+            )}
+
+            <img src={Blur5} className='p-blur3' alt="Blur" />
+            <img src={Blur6} className='p-blur4' alt="Blur" />
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <Link to="/project">
+              <BtnNormsall text="View All Projects" />
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* ==================booking====================== */}
       <div className="booking" >
         <h1 className="section-header3">
-          Have an Idea? <br/>Let’s turn it into a market-ready MVP
+          Have an Idea? <br />Let’s turn it into a market-ready MVP
         </h1>
         <div className="second">
           <div className="left-booking slideInLeft">
@@ -466,7 +471,7 @@ const Mvp = () => {
             </p>
 
             <div className="right-booking right-booking2">
-              <img className="right-booking-img" src={Connect} alt="" />
+              <img className="right-booking-img" src={Connect} alt="Connect with Strix" />
               <p>
                 Let's start <br /> your project
               </p>
@@ -487,39 +492,39 @@ const Mvp = () => {
 
       {/* ==========FAq================== */}
 
-  <div className="Faq">
-  <h1 className="faq-head scrollReveal">Frequently <br/>Asked Questions</h1> 
-  <div className="faq-container">
-    <div className="faq-list">
-      {faqs.map((faq, index) => (
-        <div 
-          key={index} 
-          className={`faq-item scrollReveal ${index === 0 || index === 2 ? 'leftgra' : ''}`}
-        >
-          <button className="faq-question" onClick={() => toggleFAQ(index)}>
-            <span>{faq.question}</span>
-            {openIndex === index ? (
-              <img 
-                src={Close}
-                alt="Close"
-                className="faq-icon open"
-              />
-            ) : (
-              <img 
-                src={Open}
-                alt="Open"
-                className="faq-icon"
-              />
-            )}
-          </button>
-          <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
-            <p>{faq.answer}</p>
+      <div className="Faq">
+        <h1 className="faq-head scrollReveal">Frequently <br />Asked Questions</h1>
+        <div className="faq-container">
+          <div className="faq-list">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className={`faq-item scrollReveal ${index === 0 || index === 2 ? 'leftgra' : ''}`}
+              >
+                <button className="faq-question" onClick={() => toggleFAQ(index)}>
+                  <span>{faq.question}</span>
+                  {openIndex === index ? (
+                    <img
+                      src={Close}
+                      alt="Close"
+                      className="faq-icon open"
+                    />
+                  ) : (
+                    <img
+                      src={Open}
+                      alt="Open"
+                      className="faq-icon"
+                    />
+                  )}
+                </button>
+                <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
+      </div>
 
       <Footer />
     </div>

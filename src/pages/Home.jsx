@@ -45,6 +45,7 @@ import Shadow4 from '../assets/img/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
 import ServiceSearch from "../components/ServiceSearch";
+import SEO from "../components/SEO";
 
 
 // Smooth text reveal animation component
@@ -361,6 +362,10 @@ const Home = () => {
 
   return (
     <>
+      <SEO
+        title="Creative Strategy Meets Scalable Technology"
+        description="Strix Production is a global creative studio delivering exceptional design, development, and production solutions for brands seeking innovation and digital growth."
+      />
       <Nav />
 
       {/* <SmoothScroll 

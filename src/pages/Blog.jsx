@@ -102,7 +102,7 @@ const Blog = () => {
           <img
             src={Shadow2}
             alt=""
-            className="shadow2 absolute bottom-0 right-0 w-40"
+            className="shadow2 bgsha absolute bottom-0 right-0 w-40"
           />
           <div className="blog-top">
              <Link to='/'><button className="back-button">

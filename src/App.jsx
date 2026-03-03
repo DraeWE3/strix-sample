@@ -34,6 +34,7 @@ import LongForm from "./pages/productionServices/longform"
 import Reel from "./pages/productionServices/reel"
 import Motion from "./pages/productionServices/motion"
 import ThreeD from "./pages/productionServices/threeD"
+import NotFound from "./pages/NotFound";
 
 
 const App = () => {
@@ -77,6 +78,7 @@ const App = () => {
           <Route path="/reel" element={<Reel />} />
           <Route path="/motion" element={<Motion />} />
           <Route path="/threed" element={<ThreeD />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </PageTransition>
     </BrowserRouter>

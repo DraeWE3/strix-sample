@@ -89,29 +89,29 @@ const Footer = () => {
           <p className="ft-num">New Delhi, India</p>
         </div>
 
-       <div className="ft-links">
-  <p className="hea">Quick Links</p>
-  <Link to="/"><p className="ft-num">Home</p></Link>
-  <Link to="/Project"><p className="ft-num">Projects</p></Link>
-  <Link to="/about"><p className="ft-num">About</p></Link>
-  <Link to="/blog"><p className="ft-num">Blogs</p></Link>
-</div>
+        <div className="ft-links">
+          <p className="hea">Quick Links</p>
+          <Link to="/"><p className="ft-num">Home</p></Link>
+          <Link to="/Project"><p className="ft-num">Projects</p></Link>
+          <Link to="/about"><p className="ft-num">About</p></Link>
+          <Link to="/blog"><p className="ft-num">Blogs</p></Link>
+        </div>
 
-<div className="ft-links">
-  <p className="hea">Services</p>
-  <ul>
-    <li className="ft-num"><Link to="/mvp">Build MVP</Link></li>
-    <li className="ft-num"><Link to="/uiux">UI/UX Design</Link></li>
-    <li className="ft-num"><Link to="/webdesign">Website</Link></li>
-    <li className="ft-num"><Link to="/commercials">SaaS Promos</Link></li>
-  </ul>
-</div>
+        <div className="ft-links">
+          <p className="hea">Services</p>
+          <ul>
+            <li className="ft-num"><Link to="/mvp">Build MVP</Link></li>
+            <li className="ft-num"><Link to="/uiux">UI/UX Design</Link></li>
+            <li className="ft-num"><Link to="/webdesign">Website</Link></li>
+            <li className="ft-num"><Link to="/commercials">SaaS Promos</Link></li>
+          </ul>
+        </div>
 
         <div className="ft-links">
           <p className="hea">Legal</p>
           <Link to="/term"><p className="ft-num">Terms of Services</p></Link>
           <Link to="/policy"><p className="ft-num">Privacy Policy</p></Link>
-          <Link to="/cookies"> <p className="ft-num">Cookie Policy</p></Link>           
+          <Link to="/cookies"> <p className="ft-num">Cookie Policy</p></Link>
         </div>
       </div>
 
@@ -128,7 +128,9 @@ const Footer = () => {
         <a href="https://x.com/strixproduction">
           <div className="ri--twitter-x-line ft-icons"></div>
         </a>
-        <div className="akar-icons--linkedin-v1-fill ft-icons"></div>
+        <a href="https://www.linkedin.com/company/strix-production/" target="_blank" rel="noopener noreferrer">
+          <div className="akar-icons--linkedin-v1-fill ft-icons"></div>
+        </a>
         <a href="https://clutch.co/profile/strix-production">
           <img src={Cicon} alt="cicon" />
         </a>
@@ -143,7 +145,7 @@ const Footer = () => {
         <div className="nothing">
           <Link to='/Url'><p>dot</p></Link>
         </div>
-        <p className="ft-year">© 2025 – Strix Production All Rights Reserved</p>
+        <p className="ft-year">© 2026 – Strix Production All Rights Reserved</p>
         <div className="scroll-top">
           <p>scroll Top</p> <img src={Top} alt="top" />
         </div>

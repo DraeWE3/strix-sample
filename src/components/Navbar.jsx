@@ -15,11 +15,11 @@ const Nav = () => {
   return (
     <div className="containerNav">
       <div className="nav animate-nav">
-        <div className="left">
+        <Link to="/" className="left">
           <img src={Logo} alt="Strix Logo" />
           <div className="linenav"></div>
           <p>Strix</p>
-        </div>
+        </Link>
 
         <div className="mid">
           <div><Link className="nav-link link-button" to="/">Home</Link></div>
@@ -27,7 +27,7 @@ const Nav = () => {
           <div><Link className="nav-link link-button" to="/Project">Projects</Link></div>
         </div>
 
-           <button className="hamburger" onClick={openModal}>
+        <button className="hamburger" onClick={openModal}>
           <div className="linenav top"></div>
           <div className="linenav bottom"></div>
         </button>
