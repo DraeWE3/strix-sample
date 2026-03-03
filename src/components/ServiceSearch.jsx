@@ -2,30 +2,130 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ── All service pages with their routes and categories ──
+// ── All service pages with their routes, categories and keywords ──
 const SERVICES = [
-    // Design Services
-    { name: "UI/UX Design", route: "/uiux", category: "Design" },
-    { name: "Product Design", route: "/product", category: "Design" },
-    { name: "Branding", route: "/branding", category: "Design" },
-    { name: "Web Design", route: "/webdesign", category: "Design" },
-    { name: "App Design", route: "/appdesign", category: "Design" },
-    { name: "Creative Design", route: "/cdesign", category: "Design" },
+    // DESIGN SERVICES
+    {
+        name: "Web Design",
+        route: "/webdesign",
+        category: "Design",
+        keywords: ["website design", "website designer", "ui design for website", "landing page design", "custom website design", "responsive web design", "redesign website", "modern website", "corporate website design", "startup website design"]
+    },
+    {
+        name: "UI/UX Design",
+        route: "/uiux",
+        category: "Design",
+        keywords: ["ux design", "ui design", "user experience design", "user interface design", "app ui", "product interface", "wireframing", "prototyping", "figma design", "mobile ui", "saas design"]
+    },
+    {
+        name: "Product Design",
+        route: "/product",
+        category: "Design",
+        keywords: ["digital product design", "saas design", "software design", "app product design", "platform design", "user journey design", "product strategy", "mvp design", "startup product"]
+    },
+    {
+        name: "Branding",
+        route: "/branding",
+        category: "Design",
+        keywords: ["brand identity", "logo design", "brand strategy", "visual identity", "brand guidelines", "brand kit", "company branding", "rebranding", "corporate identity"]
+    },
+    {
+        name: "Creative Design",
+        route: "/cdesign",
+        category: "Design",
+        keywords: ["graphic design", "graphics design", "graphic designer", "social media design", "ad creatives", "thumbnails", "presentation design", "pitch deck design", "marketing creatives", "carousel design", "posters", "banners"]
+    },
+    {
+        name: "Mobile App Design",
+        route: "/appdesign",
+        category: "Design",
+        keywords: ["app design", "ios design", "android design", "mobile ui", "mobile ux", "application design", "cross platform app design", "startup app design"]
+    },
 
-    // Dev Services
-    { name: "Web App Development", route: "/webapp", category: "Development" },
-    { name: "App Development", route: "/appdev", category: "Development" },
-    { name: "Interactive Web", route: "/intaweb", category: "Development" },
-    { name: "E-commerce", route: "/ecommerce", category: "Development" },
-    { name: "Web Development", route: "/webdev", category: "Development" },
-    { name: "Software Development", route: "/softwaredev", category: "Development" },
+    // DEVELOPMENT SERVICES
+    {
+        name: "Web Applications",
+        route: "/webapp",
+        category: "Development",
+        keywords: ["web app", "web application development", "saas development", "dashboard development", "admin panel", "crm development", "custom platform", "portal development", "internal tools"]
+    },
+    {
+        name: "Website Development",
+        route: "/webdev",
+        category: "Development",
+        keywords: ["web development", "website developer", "frontend development", "backend development", "full stack development", "custom website", "business website", "coding website", "dynamic website"]
+    },
+    {
+        name: "Mobile App Development",
+        route: "/appdev",
+        category: "Development",
+        keywords: ["app development", "ios app development", "android app development", "react native app", "cross platform app", "flutter development", "mobile software development"]
+    },
+    {
+        name: "Interactive Websites",
+        route: "/intaweb",
+        category: "Development",
+        keywords: ["animated website", "interactive web design", "web animations", "immersive website", "scroll animation website", "motion website", "gsap website", "webgl website"]
+    },
+    {
+        name: "E-Commerce",
+        route: "/ecommerce",
+        category: "Development",
+        keywords: ["ecommerce website", "online store", "shopify development", "woocommerce", "product store", "dropshipping website", "custom ecommerce", "shopping cart website"]
+    },
+    {
+        name: "Maintenance & Hosting",
+        route: "/softwaredev", // Reusing softwaredev for maintenance/hosting if that's the closest existing route
+        category: "Development",
+        keywords: ["website maintenance", "website support", "hosting", "server setup", "performance optimization", "speed optimization", "technical support", "bug fixing"]
+    },
 
-    // Production Services
-    { name: "Commercials", route: "/commercials", category: "Production" },
-    { name: "Long Form", route: "/longform", category: "Production" },
-    { name: "Reels", route: "/reel", category: "Production" },
-    { name: "Motion Graphics", route: "/motion", category: "Production" },
-    { name: "3D & CGI", route: "/threed", category: "Production" },
+    // PRODUCTION SERVICES
+    {
+        name: "Commercials",
+        route: "/commercials",
+        category: "Production",
+        keywords: ["video editing", "promo video", "product video", "ad video", "advertisement editing", "marketing video", "brand video", "commercial production"]
+    },
+    {
+        name: "Long Format Content",
+        route: "/longform",
+        category: "Production",
+        keywords: ["youtube video editing", "podcast editing", "documentary editing", "vlog editing", "long form video", "corporate video", "interview video"]
+    },
+    {
+        name: "Reels & Shorts",
+        route: "/reel",
+        category: "Production",
+        keywords: ["short video editing", "reels editing", "instagram reels", "youtube shorts", "tiktok video", "short form content", "viral video editing"]
+    },
+    {
+        name: "Motion Graphics",
+        route: "/motion",
+        category: "Production",
+        keywords: ["motion design", "animation", "after effects", "animated explainer", "2d animation", "animated ads", "typography animation", "logo animation"]
+    },
+    {
+        name: "3D Animations",
+        route: "/threed",
+        category: "Production",
+        keywords: ["3d animation", "3d video", "3d rendering", "product 3d", "3d commercial", "cinematic 3d", "3d motion graphics"]
+    },
+
+    // MVP
+    {
+        name: "MVP Development",
+        route: "/mvp",
+        category: "Product & Strategy",
+        keywords: ["mvp", "minimum viable product", "startup mvp", "saas mvp", "build mvp", "prototype development", "rapid product development", "launch product fast", "beta product development", "startup tech development", "early stage product", "proof of concept", "poc development"]
+    },
+];
+
+const INTENT_MAP = [
+    { triggers: ["edit", "video", "production", "youtube", "reels", "shorts", "animation", "3d"], category: "Production" },
+    { triggers: ["design", "ui", "ux", "brand", "logo", "creative", "figma", "visual"], category: "Design" },
+    { triggers: ["develop", "build", "code", "dev", "web app", "software", "app", "mobile", "backend", "frontend"], category: "Development" },
+    { triggers: ["mvp", "startup", "beta", "launch", "prototype", "poc", "strategy"], category: "Product & Strategy" }
 ];
 
 const ServiceSearch = ({ variants, isMotion = true }) => {
@@ -38,13 +138,32 @@ const ServiceSearch = ({ variants, isMotion = true }) => {
     const recognitionRef = useRef(null);
     const navigate = useNavigate();
 
-    // ── Filter services based on query ──
-    const filtered = query.trim()
-        ? SERVICES.filter((s) =>
-            s.name.toLowerCase().includes(query.toLowerCase()) ||
-            s.category.toLowerCase().includes(query.toLowerCase())
-        )
-        : [];
+    // ── Advanced Search Logic ──
+    const searchResult = (() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return { exactMatches: [], suggestions: [], intentCategory: null };
+
+        // 1. Check for intent first
+        const intent = INTENT_MAP.find(i => i.triggers.some(t => q.includes(t)));
+        const intentCategory = intent ? intent.category : null;
+
+        // 2. Filter services based on exact matches or keywords
+        const exactMatches = SERVICES.filter((s) =>
+            s.name.toLowerCase().includes(q) ||
+            s.category.toLowerCase().includes(q) ||
+            s.keywords.some(k => k.toLowerCase().includes(q))
+        );
+
+        // 3. Suggestions (if no exact matches, or for intent discovery)
+        let suggestions = [];
+        if (exactMatches.length === 0 && intentCategory) {
+            suggestions = SERVICES.filter(s => s.category === intentCategory);
+        }
+
+        return { exactMatches, suggestions, intentCategory };
+    })();
+
+    const filtered = searchResult.exactMatches.length > 0 ? searchResult.exactMatches : searchResult.suggestions;
 
     // ── Group filtered results by category ──
     const grouped = filtered.reduce((acc, service) => {
@@ -177,7 +296,7 @@ const ServiceSearch = ({ variants, isMotion = true }) => {
                 <input
                     ref={inputRef}
                     type="text"
-                    placeholder="Search services..."
+                    placeholder="Search for design, dev, or video services..."
                     value={query}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
@@ -204,6 +323,12 @@ const ServiceSearch = ({ variants, isMotion = true }) => {
                         animate="visible"
                         exit="exit"
                     >
+                        {searchResult.suggestions.length > 0 && searchResult.exactMatches.length === 0 && (
+                            <div className="search-dropdown-hint">
+                                Showing suggested {searchResult.intentCategory} services:
+                            </div>
+                        )}
+
                         {flatResults.length > 0 ? (
                             Object.entries(grouped).map(([category, services]) => (
                                 <div key={category} className="search-dropdown-group">
@@ -226,7 +351,10 @@ const ServiceSearch = ({ variants, isMotion = true }) => {
                                 </div>
                             ))
                         ) : (
-                            <div className="search-dropdown-empty">No services found</div>
+                            <div className="search-dropdown-empty">
+                                <p>No exact match found.</p>
+                                <span>Try searching for "design", "development", or "video editing"</span>
+                            </div>
                         )}
                     </motion.div>
                 )}

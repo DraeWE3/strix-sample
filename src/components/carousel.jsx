@@ -1,19 +1,68 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Pi1 from "../assets/img/pi1.webp";
-import Pi2 from "../assets/img/pi2.webp";
-import Pi3 from "../assets/img/pi3.webp";
-import Pi4 from '../assets/img/pi4.webp'
-import Pi5 from '../assets/img/pi5.webp'
-import Pi6 from '../assets/img/pi6.webp'
-import Pi7 from '../assets/img/pi7.webp'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../admin/firebaseconfig';
 import '../style/carousal.css';
 
+/**
+ * Optimize Cloudinary URLs for carousel thumbnails.
+ * Requests a 640px wide, auto-quality, auto-format version — 
+ * typically 5-10× smaller than the original upload.
+ */
+const getOptimizedImage = (url) => {
+  if (!url || !url.includes('res.cloudinary.com')) return url;
+  return url.replace('/upload/', '/upload/w_640,q_auto,f_auto/');
+};
+
 const Carousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(2); 
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [isAnimating, setIsAnimating] = useState(false);
   const [buttonOffset, setButtonOffset] = useState("22.5%"); // ✅ default desktop
+  const [carouselData, setCarouselData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
+  const navigate = useNavigate();
+
+  // ✅ Fetch projects from Firebase with Resilience
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchProjects = async () => {
+      try {
+        // Since we enabled persistence in firebaseconfig, getDocs will prefer cache if offline
+        const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+
+        if (cancelled) return;
+
+        const projects = snapshot.docs
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .filter(p => p.status === 'published' && p.image);
+
+        if (projects.length > 0) {
+          setCarouselData(projects);
+          setCurrentIndex(Math.min(2, projects.length - 1));
+        }
+      } catch (error) {
+        console.error('Carousel fetch error:', error);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    fetchProjects();
+
+    // Safety timeout: if Firestore takes too long, stop loading spinner
+    const timer = setTimeout(() => {
+      if (loading && !cancelled) setLoading(false);
+    }, 10000);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, []);
 
   // ✅ Responsive button offset
   useEffect(() => {
@@ -32,59 +81,49 @@ const Carousel = () => {
     return () => window.removeEventListener("resize", updateOffset);
   }, []);
 
-  const carouselData = [
-    { id: 1, image: Pi1 },
-    { id: 2, image: Pi2 },
-    { id: 3, image: Pi3 },
-    { id: 4, image: Pi4 },
-    { id: 5, image: Pi5 },
-    { id: 6, image: Pi6 },
-    { id: 7, image: Pi7 },
-  ];
-
   const infiniteItems = [...carouselData, ...carouselData, ...carouselData];
   const totalItems = infiniteItems.length;
 
   const getItemStyle = (index) => {
-  const position = index - currentIndex;
-  const isCenter = position === 0;
-  const absPosition = Math.abs(position);
+    const position = index - currentIndex;
+    const isCenter = position === 0;
+    const absPosition = Math.abs(position);
 
-  let transform = '';
-  let opacity = 1;
-  let zIndex = 10;
-  let scale = 1;
-  let visibility = "visible";
+    let transform = '';
+    let opacity = 1;
+    let zIndex = 10;
+    let scale = 1;
+    let visibility = "visible";
 
-  if (isCenter) {
-    transform = 'translateX(0%) translateZ(0px)';
-    scale = 1.2;
-    zIndex = 20;
-    opacity = 1;
-  } else if (absPosition === 1) {
-    const translateX = position > 0 ? '120%' : '-120%';
-    transform = `translateX(${translateX}) translateZ(-80px)`;
-  } else if (absPosition === 2) {
-    const translateX = position > 0 ? '240%' : '-240%';
-    transform = `translateX(${translateX}) translateZ(-140px)`;
-  } else {
-    // ✅ Far left / right images → hide them
-    const translateX = position > 0 ? '320%' : '-320%';
-    transform = `translateX(${translateX}) translateZ(-200px)`;
-    opacity = 0;           // fully transparent
-    visibility = "hidden"; // remove from layout/interaction
-  }
+    if (isCenter) {
+      transform = 'translateX(0%) translateZ(0px)';
+      scale = 1.2;
+      zIndex = 20;
+      opacity = 1;
+    } else if (absPosition === 1) {
+      const translateX = position > 0 ? '120%' : '-120%';
+      transform = `translateX(${translateX}) translateZ(-80px)`;
+    } else if (absPosition === 2) {
+      const translateX = position > 0 ? '240%' : '-240%';
+      transform = `translateX(${translateX}) translateZ(-140px)`;
+    } else {
+      // ✅ Far left / right images → hide them
+      const translateX = position > 0 ? '320%' : '-320%';
+      transform = `translateX(${translateX}) translateZ(-200px)`;
+      opacity = 0;           // fully transparent
+      visibility = "hidden"; // remove from layout/interaction
+    }
 
-  return {
-    transform: `${transform} scale(${scale})`,
-    opacity,
-    visibility,
-    zIndex,
-    transition: isAnimating
-      ? 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-      : 'none',
+    return {
+      transform: `${transform} scale(${scale})`,
+      opacity,
+      visibility,
+      zIndex,
+      transition: isAnimating
+        ? 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none',
+    };
   };
-};
 
 
   const nextSlide = () => {
@@ -178,8 +217,8 @@ const Carousel = () => {
       overflow: 'hidden',
       position: 'relative',
       marginTop: '2rem',
-       cursor: 'grab',
-      
+      cursor: 'grab',
+
     },
     backgroundEffect: {
       position: 'absolute',
@@ -199,7 +238,7 @@ const Carousel = () => {
       justifyContent: 'center',
       height: '100%',
       position: 'relative',
-       cursor: 'grab',
+      cursor: 'grab',
     },
     carouselContainer: {
       position: 'relative',
@@ -210,8 +249,8 @@ const Carousel = () => {
       justifyContent: 'center',
       perspective: '1200px',
       perspectiveOrigin: '50% 50%',
-       cursor: 'grab',
-       marginBottom: '1.5rem'
+      cursor: 'grab',
+      marginBottom: '1.5rem'
     },
     carouselItem: {
       position: 'absolute',
@@ -227,7 +266,7 @@ const Carousel = () => {
       overflow: 'hidden',
       boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.6)',
       transition: 'box-shadow 0.3s ease',
-       cursor: 'grab',
+      cursor: 'grab',
     },
     imageContainerHover: {
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.9)',
@@ -282,6 +321,27 @@ const Carousel = () => {
     },
   };
 
+  // ✅ Don't render carousel if no data
+  if (loading) {
+    return (
+      <div style={{ ...styles.container, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid rgba(255,255,255,0.1)',
+          borderTop: '3px solid rgba(255,255,255,0.6)',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite',
+        }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
+  if (carouselData.length === 0) {
+    return null; // No published projects, hide carousel
+  }
+
   return (
     <div style={styles.container}>
       <div style={styles.backgroundEffect}></div>
@@ -302,7 +362,20 @@ const Carousel = () => {
               key={`${item.id}-${Math.floor(index / carouselData.length)}`}
               style={{ ...styles.carouselItem, ...getItemStyle(index) }}
               onClick={() => {
-                if (!isAnimating && index !== currentIndex) {
+                if (isAnimating) return;
+
+                if (index === currentIndex) {
+                  // ✅ Center card clicked → navigate to case study
+                  const link = item.link || item.externalLink;
+                  if (link) {
+                    if (link.startsWith('http')) {
+                      window.open(link, '_blank');
+                    } else {
+                      navigate(link);
+                    }
+                  }
+                } else {
+                  // Non-center card → slide it into focus
                   setIsAnimating(true);
                   setCurrentIndex(index);
                 }
@@ -320,9 +393,10 @@ const Carousel = () => {
                 }}
               >
                 <img
-                  src={item.image}
-                  alt={`Carousel item ${item.id}`}
+                  src={getOptimizedImage(item.image)}
+                  alt={item.title || `Project ${item.id}`}
                   style={styles.image}
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -379,3 +453,4 @@ const Carousel = () => {
 };
 
 export default Carousel;
+

@@ -77,8 +77,6 @@ const App = () => {
           <Route path="/reel" element={<Reel />} />
           <Route path="/motion" element={<Motion />} />
           <Route path="/threed" element={<ThreeD />} />
-
-
         </Routes>
       </PageTransition>
     </BrowserRouter>

@@ -1908,10 +1908,7 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
   if (items.length === 0) {
     return (
       <div className="empty-state">
-        <p className="empty-text">No items found</p>
-        <button onClick={() => setShowForm(true)} className="empty-button">
-          <Plus size={20} /> Add Your First {activeTab === 'projects' ? 'Project' : activeTab === 'caseStudies' ? 'Case Study' : 'Blog'}
-        </button>
+        <p>No {activeTab} found. Click "Add New" to create one.</p>
       </div>
     );
   }
@@ -1921,11 +1918,15 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
       <table className="data-table">
         <thead>
           <tr>
-            <th>Preview</th>
+            <th>Image</th>
             <th>Title</th>
             {activeTab === 'projects' && <th>Filters</th>}
-            {activeTab === 'blogs' && <th>Tag</th>}
-            {activeTab === 'blogs' && <th>Date</th>}
+            {activeTab === 'blogs' && (
+              <>
+                <th>Tag</th>
+                <th>Date</th>
+              </>
+            )}
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -2000,5 +2001,7 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
     </div>
   );
 };
+
+
 
 export default AdminPanel;

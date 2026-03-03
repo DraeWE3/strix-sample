@@ -43,6 +43,8 @@
 }
 
 
+
+
 /* ================family=================== */
 
 .family {
@@ -1569,3 +1571,10 @@
     width: 15%;
     height: auto;
 }
+
+@media (min-width: 1600px) {
+.uiux-hero {
+  height: fit-content !important;
+}
+}
+

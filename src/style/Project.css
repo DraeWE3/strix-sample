@@ -255,7 +255,7 @@
   padding: 1px; /* thickness of gradient border */
   background-clip: padding-box;
   border: 2px solid transparent;
- 
+ object-fit: cover;
 }
 
 .p-sec2-card p{

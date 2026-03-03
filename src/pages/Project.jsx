@@ -62,7 +62,7 @@ const FilterModal = ({ category, activeSubFilter, onClose, onFilterSelect, onCat
   return (
     <div className="filter-modal-overlay" onClick={onClose}>
       <div className="filter-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button 
+        <button
           className={`filter-modal-item ${!activeSubFilter ? 'active' : ''}`}
           onClick={() => onCategorySelect(category)}
         >
@@ -101,7 +101,15 @@ const Project = () => {
         where('status', '==', 'published'),
         orderBy('createdAt', 'desc')
       );
+
+      // Safety timeout: if Firestore takes too long, stop loading spinner
+      const timeout = setTimeout(() => {
+        setLoading(false);
+      }, 10000);
+
       const querySnapshot = await getDocs(q);
+      clearTimeout(timeout);
+
       const projectsData = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -136,7 +144,7 @@ const Project = () => {
       const categoryFilters = filters[category] || [];
       return categoryFilters.includes(subFilter);
     });
-    
+
     setFilteredProjects(filtered);
   };
 
@@ -149,7 +157,7 @@ const Project = () => {
       const filters = project.filters || {};
       return filters[category] && filters[category].length > 0;
     });
-    
+
     setFilteredProjects(filtered);
   };
 
@@ -172,17 +180,17 @@ const Project = () => {
         <h1 className='project-hero-h1 slideinLoad'>Projects</h1>
         <p className='project-hero-p slideinLoad'>Explore how we craft experiences that work and wow - one project at a time</p>
         <div className='project-carousel-con'>
-          <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle"/>
+          <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle" />
           <h1>Latest Projects</h1>
-            <Carousel />
+          <Carousel />
         </div>
         <img src={Blur1} className='p-blur1' alt="Blur" />
         <img src={Blur2} className='p-blur2' alt="Blur" />
       </div>
 
       <div className='project-p-btn'>
-        <p  onClick={() => handleFilterClick('All')}
-            className={activeFilter === 'All' ? 'active link-button-all' : ''}  >All projects</p>
+        <p onClick={() => handleFilterClick('All')}
+          className={activeFilter === 'All' ? 'active link-button-all' : ''}  >All projects</p>
       </div>
 
       {/* =============================section 2========= */}
@@ -193,18 +201,18 @@ const Project = () => {
             onClick={() => handleFilterClick('All')}
             className={activeFilter === 'All' ? 'active' : ''}
           /> */}
-          <BtnNormsall 
-            text="Design" 
+          <BtnNormsall
+            text="Design"
             onClick={() => handleFilterClick('Design')}
             className={activeFilter === 'Design' ? 'active' : ''}
           />
-          <BtnNormsall 
-            text="Development" 
+          <BtnNormsall
+            text="Development"
             onClick={() => handleFilterClick('Development')}
             className={activeFilter === 'Development' ? 'active' : ''}
           />
-          <BtnNormsall 
-            text="Production" 
+          <BtnNormsall
+            text="Production"
             onClick={() => handleFilterClick('Production')}
             className={activeFilter === 'Production' ? 'active' : ''}
           />
@@ -214,7 +222,7 @@ const Project = () => {
           Explore our work across categories - each project designed to make an impact
           {activeSubFilter && ` • Filtered by: ${activeSubFilter}`}
         </p>
-        
+
         <div className="p-card-con">
           {loading ? (
             <div className="loading-state">
@@ -226,20 +234,20 @@ const Project = () => {
             </div>
           ) : (
             filteredProjects.map((project, index) => (
-              <div 
-                key={project.id} 
+              <div
+                key={project.id}
                 className={`p-sec2-card ${index % 2 === 0 ? 'p-sec2-card1' : 'p-sec2-card2'}`}
               >
-                <img 
-                  className='p-sec2-card-img' 
-                  src={project.image} 
-                  alt={project.title} 
+                <img
+                  className='p-sec2-card-img'
+                  src={project.image}
+                  alt={project.title}
                 />
                 <p>{project.categoryText}</p>
                 <Link className='linkkk' to={`/case-study/${project.id}`}>
                   <div>
-                    <h2>{project.title}</h2> 
-                    <img src={Arrow} className='icon' alt="Arrow"/>
+                    <h2>{project.title}</h2>
+                    <img src={Arrow} className='icon' alt="Arrow" />
                   </div>
                 </Link>
               </div>
@@ -251,7 +259,7 @@ const Project = () => {
           <img src={Blur5} className='p-blur5' alt="Blur" />
           <img src={Blur6} className='p-blur6' alt="Blur" />
         </div>
-        
+
         <p className='sec2-ptxt'>Projects tailored to your industry or need are available on request.</p>
         <BtnNormsall text="Know More" />
       </div>
@@ -263,11 +271,11 @@ const Project = () => {
       {/* ===============================Book Call================= */}
       <div className="smoothsection book-container">
         <div className="bool-container-card">
-          <img src={BookBg} className='bookbg' alt="Book Background"/>
+          <img src={BookBg} className='bookbg' alt="Book Background" />
           <div className="book-ab">
             <h1 className='delay2'>Turn Your Vision Into an Experience That Lasts</h1>
             <p className='delay3'>You have a story worth sharing — we help you tell it in a way that's impossible to ignore.</p>
-            
+
             <div className="logo-slider">
               <div className="logo-track">
                 {[...Array(2)].map((_, i) => (
@@ -285,8 +293,8 @@ const Project = () => {
           </div>
         </div>
 
-        <img src={Blur7} className='blur7' alt="Blur"/>
-        <img src={Blur8} className='blur8' alt="Blur"/>
+        <img src={Blur7} className='blur7' alt="Blur" />
+        <img src={Blur8} className='blur8' alt="Blur" />
       </div>
 
       {/* Filter Modal */}
