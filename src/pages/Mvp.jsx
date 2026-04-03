@@ -225,8 +225,8 @@ const Mvp = () => {
     <div>
       <Nav />
       <SEO
-        title="Build Your MVP"
-        description="Craft Minimum Viable Products designed to validate, impress, and scale. We turn ideas into working prototypes in as little as 4-6 weeks."
+        title="Full-Stack MVP Development Company | Custom MVP Development Services"
+        description="Full-stack MVP development company providing custom MVP development services to turn your ideas into scalable, market-ready products fast and efficiently."
       />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -243,7 +243,7 @@ const Mvp = () => {
       <div className="service-hero">
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="Design background blur" />
-          <h1 className="slideinLoad mvp-hero-h1">Get flawless <br />product from scratch</h1>
+          <h1 className="slideinLoad mvp-hero-h1">Get flawless <br />product from scratch</h1 >
         </div>
 
         <div className="case-box-con uiu-con mvp-video">
@@ -269,7 +269,7 @@ const Mvp = () => {
                     className="play-button-sr"
                     aria-label="Play video"
                   >
-                    <h1 className="sr-watch viewwork">Watch showreel</h1>
+                    <h2 className="sr-watch viewwork">Watch showreel</h2>
                     <span className="play-line"></span>
                     <Play className="play-icon" fill="white" />
                   </button>
@@ -299,7 +299,7 @@ const Mvp = () => {
       <div className="provide-con mpvcard-section ">
         <div className="sh-top uiux-hero mvp-conn">
           <img src={Circleblur} alt="Design background blur" />
-          <h1 className="scrollReveal mvp-why">Why MVP with Strix ?</h1>
+          <h2 className="scrollReveal mvp-why">Why MVP with Strix ?</h2>
           <p className="mvp-hero-p scrollReveal mvp-why-p"> We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
         </div>
 
@@ -354,7 +354,7 @@ const Mvp = () => {
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con mvp-connn">
         <img src={Circleblur} alt="Design background blur" />
-        <h1 className="scrollReveal">Our 4-Week <br />MVP Framework</h1>
+        <h2 className="scrollReveal">Our 4-Week <br />MVP Framework</h2>
         <p className="p-inde scrollReveal">At Strix Productions, we design, develop, and deliver world-class visuals and experience that help ambitious brands move faster, scale bigger, and stand out globally.</p>
       </div>
 
@@ -413,7 +413,7 @@ const Mvp = () => {
 
       {/* ===================Project Section================== */}
       <div className="project-section-mvp">
-        <h1 className="project-section-mvp-h1">MVPs Delivered</h1>
+        <h2 className="project-section-mvp-h1">MVPs Delivered</h2>
         <p className="project-section-mvp-p">From Concept to launch - a process built for clarity, precision, and speed.</p>
         <div className="section2">
           <div className="p-card-con">
@@ -461,9 +461,9 @@ const Mvp = () => {
 
       {/* ==================booking====================== */}
       <div className="booking" >
-        <h1 className="section-header3">
+        <h2 className="section-header3">
           Have an Idea? <br />Let’s turn it into a market-ready MVP
-        </h1>
+        </h2>
         <div className="second">
           <div className="left-booking slideInLeft">
             <p className="leave">
@@ -493,7 +493,7 @@ const Mvp = () => {
       {/* ==========FAq================== */}
 
       <div className="Faq">
-        <h1 className="faq-head scrollReveal">Frequently <br />Asked Questions</h1>
+        <h2 className="faq-head scrollReveal">Frequently <br />Asked Questions</h2>
         <div className="faq-container">
           <div className="faq-list">
             {faqs.map((faq, index) => (

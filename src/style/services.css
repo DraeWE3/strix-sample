@@ -154,6 +154,9 @@
 .play-button-sr h1 {
     color: #fff;
 }
+.play-button-sr h2 {
+    color: #fff;
+}
 
 .play-line {
     width: 3px;
@@ -220,7 +223,7 @@
     padding-bottom: 10%;
 }
 
-.sr-design-h1 {
+.sr-design-h2 {
     font-family: 'Clash Display', sans-serif;
     font-weight: 500;
     font-size: 70px;
@@ -286,7 +289,7 @@
     flex-direction: column;
 }
 
-.sr-items h1 {
+.sr-items h2 {
     font-family: syne-semi;
     font-size: 40px;
     background: linear-gradient(to bottom, #FCFCFD, #969697);

@@ -29,6 +29,7 @@ import Stagger from '../../animations/stagger'
 import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import SEO from '../../components/SEO'
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -98,6 +99,10 @@ const WebApp = () => {
 
   return (
     <div>
+      <SEO
+        title="Web App Development"
+        description="Build scalable and high-performance web applications with our expert development services at Strix Production."
+      />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -147,7 +152,7 @@ const WebApp = () => {
                   className="thumbnail-image"
                 />
                 <div className="play-button-overlay">
-                  <h1 className="sr-watch viewwork2">View work</h1>
+                  <h2 className="sr-watch viewwork2">View work</h2>
 
                 </div>
               </div>
@@ -175,7 +180,7 @@ const WebApp = () => {
       <div className="provide-con">
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="scrollReveal">What we provide</h1>
+          <h2 className="scrollReveal">What we provide</h2>
         </div>
 
         <div className="provide-grid">
@@ -234,21 +239,21 @@ const WebApp = () => {
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
-        <h1 className="scrollReveal">Why Choose us ?</h1>
+        <h2 className="scrollReveal">Why Choose us ?</h2>
         <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
       </div>
 
       <div className='project-carousel-con'>
         <CircleBlurAnimation className="ProjectCircle" src={ProjectCircle} />
-        <h1>Related Projects</h1>
+        <h2>Related Projects</h2>
         <ProjectCarousel />
       </div>
 
       {/* ==================booking====================== */}
       <div className="booking" >
-        <h1 className="section-header2">
+        <h2 className="section-header2">
           Have a project that <br /> deserves attention ?
-        </h1>
+        </h2>
         <div className="second">
 
 

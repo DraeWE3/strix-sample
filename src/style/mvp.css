@@ -561,3 +561,16 @@ margin-bottom: 22%;
     }
 
 }
+.sh-top h2 {
+    font-family: 'syne-semi';
+    font-weight: 500;
+    font-size: 75px;
+    background: linear-gradient(to bottom, #FCFCFD, #969697);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+    margin-top: 12%;
+    max-width: 60%;
+}

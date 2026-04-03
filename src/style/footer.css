@@ -191,7 +191,7 @@ font-size: 14px;
    height: fit-content;
 }
 
-.ft-last h1{
+.ft-last h2{
           font-family: syne-bold;
   background: linear-gradient(to bottom, #FCFCFD, #969697);
   -webkit-background-clip: text;

@@ -48,6 +48,7 @@ import Ab7 from "../assets/img/ab7.webp"
 import Ab8 from "../assets/img/ab8.webp"
 import Linkedin from "../assets/img/linkedin.svg"
 import Mail from "../assets/img/mail.svg"
+import SEO from '../components/SEO'
 import Insta from "../assets/img/insta.svg"
 import Blur1 from "../assets/img/blurship1.png"
 import Blur2 from "../assets/img/blurship2.png"
@@ -63,6 +64,10 @@ import Mansi from "../assets/img/mansi.png"
 const About = () => {
   return (
     <div>
+      <SEO
+        title="About Us"
+        description="Learn about Strix Production, a global creative studio specializing in design, development, and production solutions."
+      />
       <Nav />
       <SlideInFramerAuto />
       <SplitTextOnLoad />

@@ -298,7 +298,7 @@ const Service = () => {
                 <img src={HeroImg} alt="Video thumbnail" className="thumbnail-image" />
                 <div className="play-button-overlay">
                   <button onClick={handlePlay} className="play-button-sr" aria-label="Play video">
-                    <h1 className="sr-watch viewwork">Watch showreel</h1>
+                    <h2 className="sr-watch viewwork">Watch showreel</h2>
                     <span className="play-line"></span>
                     <Play className="play-icon" fill="white" />
                   </button>
@@ -318,24 +318,24 @@ const Service = () => {
       <div className="service-hero sr-txt-con norm-pad">
         <div className="sh-top sh-top-section">
           <img src={Circleblur} alt="" />
-          <h1 className="scrollReveal">What we do at Strix Production?</h1>
+          <h2 className="scrollReveal">What we do at Strix Production?</h2>
           <p className="sh-top-p scrollReveal">We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
           <BtnNormsall className="scrollReveal" text='Know more' />
         </div>
       </div>
 
       <motion.div className="sr-design" ref={designRef} style={{ y: designY }}>
-        <h1 className='sr-design-h1 scrollReveal'>Design</h1>
+        <h2 className='sr-design-h2 scrollReveal'>Design</h2>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
         <div className="sr-carousel-con">
           <div className="sr-carousel-items" {...design.containerProps}>
             <div className="sr-carousel-inner" style={{ display: "flex", transition: design.isDragging ? "none" : "transform 1s cubic-bezier(0.23, 1, 0.32, 1)", transform: isMobile ? `translateX(-${design.current * 100}%)` : `translateX(-${design.current * (100 / designSlides.length)}%)`, width: `${designSlides.length * 100}%`, willChange: "transform" }}>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>UI/UX Design</h1><p>Beyond beautiful interfaces, we build seamless user journeys that drive engagement and conversion.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items sr-items2"><h1>Product Design</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Mobile app Design</h1><p>Strategically designed mobile experiences that are intuitive, beautiful, and built for your users' on-the-go lifestyle.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Creative Design</h1><p>A team of creative visionaries delivering high-impact graphics, thumbnails, and presentations that leave a lasting impression.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Website Design</h1><p>Bespoke websites and landing pages built to be the digital cornerstone of your business.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Branding</h1><p>We forge powerful brand identities and comprehensive guidelines that articulate your mission and vision with clarity.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>UI/UX Design</h2><p>Beyond beautiful interfaces, we build seamless user journeys that drive engagement and conversion.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items sr-items2"><h2>Product Design</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Mobile app Design</h2><p>Strategically designed mobile experiences that are intuitive, beautiful, and built for your users' on-the-go lifestyle.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Creative Design</h2><p>A team of creative visionaries delivering high-impact graphics, thumbnails, and presentations that leave a lasting impression.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Website Design</h2><p>Bespoke websites and landing pages built to be the digital cornerstone of your business.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / designSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={De6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Branding</h2><p>We forge powerful brand identities and comprehensive guidelines that articulate your mission and vision with clarity.</p></div></div>
             </div>
           </div>
           <div className="sr-carousel-select">
@@ -348,17 +348,17 @@ const Service = () => {
       </motion.div>
 
       <motion.div className="sr-design" ref={devRef} style={{ y: devY }}>
-        <h1 className='sr-dev-h1'>Development</h1>
+        <h2 className='sr-dev-h1'>Development</h2>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
         <div className="sr-carousel-con">
           <div className="sr-carousel-items" {...dev.containerProps}>
             <div className="sr-carousel-inner" style={{ display: "flex", transition: dev.isDragging ? "none" : "transform 1s cubic-bezier(0.23, 1, 0.32, 1)", transform: isMobile ? `translateX(-${dev.current * 100}%)` : `translateX(-${dev.current * (100 / devSlides.length)}%)`, width: `${devSlides.length * 100}%`, willChange: "transform" }}>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Web Applications</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>E-Commerce</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Website Development</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Mobile Applications</h1><p>Beyond beautiful interfaces, we build seamless user journeys that drive engagement and conversion.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Interactive Websites</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Maintenance &  Hosting</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Web Applications</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>E-Commerce</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Website Development</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Mobile Applications</h2><p>Beyond beautiful interfaces, we build seamless user journeys that drive engagement and conversion.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Interactive Websites</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / devSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Dev6} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Maintenance &  Hosting</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
             </div>
           </div>
           <div className="sr-carousel-select">
@@ -371,16 +371,16 @@ const Service = () => {
       </motion.div>
 
       <motion.div className="sr-design" ref={proRef} style={{ y: proY }}>
-        <h1 className='sr-pro-h1'>Production</h1>
+        <h2 className='sr-pro-h1'>Production</h2>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>
         <div className="sr-carousel-con">
           <div className="sr-carousel-items" {...pro.containerProps}>
             <div className="sr-carousel-inner" style={{ display: "flex", transition: pro.isDragging ? "none" : "transform 1s cubic-bezier(0.23, 1, 0.32, 1)", transform: isMobile ? `translateX(-${pro.current * 100}%)` : `translateX(-${pro.current * (100 / proSlides.length)}%)`, width: `${proSlides.length * 100}%`, willChange: "transform" }}>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>3D Animations</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Commercials & Promos</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Reels & Shorts</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Long Format Content</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
-              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h1>Motion Graphics</h1><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro1} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>3D Animations</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro2} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Commercials & Promos</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro3} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Reels & Shorts</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro4} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Long Format Content</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
+              <div className="sr-carousel-item" style={{ width: isMobile ? '100%' : `${100 / proSlides.length}%`, flexShrink: 0, padding: isMobile ? '0 1rem' : '0 2rem' }}><img src={Pro5} alt="" style={{ userSelect: 'none', pointerEvents: 'none' }} /><div className="sr-items"><h2>Motion Graphics</h2><p>From concept to launch, we meticulously shape digital products for unparalleled user satisfaction and business impact.</p></div></div>
             </div>
           </div>
           <div className="sr-carousel-select">
@@ -395,14 +395,14 @@ const Service = () => {
       <div className="service-hero norm-pad">
         <div className="sh-top">
           <img src={Circleblur} alt="" />
-          <h1 className="sh-top-h1 strix-why scrollReveal">Why Strix Production?</h1>
+          <h2 className="sh-top-h1 strix-why scrollReveal">Why Strix Production?</h2>
           <p className="sh-top-p scrollReveal">We craft transformative digital experiences that elevate brands and captivate audiences. Your vision, realized without compromise.</p>
           <BtnNormsall text='Know more' />
         </div>
       </div>
 
       <div className="portfolio sr-portfolio" >
-        <h1 className="section-header2 scrollReveal">Our Curated Portfolio</h1>
+        <h2 className="section-header2 scrollReveal">Our Curated Portfolio</h2>
         <div className="cl">
           <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
           <Carousel />
@@ -415,7 +415,7 @@ const Service = () => {
       <div className="booking" >
         <img src={Blur5} className="blur-booking-left" />
         <img src={Blur6} className="blur-booking-right" />
-        <h1 className="section-header2">Have  a project that <br /> deserves attention ?</h1>
+        <h2 className="section-header2">Have  a project that <br /> deserves attention ?</h2>
         <div className="second">
           <div className="left-booking">
             <p className="leave"><span>•</span>Leave a request</p>

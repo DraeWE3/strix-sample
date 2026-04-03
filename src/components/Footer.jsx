@@ -42,9 +42,9 @@ const FooterLogo = () => {
       animate={isInView ? "visible" : "hidden"}
     >
       {["S", "T", "R", "I", "X"].map((char, i) => (
-        <motion.h1 key={i} className="foot-strix" variants={letter}>
+        <motion.h2 key={i} className="foot-strix" variants={letter}>
           {char}
-        </motion.h1>
+        </motion.h2>
       ))}
     </motion.div>
   );

@@ -458,7 +458,7 @@ const Home = () => {
             <ServiceSearch isMotion={false} />
           </div>
 
-          <h1 className="power-desk section-header">Powering Brands with Design & Technology</h1>
+          <h2 className="power-desk section-header">Powering Brands with Design & Technology</h2>
           <p className="power-mobile">Powering Brands with Design & Technology</p>
 
           <div className="section-container">
@@ -537,7 +537,7 @@ const Home = () => {
 
             <div className="num1">
               <div>
-                <h1 className="count-up-text">∞</h1>
+                <h2 className="count-up-text">∞</h2>
               </div>
               <p>Potential</p>
             </div>

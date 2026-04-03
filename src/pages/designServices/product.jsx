@@ -31,6 +31,7 @@ import Stagger from '../../animations/stagger'
 import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import SEO from '../../components/SEO'
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -100,6 +101,10 @@ const Product = () => {
 
   return (
     <div>
+      <SEO
+        title="Product Design"
+        description="Innovative product design services to create user-centered, visually appealing products at Strix Production."
+      />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -149,7 +154,7 @@ const Product = () => {
                   className="thumbnail-image"
                 />
                 <div className="play-button-overlay">
-                  <h1 className="sr-watch viewwork2">View work</h1>
+                  <h2 className="sr-watch viewwork2">View work</h2>
 
                 </div>
               </div>
@@ -177,7 +182,7 @@ const Product = () => {
       <div className="provide-con">
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="scrollReveal">What we provide</h1>
+          <h2 className="scrollReveal">What we provide</h2>
         </div>
 
         <div className="provide-grid">
@@ -236,13 +241,13 @@ const Product = () => {
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
-        <h1 className="scrollReveal">Why Choose us ?</h1>
+        <h2 className="scrollReveal">Why Choose us ?</h2>
         <p className="p-inde scrollReveal">Our UI/UX practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
       </div>
 
       <div className='project-carousel-con'>
         <CircleBlurAnimation className="ProjectCircle" src={ProjectCircle} />
-        <h1>Related Projects</h1>
+        <h2>Related Projects</h2>
         <ProjectCarousel />
       </div>
       <div className="uiuxproinfo">
@@ -252,7 +257,7 @@ const Product = () => {
 
       {/* ==================booking====================== */}
       <div className="booking" >
-        <h1 className='delay2'>Turn Your Vision Into an Experience That Lasts</h1>
+        <h2 className='delay2'>Turn Your Vision Into an Experience That Lasts</h2>
         <div className="logo-slider logo-slider2">
           <div className="logo-track logo-track2">
             {[...Array(2)].map((_, i) => (
