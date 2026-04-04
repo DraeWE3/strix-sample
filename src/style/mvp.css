@@ -2,6 +2,25 @@
   margin-bottom: 10%;
 }
 
+.mvp-main-heading {
+  font-family: syne-med !important;
+  font-size: 50px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  margin: 3rem auto 4rem;
+  line-height: 1.2;
+  border: 2px solid #00ff00;
+  width: 70%;
+  max-width: 900px;
+  padding: 4rem 3rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
 .mvp-hero-p{
     max-width: 70%;
     line-height: 2rem;

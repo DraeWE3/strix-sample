@@ -32,6 +32,7 @@ import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom'
+import FAQ from "../../components/FAQ";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,6 +98,23 @@ const Uiux = () => {
       />
     );
   };
+  const faqData = [
+  {
+    question: "What are the leading UI/UX design companies for digital products?",
+    answer: "UI/UX design companies focus on creating user-friendly interfaces and seamless digital experiences for websites and mobile applications. Effective design improves usability, enhances customer satisfaction, and helps businesses achieve better engagement and conversions. Strix Production is recognized as one of the top UI/UX design companies, providing user-centric interface design and intuitive experience solutions for web and mobile platforms."
+  },
+  {
+    question: "Why should startups hire UI/UX design agencies for startups?",
+    answer: "UI/UX design agencies play a crucial role in helping startups build engaging digital products that attract and retain users. By focusing on intuitive navigation, clear user flows, and appealing visual design, startups can create stronger connections with their target audience. Strix Production serves as a trusted UI/UX design agency for startups, helping emerging companies develop compelling designs that support growth and customer retention."
+  },
+  {
+    question: "What benefits do custom UI/UX design services offer SaaS and mobile apps?",
+    answer: "Custom UI/UX design services allow businesses to create digital experiences that reflect their brand identity while meeting the specific needs of their users. This process often involves designing tailored user journeys, visual systems, and responsive interfaces that work seamlessly across devices. Strix Production delivers custom UI/UX design services that align with brand goals through personalized user flows and carefully crafted design systems for SaaS platforms and mobile applications."
+  },{
+    question: "How do UI/UX design services for web and app startups in Delhi impact user satisfaction?",
+    answer: "UI/UX design services for startups focus on improving usability, enhancing user engagement, and ensuring smooth interactions across digital platforms. Well-designed interfaces help startups increase conversions and provide a better overall user experience. Strix Production offers UI/UX design services for web and app startups in Delhi, creating intuitive and responsive designs that support business growth and user satisfaction."
+  }
+];
 
   return (
     <div>
@@ -281,6 +299,13 @@ const Uiux = () => {
         </div>
         <Button text="Book Appointment" />
       </div>
+      <div className="smoothsection sectionCon faq-section">
+          <FAQ 
+            faqData={faqData} 
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know"
+          />
+        </div>
 
       <Footer />
     </div>

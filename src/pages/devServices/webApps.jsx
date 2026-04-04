@@ -30,6 +30,7 @@ import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO'
+import FAQ from "../../components/FAQ";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -96,6 +97,24 @@ const WebApp = () => {
       />
     );
   };
+  const faqData = [
+    {
+      question: "How can full stack SaaS web application development services help businesses?",
+      answer: "Full stack SaaS web application development involves building both the front-end interface and back-end infrastructure while integrating cloud technologies for scalability and performance. This approach ensures a seamless user experience, efficient data management, and the ability to scale as the user base grows. Strix Production delivers full stack SaaS web application development services that integrate front-end, back-end, and cloud infrastructure for reliable and scalable digital products."
+    },
+    {
+      question: "What are full stack web app development services?",
+      answer: "Full stack web app development services cover the complete development process, including user interface design, server-side logic, database management, and system integration. This end-to-end approach allows businesses to launch fully functional applications with consistent performance across platforms. Strix Production offers full stack web app development services that combine front-end design, back-end development, and scalable architecture."
+    },
+    {
+      question: "Which are the best web app development Company in Delhi?",
+      answer: "A professional web app development company helps businesses build responsive and feature-rich web applications that improve digital accessibility and customer engagement. These solutions often focus on security, performance optimization, and scalability to support long-term growth. Strix Production is recognized as one of the best web app development companies in Delhi, delivering responsive applications with secure frameworks and scalable development for startups."
+    },
+    {
+      question: "What advantages do web app development agencies for startups in Delhi offer?",
+      answer: "Web app development agencies for startups provide specialized support to help new businesses build and launch digital products efficiently. Their services typically include agile planning, MVP development, and continuous product improvements based on user feedback. Strix Production works with startups in Delhi by offering expert web app development services that support agile workflows, MVP readiness, and iterative product development aligned with startup goals."
+    }
+  ];
 
   return (
     <div>
@@ -279,9 +298,15 @@ const WebApp = () => {
             </p>
           </div>
         </div>
-        <Button text="Book Appointment" />
+        <Button text="Book Appointment" />        
       </div>
-
+       <div className="smoothsection sectionCon faq-section">
+          <FAQ 
+            faqData={faqData} 
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know"
+          />
+        </div>
       <Footer />
     </div>
   )

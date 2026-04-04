@@ -200,20 +200,24 @@ const Mvp = () => {
 
   const faqs = [
     {
-      question: "What do I need to get started?",
-      answer: "To get started, simply share your project details and goals with us. We'll guide you through the process and provide the tools and support needed to bring your vision to life"
+      question: "How do SaaS MVP development agencies help early-stage SaaS businesses?",
+      answer: "SaaS MVP development agencies help startups validate their product ideas by launching a minimum viable product with only the essential features needed to test market demand. This approach allows businesses to gather real user feedback, improve the product, and reduce development risks before scaling. Strix Production provides SaaS MVP development services that include product strategy, UX design, agile development, and scalable cloud-based architecture tailored for SaaS startups."
     },
     {
-      question: "What if my idea changes mid-way",
-      answer: "We accept all major credit cards including Visa, Mastercard, American Express, and Discover. We also support PayPal and bank transfers for annual subscriptions. All payments are processed securely through industry-standard encryption."
+      question: "Why choose custom MVP development services for startups?",
+      answer: "Custom MVP development services enable startups to build a minimum viable product that aligns closely with their unique business model, target audience, and long-term goals. This process typically focuses on prioritizing core features, testing user interactions, and refining the product through continuous feedback. Strix Production offers customized MVP development services designed around user feedback, iterative testing, and scalable technology stacks."
     },
     {
-      question: "What if my idea changes mid-way",
-      answer: "Yes, absolutely! You can change your plan at any time from your account settings. When upgrading, you'll get immediate access to new features. When downgrading, changes take effect at the end of your current billing cycle, and you'll retain access to premium features until then."
+      question: "How much does it cost to build an MVP?",
+      answer: "MVP development pricing generally depends on factors such as product complexity, number of features, platform requirements, and integration needs. Startups often choose MVP development to minimize initial investment while still building a functional product that can validate their business idea in the market. Strix Production provides transparent MVP development pricing, ensuring startups receive a cost-effective and market-ready MVP without unnecessary expenses."
     },
     {
-      question: "How do you ensure scalability",
-      answer: "We offer 24/7 customer support through multiple channels. Free users have access to our comprehensive help center and community forums. Premium users get priority email support with response times under 4 hours, and Enterprise customers have dedicated account managers and phone support."
+      question: "How long does the MVP development timeline take?",
+      answer: "The timeline for MVP development usually depends on the scope of features, integrations, and testing processes involved. In most cases, startups aim to launch an MVP quickly so they can test the product in the market and gather valuable user insights. Strix Production typically delivers MVPs within 4 to 12 weeks, depending on project complexity, helping startups move from idea to market launch efficiently."
+    },
+    {
+      question: "What is the difference between MVP and prototype?",
+      answer: "A prototype is an early model of a product created to visualize and test the design, layout, and user experience before development begins. It may not be fully functional and is mainly used to gather feedback and refine ideas. An MVP (Minimum Viable Product), however, is a working version of the product with only the essential features needed to solve a core problem for real users and test market demand. In simple terms, a prototype helps validate the concept, while an MVP helps validate the product in the market. At Strix Production, teams typically start with prototyping to shape the product idea and then develop an MVP to test it with real users before full-scale development."
     }
   ];
 
@@ -238,6 +242,7 @@ const Mvp = () => {
         gap={24}
         activeColor="#ffffff"
       />
+
 
       {/* =============== service-hero ============ */}
       <div className="service-hero">

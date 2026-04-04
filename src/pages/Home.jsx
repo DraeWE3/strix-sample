@@ -46,6 +46,7 @@ import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
 import ServiceSearch from "../components/ServiceSearch";
 import SEO from "../components/SEO";
+import FAQ from "../components/FAQ";
 
 
 // Smooth text reveal animation component
@@ -162,6 +163,23 @@ const Home = () => {
   const velocityRef = useRef(null);
   const section = useRef(null);
 
+  const faqData = [
+  {
+    question: "What services does Strix Production provide?",
+    answer: "Creative and technology services help businesses build a strong digital presence by combining branding, design, development, and marketing strategies. These services typically include UI/UX design, web and application development, creative content production, and digital marketing to ensure consistent brand communication across platforms. Strix Production provides these integrated services to help businesses strengthen their online presence and create impactful digital experiences."
+  },
+  {
+    question: "Which are the best startup branding agencies for digital-first businesses?",
+    answer: "Startup branding agencies help new businesses create a clear brand identity through strategy, visual design, messaging, and promotional content. A strong branding system ensures consistency across websites, marketing materials, and digital platforms, helping startups stand out in competitive markets. Strix Productions stands out among the best startup branding agencies by building cohesive branding systems, visual ecosystems, and high-impact promotional content for growing startups."
+  },
+  {
+    question: "What are the top SaaS platform development company for scalable products?",
+    answer: "SaaS platform development focuses on building cloud-based software that users can access online without installing applications locally. Successful SaaS products require scalable architecture, strong security, intuitive interfaces, and reliable performance to support growing user bases. Strix Production stands among the top SaaS platform development companies by creating secure, scalable, and user-focused SaaS products for global founders."
+  },{
+    question: "What makes Strix Production a reliable digital design and development partner?",
+    answer: "Creating effective digital experiences requires a combination of strategy, design thinking, and modern technology. Businesses today rely on user-centric design, scalable development, and strong branding to deliver products that engage users and support long-term growth. Strix Production combines strategy, design, and technology to develop impactful digital experiences that help businesses grow effectively."
+  }
+];
   // Hero animation for title and subtitle
   useEffect(() => {
     gsap.set(titleRef.current, {
@@ -838,7 +856,15 @@ const Home = () => {
           <a target="_blank" href="https://calendly.com/strixmufasa/30min">
             <Button text="Book Appointment" />
           </a>
+        </div>
 
+        {/* =============section 11 FAQ ============== */}
+        <div className="smoothsection sectionCon faq-section">
+          <FAQ 
+            faqData={faqData} 
+            title="Frequently Asked Questions"
+            subtitle="Everything you need to know"
+          />
         </div>
       </div>
 

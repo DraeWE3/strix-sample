@@ -32,6 +32,7 @@ import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO'
+import FAQ from "../../components/FAQ";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -98,6 +99,26 @@ const Product = () => {
       />
     );
   };
+  const faqData = [ 
+    {
+      question: "What product development services does Strix Production provide?",
+      answer: "End-to-end product development services help startups turn ideas into fully functional digital products by covering every stage of the development process. This typically includes product strategy, user experience design, prototyping, and scalable technical architecture. Strix Production provides comprehensive product development services that guide startups from concept to launch while ensuring scalability and performance."
+    },
+    {
+      question: "How does product design and development help startups launch faster?",
+      answer: "Product design and development enable startups to quickly validate ideas, build functional prototypes, and develop scalable digital solutions. The process often involves strategic planning, user-centered design, and agile development to ensure the product meets market needs. Strix Production supports startups with structured product design and development services that include UI/UX design, prototyping, and agile product development."
+    },
+    {
+      question: "Why should startups invest in digital product development services?",
+      answer: "Digital product development services help businesses transform ideas into market-ready platforms through a combination of design, engineering, and technology strategy. Successful products focus on user-centered design, strong performance, and scalable systems to support future growth. Strix Production offers digital product development services that prioritize usability, efficient development, and scalable technology frameworks."
+     },
+     {
+      question: "What makes a reliable product development company for startups?",
+      answer: "A product development company helps businesses build innovative digital solutions by combining strategy, design thinking, and engineering expertise. These services focus on creating strong user experiences, reliable architecture, and scalable products that support long-term growth. Strix Production works with startups to develop innovative products using robust architecture, user-focused design, and growth-oriented development strategies."
+     }
+
+  ];
+
 
   return (
     <div>
@@ -190,7 +211,7 @@ const Product = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img  src={Cardcon1} alt="" />
+                <img src={Cardcon1} alt="" />
                 <p>Build your on MVP</p>
               </div>
             </div>
@@ -273,7 +294,13 @@ const Product = () => {
           </div>
         </div>
       </div>
-
+      <div className="smoothsection sectionCon faq-section">
+        <FAQ
+          faqData={faqData}
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know"
+        />
+      </div>
       <Footer />
     </div>
   )
