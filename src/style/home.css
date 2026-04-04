@@ -77,6 +77,9 @@
   .explore h1 {
     font-size: 2.2vw !important;
   }
+  .explore h2 {
+    font-size: 2.2vw !important;
+  }
 
   .section-container {
     min-width: 45vw !important;
@@ -162,6 +165,14 @@ width: 50% !important;
 
 
 .explore h1 {
+  font-family: cd-reg;
+  margin: 0;
+  background: linear-gradient(to bottom, #FCFCFD, #969697);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.1vw !important;
+}
+.explore h2 {
   font-family: cd-reg;
   margin: 0;
   background: linear-gradient(to bottom, #FCFCFD, #969697);
@@ -1128,11 +1139,25 @@ width: 50% !important;
   margin: 0;
   text-align: center;
 }
+.booking h2 {
+  font-family: syne-med;
+  font-size: 50px;
+  max-width: 59%;
+  background: linear-gradient(to bottom, #FCFCFD, #969697bc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  text-align: center;
+}
 
 @media (max-width: 770px) {
   .booking h1 {
     max-width: 90%;
   }
+  .booking h2 {
+    max-width: 90%;
+  }
+
 
   .circleblurtop {
     top: 0% !important;
@@ -1819,6 +1844,9 @@ width: 50% !important;
   }
 
   .booking h1 {
+    display: none;
+  }
+  .booking h2 {
     display: none;
   }
 

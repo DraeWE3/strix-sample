@@ -72,12 +72,14 @@ const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) =
 };
 
 // Blur text animation component
-const BlurTextReveal = ({ children, className = "" }) => {
+const BlurTextReveal = ({ children, className = "", as = "h2" }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const Component = motion[as];
+
   return (
-    <motion.h1
+    <Component
       ref={ref}
       initial={{ opacity: 0, filter: "blur(10px)" }}
       animate={isInView ? {
@@ -94,7 +96,7 @@ const BlurTextReveal = ({ children, className = "" }) => {
       className={className}
     >
       {children}
-    </motion.h1>
+    </Component>
   );
 };
 
@@ -418,9 +420,9 @@ const Home = () => {
               <ServiceSearch variants={itemVariants} />
             </motion.div>
 
-            <motion.h1 className="power-desk" variants={itemVariants}>
+            <motion.h2 className="power-desk" variants={itemVariants}>
               Powering Brands with Design & Technology
-            </motion.h1>
+            </motion.h2>
             <motion.p className="power-mobile" variants={itemVariants}>
               Powering Brands with Design & Technology
             </motion.p>
@@ -486,7 +488,7 @@ const Home = () => {
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
-          <SmoothTextReveal as="h1" className="section-header2 delay1">Real Work. Real Results</SmoothTextReveal>
+          <SmoothTextReveal as="h2" className="section-header2 delay1">Real Work. Real Results</SmoothTextReveal>
 
           <div className="number-container">
             <img src={Shadow4} className="shadow4" alt="" />
@@ -563,7 +565,7 @@ const Home = () => {
 
         {/* =============section 5============== */}
         <div className="smoothsection services circcon sectionCon">
-          <SmoothTextReveal as="h1" className="section-header delay3 ">
+          <SmoothTextReveal as="h2" className="section-header delay3 ">
             We Build Experiences that Breathe
           </SmoothTextReveal>
 
@@ -639,7 +641,7 @@ const Home = () => {
 
         {/* =============section 6============== */}
         <div className="smoothsection sectionCon services services-mvp">
-          <SmoothTextReveal as="h1" className="section-header delay3">From Idea to Market in 4 Weeks</SmoothTextReveal>
+          <SmoothTextReveal as="h2" className="section-header delay3">From Idea to Market in 4 Weeks</SmoothTextReveal>
           <div className="mvp-cardcon mvp-desk">
             <img
               src={Shadow1}
@@ -715,7 +717,7 @@ const Home = () => {
 
         {/* =============section 7============== */}
         <section className="smoothsection sectionCon services service-pro relative">
-          <SmoothTextReveal as="h1" className="bold-head delay3">Strix Production</SmoothTextReveal>
+          <SmoothTextReveal as="h2" className="bold-head delay3">Strix Production</SmoothTextReveal>
 
           <div className="coin-con flex justify-center items-center">
             <video
@@ -762,7 +764,7 @@ const Home = () => {
             className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
           />
 
-          <SmoothTextReveal as="h1" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
+          <SmoothTextReveal as="h2" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
 
           <div className="links">
             <PortfolioLink delay={0}>Branding</PortfolioLink>
@@ -789,7 +791,7 @@ const Home = () => {
 
         {/* =============section 10============== */}
         <div className="sectionCon testimonial-con">
-          <SmoothTextReveal as="h1" className="section-header2 delay2">
+          <SmoothTextReveal as="h2" className="section-header2 delay2">
             What our clients say
           </SmoothTextReveal>
           <SmoothTextReveal as="p" className="text-pp delay3" delay={0.2}>
@@ -803,7 +805,7 @@ const Home = () => {
 
         {/* =============section 10============== */}
         <div className="zle booking delay3">
-          <BlurTextReveal>
+          <BlurTextReveal >
             Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
           </BlurTextReveal>
           <div className="second">
