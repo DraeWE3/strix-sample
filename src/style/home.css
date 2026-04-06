@@ -1962,6 +1962,7 @@ width: 50% !important;
     top: 0 !important;
     right: -5rem !important;
     z-index: 0 !important;
+    max-height: 1000px;
   }
 
   .power-mobile {
