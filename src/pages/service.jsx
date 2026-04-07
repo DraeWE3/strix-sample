@@ -48,6 +48,7 @@ import Pro2 from "../assets/img/proc2.webp"
 import Pro3 from "../assets/img/proc3.webp"
 import Pro4 from "../assets/img/proc4.webp"
 import Pro5 from "../assets/img/proc5.webp"
+import SEO from "../components/SEO";
 import De1 from "../assets/img/dec1.webp"
 import De2 from "../assets/img/dec2.webp"
 import De3 from "../assets/img/dec3.webp"
@@ -277,6 +278,10 @@ const Service = () => {
 
   return (
     <div>
+      <SEO
+        title="Digital Design & Development Services | Strix Production"
+        description="Comprehensive digital services including UI/UX design, web development, MVP development, and creative production for startups and businesses."
+      />
       <DotGrid dotSize={2} gap={24} activeColor="#ffffff" />
       <ScaleInLoad />
       <SlideInFramerOnLoad />

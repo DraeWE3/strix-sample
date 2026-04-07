@@ -189,11 +189,11 @@ const Mvp = () => {
 
   return (
     <div>
-      <Nav />
       <SEO
         title="Full-Stack MVP Development Company | Custom MVP Development Services"
         description="Full-stack MVP development company providing custom MVP development services to turn your ideas into scalable, market-ready products fast and efficiently."
       />
+      <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
       <RotateCardsScroll />
