@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import Nav from '../components/Navbar'
 import Circleblur from '../assets/img/sr-img.webp'
 import Connect from '../assets/img/connect.svg'
@@ -45,6 +44,7 @@ import { getFirestore, collection, getDocs, query, where, orderBy, limit } from 
 import Open from "../assets/img/open.svg"
 import Close from "../assets/img/close.svg"
 import SEO from "../components/SEO";
+import FAQ from "../components/FAQ";
 
 
 
@@ -123,38 +123,6 @@ const Mvp = () => {
     return () => ctx.revert()
   }, [])
 
-  const CircleBlurAnimation = ({ src, className = "" }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-    return (
-      <motion.img
-        ref={ref}
-        src={src}
-        className={className}
-        initial={{
-          scale: 0.7,
-          opacity: 0,
-          x: "-50%",
-        }}
-        animate={
-          isInView
-            ? { scale: 1, opacity: 1, x: "-50%", }
-            : { x: "-50%" }
-        }
-        transition={{
-          duration: 1.2,
-          ease: [0.25, 0.1, 0.25, 1],
-        }}
-        style={{
-          position: "absolute",
-          left: "50%",
-          transformOrigin: "center center",
-        }}
-      />
-    );
-  };
-
   const extendRef = useRef(null);
   const timelineRef = useRef(null);
 
@@ -196,9 +164,7 @@ const Mvp = () => {
     };
   }, []);
 
-  const [openIndex, setOpenIndex] = useState(0);
-
-  const faqs = [
+  const faqData = [
     {
       question: "How do SaaS MVP development agencies help early-stage SaaS businesses?",
       answer: "SaaS MVP development agencies help startups validate their product ideas by launching a minimum viable product with only the essential features needed to test market demand. This approach allows businesses to gather real user feedback, improve the product, and reduce development risks before scaling. Strix Production provides SaaS MVP development services that include product strategy, UX design, agile development, and scalable cloud-based architecture tailored for SaaS startups."
@@ -220,10 +186,6 @@ const Mvp = () => {
       answer: "A prototype is an early model of a product created to visualize and test the design, layout, and user experience before development begins. It may not be fully functional and is mainly used to gather feedback and refine ideas. An MVP (Minimum Viable Product), however, is a working version of the product with only the essential features needed to solve a core problem for real users and test market demand. In simple terms, a prototype helps validate the concept, while an MVP helps validate the product in the market. At Strix Production, teams typically start with prototyping to shape the product idea and then develop an MVP to test it with real users before full-scale development."
     }
   ];
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
-  };
 
   return (
     <div>
@@ -497,38 +459,12 @@ const Mvp = () => {
 
       {/* ==========FAq================== */}
 
-      <div className="Faq">
-        <h2 className="faq-head scrollReveal">Frequently <br />Asked Questions</h2>
-        <div className="faq-container">
-          <div className="faq-list">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`faq-item scrollReveal ${index === 0 || index === 2 ? 'leftgra' : ''}`}
-              >
-                <button className="faq-question" onClick={() => toggleFAQ(index)}>
-                  <span>{faq.question}</span>
-                  {openIndex === index ? (
-                    <img
-                      src={Close}
-                      alt="Close"
-                      className="faq-icon open"
-                    />
-                  ) : (
-                    <img
-                      src={Open}
-                      alt="Open"
-                      className="faq-icon"
-                    />
-                  )}
-                </button>
-                <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
-                  <p>{faq.answer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="smoothsection sectionCon faq-section">
+        <FAQ 
+          faqData={faqData} 
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know"
+        />
       </div>
 
       <Footer />

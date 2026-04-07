@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import "../style/faq.css";
 
@@ -47,10 +48,13 @@ const FAQ = ({
     visible: {
       opacity: 1,
       height: "auto",
-      overflow: "visible",
       transition: {
         duration: 0.4,
         ease: "easeInOut",
+        height: {
+          duration: 0.4,
+          ease: "easeInOut",
+        },
       },
     },
     exit: {
@@ -60,6 +64,10 @@ const FAQ = ({
       transition: {
         duration: 0.3,
         ease: "easeInOut",
+        height: {
+          duration: 0.3,
+          ease: "easeInOut",
+        },
       },
     },
   };
@@ -124,7 +132,7 @@ const FAQ = ({
                 >
                   <div className="faq-answer">
                     {typeof item.answer === "string" ? (
-                      <p>{item.answer}</p>
+                      <p style={{ whiteSpace: 'pre-wrap' }}>{item.answer}</p>
                     ) : (
                       item.answer
                     )}
