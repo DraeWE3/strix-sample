@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
+import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/sr-img.webp'
 import Connect from '../../assets/img/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
@@ -97,6 +98,11 @@ const SoftwareDev = () => {
 
   return (
     <div>
+      <SEO
+        title="Custom Software Development Services for Startups"
+        description="Strix delivers reliable, scalable custom software solutions, from web applications to enterprise platforms, built with modern tech to match your business goals."
+        canonical="https://www.strixproduction.com/softwaredev"
+      />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -146,7 +152,7 @@ const SoftwareDev = () => {
                   className="thumbnail-image"
                 />
                 <div className="play-button-overlay">
-                  <h1 className="sr-watch viewwork2">View work</h1>
+                  <h2 className="sr-watch viewwork2">View work</h2>
 
                 </div>
               </div>
@@ -174,7 +180,7 @@ const SoftwareDev = () => {
       <div className="provide-con">
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="scrollReveal">What we provide</h1>
+          <h2 className="scrollReveal">What we provide</h2>
         </div>
 
         <div className="provide-grid">
@@ -221,21 +227,21 @@ const SoftwareDev = () => {
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
-        <h1 className="scrollReveal">Why Choose us ?</h1>
+        <h2 className="scrollReveal">Why Choose us ?</h2>
         <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
       </div>
 
       <div className='project-carousel-con'>
         <CircleBlurAnimation className="ProjectCircle" src={ProjectCircle} />
-        <h1>Related Projects</h1>
+        <h2>Related Projects</h2>
         <ProjectCarousel />
       </div>
 
       {/* ==================booking====================== */}
       <div className="booking" >
-        <h1 className="section-header2">
+        <h2 className="section-header2">
           Have a project that <br /> deserves attention ?
-        </h1>
+        </h2>
         <div className="second">
 
 

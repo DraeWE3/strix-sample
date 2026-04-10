@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
+import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/sr-img.webp'
 import Connect from '../../assets/img/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
@@ -98,6 +99,11 @@ const Commercials = () => {
 
   return (
     <div>
+      <SEO
+        title="Commercial Video Production for Brands & Ads"
+        description="Strix produces high-quality brand commercials and advertising videos from concept to final cut, helping businesses captivate audiences and strengthen brand recall."
+        canonical="https://www.strixproduction.com/commercials"
+      />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />

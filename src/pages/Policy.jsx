@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/sr-img.webp'
 import { Link } from 'react-router-dom';
@@ -14,6 +15,11 @@ import "../style/note.css"
 const Policy = () => {
   return (
     <div>
+      <SEO
+        title="Privacy Policy for Strix Production Services"
+        description="Read the Strix Production privacy policy to understand how we collect, use, and protect your personal data in compliance with applicable digital privacy laws."
+        canonical="https://www.strixproduction.com/policy"
+      />
             <Nav />
             <SlideInFramerOnLoad />
             <ScrollAnimation />

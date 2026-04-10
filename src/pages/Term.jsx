@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/sr-img.webp'
 import { Link } from 'react-router-dom';
@@ -14,6 +15,11 @@ import "../style/note.css"
 const Term = () => {
   return (
     <div>
+      <SEO
+        title="Terms and Conditions for Using Strix Services"
+        description="Review the terms and conditions governing the use of Strix Production's website, creative services, and digital solutions before engaging with our studio."
+        canonical="https://www.strixproduction.com/term"
+      />
             <Nav />
             <SlideInFramerOnLoad />
             <ScrollAnimation />

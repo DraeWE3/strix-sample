@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "../style/Project.css"
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import Carousel from '../components/carousel'
 import ProjectCircle from '../assets/img/project-circle.webp'
 import BtnNormsall from '../components/normSmall-btn'
@@ -167,6 +168,11 @@ const Project = () => {
 
   return (
     <div>
+      <SEO
+        title="Our Creative Portfolio & Client Work Showcase"
+        description="Browse Strix's portfolio of completed projects spanning UI/UX design, web development, software solutions, and commercial video production for global brands."
+        canonical="https://www.strixproduction.com/Project"
+      />
       <Nav />
       {/* <SmoothScrollGSAP/> */}
       <RotateCardsScroll />
@@ -181,7 +187,7 @@ const Project = () => {
         <p className='project-hero-p slideinLoad'>Explore how we craft experiences that work and wow - one project at a time</p>
         <div className='project-carousel-con'>
           <img src={ProjectCircle} className='ProjectCircle scaleLoad' alt="Project Circle" />
-          <h1>Latest Projects</h1>
+          <h2>Latest Projects</h2>
           <Carousel />
         </div>
         <img src={Blur1} className='p-blur1' alt="Blur" />
@@ -273,7 +279,7 @@ const Project = () => {
         <div className="bool-container-card">
           <img src={BookBg} className='bookbg' alt="Book Background" />
           <div className="book-ab">
-            <h1 className='delay2'>Turn Your Vision Into an Experience That Lasts</h1>
+            <h2 className='delay2'>Turn Your Vision Into an Experience That Lasts</h2>
             <p className='delay3'>You have a story worth sharing — we help you tell it in a way that's impossible to ignore.</p>
 
             <div className="logo-slider">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import BlogNav from '../components/BlogNav'
 import { ArrowLeft } from 'lucide-react';
 import '../style/blog.css'
@@ -90,6 +91,11 @@ const Blog = () => {
 
   return (
     <div>
+      <SEO
+        title="Design, Tech & Creative Strategy Insights"
+        description="Read expert articles on UI/UX design, web development, branding, and digital marketing trends from the creative minds at Strix Production."
+        canonical="https://www.strixproduction.com/blog"
+      />
         <Nav />
           <ScrollAnimation />
            <SlideInFramerOnLoad />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import BlogNav from '../components/BlogNav';
 import { ArrowLeft, Heart, Bookmark, Share2 } from 'lucide-react';
 import '../style/blog.css';
@@ -161,6 +162,11 @@ const BlogDetails = () => {
 
   return (
     <div>
+      <SEO
+        title={blog?.headerText || blog?.topic || 'Blog Post'}
+        description={blog?.excerpt || blog?.summary || 'Read this Strix Production blog post.'}
+        canonical={`https://www.strixproduction.com/blog/${id}`}
+      />
       <Nav />
       <div className="blog">
         <div className="blog-top">
@@ -188,7 +194,7 @@ const BlogDetails = () => {
           <div className="blogcards blog-con-de">
             <img className='blogdetails-img' src={blog.detailsImage} alt="" />
             <p className='blog-tag de-blog-tag'>{blog.tag}</p>
-            <h1>{blog.headerText || blog.topic}</h1>
+            <h2>{blog.headerText || blog.topic}</h2>
             
             {/* First paragraph */}
             {blog.content && blog.content.length > 0 && blog.content[0].type === 'paragraph' && (

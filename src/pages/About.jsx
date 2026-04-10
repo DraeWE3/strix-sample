@@ -65,8 +65,9 @@ const About = () => {
   return (
     <div>
       <SEO
-        title="About Us"
-        description="Learn about Strix Production, a global creative studio specializing in design, development, and production solutions."
+        title="Creative Studio Built on Design & Innovation"
+        description="Learn how Strix combines strategic design thinking with scalable technology to help brands worldwide build stronger digital identities and impactful products."
+        canonical="https://www.strixproduction.com/about"
       />
       <Nav />
       <SlideInFramerAuto />
@@ -367,7 +368,7 @@ const About = () => {
       {/* ===================expert==================== */}
 
       <div className="expert">
-        <h1 className="scrollReveal" >Design Expertise Across Industries</h1>
+        <h2 className="scrollReveal" >Design Expertise Across Industries</h2>
         <div className='expert-top'>
           <div className="et-top-card">
             <img src={Etbg1} alt="" />
@@ -620,7 +621,7 @@ const About = () => {
       {/* ======================Value==================== */}
 
       <div className="value">
-        <h1 className="scrollReveal">Our Values</h1>
+        <h2 className="scrollReveal">Our Values</h2>
         <div className="value-cards">
           <div className="value-card slideInLeft">
             <img className='vci' src={ValBg1} alt="" />
@@ -650,8 +651,8 @@ const About = () => {
       </div>
 
       <div className="create">
-        <h1 className="scrollReveal">Let’s create amazing digital <br />
-          experiences together</h1>
+        <h2 className="scrollReveal">Let’s create amazing digital <br />
+          experiences together</h2>
 
         <p className="scrollReveal">Strix is a global remote team with a global footprint. <br />Don`t hesitate to reach out to us with your projects, ideas, and questions.</p>
         <div className="btnb-con">

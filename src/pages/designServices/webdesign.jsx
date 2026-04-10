@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
+import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/sr-img.webp'
 import Connect from '../../assets/img/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
@@ -98,6 +99,11 @@ const WebDesign = () => {
 
     return (
         <div>
+            <SEO
+              title="Professional Web Design Services for Businesses"
+              description="Strix builds visually striking, conversion-focused websites tailored to your brand, combining creative design with solid development for a powerful online presence."
+              canonical="https://www.strixproduction.com/webdesign"
+            />
             <Nav />
             <SlideInFramerOnLoad />
             <ScrollAnimation />
@@ -150,7 +156,7 @@ const WebDesign = () => {
                                         className="play-button-sr"
                                         aria-label="Play video"
                                     >
-                                        <h1 className="sr-watch viewwork">Watch showreel</h1>
+                                        <h2 className="sr-watch viewwork">Watch showreel</h2>
                                         <span className="play-line"></span>
                                         <Play className="play-icon" fill="white" />
                                     </button>
@@ -180,7 +186,7 @@ const WebDesign = () => {
             <div className="provide-con">
                 <div className="sh-top uiux-hero">
                     <img src={Circleblur} alt="" />
-                    <h1 className="scrollReveal">What we provide</h1>
+                    <h2 className="scrollReveal">What we provide</h2>
                 </div>
 
                 <div className="provide-grid">
@@ -237,21 +243,21 @@ const WebDesign = () => {
             {/* ===================why================== */}
             <div className="sh-top uiux-hero what-con">
                 <img src={Circleblur} alt="" />
-                <h1 className="scrollReveal">Why Choose us ?</h1>
+                <h2 className="scrollReveal">Why Choose us ?</h2>
                 <p className="p-inde scrollReveal">Our web design practice combines research, strategy, and sleek execution — helping startups and enterprises create websites that actually perform.</p>
             </div>
 
             <div className='project-carousel-con'>
                 <CircleBlurAnimation className="ProjectCircle" src={ProjectCircle} />
-                <h1>Related Projects</h1>
+                <h2>Related Projects</h2>
                 <ProjectCarousel />
             </div>
 
             {/* ==================booking====================== */}
             <div className="booking" >
-                <h1 className="section-header2">
+                <h2 className="section-header2">
                     Have a project that <br /> deserves attention ?
-                </h1>
+                </h2>
                 <div className="second">
 
 

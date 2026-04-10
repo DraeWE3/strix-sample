@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
+import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/sr-img.webp'
 import Connect from '../../assets/img/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
@@ -118,6 +119,11 @@ const Uiux = () => {
 
   return (
     <div>
+      <SEO
+        title="UI/UX Design Services for Web & Mobile Apps"
+        description="Strix crafts intuitive and visually compelling UI/UX designs for web and mobile apps, helping businesses improve usability, user retention, and digital impact."
+        canonical="https://www.strixproduction.com/uiux"
+      />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
