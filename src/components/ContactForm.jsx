@@ -131,7 +131,7 @@ const handleNextWithValidation = () => {
           <div className="section">
             <div className="section-hflex">
               <div className="diamond-icon">◇</div>
-              <p className="ct-section-title">Contact</p>
+              <h1 className="ct-section-title">Contact</h1>
             </div>
             <h2 className="question">What are you searching for?</h2>
             <div className="options-list">
