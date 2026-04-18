@@ -259,6 +259,22 @@ const Product = () => {
         </div>
       </div>
 
+      {/* ===================launch-fast================== */}
+      <div className="product-launch-section">
+        <div className="sh-top uiux-hero product-launch-hero">
+          <img src={Circleblur} alt="" />
+          <h2 className="scrollReveal">Products That Launch Fast and Scale Clean</h2>
+          <div className="product-launch-copy scrollReveal">
+            <p>Strix Production works as a custom SaaS product development company that connects design, code, and production in one flow. No handoff gaps. No mixed direction. Work moves straight from idea to build with the same team.</p>
+            <p>As an MVP product development company, the goal is simple. Launch early. Test fast. Improve with real data. Only core features go first. This keeps time short and costs under control while the product starts getting users.</p>
+            <p>A focused SaaS product design agency approach shapes every screen. Clear paths, clean layouts, easy actions. It is what users know how to do without giving it much thought. That maintains the drop-offs and the engagement at a steady level.</p>
+            <p>Products are built to scale from the start. Strong structure. Flexible code. Adding features later does not break the system. No need to rebuild when growth comes.</p>
+            <p>Everything stays aligned. Strategy, design, and development move together. Faster output. Better results. Less confusion at every step.</p>
+            <p>Strix Production builds digital products that start simple, grow steady, and stay strong, shaped by real work, clear thinking, and a team that builds with purpose.</p>
+          </div>
+        </div>
+      </div>
+
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />

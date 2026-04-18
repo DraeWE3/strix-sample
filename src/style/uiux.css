@@ -244,6 +244,55 @@
     line-height: 1.8rem;
     }
 
+.product-launch-section{
+    padding: 5% 10%;
+}
+
+.product-launch-copy{
+    max-width: 860px;
+    margin: 3rem auto 0;
+    font-size: 18px;
+    line-height: 2rem;
+    color: #d4d4d4;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.product-launch-copy p{
+    margin: 0;
+}
+
+.product-launch-hero{
+    padding-top: 5%;
+    margin-bottom: 6%;
+}
+
+.saas-webapp-section{
+    padding: 3rem 0 4rem;
+    margin-top: -3rem;
+}
+
+.saas-webapp-section .sh-top{
+    margin-top: 0;
+    padding-top: 2rem;
+}
+
+.saas-webapp-copy{
+    max-width: 900px;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    color: #d4d4d4;
+}
+
+.saas-webapp-copy p{
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
 
     
 .logo-slider {

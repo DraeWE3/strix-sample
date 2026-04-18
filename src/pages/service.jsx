@@ -329,6 +329,20 @@ const Service = () => {
         </div>
       </div>
 
+      <div className="service-hero saas-launch-section">
+        <div className="sh-top sh-top-section">
+          <img src={Circleblur} alt="" />
+          <h2 className="scrollReveal">SaaS Built to Launch Fast and Grow Right</h2>
+          <div className="sh-top-p saas-launch-copy scrollReveal">
+            <p>Startups move quick. Products should too. SaaS platform development for startups at Strix Production focuses on building real, usable systems without delay. Work starts with a clear plan, then moves straight into design and build. No long gaps between steps. No confusion about what comes next.</p>
+            <p>Separate teams often slow things down. Here, design and development happen together. That keeps the product tight and aligned. Each screen connects to a real function, not just looks. The result feels smooth when users interact with it, not just when they see it.</p>
+            <p>Early-stage products often break when growth comes. The latter is prevented by establishing a good foundation at the start. SaaS platform development for startups here means clean structure, flexible systems, and room to expand without rework.</p>
+            <p>Every feature has a reason. Every step supports user action and business goals. No extra layers. Just what works.</p>
+            <p>Strix Production develops SaaS frameworks that remain simple, fast and scalable to enable startups to progress in a well-organized and sustainable manner.</p>
+          </div>
+        </div>
+      </div>
+
       <motion.div className="sr-design" ref={designRef} style={{ y: designY }}>
         <h2 className='sr-design-h2 scrollReveal'>Design</h2>
         <p className='sr-design-p'>Crafting experiences that resonate.</p>

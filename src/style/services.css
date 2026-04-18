@@ -212,6 +212,26 @@
 
 }
 
+.saas-launch-section {
+    padding: 6% 0;
+}
+
+.saas-launch-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    max-width: 860px;
+    margin: 2rem auto 0;
+    color: #e6e6e6;
+    text-align: left;
+}
+
+.saas-launch-copy p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.9;
+}
+
 
 /* ======================Sr design================== */
 

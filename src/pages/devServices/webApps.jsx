@@ -262,6 +262,21 @@ const WebApp = () => {
         <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
       </div>
 
+      <div className="service-hero saas-webapp-section">
+        <div className="sh-top uiux-hero">
+          <img src={Circleblur} alt="" />
+          <h2 className="scrollReveal">SaaS Web Apps That Grow with Your Product</h2>
+          <div className="saas-webapp-copy scrollReveal">
+            <p>Speed matters at the start. A slow build can delay growth. Strix Production creates SaaS web application development services that help teams launch early and stay ready for change. Each product is shaped with a clear plan, simple flow, and clean code that works from the first release.</p>
+            <p>Many apps fail when design and development do not match.</p>
+            <p>Here, both are handled as one process. The layout feels easy, and the system behind it stays stable. Users move through the app without confusion, and the product keeps up as demand grows. Growth should not break your app.</p>
+            <p>Each SaaS system is built to handle more users, more data, and new features over time. No need to rebuild from zero. The building is useful in the long term and this saves time and money in the future.</p>
+            <p>Every part of the app is tested in real use. Small delays, weak flows, or extra steps are fixed early. The result is a product that feels smooth, loads fast and stays reliable.</p>
+            <p>Strix Production develops SaaS applications that are well constructed, maintain consistency in performance and user navigation, which allows teams to transform the idea into a working product without slowing down.</p>
+          </div>
+        </div>
+      </div>
+
       <div className='project-carousel-con'>
         <CircleBlurAnimation className="ProjectCircle" src={ProjectCircle} />
         <h2>Related Projects</h2>

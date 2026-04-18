@@ -318,6 +318,23 @@ const Mvp = () => {
         </div>
       </div>
 
+      {/* ===================built-to-launch================== */}
+      <div className="mvp-built-section">
+        <div className="sh-top uiux-hero mvp-built-conn">
+          <img src={Circleblur} alt="Design background blur" />
+          <h2 className="scrollReveal">MVPs Built to Launch, Not Sit Idle</h2>
+          <div className="mvp-built-copy scrollReveal">
+            <p>Speed matters early. As an MVP development company for startups, Strix Production builds only what your users need first. Core features. Clean flow. Ready to test in weeks, not months.
+              As a SaaS MVP development agency, we design and build together. No gaps between teams. No long waits. You see each step. You give input. The product stays on track.
+            </p>
+            <p>Our Custom MVP development services fit your goal, not a preset plan. We map features, pick simple tech, and keep things easy to scale. Less waste. More focus.</p>
+            <p>Strix Production is an MVP development company for startups, offering Custom MVP development services and MVP app development for startups as a trusted SaaS MVP development agency focused on fast, scalable launches.</p>
+            <p>We handle MVP app development for startups across web and mobile. Fast load, smooth use, stable code. Your first users get a product that works, not a draft.</p>
+            <p>Strix Production is a thoughtful and fast MVP builder, assisting founders in testing their ideas early, learning with real users and developing with a clear and consistent direction ahead.</p>
+          </div>
+        </div>
+      </div>
+
       {/* ===================why================== */}
       <div className="sh-top uiux-hero what-con mvp-connn">
         <img src={Circleblur} alt="Design background blur" />
@@ -460,8 +477,8 @@ const Mvp = () => {
       {/* ==========FAq================== */}
 
       <div className="smoothsection sectionCon faq-section">
-        <FAQ 
-          faqData={faqData} 
+        <FAQ
+          faqData={faqData}
           title="Frequently Asked Questions"
           subtitle="Everything you need to know"
         />
