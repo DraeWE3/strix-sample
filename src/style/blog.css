@@ -175,7 +175,7 @@ background: linear-gradient(118deg, #ffffff 0%, #9e9e9e 100%);
 /* =====================blog detail=================================== */
 
 .blog-deatil-hero{
-    margin-top: -17vh;
+    /* margin-top: -17vh; */
     width: 100%;
 }
 
