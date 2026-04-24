@@ -102,20 +102,54 @@ const Uiux = () => {
   const faqData = [
   {
     question: "What are the leading UI/UX design companies for digital products?",
-    answer: "UI/UX design companies focus on creating user-friendly interfaces and seamless digital experiences for websites and mobile applications. Effective design improves usability, enhances customer satisfaction, and helps businesses achieve better engagement and conversions. Strix Production is recognized as one of the top UI/UX design companies, providing user-centric interface design and intuitive experience solutions for web and mobile platforms."
+    answer: "UI/UX design companies create user-friendly interfaces and seamless digital experiences for web and mobile apps. Strix Production delivers intuitive, user-focused design solutions that improve usability, boost engagement, and drive better conversions."
   },
   {
     question: "Why should startups hire UI/UX design agencies for startups?",
-    answer: "UI/UX design agencies play a crucial role in helping startups build engaging digital products that attract and retain users. By focusing on intuitive navigation, clear user flows, and appealing visual design, startups can create stronger connections with their target audience. Strix Production serves as a trusted UI/UX design agency for startups, helping emerging companies develop compelling designs that support growth and customer retention."
+    answer: "UI/UX design agencies help startups create engaging digital products with intuitive navigation and clear user flows. Strix Production delivers user-focused designs that attract users, enhance experience, and support growth and long-term customer retention."
   },
   {
     question: "What benefits do custom UI/UX design services offer SaaS and mobile apps?",
-    answer: "Custom UI/UX design services allow businesses to create digital experiences that reflect their brand identity while meeting the specific needs of their users. This process often involves designing tailored user journeys, visual systems, and responsive interfaces that work seamlessly across devices. Strix Production delivers custom UI/UX design services that align with brand goals through personalized user flows and carefully crafted design systems for SaaS platforms and mobile applications."
+    answer: "Custom UI/UX design services help businesses create user experiences that match their brand and user needs. Strix Production delivers tailored user flows, responsive interfaces, and design systems for SaaS platforms and mobile apps."
   },{
     question: "How do UI/UX design services for web and app startups in Delhi impact user satisfaction?",
-    answer: "UI/UX design services for startups focus on improving usability, enhancing user engagement, and ensuring smooth interactions across digital platforms. Well-designed interfaces help startups increase conversions and provide a better overall user experience. Strix Production offers UI/UX design services for web and app startups in Delhi, creating intuitive and responsive designs that support business growth and user satisfaction."
+    answer: "UI/UX design services for startups focus on usability, engagement, and smooth user interactions. Strix Production creates intuitive, responsive designs for web and app startups, helping improve conversions, user experience, and overall business growth."
   }
 ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What are the leading UI/UX design companies for digital products?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UI/UX design companies create user-friendly interfaces and seamless digital experiences for web and mobile apps. Strix Production delivers intuitive, user-focused design solutions that improve usability, boost engagement, and drive better conversions."
+      }
+    },{
+      "@type": "Question",
+      "name": "Why should startups hire UI/UX design agencies for startups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UI/UX design agencies help startups create engaging digital products with intuitive navigation and clear user flows. Strix Production delivers user-focused designs that attract users, enhance experience, and support growth and long-term customer retention."
+      }
+    },{
+      "@type": "Question",
+      "name": "What benefits do custom UI/UX design services offer SaaS and mobile apps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Custom UI/UX design services help businesses create user experiences that match their brand and user needs. Strix Production delivers tailored user flows, responsive interfaces, and design systems for SaaS platforms and mobile apps."
+      }
+    },{
+      "@type": "Question",
+      "name": "How do UI/UX design services for web and app startups in Delhi impact user satisfaction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UI/UX design services for startups focus on usability, engagement, and smooth user interactions. Strix Production creates intuitive, responsive designs for web and app startups, helping improve conversions, user experience, and overall business growth."
+      }
+    }]
+  };
 
   return (
     <div>
@@ -123,6 +157,7 @@ const Uiux = () => {
         title="UI/UX Design Services for Web & Mobile Apps"
         description="Strix crafts intuitive and visually compelling UI/UX designs for web and mobile apps, helping businesses improve usability, user retention, and digital impact."
         canonical="https://www.strixproduction.com/uiux"
+        schema={faqSchema}
       />
       <Nav />
       <SlideInFramerOnLoad />
@@ -149,13 +184,13 @@ const Uiux = () => {
         </div>
 
         <div className="sh-top uiux-hero">
-          <img src={Circleblur} alt="" />
+          <img src={Circleblur} alt="Design background blur" />
           <h1 className="slideinLoad">UI/UX design</h1>
         </div>
 
         <div className="case-box-con uiu-con">
-          <img src={Blur3} className="blur3-hero-left" alt="" />
-          <img src={Blur4} className="blur3-hero-right" alt="" />
+          <img src={Blur3} className="blur3-hero-left" alt="Ellipse" />
+          <img src={Blur4} className="blur3-hero-right" alt="Ellipse" />
           <div
             ref={videoexRef}
             style={{
@@ -214,7 +249,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon1} alt="" />
+                <img class="ui1" src={Cardcon1} alt="SaaS Interfaces" />
                 <p>SaaS Interfaces</p>
               </div>
             </div>
@@ -226,7 +261,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img className="top-card-con1" src={Cardcon2} alt="" />
+                <img className="top-card-con1" src={Cardcon2} alt="Dashboards" />
                 <p>Dashboards</p>
               </div>
             </div>
@@ -238,7 +273,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon3} alt="" />
+                <img class="ui1" src={Cardcon3} alt="Enterprise Applications" />
                 <p>Enterprise Applications</p>
               </div>
             </div>
@@ -250,7 +285,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon4} alt="" />
+                <img class="ui1" src={Cardcon4} alt="User Flows & Wireframes" />
                 <p>User Flows & Wireframes</p>
               </div>
             </div>

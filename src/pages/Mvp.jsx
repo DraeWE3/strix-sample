@@ -167,31 +167,73 @@ const Mvp = () => {
   const faqData = [
     {
       question: "How do SaaS MVP development agencies help early-stage SaaS businesses?",
-      answer: "SaaS MVP development agencies help startups validate their product ideas by launching a minimum viable product with only the essential features needed to test market demand. This approach allows businesses to gather real user feedback, improve the product, and reduce development risks before scaling. Strix Production provides SaaS MVP development services that include product strategy, UX design, agile development, and scalable cloud-based architecture tailored for SaaS startups."
+      answer: "SaaS MVP development agencies help startups launch basic products to test ideas and gather real user feedback. Strix Production offers strategy, UX design, agile development, and scalable cloud solutions to build and validate SaaS products efficiently."
     },
     {
       question: "Why choose custom MVP development services for startups?",
-      answer: "Custom MVP development services enable startups to build a minimum viable product that aligns closely with their unique business model, target audience, and long-term goals. This process typically focuses on prioritizing core features, testing user interactions, and refining the product through continuous feedback. Strix Production offers customized MVP development services designed around user feedback, iterative testing, and scalable technology stacks."
+      answer: "Custom MVP development helps startups build a product tailored to their business goals and audience. Strix Production delivers scalable MVPs with core features, user-focused design, and continuous feedback to refine and improve products efficiently."
     },
     {
       question: "How much does it cost to build an MVP?",
-      answer: "MVP development pricing generally depends on factors such as product complexity, number of features, platform requirements, and integration needs. Startups often choose MVP development to minimize initial investment while still building a functional product that can validate their business idea in the market. Strix Production provides transparent MVP development pricing, ensuring startups receive a cost-effective and market-ready MVP without unnecessary expenses."
+      answer: "MVP development pricing depends on complexity, features, platforms, and integrations. Strix Production offers cost-effective, transparent pricing to help startups build functional MVPs, validate ideas, and enter the market without unnecessary expenses."
     },
     {
       question: "How long does the MVP development timeline take?",
-      answer: "The timeline for MVP development usually depends on the scope of features, integrations, and testing processes involved. In most cases, startups aim to launch an MVP quickly so they can test the product in the market and gather valuable user insights. Strix Production typically delivers MVPs within 4 to 12 weeks, depending on project complexity, helping startups move from idea to market launch efficiently."
+      answer: "MVP development timelines depend on features, integrations, and testing needs. Strix Production delivers scalable MVPs within 4–12 weeks, helping startups quickly launch, gather user insights, and move efficiently from idea to market."
     },
     {
       question: "What is the difference between MVP and prototype?",
-      answer: "A prototype is an early model of a product created to visualize and test the design, layout, and user experience before development begins. It may not be fully functional and is mainly used to gather feedback and refine ideas. An MVP (Minimum Viable Product), however, is a working version of the product with only the essential features needed to solve a core problem for real users and test market demand. In simple terms, a prototype helps validate the concept, while an MVP helps validate the product in the market. At Strix Production, teams typically start with prototyping to shape the product idea and then develop an MVP to test it with real users before full-scale development."
+      answer: "A prototype is an early model used to visualize and test design and user experience, while an MVP is a functional product with core features to test real market demand. Strix Production starts with prototypes and then builds MVPs to validate ideas efficiently."
     }
   ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How do SaaS MVP development agencies help early-stage SaaS businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SaaS MVP development agencies help startups launch basic products to test ideas and gather real user feedback. Strix Production offers strategy, UX design, agile development, and scalable cloud solutions to build and validate SaaS products efficiently."
+      }
+    },{
+      "@type": "Question",
+      "name": "Why choose custom MVP development services for startups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Custom MVP development helps startups build a product tailored to their business goals and audience. Strix Production delivers scalable MVPs with core features, user-focused design, and continuous feedback to refine and improve products efficiently."
+      }
+    },{
+      "@type": "Question",
+      "name": "How much does it cost to build an MVP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MVP development pricing depends on complexity, features, platforms, and integrations. Strix Production offers cost-effective, transparent pricing to help startups build functional MVPs, validate ideas, and enter the market without unnecessary expenses."
+      }
+    },{
+      "@type": "Question",
+      "name": "How long does the MVP development timeline take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MVP development timelines depend on features, integrations, and testing needs. Strix Production delivers scalable MVPs within 4–12 weeks, helping startups quickly launch, gather user insights, and move efficiently from idea to market."
+      }
+    },{
+      "@type": "Question",
+      "name": "What is the difference between MVP and prototype?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A prototype is an early model used to visualize and test design and user experience, while an MVP is a functional product with core features to test real market demand. Strix Production starts with prototypes and then builds MVPs to validate ideas efficiently."
+      }
+    }]
+  };
 
   return (
     <div>
       <SEO
         title="Full-Stack MVP Development Company | Custom MVP Development Services"
         description="Full-stack MVP development company providing custom MVP development services to turn your ideas into scalable, market-ready products fast and efficiently."
+        schema={faqSchema}
       />
       <Nav />
       <SlideInFramerOnLoad />

@@ -100,27 +100,62 @@ const WebApp = () => {
   const faqData = [
     {
       question: "How can full stack SaaS web application development services help businesses?",
-      answer: "Full stack SaaS web application development involves building both the front-end interface and back-end infrastructure while integrating cloud technologies for scalability and performance. This approach ensures a seamless user experience, efficient data management, and the ability to scale as the user base grows. Strix Production delivers full stack SaaS web application development services that integrate front-end, back-end, and cloud infrastructure for reliable and scalable digital products."
+      answer: "Full stack SaaS development includes front-end, back-end, and cloud integration for scalable applications. Strix Production builds reliable SaaS solutions with seamless user experience, efficient data management, and strong performance for growing businesses."
     },
     {
       question: "What are full stack web app development services?",
-      answer: "Full stack web app development services cover the complete development process, including user interface design, server-side logic, database management, and system integration. This end-to-end approach allows businesses to launch fully functional applications with consistent performance across platforms. Strix Production offers full stack web app development services that combine front-end design, back-end development, and scalable architecture."
+      answer: "Full stack web app development covers UI design, backend logic, databases, and integrations. Strix Production delivers end-to-end solutions with scalable architecture, ensuring reliable performance and fully functional applications across platforms."
     },
     {
       question: "Which are the best web app development Company in Delhi?",
-      answer: "A professional web app development company helps businesses build responsive and feature-rich web applications that improve digital accessibility and customer engagement. These solutions often focus on security, performance optimization, and scalability to support long-term growth. Strix Production is recognized as one of the best web app development companies in Delhi, delivering responsive applications with secure frameworks and scalable development for startups."
+      answer: "A web app development company builds responsive, feature-rich applications that improve accessibility and engagement. Strix Production delivers secure, scalable web apps with strong performance, helping startups grow with reliable digital solutions."
     },
     {
       question: "What advantages do web app development agencies for startups in Delhi offer?",
-      answer: "Web app development agencies for startups provide specialized support to help new businesses build and launch digital products efficiently. Their services typically include agile planning, MVP development, and continuous product improvements based on user feedback. Strix Production works with startups in Delhi by offering expert web app development services that support agile workflows, MVP readiness, and iterative product development aligned with startup goals."
+      answer: "Web app development agencies help startups build and launch products efficiently through agile planning, MVP development, and continuous improvements. Strix Production delivers scalable web solutions that support startup growth and iterative development."
     }
   ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How can full stack SaaS web application development services help businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Full stack SaaS development includes front-end, back-end, and cloud integration for scalable applications. Strix Production builds reliable SaaS solutions with seamless user experience, efficient data management, and strong performance for growing businesses."
+      }
+    },{
+      "@type": "Question",
+      "name": "What are full stack web app development services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Full stack web app development covers UI design, backend logic, databases, and integrations. Strix Production delivers end-to-end solutions with scalable architecture, ensuring reliable performance and fully functional applications across platforms."
+      }
+    },{
+      "@type": "Question",
+      "name": "Which are the best web app development Company in Delhi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A web app development company builds responsive, feature-rich applications that improve accessibility and engagement. Strix Production delivers secure, scalable web apps with strong performance, helping startups grow with reliable digital solutions."
+      }
+    },{
+      "@type": "Question",
+      "name": "What advantages do web app development agencies for startups in Delhi offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Web app development agencies help startups build and launch products efficiently through agile planning, MVP development, and continuous improvements. Strix Production delivers scalable web solutions that support startup growth and iterative development."
+      }
+    }]
+  };
 
   return (
     <div>
       <SEO
-        title="Web App Development"
-        description="Build scalable and high-performance web applications with our expert development services at Strix Production."
+        title="SaaS Web Application Development Services"
+        description="Expert SaaS web application development services to build scalable, secure, and high-performing web apps that accelerate your business growth."
+        schema={faqSchema}
       />
       <Nav />
       <SlideInFramerOnLoad />
@@ -191,8 +226,8 @@ const WebApp = () => {
           </div>
         </div>
         <p className="ui-hero-p scrollReveal">We develop scalable, high-performance web apps tailored for business automation, SaaS platforms, and enterprise-level solutions.</p>
-        <img src={Blur1} className='p-blur1' alt="" />
-        <img src={Blur2} className='p-blur2' alt="" />
+        <img src={Blur1} className='p-blur1' alt="Light effect right" />
+        <img src={Blur2} className='p-blur2' alt="Light effect left" />
       </div>
 
       {/* =================provide=========== */}
@@ -219,7 +254,7 @@ const WebApp = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img className="top-card-con1 ui1" src={Cardcon2} alt="" />
+                <img className="top-card-con1 ui1" src={Cardcon2} alt="Custom Dashboards & Panels" />
                 <p>Custom Dashboards & Panels</p>
               </div>
             </div>
@@ -231,7 +266,7 @@ const WebApp = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img className="ui1" src={Cardcon3} alt="" />
+                <img className="ui1" src={Cardcon3} alt="Workflow Automation Tools" />
                 <p>Workflow Automation Tools</p>
               </div>
             </div>
@@ -243,7 +278,7 @@ const WebApp = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img className="ui1" src={Cardcon4} alt="" />
+                <img className="ui1" src={Cardcon4} alt="Real-Time Web Applications" />
                 <p>Real-Time Web Applications</p>
               </div>
             </div>

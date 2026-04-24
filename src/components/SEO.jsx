@@ -1,10 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, canonical, ogImage }) => {
+const SEO = ({ title, description, canonical, ogImage, schema, schemas }) => {
     const fullTitle = title ? `${title} | Strix Production` : 'Strix Production';
     const fullDescription = description || "Strix Production - Premium Digital Design & Development Agency. We build MVPs, SaaS products, and high-end websites.";
     const canonicalUrl = canonical || `https://www.strixproduction.com${window.location.pathname}`;
     const ogImageUrl = ogImage || './src/assets/img/link.webp';
+    
+    // Support both single schema and multiple schemas
+    const schemaList = schemas ? (Array.isArray(schemas) ? schemas : [schemas]) : (schema ? [schema] : []);
 
     return (
         <Helmet>
@@ -25,6 +28,11 @@ const SEO = ({ title, description, canonical, ogImage }) => {
             <meta name="language" content="English" />
             <meta name="revisit-after" content="7 days" />
             <meta name="author" content="Strix" />
+            {schemaList.map((s, index) => (
+                <script key={index} type="application/ld+json">
+                    {JSON.stringify(s)}
+                </script>
+            ))}
         </Helmet>
     );
 };

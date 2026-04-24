@@ -279,8 +279,8 @@ const Service = () => {
   return (
     <div>
       <SEO
-        title="Digital Design & Development Services | Strix Production"
-        description="Comprehensive digital services including UI/UX design, web development, MVP development, and creative production for startups and businesses."
+        title="SaaS Platform Development for Startups"
+        description="We offer SaaS platform development for startups, creating scalable, secure, and innovative solutions to bring your software ideas to market fast."
       />
       <DotGrid dotSize={2} gap={24} activeColor="#ffffff" />
       <ScaleInLoad />
