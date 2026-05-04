@@ -366,14 +366,14 @@ const Carousel = () => {
 
                 if (index === currentIndex) {
                   // ✅ Center card clicked → navigate to case study
-                  const link = item.link || item.externalLink;
-                  if (link) {
-                    if (link.startsWith('http')) {
-                      window.open(link, '_blank');
-                    } else {
-                      navigate(link);
-                    }
-                  }
+                const externalLink = item.externalLink;
+                if (externalLink && externalLink.startsWith('http')) {
+                  window.open(externalLink, '_blank');
+                } else if (item.link) {
+                  navigate(item.link);
+                } else {
+                  navigate(`/case-study/${item.id}`);
+                }
                 } else {
                   // Non-center card → slide it into focus
                   setIsAnimating(true);

@@ -251,23 +251,35 @@ const CaseStudy = () => {
     fetchCaseStudy()
   }, [id])
 
-const fetchCaseStudy = async () => {
+  const fetchCaseStudy = async () => {
   try {
     setLoading(true)
     setError(null)
     
     console.log('Fetching case study for project ID:', id)
     
+    // Pehle projects mein link se dhundho
+    let projectId = id
+    const projectsQuery = query(
+      collection(db, 'projects'),
+      where('link', '==', `/case-study/${id}`),
+      limit(1)
+    )
+    const projectsSnap = await getDocs(projectsQuery)
+    if (!projectsSnap.empty) {
+      projectId = projectsSnap.docs[0].id
+    }
+    
     const caseStudiesQuery = query(
       collection(db, 'caseStudies'),
-      where('projectId', '==', id),
+      where('projectId', '==', projectId),
       limit(1)
     )
     
     const caseStudiesSnap = await getDocs(caseStudiesQuery)
     
     if (caseStudiesSnap.empty) {
-      console.log('No case study found for project ID:', id)
+      console.log('No case study found for project ID:', projectId)
       setError('No case study has been created for this project yet.')
       setLoading(false)
       return

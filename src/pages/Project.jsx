@@ -250,7 +250,7 @@ const Project = () => {
                   alt={project.title}
                 />
                 <p>{project.categoryText}</p>
-                <Link className='linkkk' to={`/case-study/${project.id}`}>
+                <Link className='linkkk' to={project.link || `/case-study/${project.id}`}>
                   <div>
                     <h2>{project.title}</h2>
                     <img src={Arrow} className='icon' alt="Arrow" />

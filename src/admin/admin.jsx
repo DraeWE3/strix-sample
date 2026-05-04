@@ -487,7 +487,15 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
           <input
             type="text"
             value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            onChange={(e) => {
+              const title = e.target.value;
+              const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+              setFormData({ 
+                ...formData, 
+                title: title, 
+                link: editingItem ? formData.link : `/case-study/${slug}`
+              });
+            }}
             className="form-input"
             required
           />
