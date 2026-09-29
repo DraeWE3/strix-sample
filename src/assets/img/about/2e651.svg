@@ -1,0 +1,28 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="2700" height="2500" viewBox="0 0 2700 2500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#glowA_0_367)">
+<ellipse cx="1350" cy="1250" rx="980" ry="840" stroke="white" stroke-opacity="0.09" stroke-width="220" fill="none"/>
+</g>
+<g filter="url(#glowB_0_367)">
+<ellipse cx="1350" cy="1250" rx="980" ry="840" stroke="white" stroke-opacity="0.18" stroke-width="130" fill="none"/>
+</g>
+<g filter="url(#glowC_0_367)">
+<ellipse cx="1350" cy="1250" rx="980" ry="840" stroke="white" stroke-opacity="0.30" stroke-width="70" fill="none"/>
+</g>
+<g filter="url(#glowD_0_367)">
+<ellipse cx="1350" cy="1250" rx="980" ry="840" stroke="white" stroke-opacity="0.42" stroke-width="20" fill="none"/>
+</g>
+<defs>
+<filter id="glowA_0_367" x="-25%" y="-25%" width="150%" height="150%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="100"/>
+</filter>
+<filter id="glowB_0_367" x="-25%" y="-25%" width="150%" height="150%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="58"/>
+</filter>
+<filter id="glowC_0_367" x="-25%" y="-25%" width="150%" height="150%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="30"/>
+</filter>
+<filter id="glowD_0_367" x="-25%" y="-25%" width="150%" height="150%" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="20"/>
+</filter>
+</defs>
+</svg>

@@ -1,0 +1,29 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="18.59" height="18.59" viewBox="0 0 18.59 18.59" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="google-icon-logo-svgrepo-com 3" clip-path="url(#clip0_0_297)">
+<path id="Vector" d="M18.3691 9.4689C18.3691 8.70728 18.3073 8.1515 18.1736 7.57513H9.47656V11.0127H14.5815C14.4786 11.867 13.9228 13.1536 12.6877 14.0181L12.6704 14.1331L15.4203 16.2634L15.6108 16.2824C17.3604 14.6665 18.3691 12.289 18.3691 9.4689Z" fill="url(#paint0_linear_0_297)"/>
+<path id="Vector_2" d="M9.47425 18.5258C11.9752 18.5258 14.0749 17.7023 15.6085 16.282L12.6854 14.0177C11.9032 14.5632 10.8534 14.944 9.47425 14.944C7.0247 14.944 4.94567 13.3282 4.20455 11.0947L4.09592 11.104L1.23661 13.3168L1.19922 13.4207C2.72246 16.4467 5.85133 18.5258 9.47425 18.5258Z" fill="url(#paint1_linear_0_297)"/>
+<path id="Vector_3" d="M4.20822 11.0948C4.01267 10.5184 3.8995 9.90085 3.8995 9.26276C3.8995 8.62459 4.01267 8.00708 4.19793 7.43072L4.19275 7.30797L1.2976 5.05957L1.20288 5.10463C0.575078 6.3603 0.214844 7.77038 0.214844 9.26276C0.214844 10.7551 0.575078 12.1651 1.20288 13.4208L4.20822 11.0948Z" fill="url(#paint2_linear_0_297)"/>
+<path id="Vector_4" d="M9.47425 3.5817C11.2136 3.5817 12.3869 4.33303 13.0559 4.9609L15.6702 2.4084C14.0646 0.916019 11.9752 0 9.47425 0C5.85133 0 2.72246 2.07903 1.19922 5.10494L4.19427 7.43103C4.94567 5.19761 7.0247 3.5817 9.47425 3.5817Z" fill="url(#paint3_linear_0_297)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_297" x1="13.9228" y1="7.57513" x2="13.9228" y2="16.2824" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_297" x1="8.5" y1="12.9996" x2="8.5" y2="18.4996" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_297" x1="2.21153" y1="5.05957" x2="2.21153" y2="13.4208" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+<linearGradient id="paint3_linear_0_297" x1="8.4347" y1="0" x2="8.4347" y2="7.43103" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+<clipPath id="clip0_0_297">
+<rect width="18.59" height="18.59" fill="white"/>
+</clipPath>
+</defs>
+</svg>

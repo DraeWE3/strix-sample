@@ -1,0 +1,94 @@
+/* Additional font weights used only by the About page.
+   Syne/Epilogue reuse font files already shipped in src/assets/fonts;
+   Clash Display 500, Inter, Poppins and Plus Jakarta Sans are new. */
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/Syne-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/Syne-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/Syne-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Epilogue-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/Epilogue-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/ClashDisplay-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+
+/* Exact Inter 400 arrow glyph the source ships for the "↗" character. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Regular-Arrow.woff2') format('woff2');
+  unicode-range: U+2197;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../assets/fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2');
+}
+
+/* Source-installed font; confirm production web-embedding rights before launch. */
+@font-face {
+  font-family: 'Motive';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Motive-Regular.otf') format('opentype');
+}
