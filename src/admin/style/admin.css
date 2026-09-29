@@ -435,7 +435,7 @@ body {
   gap: 1rem;
 }
 
-.submit-button {
+.admin-panel .submit-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -453,11 +453,11 @@ body {
   margin-top: 2rem;
 }
 
-.submit-button:hover:not(:disabled) {
+.admin-panel .submit-button:hover:not(:disabled) {
   background-color: #15803d;
 }
 
-.submit-button:disabled {
+.admin-panel .submit-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

@@ -1,279 +1,288 @@
-import React, { useState, useEffect, useRef } from 'react';
-import emailjs from '@emailjs/browser';
-import { ArrowLeft } from 'lucide-react';
-import '../style/contact.css';
-import Blur1 from '../assets/img/conb1.webp';
-import Blur2 from '../assets/img/conb2.webp';
-import Connect from '../assets/img/connect.svg'
-import Blur3 from '../assets/img/conb3.webp';
+import React, { useRef, useState } from 'react';
+import { Paperclip, ArrowRight, Check } from 'lucide-react';
+import { sendInquiry } from '../lib/contactApi';
 
-const USER_ID = '8APvl15ZOGswhSl3A'; // keep your user id here
-const SERVICE_ID = 'default_service';
-const TEMPLATE_ID = 'template_djpi0dt';
+const SERVICES = ['UI/UX design', 'Websites', 'MVP & development', 'Mobile application', 'Motion & video'];
+const BUDGETS = ['Under $5K', '$5K–$10K', '$10K–$20K', '$20K+', 'Let’s discuss'];
 
-const ContactForm = () => {
-  const [currentSection, setCurrentSection] = useState(1);
-  const [formData, setFormData] = useState({
-    want: '',
-    project: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    country: '',
-    message: '',
-    agreedToTerms: false
-  });
-  const [modal, setModal] = useState({ visible: false, success: false, message: '' });
-  const [sending, setSending] = useState(false);
-
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    emailjs.init(USER_ID);
-  }, []);
-
-  useEffect(() => {
-    if (sectionRef.current) {
-      sectionRef.current.style.opacity = '0';
-      sectionRef.current.style.transform = 'translateY(30px)';
-      setTimeout(() => {
-        if (!sectionRef.current) return;
-        sectionRef.current.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        sectionRef.current.style.opacity = '1';
-        sectionRef.current.style.transform = 'translateY(0)';
-      }, 50);
-    }
-  }, [currentSection]);
-
-  const handleNext = () => {
-    if (currentSection < 5) setCurrentSection(prev => prev + 1);
-  };
-
-  const handleBack = () => {
-    if (currentSection > 1) setCurrentSection(prev => prev - 1);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
-  };
-
-  const handleOptionClick = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    setTimeout(() => handleNext(), 300);
-  };
-
-  const [showPopup, setShowPopup] = useState(false);
-
-// Check if all required fields are filled
-const isFormComplete = ['firstName', 'lastName', 'email', 'phone', 'country'].every(
-  field => formData[field] && formData[field].trim() !== ''
-);
-
-const handleNextWithValidation = () => {
-  if (!isFormComplete) {
-    setShowPopup(true);
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 2000);
-    return;
+const isValidUrl = value => {
+  try {
+    return /^https?:$/.test(new URL(value).protocol);
+  } catch {
+    return false;
   }
-  handleNext();
 };
 
-  const openModal = (success, message) => {
-    setModal({ visible: true, success, message });
-    // auto close after 2.4s
-    setTimeout(() => setModal({ visible: false, success: false, message: '' }), 2400);
+const ContactForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [project, setProject] = useState('');
+  const [brief, setBrief] = useState('');
+  const [services, setServices] = useState([]);
+  const [budget, setBudget] = useState('');
+  const [errors, setErrors] = useState({});
+  const [briefOpen, setBriefOpen] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [submitted, setSubmitted] = useState(null);
+
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const projectRef = useRef(null);
+  const briefRef = useRef(null);
+  const statusRef = useRef(null);
+  const successRef = useRef(null);
+
+  const refs = { name: nameRef, email: emailRef, project: projectRef, brief: briefRef };
+
+  const validateField = (field, value) => {
+    if (field === 'name') return value.trim().length > 0;
+    if (field === 'email') return emailRef.current?.checkValidity() ?? value.includes('@');
+    if (field === 'project') return value.trim().length > 0;
+    if (field === 'brief') return !value.trim() || isValidUrl(value.trim());
+    return true;
   };
 
-  const handleSubmit = async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
-    if (!formData.agreedToTerms) return;
+  const toggleService = value => {
+    setServices(prev => (prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]));
+  };
+
+  const openBrief = () => {
+    setBriefOpen(true);
+    setTimeout(() => briefRef.current?.focus(), 0);
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
     if (sending) return;
 
-    const templateParams = {
-      name: formData.firstName || '-',
-      last_name: formData.lastName || '-',
-      want: formData.want || '-',
-      project: formData.project || '-',
-      email: formData.email || '-',
-      phone: formData.phone || '-',
-      country: formData.country || '-',
-      message: formData.message || '-'
-    };
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedProject = project.trim();
+    const trimmedBrief = brief.trim();
+    setName(trimmedName);
+    setEmail(trimmedEmail);
+    setProject(trimmedProject);
+    setBrief(trimmedBrief);
 
+    const values = { name: trimmedName, email: trimmedEmail, project: trimmedProject, brief: trimmedBrief };
+    const nextErrors = {};
+    Object.keys(values).forEach(field => {
+      if (!validateField(field, values[field])) nextErrors[field] = true;
+    });
+    setErrors(nextErrors);
+
+    const invalidFields = Object.keys(nextErrors);
+    if (invalidFields.length) {
+      if (invalidFields.includes('brief')) openBrief();
+      setStatus({ text: 'Please check the highlighted fields so we can get back to you.', state: 'error' });
+      refs[invalidFields[0]]?.current?.focus();
+      return;
+    }
+
+    const inquiry = { name: trimmedName, email: trimmedEmail, project: trimmedProject, services, budget, brief: trimmedBrief };
+    setSending(true);
+    setStatus(null);
     try {
-      setSending(true);
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
-      openModal(true, 'Email sent successfully!');
-      setCurrentSection(5);
-      // optionally reset form here
-      setFormData({ want: '', project: '', firstName: '', lastName: '', email: '', phone: '', country: '', message: '', agreedToTerms: false });
-    } catch (err) {
-      console.error('Failed to send email:', err);
-      openModal(false, 'Failed to send message. Please try again.');
+      await sendInquiry(inquiry);
+      setSubmitted(inquiry);
+      setName('');
+      setEmail('');
+      setProject('');
+      setBrief('');
+      setServices([]);
+      setBudget('');
+      setErrors({});
+      setBriefOpen(false);
+      setTimeout(() => successRef.current?.focus(), 0);
+    } catch {
+      setStatus({ text: 'error', state: 'error', inquiry });
+      setTimeout(() => statusRef.current?.focus(), 0);
     } finally {
       setSending(false);
     }
   };
 
+  const resetForm = () => {
+    setSubmitted(null);
+    setStatus(null);
+    setTimeout(() => nameRef.current?.focus(), 0);
+  };
+
+  if (submitted) {
+    return (
+      <section className="form-panel" aria-labelledby="form-title">
+        <div className="success-panel" ref={successRef} tabIndex={-1}>
+          <span className="success-mark"><Check size={28} /></span>
+          <p className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+          <h2>Great things<br />are on the way.</h2>
+          <p>Your inquiry is in. We’ll review your project and reply to <strong>{submitted.email}</strong> with the next steps.</p>
+          <a className="success-call" href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer">
+            Book a discovery call <ArrowRight size={18} />
+          </a>
+          <button type="button" onClick={resetForm}>Send another inquiry</button>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <div className="contact-container">
-      <button className="back-button" onClick={() => window.history.back()}>
-        <ArrowLeft size={16} /> Return to Homepage
-      </button>
-
-      <div className="form-content" ref={sectionRef}>
-        {/* Section 1 */}
-        {currentSection === 1 && (
-          <div className="section">
-            <div className="section-hflex">
-              <div className="diamond-icon">◇</div>
-              <h1 className="ct-section-title">Contact</h1>
-            </div>
-            <h2 className="question">What are you searching for?</h2>
-            <div className="options-list">
-              <button className="option-item" onClick={() => handleOptionClick('want', 'Start a project')}><span className="diamond-icon">◇</span>Start a project</button>
-              <button className="option-item" onClick={() => handleOptionClick('want', 'Say hello')}><span className="diamond-icon">◇</span>Say hello</button>
-              <button className="option-item" onClick={() => handleOptionClick('want', 'Apply')}><span className="diamond-icon">◇</span>Apply</button>
-            </div>
-            <div className="progress">01 ———— 04</div>
-            <img src={Blur1} className='sectsion1-blur1' alt="" />
-          </div>
-        )}
-
-        {/* Section 2 */}
-        {currentSection === 2 && (
-          <div className="section">
-            <h2 className="question centered">Type of Project</h2>
-            <div className="options-grid">
-              <div className="grid-column">
-                {['UI/UX Design', 'Application Development', 'Graphics Design', 'Web Application'].map((proj, i) => (
-                  <button key={i} className="option-item" onClick={() => handleOptionClick('project', proj)}><span className="diamond-icon">◇</span>{proj}</button>
-                ))}
-              </div>
-              <div className="grid-column">
-                {['Branding & Identity', 'Website Development', 'Media Productivity', 'Motion Graphics'].map((proj, i) => (
-                  <button key={i} className="option-item" onClick={() => handleOptionClick('project', proj)}><span className="diamond-icon">◇</span>{proj}</button>
-                ))}
-              </div>
-            </div>
-            <button className="option-item centered-option" onClick={() => handleOptionClick('project', 'Other')}><span className="diamond-icon">◇</span>Other</button>
-            <div className="progress">02 ———— 04</div>
-            <img src={Blur1} className='sectsion1-blur1' alt="" />
-            <img src={Blur2} className='sectsion1-blur2' alt="" />
-          </div>
-        )}
-
-        {/* Section 3 */}
-        {currentSection === 3 && (
-         <div className="section">
-  <div className="form-grid">
-    {['firstName', 'lastName', 'email', 'phone', 'country'].map((field, i) => (
-      <div key={i} className={`form-group ${field === 'country' ? 'full-width' : ''}`}>
-        <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-        <input 
-          type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'} 
-          name={field} 
-          value={formData[field]} 
-          onChange={handleInputChange} 
-          className="form-inputc" 
-          required 
-        />
-      </div>
-    ))}
-  </div>
-  
-  {showPopup && (
-    <div style={{
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: '#ff4444',
-      color: 'white',
-      padding: '20px 40px',
-      borderRadius: '8px',
-      zIndex: 1000,
-      fontSize: '16px',
-      fontWeight: '500',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-    }}>
-      Complete Form
-    </div>
-  )}
-  
-  <div className="flex-con-btn">
-    <div 
-      className={`right-booking right-booking2 ${!isFormComplete ? 'disabled' : ''}`} 
-      onClick={handleNextWithValidation}
-      style={{ opacity: !isFormComplete ? 0.5 : 1, cursor: !isFormComplete ? 'not-allowed' : 'pointer' }}
-    >
-      <img className="right-booking-img" src={Connect} alt="" />
-      <p>Next</p>
-    </div>
-    <div className="progress">03 ———— 04</div>
-    <div 
-      className={`right-booking ${!isFormComplete ? 'disabled' : ''}`} 
-      onClick={handleNextWithValidation}
-      style={{ opacity: !isFormComplete ? 0.5 : 1, cursor: !isFormComplete ? 'not-allowed' : 'pointer' }}
-    >
-      <img className="right-booking-img" src={Connect} alt="" />
-      <p>Next</p>
-    </div>
-  </div>
-  <img src={Blur1} className='sectsion1-blur1' alt="" />
-  <img src={Blur2} className='sectsion1-blur2' alt="" />
-</div>
-        )}
-
-        {/* Section 4 */}
-        {currentSection === 4 && (
-          <div className="section">
-            <div className="section-hflex"><div className="diamond-icon">◇</div><h1 className="mess-section-title">Your Message</h1></div>
-            <textarea name="message" placeholder='Ask you query....' value={formData.message} onChange={handleInputChange} className="message-textarea" />
-
-            <div className="checkbox-container">
-              <label className="container-toggle">
-                <input type="checkbox" id="terms" name="agreedToTerms" checked={formData.agreedToTerms} onChange={handleInputChange} />
-                <svg viewBox="0 0 64 64" height="1.3em" width="1.3em"><path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" className="path"></path></svg>
-              </label>
-
-              <p>I agree with terms conditions and privacy policy</p>
-            </div>
-
-            <div className="flex-con-btn">
-              <div onClick={handleSubmit} className="right-booking right-booking2" disabled={!formData.agreedToTerms || sending}><img className="right-booking-img" src={Connect} alt="" /><p>{sending ? 'Sending...' : 'Send'}</p></div>
-              <div className="progress">04 ———— 04</div>
-              <div onClick={handleSubmit} className="right-booking" disabled={!formData.agreedToTerms || sending}><img className="right-booking-img" src={Connect} alt="" /><p>{sending ? 'Sending...' : 'Send'}</p></div>
-            </div>
-            <img src={Blur3} className='sectsion1-blur3' alt="" />
-          </div>
-        )}
-
-        {/* Section 5 */}
-        {currentSection === 5 && (
-          <div className="section thank-you">
-            <div className="right-booking"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
-            <div className="right-booking right-booking2"><img className="right-booking-img" src={Connect} alt="" /><p>Explore <br /> More</p></div>
-            <h1 className="thank-you-title section-hflex2">Thank you for contacting us.<br />We will come back to you as soon as possible.</h1>
-            <img src={Blur3} className='sectsion1-blur4' alt="" />
-          </div>
-        )}
+    <section className="form-panel" aria-labelledby="form-title">
+      <div className="form-heading">
+        <div>
+          <h1 id="form-title">Tell us about your project.</h1>
+          <p>A new idea. A better experience. A bigger impact.</p>
+        </div>
       </div>
 
-      {/* Modal (dark center with blurred background) */}
-      {modal.visible && (
-        <div className="modal-overlay" role="dialog" aria-modal="true">
-          <div className={`modal-content ${modal.success ? 'success' : 'error'}`}>
-            <h3>{modal.success ? 'Success' : 'Oops'}</h3>
-            <p>{modal.message}</p>
+      <form noValidate onSubmit={handleSubmit}>
+        <div className="identity-row">
+          <div className="field">
+            <label htmlFor="name">Full name <span>*</span></label>
+            <input
+              id="name"
+              ref={nameRef}
+              autoComplete="name"
+              placeholder="Your name"
+              required
+              maxLength={120}
+              value={name}
+              aria-invalid={errors.name ? 'true' : 'false'}
+              onChange={e => setName(e.target.value)}
+            />
+            {errors.name && <span className="error">Please enter your name.</span>}
+          </div>
+          <div className="field">
+            <label htmlFor="email">Work email <span>*</span></label>
+            <input
+              id="email"
+              ref={emailRef}
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              placeholder="you@company.com"
+              required
+              maxLength={254}
+              value={email}
+              aria-invalid={errors.email ? 'true' : 'false'}
+              onChange={e => setEmail(e.target.value)}
+            />
+            {errors.email && <span className="error">Please enter a valid email.</span>}
           </div>
         </div>
-      )}
-    </div>
+
+        <fieldset className="choices">
+          <legend>What can we help you with? <span className="optional">Choose any</span></legend>
+          <div className="chips chips-services">
+            {SERVICES.map(service => (
+              <label key={service}>
+                <input type="checkbox" checked={services.includes(service)} onChange={() => toggleService(service)} />
+                <span>{service}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset className="choices">
+          <legend>What’s your budget? <span className="optional">USD</span></legend>
+          <div className="chips budgets">
+            {BUDGETS.map(option => (
+              <label key={option}>
+                <input type="radio" name="budget" checked={budget === option} onChange={() => setBudget(option)} />
+                <span>{option}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="field project-field">
+          <label htmlFor="project">About your project <span>*</span></label>
+          <textarea
+            id="project"
+            ref={projectRef}
+            rows={2}
+            required
+            maxLength={5000}
+            placeholder="What are you building, who is it for, and what would success look like?"
+            value={project}
+            aria-invalid={errors.project ? 'true' : 'false'}
+            onChange={e => setProject(e.target.value)}
+          />
+          {errors.project && <span className="error">Tell us a little about your project.</span>}
+        </div>
+
+        <div className="brief-area">
+          <button
+            type="button"
+            className="brief-toggle"
+            aria-expanded={briefOpen}
+            onClick={() => (briefOpen ? setBriefOpen(false) : openBrief())}
+          >
+            <Paperclip size={16} />
+            <span>Add a brief or reference link</span>
+            <span className="optional">Optional</span>
+          </button>
+          {briefOpen && (
+            <div className="field brief-field">
+              <label className="sr-only" htmlFor="brief">Brief or reference link</label>
+              <input
+                id="brief"
+                ref={briefRef}
+                type="url"
+                placeholder="https://figma.com/… or a shared document"
+                maxLength={1000}
+                value={brief}
+                aria-invalid={errors.brief ? 'true' : 'false'}
+                onChange={e => setBrief(e.target.value)}
+              />
+              <small>A Figma, Drive or website link. Make sure our team can view it.</small>
+              {errors.brief && <span className="error">Enter a full link starting with https:// or http://.</span>}
+            </div>
+          )}
+        </div>
+
+        <div className="form-bottom">
+          <p className="privacy">
+            We’ll only use your details to discuss your project.{' '}
+            <a href="/policy" target="_blank" rel="noopener noreferrer">Privacy policy ↗</a>
+          </p>
+          <button type="submit" className="submit-button" disabled={sending}>
+            <span className="submit-arrow" aria-hidden="true"><ArrowRight size={18} /></span>
+            <span className="submit-label">{sending ? 'Sending…' : 'Let’s talk'}</span>
+          </button>
+        </div>
+
+        {status && (
+          <div ref={statusRef} tabIndex={-1} role="status" aria-live="polite" data-state={status.state}>
+            {status.state === 'error' && status.inquiry ? (
+              <>
+                Your inquiry wasn’t sent. Your details are still here. Please try again, or{' '}
+                <a
+                  href={`mailto:info@strixproduction.com?subject=${encodeURIComponent(
+                    'New project inquiry — ' + status.inquiry.name
+                  )}&body=${encodeURIComponent(
+                    [
+                      `Name: ${status.inquiry.name}`,
+                      `Email: ${status.inquiry.email}`,
+                      `Services: ${status.inquiry.services.join(', ') || 'Let’s discuss'}`,
+                      `Budget: ${status.inquiry.budget || 'Not decided'}`,
+                      '',
+                      status.inquiry.project,
+                      '',
+                      `Brief / reference: ${status.inquiry.brief || 'Not provided'}`
+                    ].join('\n')
+                  )}`}
+                >
+                  open your brief in email
+                </a>.
+              </>
+            ) : (
+              status.text
+            )}
+          </div>
+        )}
+      </form>
+    </section>
   );
 };
 

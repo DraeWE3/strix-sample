@@ -3,18 +3,15 @@ import gsap from "gsap";
 import "../style/loop.css";
 
 // Import images
-import slogo1 from "../assets/img/slogo1.webp";
-import slogo2 from "../assets/img/slogo2.webp";
-import slogo3 from "../assets/img/slogo3.webp";
-import slogo4 from "../assets/img/slogo4.webp";
-import slogo5 from "../assets/img/slogo5.webp";
-import slogo6 from "../assets/img/slogo6.webp";
-import slogo7 from "../assets/img/slogo7.png";
-import slogo8 from "../assets/img/slogo8.png";
-import slogo9 from "../assets/img/slogo9.png";
-import slogo10 from "../assets/img/slogo10.png";
+import logo1 from "../assets/img/logos/logo1.svg";
+import logo2 from "../assets/img/logos/logo2.svg";
+import logo3 from "../assets/img/logos/logo3.svg";
+import logo4 from "../assets/img/logos/logo4.svg";
+import logo5 from "../assets/img/logos/logo5.svg";
+import logo6 from "../assets/img/logos/logo6.svg";
+import logo7 from "../assets/img/logos/logo7.svg";
 
-const logos = [slogo1, slogo2, slogo3, slogo4, slogo5, slogo6, slogo7, slogo8, slogo9, slogo10,];
+const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7];
 
 const LogoLoop = () => {
   const containerRef = useRef(null);

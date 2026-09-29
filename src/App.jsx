@@ -14,7 +14,7 @@ import WebDesign from "./pages/designServices/webdesign";
 import AppDesign from "./pages/designServices/AppDesign";
 import CreativeDesign from "./pages/designServices/cDesign";
 import About from "./pages/About";
-import Contact from './pages/contact'
+import Contact from "./pages/contact";
 import Url from "./components/route";
 import AdminPanel from "./admin/admin";
 import Blog from "./pages/Blog";

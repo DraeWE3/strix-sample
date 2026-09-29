@@ -1,0 +1,63 @@
+<!--
+  Paste this into the EmailJS template editor (Content > Code view) for
+  template_djpi0dt, service default_service. Set the template's "To Email"
+  field to {{to_email}} so it routes to info@strixproduction.com (sent from
+  src/lib/contactApi.js). Merge fields used below: {{name}}, {{company}},
+  {{email}}, {{reason}}, {{subject}}, {{message}}.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#05060a;padding:32px 16px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+        <tr>
+          <td align="center" style="padding:8px 0 28px;">
+            <span style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;letter-spacing:1px;color:#2f7bff;">NEW LEAD DETECTED</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-top:1px solid #1c2030;padding-top:24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0a0c14;border:1px solid #1c2030;border-radius:16px;">
+              <tr>
+                <td style="padding:28px 28px 8px;">
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">NAME</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{name}}</td></tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">COMPANY</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{company}}</td></tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">EMAIL</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;">
+                      <a href="mailto:{{email}}" style="color:#4f8bff;text-decoration:underline;">{{email}}</a>
+                    </td></tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">REASON</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{reason}}</td></tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">SUBJECT</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{subject}}</td></tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
+                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">MESSAGE</td></tr>
+                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#f2f3f7;white-space:pre-wrap;">{{message}}</td></tr>
+                  </table>
+
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
