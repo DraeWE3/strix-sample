@@ -11,7 +11,17 @@ import logo5 from "../assets/img/shared/logos/logo5.svg";
 import logo6 from "../assets/img/shared/logos/logo6.svg";
 import logo7 from "../assets/img/shared/logos/logo7.svg";
 
-const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7];
+// Abhiwan (logo4) and Locovo (logo7) SVGs are cropped tight to the wordmark,
+// so they render larger than the padded logos at the same height.
+const logos = [
+  { src: logo1 },
+  { src: logo2 },
+  { src: logo3 },
+  { src: logo4, className: "logo-abhiwan" },
+  { src: logo5 },
+  { src: logo6 },
+  { src: logo7, className: "logo-locovo" },
+];
 
 const LogoLoop = () => {
   const containerRef = useRef(null);
@@ -43,9 +53,9 @@ const LogoLoop = () => {
     <div className="logo-loop" ref={containerRef}>
       <div className="logo-strip">
         {/* Duplicate logos to ensure smooth loop */}
-        {logos.concat(logos).map((src, i) => (
+        {logos.concat(logos).map(({ src, className }, i) => (
           <div key={i} className="logo-item">
-            <img src={src} alt={`logo-${i}`} />
+            <img src={src} className={className} alt={`logo-${i}`} />
           </div>
         ))}
       </div>

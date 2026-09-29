@@ -7,6 +7,7 @@
 .logo-strip {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   will-change: transform; /* improves smoothness */
 }
 
@@ -20,9 +21,26 @@
   width: auto;
 }
 
+/* Scaled by native height relative to the ~24px padded logos */
+.logo-item img.logo-abhiwan {
+  height: 1.5rem;
+}
+
+.logo-item img.logo-locovo {
+  height: 1.25rem;
+}
+
 @media (max-width: 770px) {
   .logo-item img {
   height: 1.5rem;
   width: auto;
 }
+
+  .logo-item img.logo-abhiwan {
+    height: 1.125rem;
+  }
+
+  .logo-item img.logo-locovo {
+    height: 0.9375rem;
+  }
 }
