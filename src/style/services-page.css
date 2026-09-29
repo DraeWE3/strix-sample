@@ -17,8 +17,6 @@
   --services-display: "Clash Display", "Syne", sans-serif;
   color-scheme: dark;
   display: flow-root;
-  max-width: 1440px;
-  margin: auto;
   position: relative;
   overflow: clip;
   isolation: isolate;
@@ -52,7 +50,8 @@ body.services-dialog-open { overflow: hidden; }
 .services-page-shell .button-light img { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
 .services-page-shell .button-label { display: flex; gap: 12px; align-items: center; justify-content: center; font: 500 22.5px/28px var(--services-display); background: linear-gradient(90deg,#fff,#999); background-clip: text; -webkit-background-clip: text; color: transparent; text-shadow: 0 2.25px 2.25px #0004; white-space: nowrap; }
 .services-page-shell .button-arrow { transform: rotate(-45deg); flex-shrink: 0; }
-.services-page-shell .page-backdrops { position: absolute; inset: 0; pointer-events: none; z-index: -1; overflow: clip; }
+/* Glow offsets are authored for a 1440px frame, so keep that frame centered as the page widens */
+.services-page-shell .page-backdrops { position: absolute; top: 0; bottom: 0; left: 50%; width: min(100%, 1440px); transform: translateX(-50%); pointer-events: none; z-index: -1; }
 .services-page-shell .page-backdrops>img { position: absolute; max-width: none; mix-blend-mode: plus-lighter; }
 .services-page-shell .backdrop-tl { left: -600.521px; top: -684.521px; }
 .services-page-shell .backdrop-tr { left: 1009.479px; top: -710.521px; }
@@ -498,8 +497,8 @@ body.services-dialog-open { overflow: hidden; }
 @media (min-width:1200px) {
   .services-page-shell .service-section--development { left: -9px; }
 }
-.services-page-shell .service-section { --service-gutter: max(24px,calc((min(100vw,1440px) - 1044px)/2)); }
-.services-page-shell .portfolio-carousel .carousel-track { padding-inline: max(0px,calc((min(100vw,1440px) - 306px)/2)); }
+.services-page-shell .service-section { --service-gutter: max(24px,calc((100vw - 1044px)/2)); }
+.services-page-shell .portfolio-carousel .carousel-track { padding-inline: max(0px,calc((100vw - 306px)/2)); }
 .services-page-shell .carousel.is-dragging .carousel-viewport { scroll-snap-type: none; cursor: grabbing; }
 .services-page-shell .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width:799px) {
