@@ -115,7 +115,7 @@ const Ecommerce = () => {
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="returnNext" >
-          <Link to='/service'><button className="back-button">
+          <Link to='/services'><button className="back-button">
             <ArrowLeft size={16} /> Return to Service
           </button></Link>
 

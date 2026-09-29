@@ -6,7 +6,7 @@ const Url = () => {
   return (
     <div className='url-con'>
       <Link to='/mvp'>MVP</Link>
-      <Link to='/service'>Services</Link>
+      <Link to='/services'>Services</Link>
       <Link to="/about">About</Link>
       <Link to="/Project">Project</Link>
       <Link to="/caseStudy">CaseStudy</Link>

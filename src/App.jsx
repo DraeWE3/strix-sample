@@ -6,7 +6,8 @@ import Project from "./pages/Project";
 import PageTransition from "./components/pageTransition";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 import CaseStudy from "./pages/caseStudy";
-import Service from "./pages/service";
+// Shared styles for the individual service pages (previously loaded via the old /service page)
+import "./style/services.css";
 import Services from "./pages/Services";
 import Uiux from "./pages/designServices/uiux";
 import Product from "./pages/designServices/product";
@@ -49,7 +50,6 @@ const App = () => {
           <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/Project" element={<Project />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
-          <Route path="/service" element={<Service />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

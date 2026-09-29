@@ -148,7 +148,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
               {[
                 { text: "Home", path: "/" },
                 { text: "About", path: "/about" },
-                { text: "Services", path: "/service" },
+                { text: "Services", path: "/services" },
                 { text: "Projects", path: "/Project" },
                 { text: "Blogs", path: "/blog" },
               ].map(({ text, path }, i) => (
