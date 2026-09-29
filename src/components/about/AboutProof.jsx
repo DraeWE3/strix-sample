@@ -6,7 +6,7 @@ import BadgeWordmark from "../../assets/img/about/0c88d.svg";
 import BadgeRibbon from "../../assets/img/about/92b79.svg";
 import BadgeStar from "../../assets/img/about/1fe78.svg";
 import BadgeLabel from "../../assets/img/about/5353e.svg";
-import CrownIcon from "../../assets/img/about/9eacb.png";
+import CrownIcon from "../../assets/img/shared/9eacb.png";
 import TopRatedArrow from "../../assets/img/about/8d76b.svg";
 import AgencyArrow from "../../assets/img/about/d3029.svg";
 

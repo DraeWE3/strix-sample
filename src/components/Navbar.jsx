@@ -1,5 +1,5 @@
 import '../style/nav.css'
-import Logo from '../assets/img/Header-s.webp'
+import Logo from '../assets/img/layout/Header-s.webp'
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import ConnectModal from './ConnectModal';

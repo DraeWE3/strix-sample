@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Nav from "../components/Navbar";
-import Css from "../assets/img/cs.webp";
+import Css from "../assets/img/work/cs.webp";
 import "../style/cs.css";
-import Cicon from "../assets/img/c-icon.webp";
+import Cicon from "../assets/img/shared/c-icon.webp";
 import ButtonArrow from "../components/button-arrow";
 
 const Cs = () => {

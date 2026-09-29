@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import "../style/ConnectModal.css";
 import ButtonSmall from "./btn-small";
-import Cicon from "../assets/img/c-icon.webp";
-import Logo from "../assets/img/Header-s.webp";
-import Shadow1 from "../assets/img/shadow1.webp";
-import Shadow2 from "../assets/img/shadow2.webp";
+import Cicon from "../assets/img/shared/c-icon.webp";
+import Logo from "../assets/img/layout/Header-s.webp";
+import Shadow1 from "../assets/img/shared/shadow1.webp";
+import Shadow2 from "../assets/img/shared/shadow2.webp";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BuildMVP from "../pages/Cs";
 import OurWork from "../pages/Project";
 import WhoWeAre from "../pages/About";
 import Blog from "../pages/Cs";
-import Modalbg from "../assets/img/menu.webp";
-import Blur1 from "../assets/img/p-blur1.png";
+import Modalbg from "../assets/img/layout/menu.webp";
+import Blur1 from "../assets/img/shared/p-blur1.png";
 
 const backdropVariants = {
   hidden: { opacity: 0 },

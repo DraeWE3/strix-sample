@@ -5,9 +5,9 @@ import EllipseC from "../../assets/img/about/83134.svg";
 import OrbMonogram from "../../assets/img/about/42f82.svg";
 import MvpButtonRim from "../../assets/img/about/917a3.svg";
 import MvpLightGlow from "../../assets/img/about/9b392.svg";
-import ButtonArrow from "../../assets/img/about/e23f5.svg";
-import ExploreButtonRim from "../../assets/img/about/3e10a.svg";
-import ExploreLightGlow from "../../assets/img/about/51ad2.svg";
+import ButtonArrow from "../../assets/img/shared/e23f5.svg";
+import ExploreButtonRim from "../../assets/img/shared/3e10a.svg";
+import ExploreLightGlow from "../../assets/img/shared/51ad2.svg";
 
 const AboutHero = () => {
   return (

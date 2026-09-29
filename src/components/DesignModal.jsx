@@ -4,16 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
 import "../style/module.css";
 
-import Grad from "../assets/img/design-gradient.webp";
-import Icon1 from "../assets/img/design-icon1.png";
-import Icon2 from "../assets/img/design-icon2.png";
-import Icon3 from "../assets/img/design-icon3.png";
-import Icon4 from "../assets/img/design-icon4.png";
-import Icon5 from "../assets/img/design-icon5.png";
-import Icon6 from "../assets/img/design-icon6.png";
-import Arrow from "../assets/img/arr-left.png";
+import Grad from "../assets/img/home/design-gradient.webp";
+import Icon1 from "../assets/img/home/design-icon1.png";
+import Icon2 from "../assets/img/home/design-icon2.png";
+import Icon3 from "../assets/img/home/design-icon3.png";
+import Icon4 from "../assets/img/home/design-icon4.png";
+import Icon5 from "../assets/img/home/design-icon5.png";
+import Icon6 from "../assets/img/home/design-icon6.png";
+import Arrow from "../assets/img/home/arr-left.png";
 import ButtonSmall from "./btn-small";
-import Mgrad from "../assets/img/design-grad-mobile.webp";
+import Mgrad from "../assets/img/home/design-grad-mobile.webp";
 
 const backdropVariants = {
   hidden: { opacity: 0 },

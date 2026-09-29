@@ -1,10 +1,10 @@
 // src/components/Footer.jsx
 import React, { useEffect, useRef } from "react";
 import "../style/footer.css";
-import Cicon from "../assets/img/c-icon.webp";
-import Top from "../assets/img/top.webp";
-import Footerimg from "../assets/img/footer-video.webp";
-import FooterMobile from "../assets/img/footer-mobile.webp";
+import Cicon from "../assets/img/shared/c-icon.webp";
+import Top from "../assets/img/layout/top.webp";
+import Footerimg from "../assets/img/layout/footer-video.webp";
+import FooterMobile from "../assets/img/layout/footer-mobile.webp";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView } from "framer-motion";
 import gsap from "gsap";

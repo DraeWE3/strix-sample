@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Pi1 from "../assets/img/proca1.webp";
-import Pi2 from "../assets/img/proca2.webp";
-import Pi3 from "../assets/img/proca3.webp";
-import Pi4 from '../assets/img/pi4.webp'
-import Pi5 from '../assets/img/pi5.webp'
-import Pi6 from '../assets/img/pi6.webp'
-import Pi7 from '../assets/img/pi7.webp'
+import Pi1 from "../assets/img/service-pages/common/proca1.webp";
+import Pi2 from "../assets/img/service-pages/common/proca2.webp";
+import Pi3 from "../assets/img/service-pages/common/proca3.webp";
+import Pi4 from '../assets/img/service-pages/common/pi4.webp'
+import Pi5 from '../assets/img/service-pages/common/pi5.webp'
+import Pi6 from '../assets/img/service-pages/common/pi6.webp'
+import Pi7 from '../assets/img/service-pages/common/pi7.webp'
 import '../style/carousal.css';
 
 const ProjectCarousel = () => {

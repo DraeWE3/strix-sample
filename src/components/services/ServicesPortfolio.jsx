@@ -1,16 +1,16 @@
 import useScrollCarousel from "./useScrollCarousel";
-import DesktopProject from "../../assets/img/pi1.jpg";
-import LaptopProject from "../../assets/img/pi2.png";
-import CenterProject from "../../assets/img/pi3.png";
+import DesktopProject from "../../assets/img/services/pi1.jpg";
+import LaptopProject from "../../assets/img/services/pi2.png";
+import CenterProject from "../../assets/img/services/pi3.png";
 import SideGlow from "../../assets/img/services/485ae.svg";
 import DesktopRim from "../../assets/img/services/0479a.svg";
 import LaptopRim from "../../assets/img/services/d97d8.svg";
 import CenterGlow from "../../assets/img/services/a2c5c.svg";
 import CenterRim from "../../assets/img/services/df9e5.svg";
 import PortfolioArrow from "../../assets/img/services/69e64.svg";
-import ButtonRim from "../../assets/img/about/3e10a.svg";
-import ButtonGlow from "../../assets/img/about/51ad2.svg";
-import ButtonArrow from "../../assets/img/about/e23f5.svg";
+import ButtonRim from "../../assets/img/shared/3e10a.svg";
+import ButtonGlow from "../../assets/img/shared/51ad2.svg";
+import ButtonArrow from "../../assets/img/shared/e23f5.svg";
 
 const WORK_URL = "https://strixproduction.agency/work";
 const DESKTOP_ALT = "Website design presented on a desktop display";

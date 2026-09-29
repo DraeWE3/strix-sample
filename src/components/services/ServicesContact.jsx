@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import OrbBackground from "../../assets/img/services/4b4d2.svg";
 import OrbArrow from "../../assets/img/services/98325.svg";
-import CallButtonRim from "../../assets/img/about/6d4be.svg";
-import CallLightGlow from "../../assets/img/about/677a9.svg";
-import ButtonArrow from "../../assets/img/about/e23f5.svg";
-import WhatsappButtonRim from "../../assets/img/about/48aa2.svg";
-import WhatsappLightGlow from "../../assets/img/about/be393.svg";
-import WhatsappIcon from "../../assets/img/about/75bd3.svg";
+import CallButtonRim from "../../assets/img/shared/6d4be.svg";
+import CallLightGlow from "../../assets/img/shared/677a9.svg";
+import ButtonArrow from "../../assets/img/shared/e23f5.svg";
+import WhatsappButtonRim from "../../assets/img/shared/48aa2.svg";
+import WhatsappLightGlow from "../../assets/img/shared/be393.svg";
+import WhatsappIcon from "../../assets/img/shared/75bd3.svg";
 
 const ServicesContact = () => {
   return (

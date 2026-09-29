@@ -4,7 +4,7 @@ const SEO = ({ title, description, canonical, ogImage, schema, schemas }) => {
     const fullTitle = title ? `${title} | Strix Production` : 'Strix Production';
     const fullDescription = description || "Strix Production - Premium Digital Design & Development Agency. We build MVPs, SaaS products, and high-end websites.";
     const canonicalUrl = canonical || `https://www.strixproduction.com${window.location.pathname}`;
-    const ogImageUrl = ogImage || './src/assets/img/link.webp';
+    const ogImageUrl = ogImage || './src/assets/img/brand/link.webp';
     
     // Support both single schema and multiple schemas
     const schemaList = schemas ? (Array.isArray(schemas) ? schemas : [schemas]) : (schema ? [schema] : []);

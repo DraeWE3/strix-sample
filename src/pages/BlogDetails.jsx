@@ -6,14 +6,14 @@ import SEO from '../components/SEO';
 import BlogNav from '../components/BlogNav';
 import { ArrowLeft, Heart, Bookmark, Share2 } from 'lucide-react';
 import '../style/blog.css';
-import Circleblur from '../assets/img/sr-img.webp';
+import Circleblur from '../assets/img/shared/sr-img.webp';
 import { collection, getDocs, doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../admin/firebaseconfig';
-import Shadow1 from "../assets/img/shadow1.webp";
-import Shadow2 from "../assets/img/shadow2.webp";
-import Love from "../assets/img/love.svg"
-import Save from "../assets/img/save.svg"
-import Share from "../assets/img/share.svg"
+import Shadow1 from "../assets/img/shared/shadow1.webp";
+import Shadow2 from "../assets/img/shared/shadow2.webp";
+import Love from "../assets/img/blog/love.svg"
+import Save from "../assets/img/blog/save.svg"
+import Share from "../assets/img/blog/share.svg"
 
 const BlogDetails = () => {
   const { id } = useParams();

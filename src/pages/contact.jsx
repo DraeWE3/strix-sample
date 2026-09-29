@@ -6,9 +6,9 @@ import SEO from '../components/SEO';
 import LogoLoop from '../components/Loop';
 import ContactFounderPanel from '../components/ContactFounderPanel';
 import ContactForm from '../components/ContactForm';
-import Upwork from '../assets/img/1c94a.svg';
-import TopRatedBadge from '../assets/img/1fe78.svg';
-import TopRatedText from '../assets/img/f2654.svg';
+import Upwork from '../assets/img/contact/1c94a.svg';
+import TopRatedBadge from '../assets/img/contact/1fe78.svg';
+import TopRatedText from '../assets/img/contact/f2654.svg';
 import '../style/contact.css';
 
 const Contact = () => {

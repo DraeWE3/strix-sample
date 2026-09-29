@@ -1,16 +1,16 @@
 import '../style/blogNav.css'
 import { Link } from 'react-router-dom'
-import Bloglogo from '../assets/img/blog-logo.webp'
-import Cicon from "../assets/img/c-icon.webp";
+import Bloglogo from '../assets/img/blog/blog-logo.webp'
+import Cicon from "../assets/img/shared/c-icon.webp";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Upwork from '../assets/img/cib--upwork.svg'
-import Behance from '../assets/img/ri--behance-fill.svg'
-import Dribble from '../assets/img/icon-park-outline--dribble.svg'
-import Tweet from '../assets/img/prime--twitter.svg'
-import Linkedin from '../assets/img/uil--linkedin.svg'
-import Insta from '../assets/img/mdi--instagram.svg'
-import Search from '../assets/img/search.svg'
+import Upwork from '../assets/img/blog/cib--upwork.svg'
+import Behance from '../assets/img/blog/ri--behance-fill.svg'
+import Dribble from '../assets/img/blog/icon-park-outline--dribble.svg'
+import Tweet from '../assets/img/blog/prime--twitter.svg'
+import Linkedin from '../assets/img/blog/uil--linkedin.svg'
+import Insta from '../assets/img/blog/mdi--instagram.svg'
+import Search from '../assets/img/blog/search.svg'
 
 const BlogNav = ({ searchTerm, setSearchTerm, selectedCategory, setSelectedCategory }) => {
   const socialsRef = useRef(null);

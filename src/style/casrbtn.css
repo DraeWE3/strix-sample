@@ -11,7 +11,7 @@
   transition: all 0.5s ease-in-out;
   position: relative;
   /* Background image settings */
-  background-image: url('../assets/img/btn-norm.webp');
+  background-image: url('../assets/img/ui/btn-norm.webp');
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
@@ -23,7 +23,7 @@
 }
 
 .card-btn:hover {
-  background-image: url('../assets/img/btn-norm2.webp');
+  background-image: url('../assets/img/ui/btn-norm2.webp');
 }
 
 .card-btn-p {
@@ -37,7 +37,7 @@
 }
 
 .card-btn:active{
-  background-image: url('../assets/img/btn-active.webp');
+  background-image: url('../assets/img/ui/btn-active.webp');
 }
 
 /* 🔹 Mobile responsive */

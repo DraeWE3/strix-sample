@@ -286,7 +286,7 @@ button:focus-visible {
   color: #fff;
   margin: 0;
   /* Background image settings */
-  background-image: url('./assets/img/link-btn.webp');
+  background-image: url('./assets/img/shared/link-btn.webp');
   background-position: center;
   background-size: 100% 100%; 
   background-repeat: no-repeat;

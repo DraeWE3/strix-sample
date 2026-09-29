@@ -1,39 +1,39 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../style/home.css";
-import Light from "../assets/img/bg.webp";
+import Light from "../assets/img/home/bg.webp";
 import Nav from "../components/Navbar";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Connect from '../assets/img/connect.svg'
+import Connect from '../assets/img/shared/connect.svg'
 import SmoothScroll from "../animations/SmoothScrollGSAP";
 gsap.registerPlugin(ScrollTrigger);
-import Shadow1 from "../assets/img/shadow1.webp";
-import Shadow2 from "../assets/img/shadow2.webp";
+import Shadow1 from "../assets/img/shared/shadow1.webp";
+import Shadow2 from "../assets/img/shared/shadow2.webp";
 import CountUp from "../components/CountUp";
-import Shadow3 from "../assets/img/shadow3.webp";
-import VectorB from '../assets/img/b-vector.webp'
+import Shadow3 from "../assets/img/home/shadow3.webp";
+import VectorB from '../assets/img/home/b-vector.webp'
 import Loop from "../components/Loop";
-import Card from "../assets/img/card.webp";
-import Star from "../assets/img/star.webp";
-import Star2 from "../assets/img/star2.webp";
-import Card2 from "../assets/img/card1.webp";
-import Card3 from "../assets/img/card3.webp";
-import Cloud from "../assets/img/cloud.webp";
-import Cloud2 from "../assets/img/cloud2.webp";
-import Bolt from "../assets/img/bolt.webp";
-import Bolt2 from "../assets/img/bolt2.webp";
-import CircleBlur from "../assets/img/circle-blur.webp";
-import Mvp from "../assets/img/mvp.webp";
+import Card from "../assets/img/home/card.webp";
+import Star from "../assets/img/home/star.webp";
+import Star2 from "../assets/img/home/star2.webp";
+import Card2 from "../assets/img/home/card1.webp";
+import Card3 from "../assets/img/home/card3.webp";
+import Cloud from "../assets/img/home/cloud.webp";
+import Cloud2 from "../assets/img/home/cloud2.webp";
+import Bolt from "../assets/img/home/bolt.webp";
+import Bolt2 from "../assets/img/home/bolt2.webp";
+import CircleBlur from "../assets/img/shared/circle-blur.webp";
+import Mvp from "../assets/img/home/mvp.webp";
 import Carousel from "../components/carousel";
-import Coin from "../assets/img/coin-video.webm";
+import Coin from "../assets/img/home/coin-video.webm";
 import Footer from "../components/Footer";
 import TestimonialCarousel from "../components/testimonial";
-import LightMobile from "../assets/img/mobile-hero.webp";
-import MvpReasearch from '../assets/img/mpv-research.png'
-import MvpDev from '../assets/img/mvp-dev.png'
-import MvpDesign from '../assets/img/mvp-design.png'
+import LightMobile from "../assets/img/home/mobile-hero.webp";
+import MvpReasearch from '../assets/img/home/mpv-research.png'
+import MvpDev from '../assets/img/home/mvp-dev.png'
+import MvpDesign from '../assets/img/home/mvp-design.png'
 import ButtonArrow from "../components/button-arrow";
 import ButtonSmall from "../components/btn-small";
 import BtnNormsall from "../components/normSmall-btn";
@@ -41,7 +41,7 @@ import DevelopmentModal from "../components/DevelopmentModal";
 import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
 import CardBtn from "../components/cardBtn";
-import Shadow4 from '../assets/img/shadow4.webp'
+import Shadow4 from '../assets/img/home/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
 import ServiceSearch from "../components/ServiceSearch";
@@ -384,7 +384,7 @@ const Home = () => {
     "@type": "Organization",
     "name": "Strix Production",
     "url": "https://www.strixproduction.com/",
-    "logo": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/Header%20Logo.png",
+    "logo": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/brand/Header%20Logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "8851313109",
@@ -402,7 +402,7 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Strix Production",
-    "image": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/Header%20Logo.png",
+    "image": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/brand/Header%20Logo.png",
     "@id": "",
     "url": "https://www.strixproduction.com/",
     "telephone": "8851313109",

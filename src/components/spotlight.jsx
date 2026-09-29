@@ -1,10 +1,10 @@
 "use client";
 import "../style/spotlight.css";
-import pi1 from "../assets/img/pi1.webp";
-import pi2 from "../assets/img/pi2.webp";
-import pi3 from "../assets/img/pi3.webp";
+import pi1 from "../assets/img/legacy/pi1.webp";
+import pi2 from "../assets/img/legacy/pi2.webp";
+import pi3 from "../assets/img/legacy/pi3.webp";
 import { useEffect, useRef } from "react";
-import Spot from '../assets/img/pi3.webp'
+import Spot from '../assets/img/legacy/pi3.webp'
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

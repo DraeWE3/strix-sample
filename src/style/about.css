@@ -89,8 +89,8 @@
 }
 
 .about-call-light {
-  mask-image: url('../assets/img/about/945b0.svg');
-  -webkit-mask-image: url('../assets/img/about/945b0.svg');
+  mask-image: url('../assets/img/shared/945b0.svg');
+  -webkit-mask-image: url('../assets/img/shared/945b0.svg');
 }
 
 .about-button-light img {
@@ -180,7 +180,7 @@
 .about-mvp-button { width: 212px; }
 .about-explore-button { width: 213.75px; height: 65.25px; }
 .about-mvp-light { mask-image: url('../assets/img/about/f4a96.svg'); -webkit-mask-image: url('../assets/img/about/f4a96.svg'); }
-.about-explore-light { mask-image: url('../assets/img/about/81e7e.svg'); -webkit-mask-image: url('../assets/img/about/81e7e.svg'); }
+.about-explore-light { mask-image: url('../assets/img/shared/81e7e.svg'); -webkit-mask-image: url('../assets/img/shared/81e7e.svg'); }
 
 .about-hero-orb { width: 183px; height: 183px; border-radius: 50%; position: relative; isolation: isolate; overflow: clip; filter: drop-shadow(0 0 17.327px #ffffff40); }
 .about-orb-face { position: absolute; left: .381px; top: .661px; width: 182.619px; height: 182.619px; background: #000; border-radius: 104.83px; overflow: hidden; box-shadow: 0 3.371px 5.001px #0008, 0 0 140.476px #116abd; border: .191px solid #000c; }
@@ -393,7 +393,7 @@
 .about-connect-actions { display: flex; align-items: center; justify-content: center; gap: 22px; margin-top: 19px; }
 .about-whatsapp { width: 222px; flex-shrink: 0; }
 .about-whatsapp .about-button-label { gap: 12px; }
-.about-whatsapp-light { mask-image: url('../assets/img/about/c426c.svg'); -webkit-mask-image: url('../assets/img/about/c426c.svg'); mask-size: 222px 65px; -webkit-mask-size: 222px 65px; }
+.about-whatsapp-light { mask-image: url('../assets/img/shared/c426c.svg'); -webkit-mask-image: url('../assets/img/shared/c426c.svg'); mask-size: 222px 65px; -webkit-mask-size: 222px 65px; }
 .about-whatsapp-icon { flex-shrink: 0; }
 .about-conversation-caption { font: 400 14px/22px var(--about-body); }
 

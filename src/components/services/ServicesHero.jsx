@@ -1,7 +1,7 @@
 import HeroPoster from "../../assets/img/services/40d71.png";
-import ButtonRim from "../../assets/img/about/3e10a.svg";
-import ButtonGlow from "../../assets/img/about/51ad2.svg";
-import ButtonArrow from "../../assets/img/about/e23f5.svg";
+import ButtonRim from "../../assets/img/shared/3e10a.svg";
+import ButtonGlow from "../../assets/img/shared/51ad2.svg";
+import ButtonArrow from "../../assets/img/shared/e23f5.svg";
 
 const ServicesHero = ({ onShowreel }) => {
   return (

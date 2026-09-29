@@ -2,7 +2,7 @@ import GlowTopLeft from "../../assets/img/services/f56d7-9984.svg";
 import GlowTopRight from "../../assets/img/services/f56d7-9985.svg";
 import GlowHeroRight from "../../assets/img/services/08e55-9986.svg";
 import GlowHeroLeft from "../../assets/img/services/08e55-9987.svg";
-import GlowStatsLeft from "../../assets/img/about/f91ac.svg";
+import GlowStatsLeft from "../../assets/img/shared/f91ac.svg";
 import GlowStatsRight from "../../assets/img/services/f91ac-10283.svg";
 import GlowPortfolioLeft from "../../assets/img/services/a190f.svg";
 import GlowPortfolioRight from "../../assets/img/services/5adc7.svg";

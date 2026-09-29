@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
 import "../style/module.css";
 import { Link } from "react-router-dom";
-import Grad from "../assets/img/pro-gradient.webp";
-import Icon1 from "../assets/img/pro-icon1.png";
-import Icon2 from "../assets/img/pro-icon2.png";
-import Icon3 from "../assets/img/pro-icon3.png";
-import Icon4 from "../assets/img/pro-icon4.png";
-import Icon5 from "../assets/img/pro-icon5.png";
-import Arrow from "../assets/img/arr-left.png";
+import Grad from "../assets/img/home/pro-gradient.webp";
+import Icon1 from "../assets/img/home/pro-icon1.png";
+import Icon2 from "../assets/img/home/pro-icon2.png";
+import Icon3 from "../assets/img/home/pro-icon3.png";
+import Icon4 from "../assets/img/home/pro-icon4.png";
+import Icon5 from "../assets/img/home/pro-icon5.png";
+import Arrow from "../assets/img/home/arr-left.png";
 import ButtonSmall from "./btn-small";
-import Mgrad from "../assets/img/pro-gradient.webp";
+import Mgrad from "../assets/img/home/pro-gradient.webp";
 
 const backdropVariants = {
   hidden: { opacity: 0 },

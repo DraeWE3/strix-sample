@@ -2,7 +2,7 @@ import UiUxDesign from "../../assets/img/services/b6140.png";
 import ProductDesign from "../../assets/img/services/55cc6.png";
 import MobileAppDesign from "../../assets/img/services/dc8fe.png";
 import CreativeDesign from "../../assets/img/services/7cc2a.png";
-import WebsiteDesign from "../../assets/img/pi2.png";
+import WebsiteDesign from "../../assets/img/services/pi2.png";
 import Branding from "../../assets/img/services/08efb.png";
 import WebApplications from "../../assets/img/services/3cf02.png";
 import ECommerce from "../../assets/img/services/a9a10.png";

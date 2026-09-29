@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import T1 from "../assets/img/hiren.webp";
-import T2 from '../assets/img/interpolitian.jpg'
-import T3 from '../assets/img/zenith.png'
-import T4 from '../assets/img/itc.png'
-import T5 from '../assets/img/wroott.png'
-import T6 from '../assets/img/T6.png'
+import T1 from "../assets/img/home/hiren.webp";
+import T2 from '../assets/img/home/interpolitian.jpg'
+import T3 from '../assets/img/home/zenith.png'
+import T4 from '../assets/img/home/itc.png'
+import T5 from '../assets/img/home/wroott.png'
+import T6 from '../assets/img/home/T6.png'
 import '../style/carousal.css';
 import '../style/test.css';
 

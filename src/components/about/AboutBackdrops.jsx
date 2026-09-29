@@ -3,7 +3,7 @@ import BackdropTopVector from "../../assets/img/about/25320.svg";
 import BackdropTeam from "../../assets/img/about/c5e3f.svg";
 import BackdropReview from "../../assets/img/about/df947.svg";
 import BackdropSide from "../../assets/img/about/1673e.svg";
-import BackdropProcess from "../../assets/img/about/f91ac.svg";
+import BackdropProcess from "../../assets/img/shared/f91ac.svg";
 
 const AboutBackdrops = () => {
   return (

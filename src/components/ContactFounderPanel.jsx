@@ -1,10 +1,10 @@
 import React from 'react';
 import { Check, Calendar } from 'lucide-react';
-import Ab2 from '../assets/img/9e6ae.png';
-import Linkedin from '../assets/img/socials/52917.svg';
-import Google from '../assets/img/socials/5874c.svg';
-import MailIcon from '../assets/img/socials/c3170.svg';
-import WhatsappIcon from '../assets/img/socials/cd979.svg';
+import Ab2 from '../assets/img/contact/9e6ae.png';
+import Linkedin from '../assets/img/contact/52917.svg';
+import Google from '../assets/img/contact/5874c.svg';
+import MailIcon from '../assets/img/contact/c3170.svg';
+import WhatsappIcon from '../assets/img/contact/cd979.svg';
 
 const BENEFITS = [
   'A direct conversation with our founder',

@@ -6,7 +6,7 @@
   color: #fff;
   transition: all 0.5s ease-in-out;
   gap: 7px !important;
-  background-image: url('../assets/img/btn-norm.webp');
+  background-image: url('../assets/img/ui/btn-norm.webp');
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -35,7 +35,7 @@
 
 
 .btn-small:hover {
-  background-image: url('../assets/img/btn-norm2.webp');
+  background-image: url('../assets/img/ui/btn-norm2.webp');
 }
 
 .btn-small-p {
@@ -49,7 +49,7 @@
 }
 
 .small-btn-arrow{
-  background-image: url('../assets/img/btn-arrow.webp');
+  background-image: url('../assets/img/ui/btn-arrow.webp');
   width: 1vw;
   height: 1vw;
   background-size: cover;
@@ -62,7 +62,7 @@
 }
 
 .btn-small:active{
-  background-image: url('../assets/img/btn-active.webp');
+  background-image: url('../assets/img/ui/btn-active.webp');
 }
 
 @media (min-width: 140px) {

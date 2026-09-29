@@ -2,27 +2,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
-import Circleblur from '../../assets/img/sr-img.webp'
-import Connect from '../../assets/img/connect.svg'
+import Circleblur from '../../assets/img/shared/sr-img.webp'
+import Connect from '../../assets/img/shared/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
-import Blur1 from '../../assets/img/p-blur2.png'
-import Blur2 from '../../assets/img/p-blur1.png'
-import Blur3 from '../../assets/img/Ellipse 7.png'
-import Blur4 from '../../assets/img/Ellipse 8.png'
-import Kundali from '../../assets/img/kundali-case-study.webp'
+import Blur1 from '../../assets/img/shared/p-blur2.png'
+import Blur2 from '../../assets/img/shared/p-blur1.png'
+import Blur3 from '../../assets/img/shared/Ellipse 7.png'
+import Blur4 from '../../assets/img/shared/Ellipse 8.png'
+import Kundali from '../../assets/img/service-pages/common/kundali-case-study.webp'
 import { Play } from 'lucide-react';
-import Circle from '../../assets/img/updown-circle.webp'
+import Circle from '../../assets/img/shared/updown-circle.webp'
 import '../../style/uiux.css'
-import CardImg from '../../assets/img/ui-card.webp'
-import Cardcon1 from '../../assets/img/ui1.png'
-import Cardcon2 from '../../assets/img/ui2.png'
-import Cardcon3 from '../../assets/img/ui3.png'
-import Cardcon4 from '../../assets/img/ui4.png'
+import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
+import Cardcon1 from '../../assets/img/service-pages/design/ui1.png'
+import Cardcon2 from '../../assets/img/service-pages/design/ui2.png'
+import Cardcon3 from '../../assets/img/service-pages/design/ui3.png'
+import Cardcon4 from '../../assets/img/service-pages/design/ui4.png'
 import ProjectCarousel from "../../components/projectCarouel";
 import Button from "../../components/Button";
-import ProjectCircle from '../../assets/img/project-circle.webp'
-import HeroImg from '../../assets/img/serv.webp'
+import ProjectCircle from '../../assets/img/shared/project-circle.webp'
+import HeroImg from '../../assets/img/service-pages/common/serv.webp'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DotGrid from "../../animations/DotGrid";

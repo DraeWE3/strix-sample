@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import Nav from '../components/Navbar'
-import Circleblur from '../assets/img/sr-img.webp'
-import Connect from '../assets/img/connect.svg'
+import Circleblur from '../assets/img/shared/sr-img.webp'
+import Connect from '../assets/img/shared/connect.svg'
 import BtnNormsall from '../components/normSmall-btn';
 import Footer from '../components/Footer'
-import Blur1 from '../assets/img/p-blur2.png'
-import Blur2 from '../assets/img/p-blur1.png'
-import Blur3 from '../assets/img/Ellipse 7.png'
-import Blur4 from '../assets/img/Ellipse 8.png'
-import Blur5 from '../assets/img/p-blur3.png'
-import Blur6 from '../assets/img/p-blur4.png'
+import Blur1 from '../assets/img/shared/p-blur2.png'
+import Blur2 from '../assets/img/shared/p-blur1.png'
+import Blur3 from '../assets/img/shared/Ellipse 7.png'
+import Blur4 from '../assets/img/shared/Ellipse 8.png'
+import Blur5 from '../assets/img/shared/p-blur3.png'
+import Blur6 from '../assets/img/shared/p-blur4.png'
 import { Play } from 'lucide-react';
 import '../style/mvp.css'
 import Button from "../components/Button";
-import HeroImg from '../assets/img/mvp-hero.webp'
+import HeroImg from '../assets/img/mvp/mvp-hero.webp'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DotGrid from "../animations/DotGrid";
@@ -22,27 +22,27 @@ import ScrollSlideAnimations from '../animations/slideins'
 import Stagger from '../animations/stagger'
 import ScrollAnimation from '../animations/scrollReveal'
 import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
-import BgMvp3card from "../assets/img/mvp3card.svg"
-import HbgMvp3card from "../assets/img/mvp3card-h.svg"
-import BgMvp3card2 from "../assets/img/mvp3card2.svg"
-import HbgMvp3card2 from "../assets/img/mvp3card2-h.svg"
-import HbgMvp3card3 from "../assets/img/mvp3card3-h.svg"
-import Speed from "../assets/img/speed.png"
-import Speed2 from "../assets/img/speed2.png"
+import BgMvp3card from "../assets/img/mvp/mvp3card.svg"
+import HbgMvp3card from "../assets/img/mvp/mvp3card-h.svg"
+import BgMvp3card2 from "../assets/img/mvp/mvp3card2.svg"
+import HbgMvp3card2 from "../assets/img/mvp/mvp3card2-h.svg"
+import HbgMvp3card3 from "../assets/img/mvp/mvp3card3-h.svg"
+import Speed from "../assets/img/mvp/speed.png"
+import Speed2 from "../assets/img/mvp/speed2.png"
 import CardBtn from "../components/cardBtn";
-import Scala from "../assets/img/scala.png"
-import ScalaH from "../assets/img/scala-h.png"
-import Stra from "../assets/img/strategy.png"
-import StraH from "../assets/img/strategy-h.png"
-import Gemini from "../assets/img/gemini.webp"
-import TimeIcon from "../assets/img/time-icon.svg"
-import Arrow from '../assets/img/arrow-right.svg'
+import Scala from "../assets/img/mvp/scala.png"
+import ScalaH from "../assets/img/mvp/scala-h.png"
+import Stra from "../assets/img/mvp/strategy.png"
+import StraH from "../assets/img/mvp/strategy-h.png"
+import Gemini from "../assets/img/mvp/gemini.webp"
+import TimeIcon from "../assets/img/mvp/time-icon.svg"
+import Arrow from '../assets/img/shared/arrow-right.svg'
 import { Link } from 'react-router-dom'
-import ProjectCircle from '../assets/img/project-circle.webp'
+import ProjectCircle from '../assets/img/shared/project-circle.webp'
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore'
-import Open from "../assets/img/open.svg"
-import Close from "../assets/img/close.svg"
+import Open from "../assets/img/mvp/open.svg"
+import Close from "../assets/img/mvp/close.svg"
 import SEO from "../components/SEO";
 import FAQ from "../components/FAQ";
 

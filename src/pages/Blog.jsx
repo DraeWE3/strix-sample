@@ -8,8 +8,8 @@ import { ArrowLeft } from 'lucide-react';
 import '../style/blog.css'
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../admin/firebaseconfig'; // Adjust path as needed
-import Shadow1 from "../assets/img/shadow1.webp";
-import Shadow2 from "../assets/img/shadow2.webp";
+import Shadow1 from "../assets/img/shared/shadow1.webp";
+import Shadow2 from "../assets/img/shared/shadow2.webp";
 import ScrollAnimation from '../animations/scrollReveal'
 import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
 

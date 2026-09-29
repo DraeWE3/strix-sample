@@ -8,7 +8,7 @@
   color: #fff;
   transition: all 0.5s ease-in-out;
   gap: 7px !important;
-  background-image: url('../assets/img/btn-norm.webp');
+  background-image: url('../assets/img/ui/btn-norm.webp');
   background-position: center;
   background-size: 100% 100%; /* Stretch image to cover full button */
   background-repeat: no-repeat;
@@ -37,7 +37,7 @@
 } */
 
 .btn-aarr:hover {
-  background-image: url('../assets/img/btn-norm2.webp');
+  background-image: url('../assets/img/ui/btn-norm2.webp');
 }
 
 .big-btn-p{
@@ -51,7 +51,7 @@
 }
 
 .btn-arrow{
-  background-image: url('../assets/img/btn-arrow.webp');
+  background-image: url('../assets/img/ui/btn-arrow.webp');
   width: 1rem;
   height: 1rem;
   background-size: cover;
@@ -60,7 +60,7 @@
 }
 
 .btn-aarr:hover .btn-arrow{
-  background-image: url('../assets/img/btn-arrow2.webp');
+  background-image: url('../assets/img/ui/btn-arrow2.webp');
   width: 1.2rem;
   transition: transform 0.5s ease;
 }

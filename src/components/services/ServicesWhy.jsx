@@ -7,7 +7,7 @@ import BadgeIcon from "../../assets/img/services/6a177.png";
 import BadgeRibbon from "../../assets/img/services/1d034.svg";
 import BadgeStar from "../../assets/img/services/a7690.svg";
 import BadgeLabel from "../../assets/img/services/aff7f.svg";
-import Crown from "../../assets/img/about/9eacb.png";
+import Crown from "../../assets/img/shared/9eacb.png";
 
 const ServicesWhy = () => {
   return (

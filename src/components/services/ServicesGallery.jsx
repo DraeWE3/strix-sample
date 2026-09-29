@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import useScrollCarousel from "./useScrollCarousel";
 import ExploreRim from "../../assets/img/services/97acd.svg";
 import ExploreGlow from "../../assets/img/services/f3ffd.svg";
-import ActionRim from "../../assets/img/about/3e10a.svg";
-import ActionGlow from "../../assets/img/about/51ad2.svg";
-import Arrow from "../../assets/img/about/e23f5.svg";
+import ActionRim from "../../assets/img/shared/3e10a.svg";
+import ActionGlow from "../../assets/img/shared/51ad2.svg";
+import Arrow from "../../assets/img/shared/e23f5.svg";
 
 const modifierClass = (base, modifier) => (modifier ? `${base} ${base}--${modifier}` : base);
 

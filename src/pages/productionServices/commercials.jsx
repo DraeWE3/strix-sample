@@ -2,25 +2,25 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
-import Circleblur from '../../assets/img/sr-img.webp'
-import Connect from '../../assets/img/connect.svg'
+import Circleblur from '../../assets/img/shared/sr-img.webp'
+import Connect from '../../assets/img/shared/connect.svg'
 import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
-import Blur1 from '../../assets/img/p-blur2.png'
-import Blur2 from '../../assets/img/p-blur1.png'
-import Blur3 from '../../assets/img/Ellipse 7.png'
-import Blur4 from '../../assets/img/Ellipse 8.png'
+import Blur1 from '../../assets/img/shared/p-blur2.png'
+import Blur2 from '../../assets/img/shared/p-blur1.png'
+import Blur3 from '../../assets/img/shared/Ellipse 7.png'
+import Blur4 from '../../assets/img/shared/Ellipse 8.png'
 import '../../style/uiux.css'
 import { Link } from 'react-router-dom'
-import CardImg from '../../assets/img/ui-card.webp'
-import Cardcon1 from '../../assets/img/commercial1.png'
-import Cardcon2 from '../../assets/img/commercial2.png'
-import Cardcon3 from '../../assets/img/webdev3.png'
-import Cardcon4 from '../../assets/img/webdev4.png'
+import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
+import Cardcon1 from '../../assets/img/service-pages/production/commercial1.png'
+import Cardcon2 from '../../assets/img/service-pages/production/commercial2.png'
+import Cardcon3 from '../../assets/img/service-pages/common/webdev3.png'
+import Cardcon4 from '../../assets/img/service-pages/common/webdev4.png'
 import ProjectCarousel from "../../components/projectCarouel";
 import Button from "../../components/Button";
-import ProjectCircle from '../../assets/img/project-circle.webp'
-import HeroImg from '../../assets/img/pro-bg.webp'
+import ProjectCircle from '../../assets/img/shared/project-circle.webp'
+import HeroImg from '../../assets/img/service-pages/production/pro-bg.webp'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DotGrid from "../../animations/DotGrid";

@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
 import "../style/module.css";
-import Grad from "../assets/img/dev-gradient.webp";
-import Icon1 from "../assets/img/dev-icon1.png";
-import Icon2 from "../assets/img/dev-icon2.png";
-import Icon3 from "../assets/img/dev-icon3.png";
-import Icon4 from "../assets/img/dev-icon4.png";
-import Icon5 from "../assets/img/dev-icon5.png";
-import Icon6 from "../assets/img/dev-icon6.png";
-import Arrow from "../assets/img/arr-left.png";
+import Grad from "../assets/img/home/dev-gradient.webp";
+import Icon1 from "../assets/img/home/dev-icon1.png";
+import Icon2 from "../assets/img/home/dev-icon2.png";
+import Icon3 from "../assets/img/home/dev-icon3.png";
+import Icon4 from "../assets/img/home/dev-icon4.png";
+import Icon5 from "../assets/img/home/dev-icon5.png";
+import Icon6 from "../assets/img/home/dev-icon6.png";
+import Arrow from "../assets/img/home/arr-left.png";
 import ButtonSmall from "./btn-small";
-import Mgrad from "../assets/img/dev-grad-mobile.webp";
+import Mgrad from "../assets/img/home/dev-grad-mobile.webp";
 import { Link } from "react-router-dom";
 
 const backdropVariants = {

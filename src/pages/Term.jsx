@@ -3,7 +3,7 @@ import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
 import SEO from '../components/SEO'
 import { ArrowLeft } from 'lucide-react';
-import Circleblur from '../assets/img/sr-img.webp'
+import Circleblur from '../assets/img/shared/sr-img.webp'
 import { Link } from 'react-router-dom';
 import RotateCardsScroll from '../animations/RotateCardsScroll'
 import ScrollSlideAnimations from '../animations/slideins'

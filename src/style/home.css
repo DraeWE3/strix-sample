@@ -264,7 +264,7 @@ width: 50% !important;
   width: 2.8rem;
   height: 2.8rem;
   border-radius: 50%;
-  background: url("../assets/img/micro.png") center/cover no-repeat;
+  background: url("../assets/img/home/micro.png") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -709,7 +709,7 @@ width: 50% !important;
 }
 
 .glow {
-  background-image: url('../assets/img/glow-card1.webp');
+  background-image: url('../assets/img/home/glow-card1.webp');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -731,11 +731,11 @@ width: 50% !important;
 }
 
 .glow2 {
-  background-image: url('../assets/img/glow-card2.webp');
+  background-image: url('../assets/img/home/glow-card2.webp');
 }
 
 .glow3 {
-  background-image: url('../assets/img/glow-card3.webp');
+  background-image: url('../assets/img/home/glow-card3.webp');
 }
 
 .card-con:hover .glow {
