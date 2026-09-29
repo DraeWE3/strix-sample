@@ -30,8 +30,12 @@ const AboutConversation = () => {
               Book a free call <img className="about-button-arrow" src={ButtonArrow} alt="" />
             </span>
           </a>
-          {/* Source provides no WhatsApp destination. Replace with a confirmed wa.me link before launch. */}
-          <button className="glow-button about-whatsapp" type="button" disabled title="WhatsApp destination to be supplied">
+          <a
+            className="glow-button about-whatsapp"
+            href="https://wa.me/919958844094"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className="about-button-art" aria-hidden="true">
               <img className="about-button-rim" src={WhatsappButtonRim} alt="" />
               <span className="about-button-light about-whatsapp-light"><img src={WhatsappLightGlow} alt="" /></span>
@@ -39,7 +43,7 @@ const AboutConversation = () => {
             <span className="about-button-label">
               Whatsapp <img className="about-whatsapp-icon" src={WhatsappIcon} alt="" />
             </span>
-          </button>
+          </a>
         </div>
       </div>
       <p className="about-conversation-caption" data-reveal>20 minutes &middot; Your goals, timeline and fit &middot; No obligation</p>

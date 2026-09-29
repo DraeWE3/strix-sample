@@ -5,6 +5,7 @@
       flex-direction: column;
       position: relative;
       z-index: 1;
+      overflow-x: clip;
 }
 
 
@@ -269,7 +270,10 @@ font-size: 14px;
   bottom: 0;
   left: 0;
   z-index: 0;
-  max-height: 1000px;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+  pointer-events: none;
 }
 
 .footer .footerImg-mobile{

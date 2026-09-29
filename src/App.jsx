@@ -7,6 +7,7 @@ import PageTransition from "./components/pageTransition";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 import CaseStudy from "./pages/caseStudy";
 import Service from "./pages/service";
+import Services from "./pages/Services";
 import Uiux from "./pages/designServices/uiux";
 import Product from "./pages/designServices/product";
 import Branding from "./pages/designServices/Branding";
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/Project" element={<Project />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/service" element={<Service />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Url" element={<Url />} />
