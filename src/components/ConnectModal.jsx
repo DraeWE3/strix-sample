@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from "framer-motion";
 import "../style/ConnectModal.css";
 import ButtonSmall from "./btn-small";
 import Cicon from "../assets/img/shared/c-icon.webp";

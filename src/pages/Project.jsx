@@ -303,6 +303,8 @@ const Project = () => {
         <img src={Blur8} className='blur8' alt="Blur" />
       </div>
 
+      <Footer />
+
       {/* Filter Modal */}
       {openModal && (
         <FilterModal

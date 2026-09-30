@@ -1,4 +1,4 @@
-import useScrollCarousel from "./useScrollCarousel";
+import useScrollCarousel from "../../animations/useScrollCarousel";
 import DesktopProject from "../../assets/img/services/pi1.jpg";
 import LaptopProject from "../../assets/img/services/pi2.png";
 import CenterProject from "../../assets/img/services/pi3.png";

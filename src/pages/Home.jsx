@@ -47,6 +47,23 @@ import DotGrid from "../animations/DotGrid";
 import ServiceSearch from "../components/ServiceSearch";
 import SEO from "../components/SEO";
 import FAQ from "../components/FAQ";
+import "../style/home-page.css";
+import ShowreelDialog from "../components/ShowreelDialog";
+import useScrollReveal from "../animations/useScrollReveal";
+import { HomeHeroMedia } from "../components/home/HomeHero";
+import HomeClients from "../components/home/HomeClients";
+import { MvpCases } from "../components/home/HomeMvp";
+
+// Hosts the newer sections (scoped under .home-page-shell) inside the classic home page.
+const NewSection = ({ children }) => {
+  const ref = useRef(null);
+  useScrollReveal(ref, { readyClass: "home-motion-ready", threshold: 0.02, rootMargin: "0px 0px 25px 0px" });
+  return (
+    <div className="home-page-shell" ref={ref} style={{ background: "transparent" }}>
+      {children}
+    </div>
+  );
+};
 
 
 // Smooth text reveal animation component
@@ -158,6 +175,9 @@ const CircleBlurAnimation = ({ src, className = "" }) => {
 
 const Home = () => {
   const [openModal, setOpenModal] = useState(null);
+  const [showreelTrigger, setShowreelTrigger] = useState(null);
+  const openShowreel = (event) => setShowreelTrigger(event.currentTarget);
+  const closeShowreel = () => setShowreelTrigger(null);
   const titleRef = useRef(null);
   const subTextRef = useRef(null);
   const velocityRef = useRef(null);
@@ -581,6 +601,13 @@ const Home = () => {
           />
         </div>
 
+        {/* =============showreel + trusted clients============== */}
+        <NewSection>
+          <HomeHeroMedia onShowreel={openShowreel} style={{ marginTop: 0 }} />
+          <HomeClients />
+        </NewSection>
+        <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
+
         {/* =============section 3============== */}
         <div className="smoothsection motion sectionCon">
           <img src={Shadow3} alt="" className="shadow3" />
@@ -811,6 +838,13 @@ const Home = () => {
           <ButtonSmall text="Build MVP" />
         </div>
 
+
+        {/* =============our successful MVPs============== */}
+        <NewSection>
+          <div style={{ display: "flex", justifyContent: "center", paddingBottom: 80 }}>
+            <MvpCases />
+          </div>
+        </NewSection>
 
         {/* =============section 6.5============== */}
         <div className="smoothsection sectionCon services saas-growth-section">

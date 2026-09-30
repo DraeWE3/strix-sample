@@ -1,6 +1,14 @@
-/* Additional font weights used only by the About page.
-   Syne/Epilogue reuse font files already shipped in src/assets/fonts;
-   Clash Display 500, Inter, Poppins and Plus Jakarta Sans are new. */
+/* Named font families shared by the redesigned pages (Home, About, Services) and the navbar's Services panel.
+   Syne/Epilogue/Clash Display reuse font files already shipped in src/assets/fonts;
+   Inter, Poppins and Plus Jakarta Sans are used by About only. */
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Syne-Regular.ttf') format('truetype');
+}
 
 @font-face {
   font-family: 'Syne';
@@ -40,6 +48,30 @@
   font-weight: 500;
   font-display: swap;
   src: url('../assets/fonts/Epilogue-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/Epilogue-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/Epilogue-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/ClashDisplay-Regular.otf') format('opentype');
 }
 
 @font-face {

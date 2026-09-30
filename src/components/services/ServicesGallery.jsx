@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useScrollCarousel from "./useScrollCarousel";
+import useScrollCarousel from "../../animations/useScrollCarousel";
 import ExploreRim from "../../assets/img/services/97acd.svg";
 import ExploreGlow from "../../assets/img/services/f3ffd.svg";
 import ActionRim from "../../assets/img/shared/3e10a.svg";

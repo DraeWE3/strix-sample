@@ -1,19 +1,20 @@
 import { useEffect, useRef } from "react";
+import "../style/showreel-dialog.css";
 
 // Placeholder showreel (Big Buck Bunny by Blender). Replace with Strix's YouTube video ID.
 const SHOWREEL_VIDEO_ID = "aqz-KE-bpKQ";
 
-const ServicesShowreelDialog = ({ trigger, onClose }) => {
+const ShowreelDialog = ({ trigger, onClose }) => {
   const dialogRef = useRef(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!trigger) return;
     dialog.showModal();
-    document.body.classList.add("services-dialog-open");
+    document.body.classList.add("showreel-dialog-open");
     return () => {
       if (dialog.open) dialog.close();
-      document.body.classList.remove("services-dialog-open");
+      document.body.classList.remove("showreel-dialog-open");
       trigger.focus({ preventScroll: true });
     };
   }, [trigger]);
@@ -55,4 +56,4 @@ const ServicesShowreelDialog = ({ trigger, onClose }) => {
   );
 };
 
-export default ServicesShowreelDialog;
+export default ShowreelDialog;

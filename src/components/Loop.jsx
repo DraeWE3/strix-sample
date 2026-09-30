@@ -11,13 +11,11 @@ import logo5 from "../assets/img/shared/logos/logo5.svg";
 import logo6 from "../assets/img/shared/logos/logo6.svg";
 import logo7 from "../assets/img/shared/logos/logo7.svg";
 
-// Abhiwan (logo4) and Locovo (logo7) SVGs are cropped tight to the wordmark,
-// so they render larger than the padded logos at the same height.
 const logos = [
-  { src: logo1 },
+  { src: logo1, className: "logo-wurkzen" },
   { src: logo2 },
   { src: logo3 },
-  { src: logo4, className: "logo-abhiwan" },
+  { src: logo4 },
   { src: logo5 },
   { src: logo6 },
   { src: logo7, className: "logo-locovo" },

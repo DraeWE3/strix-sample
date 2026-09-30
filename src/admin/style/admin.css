@@ -101,7 +101,7 @@ body {
 }
 
 .admin-container {
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -174,7 +174,7 @@ body {
 }
 
 .header-content {
-  max-width: 1400px;
+  max-width: none;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

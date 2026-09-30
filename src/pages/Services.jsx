@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import "../style/about-fonts.css";
+import "../style/fonts.css";
 import "../style/services-page.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -13,7 +13,7 @@ import ServicesGallery from "../components/services/ServicesGallery";
 import ServicesWhy from "../components/services/ServicesWhy";
 import ServicesPortfolio from "../components/services/ServicesPortfolio";
 import ServicesContact from "../components/services/ServicesContact";
-import ServicesShowreelDialog from "../components/services/ServicesShowreelDialog";
+import ShowreelDialog from "../components/ShowreelDialog";
 import serviceGalleries from "../components/services/serviceGalleries";
 
 const REVEAL_OPTIONS = { readyClass: "services-motion-ready", threshold: 0.05, rootMargin: "0px 0px -16px 0px" };
@@ -45,7 +45,7 @@ const Services = () => {
         <ServicesWhy />
         <ServicesPortfolio />
         <ServicesContact />
-        <ServicesShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
+        <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
       </div>
       <Footer />
     </div>

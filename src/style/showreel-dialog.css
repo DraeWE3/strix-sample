@@ -1,0 +1,18 @@
+/* Shared showreel modal (Home and Services). Rendered inside page shells whose
+   element resets differ, so it carries its own. */
+
+body.showreel-dialog-open { overflow: hidden; }
+
+.showreel-dialog { margin: auto; border: 1px solid #444; border-radius: 22px; padding: 20px; background: #101010; color: white; width: min(1080px,calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow: auto; font: 400 16px/1.625 "Epilogue", sans-serif; }
+.showreel-dialog::backdrop { background: #000d; backdrop-filter: blur(12px); }
+.showreel-dialog h2, .showreel-dialog p { margin: 0; font-family: inherit; }
+.showreel-dialog a { color: inherit; }
+.showreel-dialog .dialog-topline { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.showreel-dialog .dialog-topline h2 { font: 600 24px/1.3 "Syne", sans-serif; }
+.showreel-dialog .dialog-close { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: #282828; color: inherit; font: inherit; font-size: 25px; cursor: pointer; transition: none; }
+.showreel-dialog .dialog-close:focus:not(:focus-visible) { outline: none; }
+.showreel-dialog .dialog-close:focus-visible, .showreel-dialog a:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.showreel-dialog .video-mount { aspect-ratio: 16/9; background: #000; border-radius: 10px; overflow: hidden; }
+.showreel-dialog .video-mount iframe { display: block; width: 100%; height: 100%; border: 0; }
+.showreel-dialog .video-note { font-size: 13px; line-height: 22px; color: #aaa; margin-top: 14px; }
+.showreel-dialog .video-note a { text-decoration: underline; }

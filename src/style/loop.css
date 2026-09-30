@@ -16,31 +16,37 @@
   padding: 0 2rem;
 }
 
+/* Equal rendered width per logo; heights follow each logo's aspect ratio */
 .logo-item img {
-  height: 2rem;
-  width: auto;
-}
-
-/* Scaled by native height relative to the ~24px padded logos */
-.logo-item img.logo-abhiwan {
-  height: 1.5rem;
-}
-
-.logo-item img.logo-locovo {
-  height: 1.25rem;
+  width: 9.5rem;
+  height: auto;
+  max-height: 2.25rem;
+  object-fit: contain;
 }
 
 @media (max-width: 770px) {
   .logo-item img {
-  height: 1.5rem;
-  width: auto;
+    width: 7rem;
+    max-height: 1.75rem;
+  }
 }
 
-  .logo-item img.logo-abhiwan {
-    height: 1.125rem;
-  }
+.logo-item img.logo-locovo {
+  width: 6.5rem;
+}
 
+@media (max-width: 770px) {
   .logo-item img.logo-locovo {
-    height: 0.9375rem;
+    width: 5rem;
+  }
+}
+
+.logo-item img.logo-wurkzen {
+  width: 7.5rem;
+}
+
+@media (max-width: 770px) {
+  .logo-item img.logo-wurkzen {
+    width: 5.75rem;
   }
 }

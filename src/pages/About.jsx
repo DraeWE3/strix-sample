@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import "../style/about-fonts.css";
+import "../style/fonts.css";
 import "../style/about.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";

@@ -3,7 +3,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 // Native overflow scrolling stays the single source of truth: touch and trackpads
 // keep the browser's momentum, mouse drags are handled here, and vertical wheel
 // input always continues down the page. React only renders the resulting state.
-const useScrollCarousel = ({ align = "start", startIndex = 0 } = {}) => {
+// Slides are the children of a `.carousel-track` inside the viewport, or of the
+// viewport itself. `enabled: false` leaves the markup as a static layout.
+const useScrollCarousel = ({ align = "start", startIndex = 0, enabled = true } = {}) => {
   const viewportRef = useRef(null);
   const controlsRef = useRef(null);
   const [position, setPosition] = useState({ index: startIndex, controlIndex: startIndex, settledIndex: startIndex });
@@ -11,7 +13,8 @@ const useScrollCarousel = ({ align = "start", startIndex = 0 } = {}) => {
 
   useEffect(() => {
     const view = viewportRef.current;
-    const slides = [...view.firstElementChild.children];
+    if (!enabled || !view) return;
+    const slides = [...(view.querySelector(":scope > .carousel-track") ?? view).children];
     const lastIndex = slides.length - 1;
     const center = align === "center";
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -265,7 +268,7 @@ const useScrollCarousel = ({ align = "start", startIndex = 0 } = {}) => {
       listeners.forEach(([type, handler, options]) => view.removeEventListener(type, handler, options));
       window.removeEventListener("blur", cancelDrag);
     };
-  }, [align, startIndex]);
+  }, [align, startIndex, enabled]);
 
   const go = useCallback((index) => controlsRef.current?.go(index), []);
   const step = useCallback((direction) => controlsRef.current?.step(direction), []);
