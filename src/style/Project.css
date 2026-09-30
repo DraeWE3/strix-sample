@@ -6,6 +6,7 @@
     flex-direction: column;
     height: 140vh;
     position: relative;
+    overflow-x: clip;
 }
 
 .project-hero-h1{
@@ -207,6 +208,7 @@
 
 .section2{
   width: 100%;
+  overflow-x: clip;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -808,5 +810,22 @@
 
   .p-sec2-card-img{
     height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .section2 {
+    padding-top: 4%;
+  }
+
+  .section2 .p-card-con {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .section2 .p-card-con .p-sec2-card {
+    width: 90%;
   }
 }

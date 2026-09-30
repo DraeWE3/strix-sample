@@ -369,3 +369,9 @@
             font-size: 16px;
           }
         }
+
+@media (max-width: 700px) {
+  .mvp-hero-h1 {
+    font-size: 25px !important;
+  }
+}

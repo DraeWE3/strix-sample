@@ -192,3 +192,90 @@
 }
 
 
+
+
+/* Legacy overrides previously carried in mvp.css; the shared FAQ component still relies on them. */
+.faq-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.faq-item {
+  background: linear-gradient(to right, #131313, #000000);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ffffff1a;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: rgba(255, 255, 255, 0.122) 0px 7px 29px 0px;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 24px 28px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #fff;
+  transition: background-color 0.2s ease;
+  font-family: cd-reg;
+}
+
+.faq-question:hover {
+  background-color: #0000002b;
+}
+
+.faq-icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: #64748b;
+}
+
+.faq-icon.open {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  /* max-height: 0; */
+  padding: 10px;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-answer.open {
+  max-height: 500px;
+  padding: 0 28px 24px 28px;
+}
+
+.faq-answer p {
+  color: #ffffff7a;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .faq-question span {
+    width: 80vw;
+    font-size: 15px;
+  }
+
+  .faq-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
