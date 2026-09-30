@@ -372,7 +372,7 @@
 .services-page-shell .portfolio-card-glow img { position: absolute; left: -47.4%; top: -65.94%; width: auto; height: auto; max-width: none; }
 .services-page-shell .portfolio-card-media { position: absolute; inset: 0; border: var(--card-border) solid #ffffff1a; border-radius: var(--card-radius); box-shadow: 0 4.585px 7.132px #000c; -webkit-mask: var(--card-mask) no-repeat 0 0/var(--card-width) var(--card-height); mask: var(--card-mask) no-repeat 0 0/var(--card-width) var(--card-height); }
 .services-page-shell .portfolio-native-center .portfolio-card-media { box-shadow: 0 6.421px 9.989px #000c; }
-.services-page-shell .portfolio-card-media::after { content: ''; position: absolute; inset: 0; border-radius: var(--card-radius); background: rgba(0,0,0,.5); backdrop-filter: blur(var(--card-blur)); transition: background-color .35s ease; }
+.services-page-shell .portfolio-card-media::after { content: ''; position: absolute; inset: 0; border-radius: var(--card-radius); background: rgba(0,0,0,.5); transition: background-color .35s ease; }
 .services-page-shell .carousel-slide.is-active .portfolio-card-media::after { background: #0000; }
 .services-page-shell .portfolio-project-image { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .services-page-shell .portfolio-project-contain { object-fit: contain; }

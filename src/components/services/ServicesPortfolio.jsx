@@ -38,18 +38,14 @@ const slideState = (slideIndex, activeIndex) => {
   return slideIndex < activeIndex ? "is-before" : "is-after";
 };
 
-const ServicesPortfolio = () => {
+export const PortfolioCarousel = () => {
   const { viewportRef, index, controlIndex, settledIndex, isDragging, step } = useScrollCarousel({
     align: "center",
     startIndex: START_INDEX,
   });
 
   return (
-    <section className="services-portfolio" id="selected-work" aria-labelledby="services-portfolio-title">
-      <div className="portfolio-atmosphere" aria-hidden="true"><div className="portfolio-light"></div><div className="portfolio-dome"></div></div>
-      <h2 id="services-portfolio-title" data-reveal>Our Curated Portfolio</h2>
-      <a className="portfolio-filter" href={WORK_URL}>All Projects</a>
-      <div
+    <div
         className={`portfolio-carousel carousel${isDragging ? " is-dragging" : ""}`}
         aria-roledescription="carousel"
         aria-label="Selected portfolio projects"
@@ -113,6 +109,16 @@ const ServicesPortfolio = () => {
           {`Selected portfolio projects: ${settledIndex + 1} of ${projects.length}`}
         </p>
       </div>
+  );
+};
+
+const ServicesPortfolio = () => {
+  return (
+    <section className="services-portfolio" id="selected-work" aria-labelledby="services-portfolio-title">
+      <div className="portfolio-atmosphere" aria-hidden="true"><div className="portfolio-light"></div><div className="portfolio-dome"></div></div>
+      <h2 id="services-portfolio-title" data-reveal>Our Curated Portfolio</h2>
+      <a className="portfolio-filter" href={WORK_URL}>All Projects</a>
+      <PortfolioCarousel />
       <p className="portfolio-caption" data-reveal>Projects built for brands that move fast and think big.</p>
       <a className="glow-button lower-glow-button portfolio-link" href={WORK_URL} data-reveal>
         <span className="lower-button-art" aria-hidden="true">

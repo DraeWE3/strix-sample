@@ -14,6 +14,7 @@ import Shadow2 from "../assets/img/shared/shadow2.webp";
 import CountUp from "../components/CountUp";
 import Shadow3 from "../assets/img/home/shadow3.webp";
 import VectorB from '../assets/img/home/b-vector.webp'
+import HomeClients from "../components/home/HomeClients";
 import Loop from "../components/Loop";
 import Card from "../assets/img/home/card.webp";
 import Star from "../assets/img/home/star.webp";
@@ -26,7 +27,8 @@ import Bolt from "../assets/img/home/bolt.webp";
 import Bolt2 from "../assets/img/home/bolt2.webp";
 import CircleBlur from "../assets/img/shared/circle-blur.webp";
 import Mvp from "../assets/img/home/mvp.webp";
-import Carousel from "../components/carousel";
+import { PortfolioCarousel } from "../components/services/ServicesPortfolio";
+import "../style/services-page.css";
 import Coin from "../assets/img/home/coin-video.webm";
 import Footer from "../components/Footer";
 import LightMobile from "../assets/img/home/mobile-hero.webp";
@@ -50,7 +52,6 @@ import "../style/home-page.css";
 import ShowreelDialog from "../components/ShowreelDialog";
 import useScrollReveal from "../animations/useScrollReveal";
 import { HomeHeroMedia } from "../components/home/HomeHero";
-import HomeClients from "../components/home/HomeClients";
 import HomeTestimonials from "../components/home/HomeTestimonials";
 import { MvpCases } from "../components/home/HomeMvp";
 
@@ -605,6 +606,9 @@ const Home = () => {
         <NewSection>
           <HomeHeroMedia onShowreel={openShowreel} style={{ marginTop: 0 }} />
           <HomeClients />
+          <div className="smoothsection logo-loop sectionCon" style={{ paddingTop: 0 }}>
+            <Loop />
+          </div>
         </NewSection>
         <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
 
@@ -681,10 +685,6 @@ const Home = () => {
         </div>
 
 
-        {/* =============section 4============== */}
-        <div className="smoothsection logo-loop sectionCon">
-          <Loop />
-        </div>
 
 
 
@@ -932,7 +932,9 @@ const Home = () => {
           <div className="cl relative flex flex-col items-center justify-center">
             <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
 
-            <Carousel />
+            <div className="services-page-shell home-portfolio-carousel">
+              <PortfolioCarousel />
+            </div>
             <div className="cl-btn mt-10">
               <Link to="/cs">
                 <ButtonSmall text="Portfolio" />

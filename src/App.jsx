@@ -42,7 +42,7 @@ import NotFound from "./pages/NotFound";
 const App = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* ✅ Add this BEFORE PageTransition */}
+      <ScrollToTop />
       <PageTransition>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -2051,3 +2051,9 @@ width: 50% !important;
   .gapfix-booking { margin-top: -56px; }
   .gapfix-faq { margin-top: -51px; }
 }
+
+/* Services-style carousel embedded in the home portfolio section */
+.home-portfolio-carousel { position: relative; width: 100%; height: 392px; background: transparent !important; overflow: visible !important; }
+.services-page-shell.home-portfolio-carousel .portfolio-carousel { top: 0; }
+.services-page-shell.home-portfolio-carousel { z-index: 5; }
+.shadow1, .shadow2 { pointer-events: none; }
