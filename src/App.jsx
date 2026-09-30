@@ -8,6 +8,8 @@ import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 import CaseStudy from "./pages/caseStudy";
 // Shared styles for the individual service pages (previously loaded via the old /service page)
 import "./style/services.css";
+// Shared styles for the service pages and case study (previously loaded via the old Projects page)
+import "./style/Project.css";
 import Services from "./pages/Services";
 import Uiux from "./pages/designServices/uiux";
 import Product from "./pages/designServices/product";
@@ -43,7 +45,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <PageTransition>
+      <PageTransition>  
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cs" element={<Cs />} />

@@ -3,17 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../admin/firebaseconfig';
+import { getOptimizedImage } from '../lib/cloudinary';
 import '../style/carousal.css';
-
-/**
- * Optimize Cloudinary URLs for carousel thumbnails.
- * Requests a 640px wide, auto-quality, auto-format version — 
- * typically 5-10× smaller than the original upload.
- */
-const getOptimizedImage = (url) => {
-  if (!url || !url.includes('res.cloudinary.com')) return url;
-  return url.replace('/upload/', '/upload/w_640,q_auto,f_auto/');
-};
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(2);

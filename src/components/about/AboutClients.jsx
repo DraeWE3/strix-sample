@@ -6,13 +6,15 @@ import AxisWordmark from "../../assets/img/about/510e6.png";
 import RunloopLogo from "../../assets/img/about/510c7.svg";
 import WurkzenLogo from "../../assets/img/about/eeca3.svg";
 
-const AboutClients = () => {
+const AboutClients = ({ showPill = true }) => {
   return (
     <section className="about-clients" aria-label="Our clients">
-      <p className="about-client-trust-pill" data-reveal>
-        <img src={TrustPillIcon} width="13" height="13" alt="" />
-        Trusted by growing companies worldwide
-      </p>
+      {showPill && (
+        <p className="about-client-trust-pill" data-reveal>
+          <img src={TrustPillIcon} width="13" height="13" alt="" />
+          Trusted by growing companies worldwide
+        </p>
+      )}
       <div className="about-client-wall-viewport">
         <div
           className="about-client-wall-track"
