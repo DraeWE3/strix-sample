@@ -2041,3 +2041,13 @@ width: 50% !important;
     margin-bottom: 2rem;
   }
 }
+/* Desktop: equalise the visual gap between homepage sections (~144px of content-to-content space) */
+@media (min-width: 1025px) {
+  .gapfix-mvps { margin-top: -121px; }
+  .gapfix-saas { margin-top: 64px; }
+  .gapfix-about { margin-top: -31px; }
+  .gapfix-portfolio { margin-top: -27px; }
+  .gapfix-testimonials { margin-top: 106px; }
+  .gapfix-booking { margin-top: -56px; }
+  .gapfix-faq { margin-top: -51px; }
+}

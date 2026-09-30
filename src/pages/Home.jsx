@@ -29,7 +29,6 @@ import Mvp from "../assets/img/home/mvp.webp";
 import Carousel from "../components/carousel";
 import Coin from "../assets/img/home/coin-video.webm";
 import Footer from "../components/Footer";
-import TestimonialCarousel from "../components/testimonial";
 import LightMobile from "../assets/img/home/mobile-hero.webp";
 import MvpReasearch from '../assets/img/home/mpv-research.png'
 import MvpDev from '../assets/img/home/mvp-dev.png'
@@ -52,14 +51,15 @@ import ShowreelDialog from "../components/ShowreelDialog";
 import useScrollReveal from "../animations/useScrollReveal";
 import { HomeHeroMedia } from "../components/home/HomeHero";
 import HomeClients from "../components/home/HomeClients";
+import HomeTestimonials from "../components/home/HomeTestimonials";
 import { MvpCases } from "../components/home/HomeMvp";
 
 // Hosts the newer sections (scoped under .home-page-shell) inside the classic home page.
-const NewSection = ({ children }) => {
+const NewSection = ({ children, className = "" }) => {
   const ref = useRef(null);
   useScrollReveal(ref, { readyClass: "home-motion-ready", threshold: 0.02, rootMargin: "0px 0px 25px 0px" });
   return (
-    <div className="home-page-shell" ref={ref} style={{ background: "transparent" }}>
+    <div className={`home-page-shell ${className}`.trim()} ref={ref} style={{ background: "transparent" }}>
       {children}
     </div>
   );
@@ -840,14 +840,14 @@ const Home = () => {
 
 
         {/* =============our successful MVPs============== */}
-        <NewSection>
+        <NewSection className="gapfix-mvps">
           <div style={{ display: "flex", justifyContent: "center", paddingBottom: 80 }}>
             <MvpCases />
           </div>
         </NewSection>
 
         {/* =============section 6.5============== */}
-        <div className="smoothsection sectionCon services saas-growth-section">
+        <div className="gapfix-saas smoothsection sectionCon services saas-growth-section">
           <SmoothTextReveal as="h2" className="section-header delay3">
             SaaS That Starts Strong and Keeps Growing
           </SmoothTextReveal>
@@ -871,7 +871,7 @@ const Home = () => {
 
 
         {/* =============section 7============== */}
-        <section className="smoothsection sectionCon services service-pro relative">
+        <section className="gapfix-about smoothsection sectionCon services service-pro relative">
           <SmoothTextReveal as="h2" className="bold-head delay3">Strix Production</SmoothTextReveal>
 
           <div className="coin-con flex justify-center items-center">
@@ -907,7 +907,7 @@ const Home = () => {
 
 
         {/* =============section 8============== */}
-        <div className="smoothsection zle circcon portfolio relative">
+        <div className="gapfix-portfolio smoothsection zle circcon portfolio relative">
           <img
             src={Shadow1}
             alt=""
@@ -945,21 +945,14 @@ const Home = () => {
 
 
         {/* =============section 10============== */}
-        <div className="sectionCon testimonial-con">
-          <SmoothTextReveal as="h2" className="section-header2 delay2">
-            What our clients say
-          </SmoothTextReveal>
-          <SmoothTextReveal as="p" className="text-pp delay3" delay={0.2}>
-            Real stories from the brands and people we've helped grow, design,
-            and stand out
-          </SmoothTextReveal>
-          <TestimonialCarousel />
-        </div>
+        <NewSection className="gapfix-testimonials">
+          <HomeTestimonials />
+        </NewSection>
 
 
 
         {/* =============section 10============== */}
-        <div className="zle booking delay3">
+        <div className="gapfix-booking zle booking delay3">
           <BlurTextReveal >
             Turn Your Idea Into a <br /> Market-Ready MVP That Lasts
           </BlurTextReveal>
@@ -996,7 +989,7 @@ const Home = () => {
         </div>
 
         {/* =============section 11 FAQ ============== */}
-        <div className="smoothsection sectionCon faq-section">
+        <div className="gapfix-faq smoothsection sectionCon faq-section">
           <FAQ
             faqData={faqData}
             title="Frequently Asked Questions"
