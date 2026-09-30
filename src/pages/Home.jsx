@@ -609,7 +609,7 @@ const Home = () => {
         <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
 
         {/* =============section 3============== */}
-        <div className="smoothsection motion sectionCon">
+        <div className="smoothsection motion sectionCon" style={{ marginTop: "clamp(72px, 9vw, 140px)" }}>
           <img src={Shadow3} alt="" className="shadow3" />
           <img src={VectorB} alt="" className="Vector1" />
 
