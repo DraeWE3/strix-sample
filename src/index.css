@@ -16,6 +16,17 @@ body {
 
 
 
+/* Global text selection */
+::selection {
+  background: #aaa;
+  color: #000;
+}
+
+::-moz-selection {
+  background: #aaa;
+  color: #000;
+}
+
 /* --- Font faces --- */
 @font-face {
   font-family: "syne-extrabold";
