@@ -12,6 +12,7 @@ import TopRatedIcon from "../../assets/img/home/05559.png";
 import MvpsIcon from "../../assets/img/home/ba708.png";
 import FundsIcon from "../../assets/img/home/eaf84.png";
 import YearsIcon from "../../assets/img/home/488f4.png";
+import { SHOWREEL_ID } from "../showreel";
 import SuccessIcon from "../../assets/img/shared/9eacb.png";
 
 const badges = [
@@ -22,7 +23,6 @@ const badges = [
   { icon: SuccessIcon, label: "100% Job Success", key: "success" },
 ];
 
-const SHOWREEL_ID = "c4YAW8qOEXQ";
 
 const HomeHeroMedia = ({ style }) => {
   const [playing, setPlaying] = useState(false);

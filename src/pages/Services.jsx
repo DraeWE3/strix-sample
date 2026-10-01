@@ -13,18 +13,19 @@ import ServicesGallery from "../components/services/ServicesGallery";
 import ServicesWhy from "../components/services/ServicesWhy";
 import ServicesPortfolio from "../components/services/ServicesPortfolio";
 import ServicesContact from "../components/services/ServicesContact";
-import ShowreelDialog from "../components/ShowreelDialog";
 import serviceGalleries from "../components/services/serviceGalleries";
 
 const REVEAL_OPTIONS = { readyClass: "services-motion-ready", threshold: 0.05, rootMargin: "0px 0px -16px 0px" };
 
 const Services = () => {
   const shellRef = useRef(null);
-  const [showreelTrigger, setShowreelTrigger] = useState(null);
+  const [playing, setPlaying] = useState(false);
   useScrollReveal(shellRef, REVEAL_OPTIONS);
 
-  const openShowreel = useCallback((event) => setShowreelTrigger(event.currentTarget), []);
-  const closeShowreel = useCallback(() => setShowreelTrigger(null), []);
+  const openShowreel = useCallback(() => {
+    setPlaying(true);
+    shellRef.current?.querySelector(".hero-media")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   return (
     <div>
@@ -36,7 +37,7 @@ const Services = () => {
       <Nav />
       <div className="services-page-shell" ref={shellRef}>
         <ServicesBackdrops />
-        <ServicesHero onShowreel={openShowreel} />
+        <ServicesHero playing={playing} onShowreel={openShowreel} />
         <ServicesStats />
         <ServicesIntro />
         {serviceGalleries.map((gallery) => (
@@ -45,7 +46,6 @@ const Services = () => {
         <ServicesWhy />
         <ServicesPortfolio />
         <ServicesContact />
-        <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
       </div>
       <Footer />
     </div>

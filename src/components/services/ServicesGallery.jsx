@@ -110,7 +110,7 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
               <span className="service-action-button__glow" aria-hidden="true"><img src={ActionGlow} alt="" /></span>
               <span className="service-action-button__label">View Work</span>
             </a>
-            <button className="service-action-button" type="button" aria-haspopup="dialog" onClick={onShowreel}>
+            <button className="service-action-button" type="button" onClick={onShowreel}>
               <img className="service-action-button__rim" src={ActionRim} alt="" width="213.75" height="65.25" />
               <span className="service-action-button__glow" aria-hidden="true"><img src={ActionGlow} alt="" /></span>
               <span className="service-action-button__label">
