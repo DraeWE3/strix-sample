@@ -73,10 +73,10 @@
 
 .mid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* ✅ 3 equal columns */
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-items: center; /* centers each item inside its cell */
-  width: 30%; /* keeps the overall container fixed at 30% */
+  width: 40%;
   font-family: ep-med;
   font-size: 14px;
   gap: 1rem; /* optional: space between items */

@@ -78,6 +78,7 @@ const Nav = () => {
 
         <div className="mid">
           <div><Link className="nav-link link-button" to="/" onPointerEnter={closeServices}>Home</Link></div>
+          <div><Link className="nav-link link-button" to="/about" onPointerEnter={closeServices}>About</Link></div>
           <div>
             <Link
               ref={servicesLinkRef}
