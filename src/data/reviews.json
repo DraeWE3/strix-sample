@@ -1,0 +1,82 @@
+{
+  "upworkProfiles": {
+    "agency": "https://www.upwork.com/agencies/1799430219619033088/",
+    "freelancer": "https://www.upwork.com/freelancers/~0156ff518eb002dd0a"
+  },
+  "reviews": [
+    {
+      "source": "upwork",
+      "profile": "agency",
+      "category": "3D Artist/Animator for Animation",
+      "rating": 5,
+      "date": "6 June 2026",
+      "quote": "Great experience working with Ashmin and the team. They delivered high-quality 3D Blender models, rigs, and animations that fully met our project requirements. When asked for a technical breakdown, they provided a very detailed and professional explanation of their node logic and rigging workflow. Talented and polite artists. Highly recommended for 3D and Blender tasks!"
+    },
+    {
+      "source": "direct",
+      "name": "Sameer",
+      "role": "CEO, Zenith Wellness",
+      "portrait": "sameer",
+      "quote": "From brand design to web development and video production, they excel at everything. It’s rare to find a single agency that delivers such high quality across the board. They are our go-to creative partner."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "SaaS Expert Needed for Project Development",
+      "rating": 5,
+      "date": "7 February 2026",
+      "client": "Arpit C.",
+      "quote": "Great experience working with Raj, project was delivered flawlessly."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "UI/UX Designer Needed for SaaS Interface Concept",
+      "rating": 5,
+      "date": "7 February 2026",
+      "quote": "Raj is an exceptional SaaS product expert."
+    },
+    {
+      "source": "direct",
+      "name": "Anjali",
+      "role": "Project Lead, FinSecure Logistics",
+      "portrait": "anjali",
+      "quote": "We had a highly complex web portal project. Their development team delivered a robust, secure, and elegant solution that has drastically improved our efficiency. True technical experts."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "MVP Idea Validation Expert Needed",
+      "rating": 5,
+      "date": "29 January 2026",
+      "client": "Mansi U.",
+      "quote": "Rajnandan understood our MVP idea quickly and shared clear, practical suggestions to improve it. Communication was smooth and so great experience working with him."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "Visual Storyboard Artist",
+      "rating": 5,
+      "date": "26 January 2026",
+      "client": "Arpit C.",
+      "quote": "Excellent Skills ,understood the project needs perfectly."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "React Website Bug Fixing Expert Needed",
+      "rating": 5,
+      "date": "2 January 2026",
+      "client": "Mansi U.",
+      "quote": "Super helpful and skilled! He fixed the React bugs on my website efficiently and made sure everything was working perfectly. Great communication and strong technical knowledge. I'm..."
+    },
+    {
+      "source": "upwork",
+      "profile": "freelancer",
+      "category": "UI/UX Website Development using React.js",
+      "rating": 5,
+      "date": "7 July 2025",
+      "quote": "He built my website better than I expected it to be! Amazing work Raj, keep going I'd Absolutely recommend him."
+    }
+  ]
+}

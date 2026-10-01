@@ -4,29 +4,17 @@ import PrevArrow from "../../assets/img/home/d3c18.svg";
 import NextArrow from "../../assets/img/home/899df.svg";
 import SameerPortrait from "../../assets/img/home/6abc5.png";
 import AnjaliPortrait from "../../assets/img/home/b4507.png";
+import reviewData from "../../data/reviews.json";
 
-const UPWORK_PROFILE = "https://www.upwork.com/freelancers/rajnandan";
+const PORTRAITS = { sameer: SameerPortrait, anjali: AnjaliPortrait };
+const reviews = reviewData.reviews.map((review) => ({
+  ...review,
+  upwork: review.source === "upwork",
+  portrait: PORTRAITS[review.portrait],
+  url: review.url || reviewData.upworkProfiles[review.profile],
+}));
 
-const reviews = [
-  {
-    name: "Sameer",
-    role: "CEO, Zenith Wellness",
-    portrait: SameerPortrait,
-    quote: "From brand design to web development and video production, they excel at everything. It’s rare to find a single agency that delivers such high quality across the board. They are our go-to creative partner.",
-  },
-  {
-    upwork: true,
-    quote: "We hired Strix Production for few Web-Design projects and it was great working with them. The team's commitment to timely delivery and high quality makes him stand different from others. Everyone in the team is a thorough gentleman and professional to work with!",
-  },
-  {
-    name: "Anjali",
-    role: "Project Lead, FinSecure Logistics",
-    portrait: AnjaliPortrait,
-    quote: "We had a highly complex web portal project. Their development team delivered a robust, secure, and elegant solution that has drastically improved our efficiency. True technical experts.",
-  },
-];
-
-const START_INDEX = 1;
+const START_INDEX = Math.min(2, reviews.length - 1);
 const reviewLabel = (review) => (review.upwork ? "Upwork client review" : review.name);
 
 const slideState = (slideIndex, activeIndex) => {
@@ -54,15 +42,15 @@ const HomeTestimonials = () => {
               >
                 <div className={`hl-review-visual ${review.upwork ? "hl-review-upwork" : "hl-review-person"}`}>
                   <div className="hl-review-topline">
-                    <p className="hl-review-category">{review.upwork ? "Web design" : "Client perspective"}</p>
+                    <p className="hl-review-category">{review.upwork ? review.category || "Upwork review" : "Client perspective"}</p>
                     {review.upwork && (
                       <div className="hl-review-rating">
-                        <div className="hl-review-stars" aria-label="5 out of 5 stars">
-                          {[0, 1, 2, 3, 4].map((star) => (
+                        <div className="hl-review-stars" aria-label={`${review.rating ?? 5} out of 5 stars`}>
+                          {Array.from({ length: Math.round(review.rating ?? 5) }, (_, star) => star).map((star) => (
                             <span key={star} className="hl-review-star" aria-hidden="true"><span><img src={StarIcon} alt="" draggable="false" /></span></span>
                           ))}
                         </div>
-                        <span className="hl-review-rating-value" aria-hidden="true">5.0 / 5</span>
+                        <span className="hl-review-rating-value" aria-hidden="true">{(review.rating ?? 5).toFixed(1)} / 5</span>
                       </div>
                     )}
                   </div>
@@ -70,8 +58,8 @@ const HomeTestimonials = () => {
                   <div className="hl-review-footer">
                     {review.upwork ? (
                       <>
-                        <div className="hl-review-attribution"><p>Upwork client</p><span>7 February 2026</span></div>
-                        <a href={UPWORK_PROFILE} className="hl-review-source" target="_blank" rel="noopener noreferrer">
+                        <div className="hl-review-attribution"><p>{review.client || "Upwork client"}</p><span>{review.date}</span></div>
+                        <a href={review.url} className="hl-review-source" target="_blank" rel="noopener noreferrer">
                           Read on Upwork <span aria-hidden="true">↗</span>
                         </a>
                       </>
