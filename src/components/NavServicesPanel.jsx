@@ -58,7 +58,7 @@ const serviceGroups = [
 const solutions = [
   { title: "MVP SPRINT", audience: "For startups & SaaS", description: "Design, build & launch your product in 4 weeks.", action: "Build your MVP", href: "/mvp", icon: "mvp" },
   { title: "PRODUCT REDESIGN", audience: "For existing companies", description: "Redesign your UX, improve conversion, ship faster.", action: "Start a redesign", href: "/contact", icon: "redesign" },
-  { title: "PRODUCTION PACK", audience: "For brands", description: "High-impact video, 3D & motion content that converts.", action: "See production work", href: "/Project", icon: "production" },
+  { title: "PRODUCTION PACK", audience: "For brands", description: "High-impact video, 3D & motion content that converts.", action: "See production work", href: "/works", icon: "production" },
 ];
 
 const SolutionIcon = ({ type }) => (

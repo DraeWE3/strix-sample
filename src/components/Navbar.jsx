@@ -94,7 +94,7 @@ const Nav = () => {
               Services
             </Link>
           </div>
-          <div><Link className="nav-link link-button" to="/Project" onPointerEnter={closeServices}>Projects</Link></div>
+          <div><Link className="nav-link link-button" to="/works" onPointerEnter={closeServices}>Projects</Link></div>
         </div>
 
         <button className="hamburger" onClick={openModal} onPointerEnter={closeServices}>

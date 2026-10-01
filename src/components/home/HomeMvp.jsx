@@ -30,7 +30,7 @@ const CaseGlow = () => (
 
 const CaseVisual = ({ image, alt, category, name }) => (
   <div className="hm-case-visual">
-    <Link to="/Project" className="hm-case-preview" aria-label={`Explore ${name} and other case studies`}>
+    <Link to="/works" className="hm-case-preview" aria-label={`Explore ${name} and other case studies`}>
       <img className="hm-case-image" src={image} alt={alt} loading="lazy" />
       <span className="hm-case-action"><span>View Case Study</span><img src={CaseActionArrow} alt="" aria-hidden="true" /></span>
     </Link>
@@ -78,7 +78,7 @@ const MvpCases = () => (
         <CaseVisual name="Ryvon AI" image={RyvonPreview} alt="Ryvon AI document chat and workflow automation interface" category="AI SaaS Platform" />
       </div>
     </article>
-    <MiddleButton href="/Project" skin={{ rim: CasesRim, mask: CasesMask, glow: CasesGlow }}>Explore Cases</MiddleButton>
+    <MiddleButton href="/works" skin={{ rim: CasesRim, mask: CasesMask, glow: CasesGlow }}>Explore Cases</MiddleButton>
   </div>
 );
 

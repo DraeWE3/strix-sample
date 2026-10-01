@@ -553,7 +553,7 @@ const Home = () => {
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
 
               <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
-              <Link to='/Project'><Button text="Explore Work" /></Link>
+              <Link to='/works'><Button text="Explore Work" /></Link>
 
             </motion.div>
 
@@ -588,7 +588,7 @@ const Home = () => {
 
           <div className="button-p flex gap-4 mt-6">
             <Link to="/contact"><ButtonArrow text="Get Started" /></Link>
-            <Link to="/Project"><Button text="Explore Work" /></Link>
+            <Link to="/works"><Button text="Explore Work" /></Link>
           </div>
           <img
             src={Shadow1}
@@ -678,7 +678,7 @@ const Home = () => {
             Trusted by brands that demand Excellence - we deliver creative-tech
             solutions that don't just look good, they perform where it matters
           </SmoothTextReveal>
-          <Link to="/project">
+          <Link to="/works">
             <Button text="Explore Cases" />
           </Link>
 
@@ -936,7 +936,7 @@ const Home = () => {
               <PortfolioCarousel />
             </div>
             <div className="cl-btn mt-10">
-              <Link to="/project">
+              <Link to="/works">
                 <ButtonSmall text="Portfolio" />
               </Link>
 

@@ -74,7 +74,7 @@ const HomeHero = () => (
         <HeroButton href="/mvp" primary skin={{ rim: BuildRim, mask: BuildMask, glow: BuildGlow }} arrow={ButtonArrow}>
           Build MVP
         </HeroButton>
-        <HeroButton href="/Project" skin={{ rim: ExploreRim, mask: ExploreMask, glow: ExploreGlow }}>
+        <HeroButton href="/works" skin={{ rim: ExploreRim, mask: ExploreMask, glow: ExploreGlow }}>
           Explore Work
         </HeroButton>
       </div>

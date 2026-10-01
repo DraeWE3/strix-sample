@@ -58,7 +58,7 @@ const PortfolioCarousel = ({ items, startIndex }) => {
                 aria-roledescription="slide"
                 aria-label={`${itemIndex + 1} of ${items.length}: ${project.title}`}
               >
-                <Link to="/Project" className="hl-portfolio-visual" aria-label={`Explore ${project.title}`} draggable="false">
+                <Link to="/works" className="hl-portfolio-visual" aria-label={`Explore ${project.title}`} draggable="false">
                   <span className={`hl-portfolio-native${project.center ? " hl-portfolio-native-center" : ""}`} style={{ "--hl-card-mask": `url("${project.mask}")` }}>
                     <span className="hl-portfolio-glow" aria-hidden="true"><img src={project.glow} alt="" draggable="false" /></span>
                     <span className="hl-portfolio-media">
@@ -105,11 +105,11 @@ const HomePortfolio = () => {
         <div className="hl-portfolio-carousel">
           <div className="hl-portfolio-empty" role="status">
             <p>Explore our full portfolio for {category.toLowerCase()} projects.</p>
-            <Link to="/Project">View all projects ↗</Link>
+            <Link to="/works">View all projects ↗</Link>
           </div>
         </div>
       )}
-      <GlassButton href="/Project" className="hl-portfolio-link" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }} icon={ButtonArrow}>
+      <GlassButton href="/works" className="hl-portfolio-link" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }} icon={ButtonArrow}>
         Portfolio
       </GlassButton>
     </section>

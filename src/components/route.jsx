@@ -8,7 +8,7 @@ const Url = () => {
       <Link to='/mvp'>MVP</Link>
       <Link to='/services'>Services</Link>
       <Link to="/about">About</Link>
-      <Link to="/Project">Project</Link>
+      <Link to="/works">Project</Link>
       <Link to="/caseStudy">CaseStudy</Link>
       <Link to="/uiux">Uiux</Link>
       <Link to="/admin">Admin</Link>

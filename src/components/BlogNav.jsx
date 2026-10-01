@@ -147,7 +147,7 @@ const BlogNav = ({ searchTerm, setSearchTerm, selectedCategory, setSelectedCateg
 
         <div className="blog-cat">
           <h3>Explore More</h3>
-          <Link className='blog-link' to='/about'>About Us</Link> <span> | </span> <Link to='/Project' className='blog-link'>Case Study</Link>
+          <Link className='blog-link' to='/about'>About Us</Link> <span> | </span> <Link to='/works' className='blog-link'>Case Study</Link>
         </div>
       </div>
     </div>

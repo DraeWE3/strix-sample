@@ -41,7 +41,7 @@ const HomeResults = () => (
       <p style={{ backgroundImage: `url("${CopyTexture}")` }}>
         Trusted by brands that demand Excellence - we deliver creative-tech solutions that don’t just look good, they perform where it matters
       </p>
-      <HeroButton href="/Project" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }}>Explore Cases</HeroButton>
+      <HeroButton href="/works" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }}>Explore Cases</HeroButton>
     </div>
   </section>
 );

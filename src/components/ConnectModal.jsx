@@ -112,7 +112,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
               <div className="modal-links">
                 {[
                   { text: "Build MVP", path: "/mvp" },
-                  { text: "Our work", path: "/Project" },
+                  { text: "Our work", path: "/works" },
                   { text: "Who we are", path: "/about" },
                   { text: "Blog", path: "/blog" },
                 ].map(({ text, path }, i) => (
@@ -150,7 +150,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
                 { text: "Home", path: "/" },
                 { text: "About", path: "/about" },
                 { text: "Services", path: "/services" },
-                { text: "Projects", path: "/Project" },
+                { text: "Projects", path: "/works" },
                 { text: "Blogs", path: "/blog" },
               ].map(({ text, path }, i) => (
                 <motion.div key={i} custom={i} variants={itemVariants}>

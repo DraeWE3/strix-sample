@@ -132,6 +132,7 @@ const ProjectsFeatured = ({ projects, children }) => {
               draggable="false"
             />
           )}
+          {!slide && <div className="featured-image featured-image--skeleton" aria-hidden="true" />}
           <div className="featured-copy">
             <p>{slide?.categoryText}</p>
             <p>{slide && <Link to={slideLink}>{slide.title}</Link>}</p>

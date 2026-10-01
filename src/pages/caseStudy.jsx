@@ -511,7 +511,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
             Project ID: {id}
           </p>
           <button 
-            onClick={() => navigate('/projects')}
+            onClick={() => navigate('/works')}
             style={{
               marginTop: '30px',
               padding: '15px 30px',
@@ -563,7 +563,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
       <div className="case-hero">
         <motion.div 
           className="case-return-btn" 
-          onClick={() => navigate('/project')} 
+          onClick={() => navigate('/works')} 
           style={{ cursor: 'pointer' }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
