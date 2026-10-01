@@ -91,13 +91,13 @@
 .services-page-shell .why-description { width: 1002px; font: 400 25px/48px var(--services-body); letter-spacing: .5px; }
 .services-page-shell .why-card { background: #000; border: 1.336px solid #999; border-radius: 21.371px; height: 236px; overflow: hidden; position: relative; isolation: isolate; }
 .services-page-shell .why-unified { width: 100%; }
-.services-page-shell .why-unified h3 { position: absolute; top: 59.3px; left: 50%; transform: translateX(-50%); width: 1057px; font: 500 51px/50.413px var(--services-body); letter-spacing: 2.55px; background: url('../assets/img/services/cedf5.png') center / cover no-repeat; background-clip: text; color: transparent; }
-.services-page-shell .why-unified>p { position: absolute; top: 160px; left: 50%; transform: translateX(-50%); width: 966px; font: 400 22px/32px var(--services-body); }
+.services-page-shell .why-unified h3 { position: absolute; top: 42px; left: 50%; transform: translateX(-50%); width: 1057px; font: 500 51px/50.413px var(--services-body); letter-spacing: 2.55px; background: url('../assets/img/services/cedf5.png') center / cover no-repeat; background-clip: text; color: transparent; }
+.services-page-shell .why-unified>p { position: absolute; top: 130px; left: 50%; transform: translateX(-50%); width: 966px; font: 400 22px/32px var(--services-body); }
 .services-page-shell .why-glow { max-width: none; position: absolute; left: 83.45px; top: 194.06px; transform: translate(-50%,-50%) rotate(-17.2deg); mix-blend-mode: screen; pointer-events: none; z-index: -1; }
 .services-page-shell .why-unified>.why-glow { left: 282.45px; }
 .services-page-shell .why-verified>.why-glow { left: 191.8px; transform: translate(-50%,-50%) rotate(-162.8deg) scaleY(-1); }
 .services-page-shell .why-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 27px; width: 100%; }
-.services-page-shell .why-badges { position: absolute; top: 45px; left: 48px; display: flex; gap: 28px; align-items: center; }
+.services-page-shell .why-badges { position: absolute; top: 30px; left: 48px; display: flex; gap: 28px; align-items: center; }
 .services-page-shell .upwork-badge { position: relative; width: 118px; height: 106px; display: block; flex: none; }
 .services-page-shell .upwork-badge>img, .services-page-shell .badge-outline { position: absolute; max-width: none; }
 .services-page-shell .badge-outline { inset: -2.95% 4.7% -3.44% 4.6%; }
@@ -116,11 +116,11 @@
 .services-page-shell .job-success>span:last-child { height: 57.75px; display: flex; justify-content: center; align-items: center; }
 .services-page-shell .crown { position: relative; width: 44px; height: 44px; overflow: hidden; display: block; }
 .services-page-shell .crown img { position: absolute; width: 126.79%; height: 131.76%; left: -18.82%; top: -23.53%; max-width: none; }
-.services-page-shell .why-card-caption { position: absolute; top: 175px; left: 50%; transform: translateX(-50%); width: 334px; font: 400 16px/22px var(--services-body); background: linear-gradient(#fff 43.103%,#999); background-clip: text; color: transparent; }
-.services-page-shell .why-fixed h3 { position: absolute; top: 40px; left: 0; width: 100%; font: 600 40px/59.536px var(--services-body); letter-spacing: 2px; background: radial-gradient(ellipse,#fff,#a3a3a3); background-clip: text; color: transparent; }
-.services-page-shell .why-fixed h3>span { display: block; height: 77px; display: flex; align-items: center; justify-content: center; }
-.services-page-shell .why-projects h3 { position: absolute; top: 35px; left: 0; width: 100%; font: 500 44px/67.268px var(--services-display); letter-spacing: 2.2px; }
-.services-page-shell .why-projects .why-card-caption { top: 178px; }
+.services-page-shell .why-card-caption { position: absolute; top: 166px; left: 50%; transform: translateX(-50%); width: 334px; font: 400 16px/22px var(--services-body); background: linear-gradient(#fff 43.103%,#999); background-clip: text; color: transparent; }
+.services-page-shell .why-fixed h3 { position: absolute; top: 52px; left: 0; width: 100%; font: 600 40px/59.536px var(--services-body); letter-spacing: 2px; background: radial-gradient(ellipse,#fff,#a3a3a3); background-clip: text; color: transparent; }
+.services-page-shell .why-fixed h3>span { display: block; height: 64px; display: flex; align-items: center; justify-content: center; }
+.services-page-shell .why-projects h3 { position: absolute; top: 32px; left: 0; width: 100%; font: 500 44px/58px var(--services-display); letter-spacing: 2.2px; }
+.services-page-shell .why-projects .why-card-caption { top: 168px; }
 .services-page-shell .carousel-viewport { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; scroll-behavior: auto; overscroll-behavior-x: contain; touch-action: pan-x pan-y pinch-zoom; scrollbar-width: none; cursor: grab; outline-offset: -4px; -webkit-overflow-scrolling: touch; }
 .services-page-shell .carousel-viewport::-webkit-scrollbar { display: none; }
 .services-page-shell .carousel-viewport:focus-visible { outline: 2px solid #aaa; border-radius: 8px; }

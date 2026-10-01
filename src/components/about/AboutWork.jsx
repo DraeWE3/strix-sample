@@ -10,7 +10,7 @@ const AboutWork = () => {
       <div className="about-project-grid">
         <a
           className="about-project"
-          href="https://strixproduction.agency/work"
+          href="/works"
           target="_blank"
           rel="noopener noreferrer"
           data-reveal
@@ -35,7 +35,7 @@ const AboutWork = () => {
         </a>
         <a
           className="about-project"
-          href="https://strixproduction.agency/work"
+          href="/works"
           target="_blank"
           rel="noopener noreferrer"
           data-reveal
@@ -59,7 +59,7 @@ const AboutWork = () => {
           </p>
         </a>
       </div>
-      <a className="about-projects-link" href="https://strixproduction.agency/work" target="_blank" rel="noopener noreferrer" data-reveal>
+      <a className="about-projects-link" href="/works" target="_blank" rel="noopener noreferrer" data-reveal>
         View selected projects&nbsp; &#8599;
       </a>
     </section>

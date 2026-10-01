@@ -29,7 +29,7 @@ const AboutCapabilities = () => {
           <p className="about-capability-detail">Motion design &middot; 3D &amp; animation &middot; SaaS explainers &middot; Launch films &middot; Video editing</p>
         </div>
       </article>
-      <a className="about-text-link" href="https://strixproduction.agency/services" target="_blank" rel="noopener noreferrer">
+      <a className="about-text-link" href="/services" target="_blank" rel="noopener noreferrer">
         Explore all services &#8599;
       </a>
     </section>

@@ -12,7 +12,7 @@ import ButtonRim from "../../assets/img/shared/3e10a.svg";
 import ButtonGlow from "../../assets/img/shared/51ad2.svg";
 import ButtonArrow from "../../assets/img/shared/e23f5.svg";
 
-const WORK_URL = "https://strixproduction.agency/work";
+const WORK_URL = "/works";
 const DESKTOP_ALT = "Website design presented on a desktop display";
 const LAPTOP_ALT = "Abhiwan website presented on a laptop";
 
