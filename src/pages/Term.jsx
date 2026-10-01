@@ -45,8 +45,8 @@ const Term = () => {
 
       <section className="terms-of-service">
         <div className="terms-header">
-          <p className="date-info">Effective Date: [Insert Effective Date]</p>
-          <p className="date-info">Last Updated: [Insert Last Updated Date]</p>
+          <p className="date-info">Effective Date: 1 January 2026</p>
+          <p className="date-info">Last Updated: 1 June 2026</p>
         </div>
 
         <div className="terms-intro">

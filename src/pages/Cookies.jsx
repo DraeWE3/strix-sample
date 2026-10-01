@@ -40,8 +40,8 @@ const Cookies = () => {
 
              <section className="cookie-policy">
       <div className="policy-header">
-        <p className="effective-date">Effective Date: [Insert Effective Date]</p>
-        <p className="last-updated">Last Updated: [Insert Last Updated Date]</p>
+        <p className="effective-date">Effective Date: 1 January 2026</p>
+        <p className="last-updated">Last Updated: 1 June 2026</p>
       </div>
 
       <div className="policy-intro">
