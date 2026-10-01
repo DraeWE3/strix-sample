@@ -179,7 +179,7 @@
 /* ===================== Service Search Enhancements ===================== */
 
 .search-dropdown-hint {
-    font-family: 'ep-reg', sans-serif;
+    font-family: 'ep-light', sans-serif;
     font-size: 0.75rem;
     color: #00E6A5;
     padding: 0.6rem 1.2rem;
@@ -201,7 +201,7 @@
 }
 
 .search-dropdown-empty span {
-    font-family: 'ep-reg', sans-serif;
+    font-family: 'ep-light', sans-serif;
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
     display: block;

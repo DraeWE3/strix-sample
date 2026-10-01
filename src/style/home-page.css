@@ -6,7 +6,7 @@
 /* Page frame, hero, clients and results */
 
 :where(html,body):has(.home-page-shell) { height:auto; min-height:100%; overflow-x:clip!important; }
-.home-page-shell { --home-heading:'Syne',sans-serif; --home-body:'Epilogue',sans-serif; --home-display:'Clash Display',sans-serif; position:relative; isolation:isolate; overflow:clip; width:100%; background:#000; color:#fff; font-family:var(--home-body); font-size:16px; line-height:1.5; color-scheme:dark; -webkit-font-smoothing:antialiased; }
+.home-page-shell { --home-heading:'Syne',sans-serif; --home-body:ep-light,'Epilogue',sans-serif; --home-display:'Clash Display',sans-serif; position:relative; isolation:isolate; overflow:clip; width:100%; background:#000; color:#fff; font-family:var(--home-body); font-size:16px; line-height:1.5; color-scheme:dark; -webkit-font-smoothing:antialiased; }
 .home-page-shell *, .home-page-shell *::before, .home-page-shell *::after { box-sizing:border-box; }
 .home-page-shell :where(h1,h2,h3,h4,p,ul,ol,dl,dd,figure) { margin:0; padding:0; }
 .home-page-shell :where(h1,h2,h3,h4) { font-family:var(--home-heading); color:inherit; font-weight:600; line-height:1.2; }

@@ -200,8 +200,9 @@ a:hover {
   }
 }
 
-p{
-  font-family: ep-reg;
+p,
+p[class]{
+  font-family: ep-light !important;
 }
 
 * { box-sizing: border-box; }
@@ -216,7 +217,7 @@ html, body, .app{
 }
 
 body {
-  font-family: "Strix", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: ep-light, "Strix", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #000000;

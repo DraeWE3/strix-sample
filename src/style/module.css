@@ -48,7 +48,7 @@
   width: 3.5rem;
 }
 .mcp{
-  font-family: ep-reg;
+  font-family: ep-light;
   font-size: 1.4vw;
   max-width: 60%;
   line-height: 2rem;
@@ -127,7 +127,7 @@
 }
 
 .t-txt p{
-    font-family: ep-reg;
+    font-family: ep-light;
   font-size: 1vw;
   width: 100%;
   text-align: left;

@@ -24,7 +24,7 @@
 }
 
 .faq-subtitle {
-  font-family: ep-reg;
+  font-family: ep-light;
   font-size: 1rem;
   color: #a0aec0;
   margin: 0;
@@ -109,7 +109,7 @@
 .faq-answer {
   padding: 0 1.5rem 1.5rem;
   color: #a0aec0;
-  font-family: ep-reg;
+  font-family: ep-light;
   font-size: 0.95rem;
   line-height: 1.6;
   word-wrap: break-word;
