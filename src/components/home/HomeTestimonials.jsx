@@ -2,20 +2,16 @@ import useScrollCarousel from "../../animations/useScrollCarousel";
 import StarIcon from "../../assets/img/home/9d002.svg";
 import PrevArrow from "../../assets/img/home/d3c18.svg";
 import NextArrow from "../../assets/img/home/899df.svg";
-import SameerPortrait from "../../assets/img/home/6abc5.png";
-import AnjaliPortrait from "../../assets/img/home/b4507.png";
 import reviewData from "../../data/reviews.json";
 
-const PORTRAITS = { sameer: SameerPortrait, anjali: AnjaliPortrait };
 const reviews = reviewData.reviews.map((review) => ({
   ...review,
   upwork: review.source === "upwork",
-  portrait: PORTRAITS[review.portrait],
   url: review.url || reviewData.upworkProfiles[review.profile],
 }));
 
 const START_INDEX = Math.min(2, reviews.length - 1);
-const reviewLabel = (review) => (review.upwork ? "Upwork client review" : review.name);
+const reviewLabel = (review) => ("Upwork client review");
 
 const slideState = (slideIndex, activeIndex) => {
   if (slideIndex === activeIndex) return "is-active";
@@ -58,15 +54,14 @@ const HomeTestimonials = () => {
                   <div className="hl-review-footer">
                     {review.upwork ? (
                       <>
-                        <div className="hl-review-attribution"><p>{review.client || "Upwork client"}</p><span>{review.date}</span></div>
+                        <div className="hl-review-attribution"><p>Upwork client</p><span>{review.date}</span></div>
                         <a href={review.url} className="hl-review-source" target="_blank" rel="noopener noreferrer">
                           Read on Upwork <span aria-hidden="true">↗</span>
                         </a>
                       </>
                     ) : (
                       <div className="hl-review-author">
-                        <img className="hl-review-portrait" src={review.portrait} alt="" loading="lazy" draggable="false" />
-                        <div className="hl-review-attribution"><p>{review.name}</p><span>{review.role}</span></div>
+                        <div className="hl-review-attribution"><p>Upwork client</p></div>
                       </div>
                     )}
                   </div>
@@ -84,7 +79,7 @@ const HomeTestimonials = () => {
               <button
                 key={reviewIndex}
                 type="button"
-                aria-label={`Show ${review.upwork ? "Upwork client review" : `${review.name}’s review`}`}
+                aria-label={"Show Upwork client review"}
                 aria-current={reviewIndex === index ? "true" : undefined}
                 onClick={() => go(reviewIndex)}
               >
