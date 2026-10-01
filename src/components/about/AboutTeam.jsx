@@ -59,9 +59,9 @@ const AboutTeam = () => {
             <p>AI Product Manager</p>
           </div>
           <div className="about-member-links">
-            <button className="about-member-link" type="button" disabled aria-label="Rojaswi on LinkedIn">
+            <a className="about-member-link" href="https://www.linkedin.com/in/rojaswi-bejjavaram" target="_blank" rel="noopener noreferrer" aria-label="Rojaswi on LinkedIn">
               <img src={MemberLinkedin} alt="" />
-            </button>
+            </a>
             <a className="about-member-link" href="mailto:info@strixproduction.com?subject=Message%20for%20Rojaswi" aria-label="Email Strix about working with Rojaswi">
               <img src={MemberEmail} alt="" />
             </a>
@@ -84,9 +84,9 @@ const AboutTeam = () => {
             <p>Production Head</p>
           </div>
           <div className="about-member-links">
-            <button className="about-member-link" type="button" disabled aria-label="Ashmin on LinkedIn">
+            <a className="about-member-link" href="https://www.linkedin.com/in/ashmin-bhandari-4156b1397/" target="_blank" rel="noopener noreferrer" aria-label="Ashmin on LinkedIn">
               <img src={MemberLinkedin} alt="" />
-            </button>
+            </a>
             <a className="about-member-link" href="mailto:info@strixproduction.com?subject=Message%20for%20Ashmin" aria-label="Email Strix about working with Ashmin">
               <img src={MemberEmail} alt="" />
             </a>
