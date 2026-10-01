@@ -45,7 +45,6 @@ import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/home/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
-import ServiceSearch from "../components/ServiceSearch";
 import SEO from "../components/SEO";
 import FAQ from "../components/FAQ";
 import "../style/home-page.css";
@@ -535,24 +534,19 @@ const Home = () => {
             initial="hidden"
             animate="visible"
           >
-            <motion.div className="section-container2" variants={itemVariants}>
-              <ServiceSearch variants={itemVariants} />
-            </motion.div>
-
             <motion.h2 className="power-desk" variants={itemVariants}>
-              Powering Brands with Design & Technology
+              Design, Development, Production - From Start to Ship
             </motion.h2>
             <motion.p className="power-mobile" variants={itemVariants}>
-              Powering Brands with Design & Technology
+              Design, Development, Production - From Start to Ship
             </motion.p>
-
-            <motion.div className="section-container" variants={itemVariants}>
-              <ServiceSearch variants={itemVariants} />
-            </motion.div>
+            <motion.p className="hero-desc" variants={itemVariants}>
+              We work with tech &amp; SaaS companies go from idea to market-ready product – without the chaos of managing five different vendors.
+            </motion.p>
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
 
-              <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
+              <Link to='/mvp'><ButtonArrow text="Build MVP" /></Link>
               <Link to='/works'><Button text="Explore Work" /></Link>
 
             </motion.div>
@@ -575,19 +569,14 @@ const Home = () => {
 
         {/* =============section 2============== */}
         <div className="smoothsection sectionCon explore relative overflow-hidden explore-desk">
-          <div className="section-container2">
-            <ServiceSearch isMotion={false} />
-          </div>
-
-          <h2 className="power-desk section-header">Powering Brands with Design & Technology</h2>
-          <p className="power-mobile">Powering Brands with Design & Technology</p>
-
-          <div className="section-container">
-            <ServiceSearch isMotion={false} />
-          </div>
+          <h2 className="power-desk section-header">Design, Development, Production - From Start to Ship</h2>
+          <p className="power-mobile">Design, Development, Production - From Start to Ship</p>
+          <p className="hero-desc">
+            We work with tech &amp; SaaS companies go from idea to market-ready product – without the chaos of managing five different vendors.
+          </p>
 
           <div className="button-p flex gap-4 mt-6">
-            <Link to="/contact"><ButtonArrow text="Get Started" /></Link>
+            <Link to="/mvp"><ButtonArrow text="Build MVP" /></Link>
             <Link to="/works"><Button text="Explore Work" /></Link>
           </div>
           <img
