@@ -31,12 +31,12 @@ const AboutTeam = () => {
             <p>Founder &amp; Creative Director</p>
           </div>
           <div className="about-member-links">
-            <button className="about-member-link about-exported-link" type="button" disabled aria-label="Rajnandan on LinkedIn">
+            <a className="about-member-link about-exported-link" href="https://www.linkedin.com/in/rajnandan-soni/" target="_blank" rel="noopener noreferrer" aria-label="Rajnandan on LinkedIn">
               <img src={RajLinkedin} alt="" />
-            </button>
-            <button className="about-member-link" type="button" disabled aria-label="Rajnandan on Google">
+            </a>
+            <a className="about-member-link" href="https://share.google/aimode/t4ueuL3GOZlNme5lE" target="_blank" rel="noopener noreferrer" aria-label="Rajnandan on Google">
               <img src={RajGoogle} alt="" />
-            </button>
+            </a>
             <a className="about-member-link about-exported-link" href="mailto:info@strixproduction.com?subject=Message%20for%20Rajnandan" aria-label="Email Strix about working with Rajnandan">
               <img src={RajEmail} alt="" />
             </a>

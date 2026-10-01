@@ -701,7 +701,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
               </p>
             </div>
           </div>
-          <Button text="Book Appointment" />
+          <a href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><Button text="Book Appointment" /></a>
         </motion.div>
       <Footer />
     </div>

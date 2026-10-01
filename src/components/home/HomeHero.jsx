@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { HeroButton } from "./HomeButtons";
 import BuildRim from "../../assets/img/home/917a3.svg";
 import BuildMask from "../../assets/img/about/f4a96.svg";
@@ -6,7 +7,6 @@ import ExploreRim from "../../assets/img/home/3e10a.svg";
 import ExploreMask from "../../assets/img/shared/81e7e.svg";
 import ExploreGlow from "../../assets/img/home/51ad2.svg";
 import ButtonArrow from "../../assets/img/home/e23f5-hero-intro.svg";
-import ShowreelPoster from "../../assets/img/services/40d71.png";
 import PlayIcon from "../../assets/img/home/8e563.svg";
 import TopRatedIcon from "../../assets/img/home/05559.png";
 import MvpsIcon from "../../assets/img/home/ba708.png";
@@ -22,12 +22,28 @@ const badges = [
   { icon: SuccessIcon, label: "100% Job Success", key: "success" },
 ];
 
-const HomeHeroMedia = ({ onShowreel, style }) => (
+const SHOWREEL_ID = "c4YAW8qOEXQ";
+
+const HomeHeroMedia = ({ style }) => {
+  const [playing, setPlaying] = useState(false);
+  return (
   <div className="hh-hero-media" data-reveal style={style}>
-    <button type="button" className="hh-showreel" onClick={onShowreel} aria-label="Play the Strix showreel">
-      <img className="hh-showreel-poster" src={ShowreelPoster} alt="Strix Production selected creative work" fetchPriority="high" />
-      <img className="hh-showreel-play" src={PlayIcon} alt="" />
-    </button>
+    {playing ? (
+      <div className="hh-showreel">
+        <iframe
+          className="hh-showreel-frame"
+          src={`https://www.youtube.com/embed/${SHOWREEL_ID}?autoplay=1&rel=0`}
+          title="Strix showreel"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+        />
+      </div>
+    ) : (
+      <button type="button" className="hh-showreel" onClick={() => setPlaying(true)} aria-label="Play the Strix showreel">
+        <img className="hh-showreel-poster" src={`https://i.ytimg.com/vi/${SHOWREEL_ID}/maxresdefault.jpg`} alt="Strix showreel" fetchPriority="high" />
+        <img className="hh-showreel-play" src={PlayIcon} alt="" />
+      </button>
+    )}
     <p className="hh-media-copy">
       One studio for every layer of your product — brand, code, and production.
       <br className="hh-desktop-break" /> No separate agencies. No coordination chaos.
@@ -41,9 +57,10 @@ const HomeHeroMedia = ({ onShowreel, style }) => (
       ))}
     </ul>
   </div>
-);
+  );
+};
 
-const HomeHero = ({ onShowreel }) => (
+const HomeHero = () => (
   <section className="hh-hero" aria-label="Strix Production — AI product studio">
     <div className="hh-wordmark" aria-hidden="true">STRIX</div>
     <p className="hh-tagline">The AI product studio you need</p>
@@ -62,7 +79,7 @@ const HomeHero = ({ onShowreel }) => (
         </HeroButton>
       </div>
     </div>
-    <HomeHeroMedia onShowreel={onShowreel} />
+    <HomeHeroMedia />
   </section>
 );
 

@@ -13,7 +13,7 @@ const ProjectsCall = () => (
       <h2 id="projects-call-heading">Turn Your Vision Into an&nbsp;Experience That Lasts</h2>
       <p>You have a story worth sharing — we help you tell it in a way that’s impossible to ignore.</p>
     </div>
-    <a className="projects-call-link" href="https://calendly.com/strixmufasa/30min" target="_blank" rel="noopener noreferrer"><span>Book a call</span></a>
+    <a className="projects-call-link" href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><span>Book a call</span></a>
   </section>
 );
 

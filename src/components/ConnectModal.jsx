@@ -191,7 +191,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
               <a href="https://x.com/strixproduction">
                 <span className="ri--twitter-x-line"></span>
               </a>
-              <a href="">
+              <a href="https://www.linkedin.com/company/strix-production/">
                 <span className="akar-icons--linkedin-v1-fill"></span>
               </a>
               <a href="https://clutch.co/profile/strix-production">

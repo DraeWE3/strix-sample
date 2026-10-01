@@ -348,7 +348,7 @@ const WebApp = () => {
             </p>
           </div>
         </div>
-        <Button text="Book Appointment" />        
+        <a href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><Button text="Book Appointment" /></a>
       </div>
        <div className="smoothsection sectionCon faq-section">
           <FAQ 

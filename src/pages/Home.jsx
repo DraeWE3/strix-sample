@@ -553,7 +553,7 @@ const Home = () => {
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
 
               <Link to='/contact'><ButtonArrow text="Get Started" /></Link>
-              <Link to='/cs'><Button text="Explore Work" /></Link>
+              <Link to='/Project'><Button text="Explore Work" /></Link>
 
             </motion.div>
 
@@ -587,8 +587,8 @@ const Home = () => {
           </div>
 
           <div className="button-p flex gap-4 mt-6">
-            <ButtonArrow text="Get Started" />
-            <Button text="Explore Work" />
+            <Link to="/contact"><ButtonArrow text="Get Started" /></Link>
+            <Link to="/Project"><Button text="Explore Work" /></Link>
           </div>
           <img
             src={Shadow1}
@@ -678,7 +678,7 @@ const Home = () => {
             Trusted by brands that demand Excellence - we deliver creative-tech
             solutions that don't just look good, they perform where it matters
           </SmoothTextReveal>
-          <Link to="/cs">
+          <Link to="/project">
             <Button text="Explore Cases" />
           </Link>
 
@@ -689,7 +689,7 @@ const Home = () => {
 
 
         {/* =============section 5============== */}
-        <div className="smoothsection services circcon sectionCon">
+        <div className="smoothsection services circcon sectionCon" style={{ marginTop: 190 }}>
           <SmoothTextReveal as="h2" className="section-header delay3 ">
             We Build Experiences that Breathe
           </SmoothTextReveal>
@@ -756,7 +756,7 @@ const Home = () => {
             end-to-end solutions that define, design, and develop your brand's
             digital presence
           </SmoothTextReveal>
-          <Link to="/cs">
+          <Link to="/services">
             <Button text="Our Services" />
           </Link>
 
@@ -835,7 +835,7 @@ const Home = () => {
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </SmoothTextReveal>
-          <ButtonSmall text="Build MVP" />
+          <Link to="/mvp"><ButtonSmall text="Build MVP" /></Link>
         </div>
 
 
@@ -890,7 +890,7 @@ const Home = () => {
             production, and MVP expertise to help brands and startups scale faster.
           </SmoothTextReveal>
 
-          <BtnNormsall text="About us" />
+          <BtnNormsall text="About us" to="/about" />
 
           <img
             src={Shadow1}
@@ -936,7 +936,7 @@ const Home = () => {
               <PortfolioCarousel />
             </div>
             <div className="cl-btn mt-10">
-              <Link to="/cs">
+              <Link to="/project">
                 <ButtonSmall text="Portfolio" />
               </Link>
 
@@ -985,7 +985,7 @@ const Home = () => {
               </div>
             </Link>
           </div>
-          <a target="_blank" href="https://calendly.com/strixmufasa/30min">
+          <a target="_blank" href="https://calendly.com/strix-ryvon/raj-consultation">
             <Button text="Book Appointment" />
           </a>
         </div>
