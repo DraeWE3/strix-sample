@@ -4,13 +4,13 @@ import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager
 
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB3i7GvHlnib2GCCyR37H5XC7aANbPMVIc",
-  authDomain: "strix-production-402d4.firebaseapp.com",
-  projectId: "strix-production-402d4",
-  storageBucket: "strix-production-402d4.firebasestorage.app",
-  messagingSenderId: "207095143719",
-  appId: "1:207095143719:web:ef9c4d4a3482131da5dd02",
-  measurementId: "G-0MVYMSZCWX"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 

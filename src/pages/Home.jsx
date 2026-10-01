@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../style/home.css";
 import Light from "../assets/img/home/bg.webp";
 import Nav from "../components/Navbar";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

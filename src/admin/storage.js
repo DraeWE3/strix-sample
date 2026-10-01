@@ -12,8 +12,8 @@
  */
 
 // TODO: REPLACE THESE WTH YOUR ACTUAL CLOUDINARY DETAILS
-const CLOUD_NAME = "dga60ut51";
-const UPLOAD_PRESET = "strix-unsigned";
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 /**
  * Compresses an image file before upload if it exceeds a certain size.
