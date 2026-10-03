@@ -265,16 +265,6 @@
 
 /* ================= FAQ ================= */
 
-.about-faq { width: calc(100% - 246px); max-width: 1195px; margin: 150px auto 0; min-height: 1395px; position: relative; z-index: 1; }
-.about-faq > h2 { max-width: 755px; margin: 0 auto; font: 600 60px/72px var(--about-heading); text-align: center; background: linear-gradient(180.21deg, #fff .94%, #999 88.16%); background-clip: text; -webkit-background-clip: text; color: transparent; }
-.about-faq-list { display: grid; gap: 51.034px; margin-top: 81px; }
-.about-faq-list details { padding: 35.845px; border: .919px solid white; border-radius: 22.058px; background: linear-gradient(99.54deg, #000, #141414); box-shadow: 0 0 16.85px #ffffff40; }
-.about-faq-list details:nth-child(even) { background: linear-gradient(-80.392deg, #000, #141414); }
-.about-faq-list summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 18.382px; cursor: pointer; list-style: none; font: 600 32px/38px var(--about-heading); }
-.about-faq-list summary::-webkit-details-marker { display: none; }
-.about-faq-list summary img { flex-shrink: 0; transition: transform .22s ease; }
-.about-faq-list details:not([open]) summary img { transform: rotate(45deg); }
-.about-faq-list details p { padding-right: 42.279px; margin-top: 21px; font: 400 20px/30px var(--about-body); color: #ffffff99; }
 
 /* ================= Closing CTA ================= */
 
@@ -301,7 +291,6 @@
 @media (prefers-reduced-motion: reduce) {
   .about-page-shell * { animation: none !important; transition: none !important; }
   .about-motion-ready [data-reveal] { opacity: 1 !important; translate: none !important; }
-  .about-project-art img, .about-project-title img, .about-review-arrow, .about-faq-list summary img { transition: none; }
   .about-project:hover .about-project-art img, .about-project:hover .about-project-title img, .about-review-card:hover .about-review-arrow { transform: none; }
 }
 
@@ -358,7 +347,6 @@
   .about-review-aggregate { width: auto; }
   .about-review-source { justify-content: space-between; flex-wrap: wrap; }
   .about-review-card blockquote { font-size: 28px; line-height: 36px; }
-  .about-faq { width: calc(100% - 128px); margin-top: 120px; min-height: 0; }
   .about-conversation { margin-top: 150px; }
 }
 @media (max-width: 1023px) {
@@ -376,11 +364,6 @@
   .about-review-project { top: auto; bottom: 80px; }
   .about-review-date { top: auto; bottom: 28px; max-width: calc(100% - 88px); }
   .about-review-arrow { right: 24px; bottom: 16px; }
-  .about-faq { margin-top: 100px; }
-  .about-faq > h2 { font-size: 52px; line-height: 1.15; }
-  .about-faq-list { margin-top: 64px; gap: 30px; }
-  .about-faq-list summary { font-size: 26px; line-height: 34px; }
-  .about-faq-list details p { font-size: 17px; line-height: 28px; }
   .about-conversation h2 { font-size: 80px; line-height: 1.08; letter-spacing: -2.4px; }
   .about-conversation { min-height: 0; }
 }
@@ -402,14 +385,6 @@
   .about-review-card blockquote { font-size: 28px; line-height: 35px; margin-top: 22px; }
   .about-review-project { position: static; margin-top: 24px; }
   .about-review-date { position: static; max-width: 100%; padding-right: 32px; margin-top: 20px; font-size: 13px; }
-  .about-faq { width: calc(100% - 40px); margin-top: 100px; }
-  .about-faq > h2 { font-size: 40px; line-height: 46px; max-width: 360px; }
-  .about-faq-list { margin-top: 44px; gap: 24px; }
-  .about-faq-list details { padding: 23px; border-radius: 20px; }
-  .about-faq-list summary { font-size: 25px; line-height: 31px; gap: 16px; }
-  .about-faq-list summary img { transform: scale(.8); transform-origin: top right; }
-  .about-faq-list details:not([open]) summary img { transform: scale(.8) rotate(45deg); }
-  .about-faq-list details p { font-size: 16px; line-height: 26px; padding-right: 0; margin-top: 20px; }
   .about-conversation { margin-top: 110px; gap: 28px; }
   .about-conversation h2 { font-size: 56px; line-height: 60px; letter-spacing: -1.68px; }
   .about-conversation-description { font-size: 16px; line-height: 26px; }
@@ -420,7 +395,6 @@
   .about-conversation-caption { max-width: 290px; font-size: 13px; line-height: 23px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .about-project-art img, .about-project-title img, .about-review-arrow, .about-faq-list summary img { transition: none; }
   .about-project:hover .about-project-art img, .about-project:hover .about-project-title img, .about-review-card:hover .about-review-arrow { transform: none; }
 }
 

@@ -12,7 +12,7 @@ import MvpBenefits from "../components/mvp/MvpBenefits";
 import MvpProcess from "../components/mvp/MvpProcess";
 import MvpMore from "../components/mvp/MvpMore";
 import MvpConnect from "../components/mvp/MvpConnect";
-import MvpFAQ from "../components/mvp/MvpFAQ";
+import FAQ from "../components/FAQ";
 import MvpCaseDialog from "../components/mvp/MvpCaseDialog";
 import { mvpFaqs } from "../components/mvp/mvpFaqs";
 import { mvpCases } from "../components/mvp/mvpCases";
@@ -48,7 +48,7 @@ const Mvp = () => {
         <MvpProcess />
         <MvpMore onOpen={setActiveCase} />
         <MvpConnect />
-        <MvpFAQ />
+        <FAQ faqData={mvpFaqs} />
         {activeCase && <MvpCaseDialog project={mvpCases[activeCase]} onClose={() => setActiveCase(null)} />}
       </div>
       <Footer />

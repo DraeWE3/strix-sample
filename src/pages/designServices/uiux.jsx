@@ -338,7 +338,6 @@ const Uiux = () => {
           <FAQ 
             faqData={faqData} 
             title="Frequently Asked Questions"
-            subtitle="Everything you need to know"
  />
         </div>
 
