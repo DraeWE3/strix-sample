@@ -1,3 +1,4 @@
+import Button from "./Button";
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
@@ -10,7 +11,6 @@ import Icon4 from "../assets/img/home/dev-icon4.png";
 import Icon5 from "../assets/img/home/dev-icon5.png";
 import Icon6 from "../assets/img/home/dev-icon6.png";
 import Arrow from "../assets/img/home/arr-left.png";
-import ButtonSmall from "./btn-small";
 import Mgrad from "../assets/img/home/dev-grad-mobile.webp";
 import { Link } from "react-router-dom";
 
@@ -56,11 +56,11 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
             className="backdrop"
             onClick={onClose}
             variants={backdropVariants}
-          />
+ />
           <motion.div className="modal-content2" variants={modalVariants}>
             <img src={Grad} className="gradient" alt="" />
             <img src={Mgrad} alt="" className="mgradient" />
-            <button className="close-btnmode" onClick={onClose}>
+            <button className="close-btnmode ui-btn-icon-only" onClick={onClose}>
               <img src={Arrow} alt="" />
             </button>
             <h1>Development</h1>
@@ -133,7 +133,7 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
     </Link>
   </div>
 </div>
-            <ButtonSmall text="Portfolio" />
+            <Button text="Portfolio" arrow />
           </motion.div>
         </motion.div>
       )}

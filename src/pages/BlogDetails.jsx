@@ -1,5 +1,6 @@
+import Button from '../components/Button'
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
@@ -170,11 +171,7 @@ const BlogDetails = () => {
       <Nav />
       <div className="blog">
         <div className="blog-top">
-          <Link to='/blog'>
-            <button className="back-button">
-              <ArrowLeft size={16} /> Return to Blog
-            </button>
-          </Link>
+          <Button to='/blog'><ArrowLeft size={16} /> Return to Blog</Button>
         </div>
 
         {/* HERO SECTION - UNCHANGED, USES YOUR ORIGINAL STATIC DESIGN */}

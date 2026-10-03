@@ -4,14 +4,12 @@ import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
-import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
 import Blur1 from '../../assets/img/shared/p-blur2.png'
 import Blur2 from '../../assets/img/shared/p-blur1.png'
 import Blur3 from '../../assets/img/shared/Ellipse 7.png'
 import Blur4 from '../../assets/img/shared/Ellipse 8.png'
 import '../../style/uiux.css'
-import { Link } from 'react-router-dom'
 import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
 import Cardcon1 from '../../assets/img/service-pages/development/softdev1.png'
 import Cardcon2 from '../../assets/img/service-pages/development/softdev2.png'
@@ -92,7 +90,7 @@ const SoftwareDev = () => {
           left: "50%",
           transformOrigin: "center center",
         }}
-      />
+ />
     );
   };
 
@@ -102,7 +100,7 @@ const SoftwareDev = () => {
         title="Custom Software Development Services for Startups"
         description="Strix delivers reliable, scalable custom software solutions, from web applications to enterprise platforms, built with modern tech to match your business goals."
         canonical="https://www.strixproduction.com/softwaredev"
-      />
+ />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -113,7 +111,7 @@ const SoftwareDev = () => {
         dotSize={2}
         gap={24}
         activeColor="#ffffff"
-      />
+ />
 
 
 
@@ -121,13 +119,9 @@ const SoftwareDev = () => {
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="returnNext" >
-          <Link to='/services'><button className="back-button">
-            <ArrowLeft size={16} /> Return to Service
-          </button></Link>
+          <Button to='/services'><ArrowLeft size={16} /> Return to Service</Button>
 
-          <Link to='/webdev'><button className="back-button">
-            Next Service <ArrowRight size={16} />
-          </button></Link>
+          <Button to='/webdev'>Next Service <ArrowRight size={16} /></Button>
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
@@ -150,7 +144,7 @@ const SoftwareDev = () => {
                   src={HeroImg}
                   alt="Video thumbnail"
                   className="thumbnail-image"
-                />
+ />
                 <div className="play-button-overlay">
                   <h2 className="sr-watch viewwork2">View work</h2>
 
@@ -193,7 +187,7 @@ const SoftwareDev = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -205,7 +199,7 @@ const SoftwareDev = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
@@ -217,7 +211,7 @@ const SoftwareDev = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
 
@@ -267,7 +261,7 @@ const SoftwareDev = () => {
             </p>
           </div>
         </div>
-        <a href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><Button text="Book Appointment" /></a>
+        <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book Appointment" />
       </div>
 
       <Footer />

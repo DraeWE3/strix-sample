@@ -1,15 +1,8 @@
 import { Link } from "react-router-dom";
-import { MiddleButton } from "./HomeButtons";
+import Button from "../Button";
 import useMobileCarousel from "./useMobileCarousel";
 import PhaseImage from "../../assets/img/home/cd596.png";
 import CopyTexture from "../../assets/img/home/09427.png";
-import BuildRim from "../../assets/img/home/917a3-mvp.svg";
-import BuildMask from "../../assets/img/about/f4a96.svg";
-import BuildGlow from "../../assets/img/home/9b392-mvp.svg";
-import ButtonArrow from "../../assets/img/home/e23f5-mvp.svg";
-import CasesRim from "../../assets/img/home/3e10a-mvp.svg";
-import CasesMask from "../../assets/img/shared/81e7e.svg";
-import CasesGlow from "../../assets/img/home/51ad2-mvp.svg";
 import CaseGlowFirst from "../../assets/img/home/c8da3.svg";
 import CaseGlowLast from "../../assets/img/home/1b34e.svg";
 import CaseActionArrow from "../../assets/img/home/ad547.svg";
@@ -78,7 +71,7 @@ const MvpCases = () => (
         <CaseVisual name="Ryvon AI" image={RyvonPreview} alt="Ryvon AI document chat and workflow automation interface" category="AI SaaS Platform" />
       </div>
     </article>
-    <MiddleButton href="/works" skin={{ rim: CasesRim, mask: CasesMask, glow: CasesGlow }}>Explore Cases</MiddleButton>
+    <Button to="/works">Explore Cases</Button>
   </div>
 );
 
@@ -113,7 +106,7 @@ const HomeMvp = () => {
         <p className="hm-body-copy" data-reveal style={{ backgroundImage: `url("${CopyTexture}")` }}>
           We don’t just design and develop - we help founders validate and launch market-ready MVPs with speed, clarity, and impact.
         </p>
-        <MiddleButton href="/mvp" kind="build" skin={{ rim: BuildRim, mask: BuildMask, glow: BuildGlow }} arrow={ButtonArrow}>Build MVP</MiddleButton>
+        <Button to="/mvp" arrow>Build MVP</Button>
       </div>
       <MvpCases />
     </section>

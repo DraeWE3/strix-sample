@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-import { MiddleButton } from "./HomeButtons";
+import Button from "../Button";
 import useMobileCarousel from "./useMobileCarousel";
 import OrbitMask from "../../assets/img/home/481b8-services.svg";
 import CopyTexture from "../../assets/img/home/09427.png";
-import ButtonRim from "../../assets/img/home/3e10a-services.svg";
-import ButtonMask from "../../assets/img/shared/81e7e.svg";
-import ButtonGlow from "../../assets/img/home/51ad2-services.svg";
 import DesignLight from "../../assets/img/home/96834.svg";
 import DesignLineA from "../../assets/img/home/ffd97.svg";
 import DesignLineB from "../../assets/img/home/71f1a.svg";
@@ -69,7 +66,7 @@ const HomeServices = () => {
           <p className="hm-body-copy" style={{ backgroundImage: `url("${CopyTexture}")` }}>
             From visuals that speak to systems that scale - We deliver end-to-end solutions that define, design, and develop your brand’s digital presence
           </p>
-          <MiddleButton href="/services" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }}>Our Services</MiddleButton>
+          <Button to="/services">Our Services</Button>
         </div>
       </div>
     </section>

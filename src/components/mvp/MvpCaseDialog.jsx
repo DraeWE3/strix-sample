@@ -1,3 +1,4 @@
+import '../../style/button.css'
 import { useEffect, useRef } from "react";
 import { BOOKING_URL } from "./mvpCases";
 
@@ -19,7 +20,7 @@ const MvpCaseDialog = ({ project, onClose }) => {
 
   return (
     <dialog ref={dialogRef} className="mvp-case-dialog" aria-labelledby="case-preview-title" onClose={onClose} onClick={closeOnBackdrop}>
-      <button className="mvp-case-dialog__close" type="button" aria-label="Close project preview" onClick={() => dialogRef.current.close()}>×</button>
+      <button className="mvp-case-dialog__close ui-btn-icon-only" type="button" aria-label="Close project preview" onClick={() => dialogRef.current.close()}>×</button>
       <img className="mvp-case-dialog__image" src={project.image} alt={`${project.title} project artwork`} />
       <div className="mvp-case-dialog__body">
         <p className="mvp-case-dialog__eyebrow">{project.service}</p>

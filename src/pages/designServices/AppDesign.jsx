@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
-import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
 import Blur1 from '../../assets/img/shared/p-blur2.png'
 import Blur2 from '../../assets/img/shared/p-blur1.png'
@@ -11,7 +10,6 @@ import BookTxt from '../../assets/img/shared/Book-txt.png'
 import Blur4 from '../../assets/img/shared/Ellipse 8.png'
 import { Play } from 'lucide-react';
 import '../../style/uiux.css'
-import { Link } from 'react-router-dom'
 import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
 import Cardcon1 from '../../assets/img/service-pages/design/appdesign1.png'
 import Cardcon2 from '../../assets/img/service-pages/design/appdesign2.png'
@@ -92,7 +90,7 @@ const AppDesign = () => {
           left: "50%",
           transformOrigin: "center center",
         }}
-      />
+ />
     );
   };
 
@@ -108,7 +106,7 @@ const AppDesign = () => {
         dotSize={2}
         gap={24}
         activeColor="#ffffff"
-      />
+ />
 
 
 
@@ -116,13 +114,9 @@ const AppDesign = () => {
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="returnNext" >
-          <Link to='/services'><button className="back-button">
-            <ArrowLeft size={16} /> Return to Service
-          </button></Link>
+          <Button to='/services'><ArrowLeft size={16} /> Return to Service</Button>
 
-          <Link to='/product'><button className="back-button">
-            Next Service <ArrowRight size={16} />
-          </button></Link>
+          <Button to='/product'>Next Service <ArrowRight size={16} /></Button>
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
@@ -145,7 +139,7 @@ const AppDesign = () => {
                   src={HeroImg}
                   alt="Video thumbnail"
                   className="thumbnail-image"
-                />
+ />
                 <div className="play-button-overlay">
                   <button
                     onClick={handlePlay}
@@ -195,7 +189,7 @@ const AppDesign = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -207,7 +201,7 @@ const AppDesign = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
@@ -219,7 +213,7 @@ const AppDesign = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
         </div>
       </div>
@@ -238,7 +232,7 @@ const AppDesign = () => {
       </div>
       <div className="uiuxproinfo">
         <p>Projects tailored to your industry or need are available on request.</p>
-        <BtnNormsall className="scrollReveal" text='Know more' />
+        <Button className="scrollReveal" text='Know more' />
       </div>
 
       {/* ==================booking====================== */}

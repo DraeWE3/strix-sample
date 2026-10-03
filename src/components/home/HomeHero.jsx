@@ -1,12 +1,5 @@
 import { useState } from "react";
-import { HeroButton } from "./HomeButtons";
-import BuildRim from "../../assets/img/home/917a3.svg";
-import BuildMask from "../../assets/img/about/f4a96.svg";
-import BuildGlow from "../../assets/img/home/9b392.svg";
-import ExploreRim from "../../assets/img/home/3e10a.svg";
-import ExploreMask from "../../assets/img/shared/81e7e.svg";
-import ExploreGlow from "../../assets/img/home/51ad2.svg";
-import ButtonArrow from "../../assets/img/home/e23f5-hero-intro.svg";
+import Button from "../Button";
 import PlayIcon from "../../assets/img/home/8e563.svg";
 import TopRatedIcon from "../../assets/img/home/05559.png";
 import MvpsIcon from "../../assets/img/home/ba708.png";
@@ -71,12 +64,8 @@ const HomeHero = () => (
         <br className="hh-desktop-break" /> the chaos of managing five different vendors.
       </p>
       <div className="hh-actions">
-        <HeroButton href="/mvp" primary skin={{ rim: BuildRim, mask: BuildMask, glow: BuildGlow }} arrow={ButtonArrow}>
-          Build MVP
-        </HeroButton>
-        <HeroButton href="/works" skin={{ rim: ExploreRim, mask: ExploreMask, glow: ExploreGlow }}>
-          Explore Work
-        </HeroButton>
+        <Button to="/mvp" arrow>Build MVP</Button>
+        <Button to="/works">Explore Work</Button>
       </div>
     </div>
     <HomeHeroMedia />

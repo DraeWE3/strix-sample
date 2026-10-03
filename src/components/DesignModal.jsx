@@ -1,3 +1,4 @@
+import Button from "./Button";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,7 +13,6 @@ import Icon4 from "../assets/img/home/design-icon4.png";
 import Icon5 from "../assets/img/home/design-icon5.png";
 import Icon6 from "../assets/img/home/design-icon6.png";
 import Arrow from "../assets/img/home/arr-left.png";
-import ButtonSmall from "./btn-small";
 import Mgrad from "../assets/img/home/design-grad-mobile.webp";
 
 const backdropVariants = {
@@ -69,7 +69,7 @@ const DesignModal = ({ isOpen, onClose }) => {
               background: "rgba(0, 0, 0, 0.5)",
               zIndex: 9999998,
             }}
-          />
+ />
 
           {/* Modal Content */}
           <motion.div
@@ -84,7 +84,7 @@ const DesignModal = ({ isOpen, onClose }) => {
           >
             <img src={Grad} alt="" className="gradient" />
             <img src={Mgrad} alt="" className="mgradient" />
-            <button className="close-btnmode arr-left" onClick={onClose}>
+            <button className="close-btnmode arr-left ui-btn-icon-only" onClick={onClose}>
               <img src={Arrow} alt="" />
             </button>
 
@@ -160,7 +160,7 @@ const DesignModal = ({ isOpen, onClose }) => {
   </div>
 </div>
 
-            <ButtonSmall text="Portfolio" />
+            <Button text="Portfolio" arrow />
           </motion.div>
         </motion.div>
       )}

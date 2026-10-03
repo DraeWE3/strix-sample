@@ -8,6 +8,7 @@ import Pi5 from '../assets/img/service-pages/common/pi5.webp'
 import Pi6 from '../assets/img/service-pages/common/pi6.webp'
 import Pi7 from '../assets/img/service-pages/common/pi7.webp'
 import '../style/carousal.css';
+import '../style/button.css';
 
 const ProjectCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(2); 
@@ -205,22 +206,24 @@ const ProjectCarousel = () => {
 
       {/* ✅ Navigation */}
       <button
+        className="ui-btn-icon-only"
         onClick={prevSlide}
         disabled={isAnimating}
         style={{
           position: 'absolute', top: '50%', left: buttonOffset, transform: 'translateY(-50%)',
-          display: 'none', background: 'transparent', color: '#fff', cursor: 'pointer', border: 'none', zIndex: 30,
+          display: 'none', color: '#fff', zIndex: 30,
         }}
       >
         <ChevronLeft size={38} />
       </button>
 
       <button
+        className="ui-btn-icon-only"
         onClick={nextSlide}
         disabled={isAnimating}
         style={{
           position: 'absolute', top: '50%', right: buttonOffset, transform: 'translateY(-50%)',
-          display: 'none', background: 'transparent', color: '#fff', cursor: 'pointer', border: 'none', zIndex: 30,
+          display: 'none', color: '#fff', zIndex: 30,
         }}
       >
         <ChevronRight size={38} />

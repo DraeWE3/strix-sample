@@ -1,7 +1,6 @@
+import Button from "../Button";
 import ProjectsFeatured from "./ProjectsFeatured";
 import AboutClients from "../about/AboutClients";
-import ExploreRim from "../../assets/img/projects/29c0e.svg";
-import ExploreLight from "../../assets/img/projects/6c8e0.svg";
 import UpworkLogo from "../../assets/img/projects/1c94a.svg";
 import GoodFirmsLogo from "../../assets/img/projects/f95e5.svg";
 import Divider from "../../assets/img/projects/5c8e0.svg";
@@ -31,11 +30,7 @@ const ProjectsHero = ({ projects }) => (
     <h1 id="page-title">Projects</h1>
     <p className="hero-intro">Real work. Real outcomes. Across design, development, and production.</p>
     <ProjectsFeatured projects={projects}>
-      <button type="button" className="glow-button explore-button" onClick={scrollToCatalog}>
-        <img className="glow-button__rim" src={ExploreRim} alt="" />
-        <span className="glow-button__light" aria-hidden="true"><img src={ExploreLight} alt="" /></span>
-        <span>Explore Projects</span>
-      </button>
+      <Button className="explore-button" onClick={scrollToCatalog}>Explore Projects</Button>
       <div className="proof-row" aria-label="Strix project experience and reviews">
         <a className="review-logo" href="https://www.upwork.com/freelancers/rajnandan" target="_blank" rel="noopener noreferrer" aria-label="Read Strix founder's five-star Upwork reviews">
           <img src={UpworkLogo} alt="Upwork" />

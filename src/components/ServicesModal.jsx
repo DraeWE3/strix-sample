@@ -1,7 +1,8 @@
 // components/ServicesModal.jsx
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "../style/ConnectModal.css"; // reuse same styles
+import "../style/ConnectModal.css";
+import "../style/button.css";
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -49,7 +50,7 @@ const ServicesModal = ({ isOpen, onClose }) => {
 
           {/* Modal content */}
           <motion.div className="modal-content" variants={modalVariants}>
-            <button className="close-btn" onClick={onClose}>X</button>
+            <button className="close-btn ui-btn-icon-only" onClick={onClose}>X</button>
             <h2>Our Services</h2>
             <p>Here’s where you can showcase your services.</p>
           </motion.div>

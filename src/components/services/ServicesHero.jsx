@@ -1,8 +1,6 @@
+import Button from "../Button";
 import { SHOWREEL_ID } from "../showreel";
 import HeroPoster from "../../assets/img/services/40d71.png";
-import ButtonRim from "../../assets/img/shared/3e10a.svg";
-import ButtonGlow from "../../assets/img/shared/51ad2.svg";
-import ButtonArrow from "../../assets/img/shared/e23f5.svg";
 
 const ServicesHero = ({ playing, onShowreel }) => {
   return (
@@ -29,13 +27,7 @@ const ServicesHero = ({ playing, onShowreel }) => {
         <p data-reveal>
           One studio for every layer of your product &mdash; brand, code, and production. No separate agencies. No coordination chaos.
         </p>
-        <a className="glow-button showreel-button" href={`https://www.youtube.com/watch?v=${SHOWREEL_ID}`} target="_blank" rel="noopener noreferrer" data-reveal>
-          <span className="button-art" aria-hidden="true">
-            <img className="button-rim" src={ButtonRim} alt="" />
-            <span className="button-light showreel-light"><img src={ButtonGlow} alt="" /></span>
-          </span>
-          <span className="button-label">Showreel <img className="button-arrow" src={ButtonArrow} alt="" /></span>
-        </a>
+        <Button className="showreel-button" href={`https://www.youtube.com/watch?v=${SHOWREEL_ID}`} target="_blank" rel="noopener noreferrer" data-reveal arrow>Showreel</Button>
       </div>
     </section>
   );

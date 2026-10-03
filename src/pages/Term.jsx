@@ -1,10 +1,10 @@
+import Button from '../components/Button'
 import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
 import SEO from '../components/SEO'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/shared/sr-img.webp'
-import { Link } from 'react-router-dom';
 import RotateCardsScroll from '../animations/RotateCardsScroll'
 import ScrollSlideAnimations from '../animations/slideins'
 import Stagger from '../animations/stagger'
@@ -30,11 +30,7 @@ const Term = () => {
 
 
         <div className="blog-top note-return">
-               <Link to='/home'>
-                 <button className="back-button">
-                   <ArrowLeft size={16} /> Return to Blog
-                 </button>
-               </Link>
+               <Button to='/home'><ArrowLeft size={16} /> Return to Blog</Button>
              </div>
 
 

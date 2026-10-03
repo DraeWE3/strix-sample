@@ -1,3 +1,4 @@
+import Button from "./Button";
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Card from "../assets/img/home/card.webp";
@@ -9,7 +10,6 @@ import Cloud from "../assets/img/home/cloud.webp";
 import Cloud2 from "../assets/img/home/cloud2.webp";
 import Bolt from "../assets/img/home/bolt.webp";
 import Bolt2 from "../assets/img/home/bolt2.webp";
-import CardBtn from "./cardBtn";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -164,7 +164,7 @@ const ServiceCards = ({ onModalOpen }) => {
               <h2>Design</h2>
               <p className="card-content-p">Crafted to Captivate</p>
               <div className="btn-con">
-                <CardBtn onClick={() => onModalOpen("design")} text="Know more" />
+                <Button onClick={() => onModalOpen("design")} text="Know more" />
               </div>
             </div>
             <div className="glow"></div>
@@ -187,7 +187,7 @@ const ServiceCards = ({ onModalOpen }) => {
               <h2>Development</h2>
               <p className="card-content-p">Engineered for Performance</p>
               <div className="btn-con">
-                <CardBtn onClick={() => onModalOpen("dev")} text="Know more" />
+                <Button onClick={() => onModalOpen("dev")} text="Know more" />
               </div>
             </div>
             <div className="glow glow2"></div>
@@ -210,7 +210,7 @@ const ServiceCards = ({ onModalOpen }) => {
               <h2>Production</h2>
               <p className="card-content-p">Elevate your content</p>
               <div className="btn-con">
-                <CardBtn onClick={() => onModalOpen("research")} text="Know more" />
+                <Button onClick={() => onModalOpen("research")} text="Know more" />
               </div>
             </div>
             <div className="glow glow3"></div>
@@ -233,7 +233,7 @@ const ServiceCards = ({ onModalOpen }) => {
             <h2>Design</h2>
             <p className="card-content-p">Crafted to Captivate</p>
             <div className="btn-con">
-              <CardBtn onClick={() => onModalOpen("design")} text="Know more" />
+              <Button onClick={() => onModalOpen("design")} text="Know more" />
             </div>
           </div>
           <div className="glow"></div>
@@ -250,7 +250,7 @@ const ServiceCards = ({ onModalOpen }) => {
             <h2>Development</h2>
             <p className="card-content-p">Engineered for Performance</p>
             <div className="btn-con">
-              <CardBtn onClick={() => onModalOpen("dev")} text="Know more" />
+              <Button onClick={() => onModalOpen("dev")} text="Know more" />
             </div>
           </div>
           <div className="glow glow2"></div>
@@ -267,7 +267,7 @@ const ServiceCards = ({ onModalOpen }) => {
             <h2>Production</h2>
             <p className="card-content-p">Elevate your content</p>
             <div className="btn-con">
-              <CardBtn onClick={() => onModalOpen("research")} text="Know more" />
+              <Button onClick={() => onModalOpen("research")} text="Know more" />
             </div>
           </div>
           <div className="glow glow3"></div>

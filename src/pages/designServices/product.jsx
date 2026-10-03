@@ -3,7 +3,6 @@ import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
-import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
 import Blur1 from '../../assets/img/shared/p-blur2.png'
 import Blur2 from '../../assets/img/shared/p-blur1.png'
@@ -14,7 +13,6 @@ import Kundali from '../../assets/img/service-pages/common/kundali-case-study.we
 import { Play } from 'lucide-react';
 import Circle from '../../assets/img/shared/updown-circle.webp'
 import '../../style/uiux.css'
-import { Link } from 'react-router-dom'
 import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
 import Cardcon1 from '../../assets/img/service-pages/design/ui-card1.png'
 import Cardcon2 from '../../assets/img/service-pages/design/ui-card2.png'
@@ -96,7 +94,7 @@ const Product = () => {
           left: "50%",
           transformOrigin: "center center",
         }}
-      />
+ />
     );
   };
   const faqData = [ 
@@ -159,7 +157,7 @@ const Product = () => {
         title="Custom SaaS Product Development Company | SaaS Product Design Agency"
         description="Custom SaaS product development company and SaaS product design agency delivering innovative, scalable solutions to bring your software ideas to life."
         schema={faqSchema}
-      />
+ />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -170,7 +168,7 @@ const Product = () => {
         dotSize={2}
         gap={24}
         activeColor="#ffffff"
-      />
+ />
 
 
 
@@ -178,13 +176,9 @@ const Product = () => {
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="returnNext" >
-          <Link to='/services'><button className="back-button">
-            <ArrowLeft size={16} /> Return to Service
-          </button></Link>
+          <Button to='/services'><ArrowLeft size={16} /> Return to Service</Button>
 
-          <Link to='/cdesign'><button className="back-button">
-            Next Service <ArrowRight size={16} />
-          </button></Link>
+          <Button to='/cdesign'>Next Service <ArrowRight size={16} /></Button>
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
@@ -207,7 +201,7 @@ const Product = () => {
                   src={HeroImg}
                   alt="Video thumbnail"
                   className="thumbnail-image"
-                />
+ />
                 <div className="play-button-overlay">
                   <h2 className="sr-watch viewwork2">View work</h2>
 
@@ -250,7 +244,7 @@ const Product = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -262,7 +256,7 @@ const Product = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
@@ -274,7 +268,7 @@ const Product = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -286,7 +280,7 @@ const Product = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
 
@@ -323,7 +317,7 @@ const Product = () => {
       </div>
       <div className="uiuxproinfo">
         <p>Projects tailored to your industry or need are available on request.</p>
-        <BtnNormsall className="scrollReveal" text='Know more' />
+        <Button className="scrollReveal" text='Know more' />
       </div>
 
       {/* ==================booking====================== */}
@@ -349,7 +343,7 @@ const Product = () => {
           faqData={faqData}
           title="Frequently Asked Questions"
           subtitle="Everything you need to know"
-        />
+ />
       </div>
       <Footer />
     </div>

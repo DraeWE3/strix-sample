@@ -1,4 +1,4 @@
-import { HeroButton } from "./HomeButtons";
+import Button from "../Button";
 import ResultsVector from "../../assets/img/home/089cd.svg";
 import HorizonBottom from "../../assets/img/home/2670e.svg";
 import HorizonLower from "../../assets/img/home/8e839.svg";
@@ -6,9 +6,6 @@ import HorizonUpper from "../../assets/img/home/886aa.svg";
 import HorizonTop from "../../assets/img/home/c1e75.svg";
 import ResultsLight from "../../assets/img/home/af430.svg";
 import CopyTexture from "../../assets/img/home/cf19f.png";
-import ButtonRim from "../../assets/img/home/3e10a-stats.svg";
-import ButtonMask from "../../assets/img/shared/81e7e.svg";
-import ButtonGlow from "../../assets/img/home/51ad2-stats.svg";
 
 const horizons = [
   ["bottom", HorizonBottom],
@@ -41,7 +38,7 @@ const HomeResults = () => (
       <p style={{ backgroundImage: `url("${CopyTexture}")` }}>
         Trusted by brands that demand Excellence - we deliver creative-tech solutions that don’t just look good, they perform where it matters
       </p>
-      <HeroButton href="/works" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }}>Explore Cases</HeroButton>
+      <Button to="/works">Explore Cases</Button>
     </div>
   </section>
 );

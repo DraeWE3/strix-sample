@@ -33,14 +33,6 @@
 .services-page-shell [id] { scroll-margin-top: 125px; }
 
 
-.services-page-shell .glow-button { height: 65px; position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; border-radius: 70px; background: #000; box-shadow: inset 0 0 0 1.125px #ffffff1a,0 10.125px 15.75px #000c; transition: filter .2s,box-shadow .2s; }
-.services-page-shell .glow-button:hover { filter: brightness(1.2); box-shadow: inset 0 0 0 1.125px #ffffff40,0 0 20px #ffffff0c; }
-.services-page-shell .button-art { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; pointer-events: none; }
-.services-page-shell .button-rim { position: absolute; inset: 0; }
-.services-page-shell .button-light { position: absolute; inset: 0; mask-repeat: no-repeat; mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; }
-.services-page-shell .button-light img { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
-.services-page-shell .button-label { display: flex; gap: 12px; align-items: center; justify-content: center; font: 500 22.5px/28px var(--services-display); background: linear-gradient(90deg,#fff,#999); background-clip: text; -webkit-background-clip: text; color: transparent; text-shadow: 0 2.25px 2.25px #0004; white-space: nowrap; }
-.services-page-shell .button-arrow { transform: rotate(-45deg); flex-shrink: 0; }
 /* Glow offsets are authored for a 1440px frame, so keep that frame centered as the page widens */
 .services-page-shell .page-backdrops { position: absolute; top: 0; bottom: 0; left: 50%; width: min(100%, 1440px); transform: translateX(-50%); pointer-events: none; z-index: -1; }
 .services-page-shell .page-backdrops>img { position: absolute; max-width: none; mix-blend-mode: plus-lighter; }
@@ -66,8 +58,6 @@
 .services-page-shell .hero-poster:hover .poster-play, .services-page-shell .hero-poster:focus-visible .poster-play { opacity: 1; transform: translate(-50%,-50%); }
 .services-page-shell .hero-poster:hover>img { filter: brightness(.8); }
 .services-page-shell .hero-media>p { width: 892px; font: 400 20px/39px var(--services-body); color: #e6e6e6; }
-.services-page-shell .showreel-button { color: inherit; text-decoration: none; width: 213.75px; height: 65.25px; flex: none; }
-.services-page-shell .showreel-light { mask-image: url('../assets/img/shared/81e7e.svg'); mask-size: 213.75px 65.25px; }
 .services-page-shell .stats { margin-top: 67.75px; padding: 32px 100px 80px; display: flex; flex-direction: column; gap: 50px; }
 .services-page-shell .stats-label { display: flex; align-items: center; justify-content: center; gap: 32px; height: 40px; }
 .services-page-shell .stats-label>img { flex: none; }
@@ -290,14 +280,8 @@
 .services-page-shell .service-carousel__pagination button:hover { background: #b5b5b5; }
 .services-page-shell .service-carousel__pagination button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 .services-page-shell .service-actions { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 19px; }
-.services-page-shell .service-action-button { position: relative; display: grid; place-items: center; flex: 0 0 213.75px; width: 213.75px; height: 65.25px; border: 1.125px solid rgba(255, 255, 255, .1); border-radius: 70px; background: #000; box-shadow: 0 10.125px 15.75px rgba(0, 0, 0, .8); backdrop-filter: blur(5.625px); text-decoration: none; cursor: pointer; isolation: isolate; transition: filter .2s ease; }
-.services-page-shell .service-action-button__rim { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.services-page-shell .service-action-button__glow { position: absolute; inset: 0; z-index: -1; mask: url('../assets/img/shared/81e7e.svg') center / 100% 100% no-repeat; -webkit-mask: url('../assets/img/shared/81e7e.svg') center / 100% 100% no-repeat; border-radius: inherit; overflow: hidden; }
-.services-page-shell .service-action-button__glow > img { position: absolute; width: 120%; height: 89.66%; left: -10%; top: 5.75%; }
-.services-page-shell .service-action-button__label { display: flex; align-items: center; justify-content: center; gap: 12px; font: 500 22.5px/1.2 var(--services-display, "Clash Display", sans-serif); color: transparent; background: linear-gradient(90deg, #fff, #999); -webkit-background-clip: text; background-clip: text; text-shadow: 0 2.25px 2.25px rgba(0, 0, 0, .25); }
-.services-page-shell .service-action-button__arrow { width: 20.482px; height: 16.1336px; transform: rotate(-45deg); }
-.services-page-shell .service-action-button:hover, .services-page-shell .service-card__explore:hover { filter: brightness(1.35); }
-.services-page-shell .service-action-button:focus-visible, .services-page-shell .service-card__explore:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.services-page-shell .service-card__explore:hover { filter: brightness(1.35); }
+.services-page-shell .service-card__explore:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
 .services-page-shell .service-carousel-arrow { position: absolute; top: 227.5px; z-index: 2; display: grid; place-items: center; padding: 0; width: 48px; height: 48px; border: 1px solid #727272; border-radius: 50%; background: rgba(7, 7, 7, .85); backdrop-filter: blur(8px); cursor: pointer; opacity: 0; transition: opacity .2s ease, background-color .2s ease; }
 .services-page-shell .service-carousel-arrow--prev { left: max(24px, calc(var(--service-gutter) - 72px)); }
 .services-page-shell .service-carousel-arrow--next { left: calc(var(--service-gutter) + var(--service-card-width) + 24px); }
@@ -342,13 +326,10 @@
   .services-page-shell .service-carousel__pagination button { width: 10px; height: 10px; }
   .services-page-shell .service-carousel__pagination button::after { inset: -16px -7px; }
   .services-page-shell .service-actions { width: calc(100% - 48px); gap: 14px; margin-top: 26px; }
-  .services-page-shell .service-action-button { flex: 1 1 0; min-width: 0; height: 54px; }
-  .services-page-shell .service-action-button__label { font-size: 18px; gap: 8px; }
-  .services-page-shell .service-action-button__arrow { width: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .services-page-shell .service-carousel__viewport { scroll-behavior: auto; }
-  .services-page-shell .service-action-button, .services-page-shell .service-carousel-arrow, .services-page-shell .service-carousel__pagination button { transition: none; }
+  .services-page-shell .service-carousel-arrow, .services-page-shell .service-carousel__pagination button { transition: none; }
 }
 .services-page-shell .services-portfolio { position: relative; isolation: isolate; height: 942px; width: 100%; }
 .services-page-shell .portfolio-atmosphere { position: absolute; z-index: -1; pointer-events: none; top: 57px; left: 50%; width: 831.75px; height: 885px; transform: translateX(-50%); }
@@ -388,16 +369,7 @@
 .services-page-shell .portfolio-next:hover:not(:disabled) { translate: 3px 0; }
 .services-page-shell .portfolio-prev:disabled, .services-page-shell .portfolio-next:disabled { opacity: .2; cursor: default; }
 .services-page-shell .portfolio-caption { position: absolute; left: 50%; top: 620px; transform: translateX(-50%); width: min(1062px,calc(100% - 40px)); font: 400 25px/48px var(--services-body); letter-spacing: .5px; opacity: .76; text-shadow: 0 4px 4px #0004; text-align: center; }
-.services-page-shell .lower-glow-button { position: relative; display: inline-flex; justify-content: center; align-items: center; flex-shrink: 0; height: 65px; padding: 0; border: 1.125px solid #ffffff1a; border-radius: 70px; background: #000; backdrop-filter: blur(5.625px); box-shadow: 0 10.125px 15.75px #000c; color: #fff; text-decoration: none; cursor: pointer; transition: translate .25s ease,filter .25s ease; }
-.services-page-shell .lower-glow-button:hover { translate: 0 -3px; filter: brightness(1.2); }
-.services-page-shell .lower-button-art { position: absolute; inset: -1.125px; overflow: hidden; border-radius: 70px; pointer-events: none; }
-.services-page-shell .lower-button-rim { position: absolute; inset: 0; max-width: none; }
-.services-page-shell .lower-button-light { position: absolute; left: 0; top: 0; width: 100%; height: 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-.services-page-shell .lower-button-light img { position: absolute; top: 3.2px; left: 50%; transform: translateX(-50%); max-width: none; }
-.services-page-shell .lower-button-label { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; font: 500 22.5px/1.2 var(--services-display); white-space: nowrap; background: linear-gradient(90deg,#fff,#999); background-clip: text; -webkit-background-clip: text; color: transparent; text-shadow: 0 2.25px 2.25px #0004; }
-.services-page-shell .lower-button-arrow { width: 20.482px; height: 16.1336px; max-width: none; transform: rotate(-45deg); }
 .services-page-shell .portfolio-link { position: absolute; top: 715px; left: 50%; width: 213.75px; height: 65.25px; margin-left: -106.875px; }
-.services-page-shell .portfolio-button-light { -webkit-mask-image: url('../assets/img/shared/81e7e.svg'); mask-image: url('../assets/img/shared/81e7e.svg'); }
 .services-page-shell .services-contact { width: 1214px; max-width: calc(100% - 80px); margin: 65px auto 207px; display: flex; flex-direction: column; align-items: center; gap: 100px; }
 .services-page-shell .services-contact h2 { width: 831px; max-width: 100%; height: 193px; display: flex; align-items: center; justify-content: center; font: 600 60px/84px var(--services-heading); text-align: center; letter-spacing: 3px; background: radial-gradient(ellipse at 51% 45%,#fff 0,#d9d8d7 25%,#b3b2b0 50%,#8c8b88 75%,#666460 100%); background-clip: text; -webkit-background-clip: text; color: transparent; text-shadow: 0 4px 4px #0004; }
 .services-page-shell .services-contact-prompt { width: 100%; height: 200px; display: flex; align-items: center; gap: 63px; }
@@ -413,11 +385,6 @@
 .services-page-shell .services-contact-actions { position: relative; width: 528px; max-width: 100%; height: 124px; }
 .services-page-shell .services-contact-actions>p { height: 22px; text-align: center; font: 400 25px/22px var(--services-body); letter-spacing: .5px; }
 .services-page-shell .services-contact-buttons { position: absolute; top: 41px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 22px; }
-.services-page-shell .services-call-button { width: 264px; }
-.services-page-shell .services-call-light { -webkit-mask-image: url('../assets/img/shared/945b0.svg'); mask-image: url('../assets/img/shared/945b0.svg'); }
-.services-page-shell .services-whatsapp-button { width: 222px; }
-.services-page-shell .services-whatsapp-light { -webkit-mask-image: url('../assets/img/shared/c426c.svg'); mask-image: url('../assets/img/shared/c426c.svg'); }
-.services-page-shell .lower-whatsapp-icon { display: block; width: 30px; height: 30px; }
 @media (max-width:1279px) {
   .services-page-shell .services-portfolio h2 { font-size: 64px; letter-spacing: 3px; }
   .services-page-shell .services-contact { max-width: calc(100% - 96px); }
@@ -474,7 +441,7 @@
   .services-page-shell .services-call-button, .services-page-shell .services-whatsapp-button { max-width: 100%; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .services-page-shell .portfolio-visual, .services-page-shell .portfolio-card-media::after, .services-page-shell .lower-glow-button, .services-page-shell .services-project-orb, .services-page-shell .portfolio-prev, .services-page-shell .portfolio-next { transition: none; }
+  .services-page-shell .portfolio-visual, .services-page-shell .portfolio-card-media::after, .services-page-shell .services-project-orb, .services-page-shell .portfolio-prev, .services-page-shell .portfolio-next { transition: none; }
 }
 .services-page-shell .services-portfolio { margin-top: 255px; }
 @media (min-width:1200px) {

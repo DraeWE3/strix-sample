@@ -1,3 +1,4 @@
+import Button from "./Button";
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactDOM from "react-dom";
@@ -10,7 +11,6 @@ import Icon3 from "../assets/img/home/pro-icon3.png";
 import Icon4 from "../assets/img/home/pro-icon4.png";
 import Icon5 from "../assets/img/home/pro-icon5.png";
 import Arrow from "../assets/img/home/arr-left.png";
-import ButtonSmall from "./btn-small";
 import Mgrad from "../assets/img/home/pro-gradient.webp";
 
 const backdropVariants = {
@@ -67,7 +67,7 @@ const ResearchModal = ({ isOpen, onClose }) => {
               background: "rgba(0, 0, 0, 0.5)",
               zIndex: 9999998,
             }}
-          />
+ />
 
           {/* Modal Content */}
           <motion.div
@@ -82,7 +82,7 @@ const ResearchModal = ({ isOpen, onClose }) => {
           >
             <img src={Grad} alt="" className="gradient" />
             <img src={Mgrad} alt="" className="mgradient" />
-            <button className="close-btnmode arr-left" onClick={onClose}>
+            <button className="close-btnmode arr-left ui-btn-icon-only" onClick={onClose}>
               <img src={Arrow} alt="" />
             </button>
 
@@ -156,7 +156,7 @@ const ResearchModal = ({ isOpen, onClose }) => {
               </div>
             </div> */}
 
-            <ButtonSmall text="Portfolio" />
+            <Button text="Portfolio" arrow />
           </motion.div>
         </motion.div>
       )}

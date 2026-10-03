@@ -1,3 +1,4 @@
+import Button from '../components/Button'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Navbar'
@@ -111,9 +112,7 @@ const Blog = () => {
             className="shadow2 bgsha absolute bottom-0 right-0 w-40"
           />
           <div className="blog-top">
-             <Link to='/'><button className="back-button">
-                  <ArrowLeft size={16} /> Return to Homepage
-                </button></Link>
+             <Button to='/'><ArrowLeft size={16} /> Return to Homepage</Button>
           </div>
 
           <h1 className='blog-header slideinLoad'>Our Space to Think and Share</h1>

@@ -1,8 +1,4 @@
-import CallButtonRim from "../../assets/img/shared/6d4be.svg";
-import CallLightGlow from "../../assets/img/shared/677a9.svg";
-import ButtonArrow from "../../assets/img/shared/e23f5.svg";
-import WhatsappButtonRim from "../../assets/img/shared/48aa2.svg";
-import WhatsappLightGlow from "../../assets/img/shared/be393.svg";
+import Button from "../Button";
 import WhatsappIcon from "../../assets/img/shared/75bd3.svg";
 
 const AboutConversation = () => {
@@ -16,34 +12,16 @@ const AboutConversation = () => {
       <div className="about-connect" data-reveal>
         <p>Connect with us</p>
         <div className="about-connect-actions">
-          <a
-            className="glow-button about-call-button"
+          <Button className="about-call-button"
             href="https://calendly.com/strix-ryvon/raj-consultation"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <span className="about-button-art" aria-hidden="true">
-              <img className="about-button-rim" src={CallButtonRim} alt="" />
-              <span className="about-button-light about-call-light"><img src={CallLightGlow} alt="" /></span>
-            </span>
-            <span className="about-button-label">
-              Book a free call <img className="about-button-arrow" src={ButtonArrow} alt="" />
-            </span>
-          </a>
-          <a
-            className="glow-button about-whatsapp"
+           arrow>Book a free call</Button>
+          <Button className="about-whatsapp"
             href="https://wa.me/919958844094"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <span className="about-button-art" aria-hidden="true">
-              <img className="about-button-rim" src={WhatsappButtonRim} alt="" />
-              <span className="about-button-light about-whatsapp-light"><img src={WhatsappLightGlow} alt="" /></span>
-            </span>
-            <span className="about-button-label">
-              Whatsapp <img className="about-whatsapp-icon" src={WhatsappIcon} alt="" />
-            </span>
-          </a>
+           icon={WhatsappIcon}>Whatsapp</Button>
         </div>
       </div>
       <p className="about-conversation-caption" data-reveal>20 minutes &middot; Your goals, timeline and fit &middot; No obligation</p>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollCarousel from "../../animations/useScrollCarousel";
-import { GlassButton } from "./HomeButtons";
+import Button from "../Button";
 import DomeMask from "../../assets/img/home/481b8.svg";
 import DesktopImage from "../../assets/img/services/pi1.jpg";
 import DesktopMask from "../../assets/img/services/5ffcd.svg";
@@ -17,10 +17,6 @@ import WebsiteGlow from "../../assets/img/home/a2c5c.svg";
 import WebsiteRim from "../../assets/img/home/df9e5.svg";
 import PrevArrow from "../../assets/img/home/69e64.svg";
 import NextArrow from "../../assets/img/home/b5b40.svg";
-import ButtonRim from "../../assets/img/home/3e10a-portfolio.svg";
-import ButtonMask from "../../assets/img/shared/81e7e.svg";
-import ButtonGlow from "../../assets/img/home/51ad2-portfolio.svg";
-import ButtonArrow from "../../assets/img/home/e23f5-portfolio.svg";
 
 const projects = {
   desktop: { image: DesktopImage, mask: DesktopMask, glow: DesktopGlow, rim: DesktopRim, title: "Website design presented on a desktop display" },
@@ -109,9 +105,7 @@ const HomePortfolio = () => {
           </div>
         </div>
       )}
-      <GlassButton href="/works" className="hl-portfolio-link" skin={{ rim: ButtonRim, mask: ButtonMask, glow: ButtonGlow }} icon={ButtonArrow}>
-        Portfolio
-      </GlassButton>
+      <Button to="/works" arrow className="hl-portfolio-link">Portfolio</Button>
     </section>
   );
 };

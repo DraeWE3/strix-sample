@@ -4,7 +4,6 @@ import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
-import BtnNormsall from '../../components/normSmall-btn';
 import Footer from '../../components/Footer'
 import Blur1 from '../../assets/img/shared/p-blur2.png'
 import Blur2 from '../../assets/img/shared/p-blur1.png'
@@ -32,7 +31,6 @@ import Stagger from '../../animations/stagger'
 import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom'
 import FAQ from "../../components/FAQ";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -96,7 +94,7 @@ const Uiux = () => {
           left: "50%",
           transformOrigin: "center center",
         }}
-      />
+ />
     );
   };
   const faqData = [
@@ -158,7 +156,7 @@ const Uiux = () => {
         description="Strix crafts intuitive and visually compelling UI/UX designs for web and mobile apps, helping businesses improve usability, user retention, and digital impact."
         canonical="https://www.strixproduction.com/uiux"
         schema={faqSchema}
-      />
+ />
       <Nav />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
@@ -169,18 +167,14 @@ const Uiux = () => {
         dotSize={2}
         gap={24}
         activeColor="#ffffff"
-      />
+ />
 
       {/* =============== service-hero ============ */}
       <div className="service-hero">
         <div className="returnNext" >
-          <Link to='/services'><button className="back-button">
-            <ArrowLeft size={16} /> Return to Service
-          </button></Link>
+          <Button to='/services'><ArrowLeft size={16} /> Return to Service</Button>
 
-          <Link to='/webdesign'><button className="back-button">
-            Next Service <ArrowRight size={16} />
-          </button></Link>
+          <Button to='/webdesign'>Next Service <ArrowRight size={16} /></Button>
         </div>
 
         <div className="sh-top uiux-hero">
@@ -204,7 +198,7 @@ const Uiux = () => {
                   src={HeroImg}
                   alt="Video thumbnail"
                   className="thumbnail-image"
-                />
+ />
                 <div className="play-button-overlay">
                   <button
                     onClick={handlePlay}
@@ -254,7 +248,7 @@ const Uiux = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -266,7 +260,7 @@ const Uiux = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
@@ -278,7 +272,7 @@ const Uiux = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
@@ -290,7 +284,7 @@ const Uiux = () => {
               </div>
             </div>
             <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
-            <BtnNormsall text="Get a quote" to="/contact" />
+            <Button text="Get a quote" to="/contact" />
           </div>
         </div>
       </div>
@@ -338,14 +332,14 @@ const Uiux = () => {
             </p>
           </div>
         </div>
-        <a href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><Button text="Book Appointment" /></a>
+        <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book Appointment" />
       </div>
       <div className="smoothsection sectionCon faq-section">
           <FAQ 
             faqData={faqData} 
             title="Frequently Asked Questions"
             subtitle="Everything you need to know"
-          />
+ />
         </div>
 
       <Footer />

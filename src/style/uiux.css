@@ -353,8 +353,3 @@
     z-index: 6;
 }
 
-.back-button{
-     background: linear-gradient(to bottom, #0000fd, #595959);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}

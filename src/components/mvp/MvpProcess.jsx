@@ -1,10 +1,8 @@
+import Button from "../Button";
 import { useEffect, useRef } from "react";
 import { BOOKING_URL } from "./mvpCases";
 import Illustration from "../../assets/img/mvp/748f0.png";
 import StepIcon from "../../assets/img/mvp/ecd12.svg";
-import CtaRim from "../../assets/img/home/917a3-mvp.svg";
-import CtaGlow from "../../assets/img/home/9b392-mvp.svg";
-import CtaArrow from "../../assets/img/shared/e23f5.svg";
 
 const steps = [
   { key: "discovery", title: "Discovery & Wireframes", body: "We define your core idea, map user journeys, and create wireframes that lock your product vision with direction." },
@@ -84,12 +82,7 @@ const MvpProcess = () => {
           ))}
         </ol>
       </div>
-      <a className="mvp-process__cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-        <img className="mvp-process__cta-border" src={CtaRim} alt="" aria-hidden="true" loading="lazy" />
-        <span className="mvp-process__cta-light" aria-hidden="true"><img src={CtaGlow} alt="" loading="lazy" /></span>
-        <span className="mvp-process__cta-label">Build MVP</span>
-        <span className="mvp-process__cta-arrow" aria-hidden="true"><img src={CtaArrow} alt="" loading="lazy" /></span>
-      </a>
+      <Button className="mvp-process__cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer" arrow>Build MVP</Button>
     </section>
   );
 };

@@ -35,13 +35,9 @@ import LightMobile from "../assets/img/home/mobile-hero.webp";
 import MvpReasearch from '../assets/img/home/mpv-research.png'
 import MvpDev from '../assets/img/home/mvp-dev.png'
 import MvpDesign from '../assets/img/home/mvp-design.png'
-import ButtonArrow from "../components/button-arrow";
-import ButtonSmall from "../components/btn-small";
-import BtnNormsall from "../components/normSmall-btn";
 import DevelopmentModal from "../components/DevelopmentModal";
 import DesignModal from "../components/DesignModal";
 import ResearchModal from "../components/production";
-import CardBtn from "../components/cardBtn";
 import Shadow4 from '../assets/img/home/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
@@ -169,7 +165,7 @@ const CircleBlurAnimation = ({ src, className = "" }) => {
         left: "50%",
         transformOrigin: "center center",
       }}
-    />
+ />
   );
 };
 
@@ -485,7 +481,7 @@ const Home = () => {
         title="End-to-End SaaS Development Company"
         description="End-to-end SaaS development company delivering full-cycle solutions from concept to launch, helping startups and businesses build scalable, high-performance platforms."
         schemas={[organizationSchema, localBusinessSchema, faqSchema]}
-      />
+ />
       <Nav />
 
       {/* <SmoothScroll 
@@ -506,7 +502,7 @@ const Home = () => {
 
           activeColor="#ffffff"
 
-        />
+ />
 
 
         {/* =============hero section============== */}
@@ -546,8 +542,8 @@ const Home = () => {
 
             <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
 
-              <Link to='/mvp'><ButtonArrow text="Build MVP" /></Link>
-              <Link to='/works'><Button text="Explore Work" /></Link>
+              <Button to='/mvp' text="Build MVP" arrow />
+              <Button to='/works' text="Explore Work" />
 
             </motion.div>
 
@@ -556,13 +552,13 @@ const Home = () => {
               alt=""
               className="shadow1 absolute top-10 left-0 w-40"
               variants={fadeInSide("right")}
-            />
+ />
             <motion.img
               src={Shadow2}
               alt=""
               className="shadow2 absolute bottom-0 right-0 w-40"
               variants={fadeInSide("left")}
-            />
+ />
           </motion.div>
         </div>
 
@@ -576,19 +572,19 @@ const Home = () => {
           </p>
 
           <div className="button-p flex gap-4 mt-6">
-            <Link to="/mvp"><ButtonArrow text="Build MVP" /></Link>
-            <Link to="/works"><Button text="Explore Work" /></Link>
+            <Button to="/mvp" text="Build MVP" arrow />
+            <Button to="/works" text="Explore Work" />
           </div>
           <img
             src={Shadow1}
             alt=""
             className="shadow1 absolute top-10 left-0 w-40"
-          />
+ />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 absolute bottom-0 right-0 w-40"
-          />
+ />
         </div>
 
         {/* =============showreel + trusted clients============== */}
@@ -613,16 +609,16 @@ const Home = () => {
             <div className="num1 delay2">
               <div>
                 <CountUp
-                  from={10}
-                  to={20}
+                  from={0}
+                  to={10}
                   separator=","
                   direction="up"
                   duration={2}
                   className="count-up-text"
-                />
+ />
                 <span>+</span>
               </div>
-              <p>Conversions</p>
+              <p>MVPs</p>
             </div>
 
             <div className="num1">
@@ -634,7 +630,7 @@ const Home = () => {
                   direction="up"
                   duration={2}
                   className="count-up-text"
-                />
+ />
                 <span>+</span>
               </div>
               <p>Projects</p>
@@ -649,7 +645,7 @@ const Home = () => {
                   direction="up"
                   duration={2}
                   className="count-up-text"
-                />
+ />
                 <span>%</span>
               </div>
               <p>Client-Retention</p>
@@ -667,9 +663,7 @@ const Home = () => {
             Trusted by brands that demand Excellence - we deliver creative-tech
             solutions that don't just look good, they perform where it matters
           </SmoothTextReveal>
-          <Link to="/works">
-            <Button text="Explore Cases" />
-          </Link>
+          <Button to="/works" text="Explore Cases" />
 
         </div>
 
@@ -696,7 +690,7 @@ const Home = () => {
                   <h2>Design</h2>
                   <p className="card-content-p">Crafted to Captivate</p>
                   <div className="btn-con">
-                    <CardBtn onClick={() => setOpenModal("design")} text="Know more" />
+                    <Button onClick={() => setOpenModal("design")} text="Know more" />
                   </div>
                 </div>
                 <div className="glow"></div>
@@ -712,7 +706,7 @@ const Home = () => {
                   <h2>Development</h2>
                   <p className="card-content-p">Engineered for Performance</p>
                   <div className="btn-con">
-                    <CardBtn onClick={() => setOpenModal("dev")} text="Know more" />
+                    <Button onClick={() => setOpenModal("dev")} text="Know more" />
                   </div>
                 </div>
                 <div className="glow glow2"></div>
@@ -728,7 +722,7 @@ const Home = () => {
                   <h2>Production</h2>
                   <p className="card-content-p">Elevate your content</p>
                   <div className="btn-con">
-                    <CardBtn onClick={() => setOpenModal("research")} text="Know more" />
+                    <Button onClick={() => setOpenModal("research")} text="Know more" />
                   </div>
                 </div>
                 <div className="glow glow3"></div>
@@ -745,9 +739,7 @@ const Home = () => {
             end-to-end solutions that define, design, and develop your brand's
             digital presence
           </SmoothTextReveal>
-          <Link to="/services">
-            <Button text="Our Services" />
-          </Link>
+          <Button to="/services" text="Our Services" />
 
         </div>
 
@@ -761,12 +753,12 @@ const Home = () => {
               src={Shadow1}
               alt=""
               className="shadow1 shdowsmall absolute top-10 left-0 w-40"
-            />
+ />
             <img
               src={Shadow2}
               alt=""
               className="shadow2 mpv-shad shdowsmall absolute bottom-0 right-0 w-40"
-            />
+ />
 
             <div className="mvp-card mvp-card1 ">
               <img className="mvp-img" src={Mvp} alt="" />
@@ -777,9 +769,7 @@ const Home = () => {
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Shape your concept into a roadmap</p>
-                  <Link to="/cs">
-                    <CardBtn text="Know more" />
-                  </Link>
+                  <Button to="/cs" text="Know more" />
 
                 </div>
               </div>
@@ -795,9 +785,7 @@ const Home = () => {
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Create intuitive flows, protoypes & More</p>
 
-                  <Link to="/cs">
-                    <CardBtn text="Know more" />
-                  </Link>
+                  <Button to="/cs" text="Know more" />
                 </div>
               </div>
             </div>
@@ -812,9 +800,7 @@ const Home = () => {
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Full-stack, scalable builds</p>
 
-                  <Link to="/cs">
-                    <CardBtn text="Know more" />
-                  </Link>
+                  <Button to="/cs" text="Know more" />
                 </div>
               </div>
             </div>
@@ -824,7 +810,7 @@ const Home = () => {
             We don't just design and develop - we help founders validate and
             launch market-ready MVPs with speed, clarity, and impact.
           </SmoothTextReveal>
-          <Link to="/mvp"><ButtonSmall text="Build MVP" /></Link>
+          <Button to="/mvp" text="Build MVP" arrow />
         </div>
 
 
@@ -879,18 +865,18 @@ const Home = () => {
             production, and MVP expertise to help brands and startups scale faster.
           </SmoothTextReveal>
 
-          <BtnNormsall text="About us" to="/about" />
+          <Button text="About us" to="/about" />
 
           <img
             src={Shadow1}
             alt=""
             className="shadow1 absolute top-10 left-0 w-40"
-          />
+ />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 absolute bottom-0 right-0 w-40"
-          />
+ />
         </section>
 
 
@@ -901,12 +887,12 @@ const Home = () => {
             src={Shadow1}
             alt=""
             className="shadow1 shadowmed absolute top-10 left-0 w-40"
-          />
+ />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
-          />
+ />
 
           <SmoothTextReveal as="h2" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
 
@@ -925,9 +911,7 @@ const Home = () => {
               <PortfolioCarousel />
             </div>
             <div className="cl-btn mt-10">
-              <Link to="/works">
-                <ButtonSmall text="Portfolio" />
-              </Link>
+              <Button to="/works" text="Portfolio" arrow />
 
             </div>
           </div>
@@ -974,9 +958,7 @@ const Home = () => {
               </div>
             </Link>
           </div>
-          <a target="_blank" href="https://calendly.com/strix-ryvon/raj-consultation">
-            <Button text="Book Appointment" />
-          </a>
+          <Button target="_blank" href="https://calendly.com/strix-ryvon/raj-consultation" text="Book Appointment" />
         </div>
 
         {/* =============section 11 FAQ ============== */}
@@ -985,7 +967,7 @@ const Home = () => {
             faqData={faqData}
             title="Frequently Asked Questions"
             subtitle="Everything you need to know"
-          />
+ />
         </div>
       </div>
 

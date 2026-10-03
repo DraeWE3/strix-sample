@@ -1,3 +1,4 @@
+import '../../style/button.css'
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getOptimizedImage } from "../../lib/cloudinary";
@@ -102,7 +103,7 @@ const ProjectsFeatured = ({ projects, children }) => {
   return (
     <section className="featured-projects" id="featured-projects" aria-label="Featured projects" aria-roledescription="carousel" aria-busy={!count} onKeyDown={onKeyDown}>
       <div className="featured-stage">
-        <button type="button" className="featured-direction featured-direction--prev" aria-label="Previous featured project" disabled={!count} onClick={() => showSlide(current - 1)}><Chevron direction="prev" /></button>
+        <button type="button" className="featured-direction featured-direction--prev ui-btn-icon-only" aria-label="Previous featured project" disabled={!count} onClick={() => showSlide(current - 1)}><Chevron direction="prev" /></button>
         <div
           ref={cardRef}
           className={`featured-card${dragging ? " is-dragging" : ""}`}
@@ -153,7 +154,7 @@ const ProjectsFeatured = ({ projects, children }) => {
           </div>
           <div className="featured-glow" aria-hidden="true"><img src={CardGlow} alt="" /></div>
         </div>
-        <button type="button" className="featured-direction featured-direction--next" aria-label="Next featured project" disabled={!count} onClick={() => showSlide(current + 1)}><Chevron direction="next" /></button>
+        <button type="button" className="featured-direction featured-direction--next ui-btn-icon-only" aria-label="Next featured project" disabled={!count} onClick={() => showSlide(current + 1)}><Chevron direction="next" /></button>
       </div>
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {slide ? `Featured project ${current + 1} of ${count}: ${slide.title}` : ""}

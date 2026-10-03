@@ -1,9 +1,9 @@
+import Button from "./Button";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import "../style/ConnectModal.css";
-import ButtonSmall from "./btn-small";
 import Cicon from "../assets/img/shared/c-icon.webp";
 import Logo from "../assets/img/layout/Header-s.webp";
 import Shadow1 from "../assets/img/shared/shadow1.webp";
@@ -68,7 +68,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
             className="backdrop"
             onClick={onClose}
             variants={backdropVariants}
-          />
+ />
 
           {/* 🖥️ Desktop modal */}
           <motion.div
@@ -82,11 +82,11 @@ const ConnectModal = ({ isOpen, onClose }) => {
               initial={{ scale: 0.999, filter: "blur(10px)" }}
               animate={{ scale: 1, filter: "blur(0px)" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-            />
+ />
 
             <div className="modal-con">
               <button
-                className="close-btn fluent--ios-arrow-24-filled"
+                className="close-btn fluent--ios-arrow-24-filled ui-btn-icon-only"
                 onClick={onClose}
               ></button>
               <div className="nav-left">
@@ -104,7 +104,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
                 <motion.div custom={2} variants={itemVariants}>
                   <Link to="/contact">
                     {" "}
-                    <ButtonSmall text="Let's Talk" />
+                    <Button text="Let's Talk" arrow />
                   </Link>
                 </motion.div>
               </div>
@@ -140,7 +140,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
                 <p>Strix</p>
               </div>
               <button
-                className="close-btn icon-park-outline--left"
+                className="close-btn icon-park-outline--left ui-btn-icon-only"
                 onClick={onClose}
               ></button>
             </div>
@@ -166,9 +166,7 @@ const ConnectModal = ({ isOpen, onClose }) => {
               custom={6}
               variants={itemVariants}
             >
-              <Link to="/contact">
-                <ButtonSmall text="Let's Talk" />
-              </Link>
+              <Button to="/contact" text="Let's Talk" arrow />
             </motion.div>
 
             <motion.div

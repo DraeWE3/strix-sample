@@ -1,13 +1,8 @@
-import { Link } from "react-router-dom";
+import Button from "../Button";
 import EllipseA from "../../assets/img/about/4986b.svg";
 import EllipseB from "../../assets/img/about/aa783.svg";
 import EllipseC from "../../assets/img/about/83134.svg";
 import OrbMonogram from "../../assets/img/about/42f82.svg";
-import MvpButtonRim from "../../assets/img/about/917a3.svg";
-import MvpLightGlow from "../../assets/img/about/9b392.svg";
-import ButtonArrow from "../../assets/img/shared/e23f5.svg";
-import ExploreButtonRim from "../../assets/img/shared/3e10a.svg";
-import ExploreLightGlow from "../../assets/img/shared/51ad2.svg";
 
 const AboutHero = () => {
   return (
@@ -43,22 +38,8 @@ const AboutHero = () => {
           One team to shape your product, build it and bring its story to life.
         </p>
         <div className="about-hero-actions">
-          <Link className="glow-button about-mvp-button" to="/contact">
-            <span className="about-button-art" aria-hidden="true">
-              <img className="about-button-rim" src={MvpButtonRim} alt="" />
-              <span className="about-button-light about-mvp-light"><img src={MvpLightGlow} alt="" /></span>
-            </span>
-            <span className="about-button-label">
-              Build MVP <img className="about-button-arrow" src={ButtonArrow} alt="" />
-            </span>
-          </Link>
-          <a className="glow-button about-explore-button" href="#work">
-            <span className="about-button-art" aria-hidden="true">
-              <img className="about-button-rim" src={ExploreButtonRim} alt="" />
-              <span className="about-button-light about-explore-light"><img src={ExploreLightGlow} alt="" /></span>
-            </span>
-            <span className="about-button-label">Explore Work</span>
-          </a>
+          <Button className="about-mvp-button" to="/contact" arrow>Build MVP</Button>
+          <Button className="about-explore-button" href="#work">Explore Work</Button>
         </div>
       </div>
     </section>

@@ -71,7 +71,7 @@ const HomeTestimonials = () => {
           </div>
         </div>
         <div className="hl-review-controls">
-          <button type="button" className="hl-review-prev" aria-label="Previous testimonial" disabled={controlIndex === 0} onClick={() => step(-1)}>
+          <button type="button" className="hl-review-prev ui-btn-icon-only" aria-label="Previous testimonial" disabled={controlIndex === 0} onClick={() => step(-1)}>
             <span aria-hidden="true"><img src={PrevArrow} alt="" draggable="false" /></span>
           </button>
           <div className="hl-review-dots" role="group" aria-label="Choose a testimonial">
@@ -87,7 +87,7 @@ const HomeTestimonials = () => {
               </button>
             ))}
           </div>
-          <button type="button" className="hl-review-next" aria-label="Next testimonial" disabled={controlIndex === reviews.length - 1} onClick={() => step(1)}>
+          <button type="button" className="hl-review-next ui-btn-icon-only" aria-label="Next testimonial" disabled={controlIndex === reviews.length - 1} onClick={() => step(1)}>
             <span aria-hidden="true"><img src={NextArrow} alt="" draggable="false" /></span>
           </button>
         </div>

@@ -5,6 +5,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../admin/firebaseconfig';
 import { getOptimizedImage } from '../lib/cloudinary';
 import '../style/carousal.css';
+import '../style/button.css';
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
@@ -275,13 +276,10 @@ const Carousel = () => {
       zIndex: 30,
       width: '60px',
       height: '60px',
-      background: 'transparent',
       display: 'none',
       alignItems: 'center',
       justifyContent: 'center',
       color: 'white',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease',
     },
     prevButton: {
       left: buttonOffset,
@@ -396,6 +394,7 @@ const Carousel = () => {
 
         {/* ✅ Responsive Buttons */}
         <button
+          className="ui-btn-icon-only"
           onClick={prevSlide}
           disabled={isAnimating}
           style={{
@@ -408,6 +407,7 @@ const Carousel = () => {
         </button>
 
         <button
+          className="ui-btn-icon-only"
           onClick={nextSlide}
           disabled={isAnimating}
           style={{

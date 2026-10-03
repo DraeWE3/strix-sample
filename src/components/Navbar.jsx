@@ -1,4 +1,5 @@
 import '../style/nav.css'
+import '../style/button.css'
 import Logo from '../assets/img/layout/Header-s.webp'
 import { Link } from "react-router-dom";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -97,7 +98,7 @@ const Nav = () => {
           <div><Link className="nav-link link-button" to="/works" onPointerEnter={closeServices}>Projects</Link></div>
         </div>
 
-        <button className="hamburger" onClick={openModal} onPointerEnter={closeServices}>
+        <button className="hamburger ui-btn-icon-only" onClick={openModal} onPointerEnter={closeServices}>
           <div className="linenav top"></div>
           <div className="linenav bottom"></div>
         </button>

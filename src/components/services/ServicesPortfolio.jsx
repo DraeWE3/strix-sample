@@ -1,3 +1,4 @@
+import Button from "../Button";
 import useScrollCarousel from "../../animations/useScrollCarousel";
 import DesktopProject from "../../assets/img/services/pi1.jpg";
 import LaptopProject from "../../assets/img/services/pi2.png";
@@ -8,9 +9,6 @@ import LaptopRim from "../../assets/img/services/d97d8.svg";
 import CenterGlow from "../../assets/img/services/a2c5c.svg";
 import CenterRim from "../../assets/img/services/df9e5.svg";
 import PortfolioArrow from "../../assets/img/services/69e64.svg";
-import ButtonRim from "../../assets/img/shared/3e10a.svg";
-import ButtonGlow from "../../assets/img/shared/51ad2.svg";
-import ButtonArrow from "../../assets/img/shared/e23f5.svg";
 
 const WORK_URL = "/works";
 const DESKTOP_ALT = "Website design presented on a desktop display";
@@ -120,13 +118,7 @@ const ServicesPortfolio = () => {
       <a className="portfolio-filter" href={WORK_URL}>All Projects</a>
       <PortfolioCarousel />
       <p className="portfolio-caption" data-reveal>Projects built for brands that move fast and think big.</p>
-      <a className="glow-button lower-glow-button portfolio-link" href={WORK_URL} data-reveal>
-        <span className="lower-button-art" aria-hidden="true">
-          <img className="lower-button-rim" src={ButtonRim} alt="" />
-          <span className="lower-button-light portfolio-button-light"><img src={ButtonGlow} alt="" /></span>
-        </span>
-        <span className="lower-button-label">Portfolio <img className="lower-button-arrow" src={ButtonArrow} alt="" /></span>
-      </a>
+      <Button className="portfolio-link" href={WORK_URL} data-reveal arrow>Portfolio</Button>
     </section>
   );
 };

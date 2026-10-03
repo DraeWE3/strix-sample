@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import "../style/showreel-dialog.css";
+import "../style/button.css";
 
 // Placeholder showreel (Big Buck Bunny by Blender). Replace with Strix's YouTube video ID.
 const SHOWREEL_VIDEO_ID = "aqz-KE-bpKQ";
@@ -31,7 +32,7 @@ const ShowreelDialog = ({ trigger, onClose }) => {
     <dialog className="showreel-dialog" ref={dialogRef} aria-labelledby="showreel-title" onClose={onClose} onClick={closeOnBackdrop}>
       <div className="dialog-topline">
         <h2 id="showreel-title">Showreel</h2>
-        <button className="dialog-close" type="button" aria-label="Close showreel" onClick={() => dialogRef.current.close()}>
+        <button className="dialog-close ui-btn-icon-only" type="button" aria-label="Close showreel" onClick={() => dialogRef.current.close()}>
           &times;
         </button>
       </div>

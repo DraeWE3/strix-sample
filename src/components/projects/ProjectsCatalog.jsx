@@ -1,3 +1,4 @@
+import Button from "../Button";
 import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getOptimizedImage } from "../../lib/cloudinary";
@@ -12,8 +13,6 @@ import {
   stateFromSearch,
 } from "./projectFilters";
 import CardArrow from "../../assets/img/projects/6499e.svg";
-import LoadMoreRim from "../../assets/img/projects/7c70a.svg";
-import LoadMoreLight from "../../assets/img/projects/426e3.svg";
 
 const CATEGORY_LABELS = { All: "All work" };
 
@@ -110,16 +109,10 @@ const ProjectsCatalog = ({ projects, loading }) => {
       <div className="catalog-bottom">
         <p>Projects tailored to your industry or need are available on request.</p>
         {remaining > 0 && (
-          <button
-            type="button"
-            className="glow-button load-more"
+          <Button className="load-more"
             aria-label={`Load ${Math.min(PAGE_SIZE, remaining)} more projects`}
             onClick={() => update({ limit: state.limit + PAGE_SIZE })}
-          >
-            <img className="glow-button__rim" src={LoadMoreRim} alt="" />
-            <span className="glow-button__light" aria-hidden="true"><img src={LoadMoreLight} alt="" /></span>
-            <span>Load More</span>
-          </button>
+          >Load More</Button>
         )}
       </div>
     </section>

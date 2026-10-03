@@ -1,10 +1,10 @@
+import Button from "../components/Button";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Nav from "../components/Navbar";
 import Css from "../assets/img/work/cs.webp";
 import "../style/cs.css";
 import Cicon from "../assets/img/shared/c-icon.webp";
-import ButtonArrow from "../components/button-arrow";
 
 const Cs = () => {
   const containerRef = useRef(null);
@@ -91,7 +91,7 @@ const Cs = () => {
       </div>
 
      <div className="btccs">
-       <ButtonArrow text="Let's talk" />
+       <Button text="Let's talk" arrow />
      </div>
     </div>
   );

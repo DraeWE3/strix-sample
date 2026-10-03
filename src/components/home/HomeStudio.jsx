@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { MiddleButton } from "./HomeButtons";
+import Button from "../Button";
 import CoinVideo from "../../assets/img/home/coin-video.webm";
 import CopyTexture from "../../assets/img/home/5ba94.png";
-import AboutRim from "../../assets/img/home/9af34.svg";
-import AboutMask from "../../assets/img/home/9c6c9.svg";
-import AboutGlow from "../../assets/img/home/b8995.svg";
 
 // The logo animation plays only while visible and honours reduced motion.
 const HomeStudio = () => {
@@ -70,7 +67,7 @@ const HomeStudio = () => {
           Strix combines design, development, and production in one team.<br />
           Founded by <strong>Raj</strong> - a builder who believes the best products ships, not just render.
         </p>
-        <MiddleButton href="/about" kind="about" skin={{ rim: AboutRim, mask: AboutMask, glow: AboutGlow }}>About us</MiddleButton>
+        <Button to="/about">About us</Button>
       </div>
     </section>
   );

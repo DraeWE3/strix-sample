@@ -1,60 +1,28 @@
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: 500;
-  color: #fff;
-  transition: all 0.5s ease-in-out;
-  background-image: url('../assets/img/ui/btn-norm.webp');
-  background-position: center;
-  background-size: 100% 100%; /* Stretch image to cover full button */
-  background-repeat: no-repeat;
-   width: fit-content;
-  min-width: max-content;
-  padding-top: 1.1rem;
-  padding-bottom: 2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  font-family: cd-red;
+.ui-btn { position:relative; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; flex-shrink:0; width:fit-content; min-width:213.75px; height:65.25px; padding:0 32px; margin:0; border:1.125px solid #ffffff1a; border-radius:70px; background:#000; box-shadow:0 10.125px 15.75px #000c; backdrop-filter:blur(5.625px); cursor:pointer; text-decoration:none; -webkit-tap-highlight-color:transparent; transition:transform .25s ease,box-shadow .25s ease; }
+.ui-btn-art { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(var(--btn-scale-x,1),var(--btn-scale-y,1)); pointer-events:none; }
+.ui-btn-rim { position:absolute; inset:0; display:block; width:auto; height:auto; max-width:none; }
+.ui-btn-shine { position:absolute; inset:0; overflow:visible; mask-size:100% 100%; mask-repeat:no-repeat; -webkit-mask-size:100% 100%; -webkit-mask-repeat:no-repeat; }
+.ui-btn-shine img { position:absolute; display:block; top:5.747%; left:-10.11%; width:120.22%; height:89.67%; max-width:none; }
+.ui-btn-label { position:relative; display:flex; gap:12px; align-items:center; justify-content:center; background:linear-gradient(90deg,#fff,#999); background-clip:text; -webkit-background-clip:text; color:transparent; font-family:'Clash Display',sans-serif; font-size:22.5px; font-weight:500; line-height:1.2; white-space:nowrap; text-shadow:0 2.25px 2.25px #0004; }
+.ui-btn-arrow { display:block; width:20.48px; height:16.14px; max-width:none; transform:rotate(-45deg); }
+.ui-btn-icon { display:block; max-width:none; }
+@media (hover:hover) {
+  .ui-btn:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 10px 28px #ffffff14; }
 }
-
-.space-btn{
-  width: 100%;
-  height: 100%;
-   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+.ui-btn:active:not(:disabled) { transform:translateY(0); }
+.ui-btn:focus-visible { outline:2px solid #eee; outline-offset:6px; }
+.ui-btn:disabled { cursor:default; opacity:.5; }
+.ui-btn-icon-only { box-sizing:border-box; border:1.125px solid #ffffff1a; border-radius:70px; background-color:#000; box-shadow:0 10.125px 15.75px #000c; cursor:pointer; -webkit-tap-highlight-color:transparent; transition:transform .25s ease,box-shadow .25s ease; }
+@media (hover:hover) {
+  .ui-btn-icon-only:hover:not(:disabled) { transform:translateY(-3px); box-shadow:0 10px 28px #ffffff14; }
 }
-
-.btn:hover {
-  background-image: url('../assets/img/ui/btn-norm2.webp');
+.ui-btn-icon-only:active:not(:disabled) { transform:translateY(0); }
+.ui-btn-icon-only:focus-visible { outline:2px solid #eee; outline-offset:6px; }
+.ui-btn-icon-only:disabled { cursor:default; opacity:.5; }
+@media (max-width:600px) {
+  .ui-btn { min-width:0; height:56px; padding:0 24px; }
+  .ui-btn-label { font-size:17px; gap:8px; }
 }
-
-.bbtn-p {
-  margin: 0;
-  text-align: center;
-  font-size: 1rem;
-   font-family: 'Clash Display', sans-serif;
-   font-weight: 500;
-}
-
-.btn:active{
-  background-image: url('../assets/img/ui/btn-active.webp');
-}
-
-/* 🔹 Mobile responsive */
-@media (max-width: 770px) {
-  .btn {
-     padding-top: 1.2rem;
-  padding-bottom: 1.8rem;
-  padding-left: 1.7rem;
-  padding-right: 1.7rem;
-    background-size: 100% 100%; /* stays adaptive */
-  }
-
-  .bbtn-p {
-    font-size: 13px !important;
-  }
+@media (prefers-reduced-motion:reduce) {
+  .ui-btn,.ui-btn-icon-only { transition:none; }
 }

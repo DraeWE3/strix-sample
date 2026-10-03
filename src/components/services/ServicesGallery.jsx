@@ -1,10 +1,9 @@
+import Button from "../Button";
 import { Link } from "react-router-dom";
 import useScrollCarousel from "../../animations/useScrollCarousel";
+import Arrow from "../../assets/img/shared/e23f5.svg";
 import ExploreRim from "../../assets/img/services/97acd.svg";
 import ExploreGlow from "../../assets/img/services/f3ffd.svg";
-import ActionRim from "../../assets/img/shared/3e10a.svg";
-import ActionGlow from "../../assets/img/shared/51ad2.svg";
-import Arrow from "../../assets/img/shared/e23f5.svg";
 
 const modifierClass = (base, modifier) => (modifier ? `${base} ${base}--${modifier}` : base);
 
@@ -105,19 +104,8 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
             ))}
           </div>
           <div className="service-actions">
-            <a className="service-action-button" href="#selected-work">
-              <img className="service-action-button__rim" src={ActionRim} alt="" width="213.75" height="65.25" />
-              <span className="service-action-button__glow" aria-hidden="true"><img src={ActionGlow} alt="" /></span>
-              <span className="service-action-button__label">View Work</span>
-            </a>
-            <button className="service-action-button" type="button" onClick={onShowreel}>
-              <img className="service-action-button__rim" src={ActionRim} alt="" width="213.75" height="65.25" />
-              <span className="service-action-button__glow" aria-hidden="true"><img src={ActionGlow} alt="" /></span>
-              <span className="service-action-button__label">
-                Showreel
-                <img className="service-action-button__arrow" src={Arrow} alt="" width="20.482" height="16.1336" />
-              </span>
-            </button>
+            <Button href="#selected-work">View Work</Button>
+            <Button onClick={onShowreel} arrow>Showreel</Button>
           </div>
         </div>
         <p className="visually-hidden" aria-live="polite" aria-atomic="true">

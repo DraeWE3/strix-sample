@@ -1,11 +1,7 @@
+import Button from "../Button";
 import { Link } from "react-router-dom";
 import OrbBackground from "../../assets/img/services/4b4d2.svg";
 import OrbArrow from "../../assets/img/services/98325.svg";
-import CallButtonRim from "../../assets/img/shared/6d4be.svg";
-import CallLightGlow from "../../assets/img/shared/677a9.svg";
-import ButtonArrow from "../../assets/img/shared/e23f5.svg";
-import WhatsappButtonRim from "../../assets/img/shared/48aa2.svg";
-import WhatsappLightGlow from "../../assets/img/shared/be393.svg";
 import WhatsappIcon from "../../assets/img/shared/75bd3.svg";
 
 const ServicesContact = () => {
@@ -26,30 +22,16 @@ const ServicesContact = () => {
       <div className="services-contact-actions" data-reveal>
         <p>Connect with us</p>
         <div className="services-contact-buttons">
-          <a
-            className="glow-button lower-glow-button services-call-button"
+          <Button className="services-call-button"
             href="https://calendly.com/strix-ryvon/raj-consultation"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <span className="lower-button-art" aria-hidden="true">
-              <img className="lower-button-rim" src={CallButtonRim} alt="" />
-              <span className="lower-button-light services-call-light"><img src={CallLightGlow} alt="" /></span>
-            </span>
-            <span className="lower-button-label">Book a free call <img className="lower-button-arrow" src={ButtonArrow} alt="" /></span>
-          </a>
-          <a
-            className="glow-button lower-glow-button services-whatsapp-button"
+           arrow>Book a free call</Button>
+          <Button className="services-whatsapp-button"
             href="https://wa.me/919958844094"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <span className="lower-button-art" aria-hidden="true">
-              <img className="lower-button-rim" src={WhatsappButtonRim} alt="" />
-              <span className="lower-button-light services-whatsapp-light"><img src={WhatsappLightGlow} alt="" /></span>
-            </span>
-            <span className="lower-button-label">Whatsapp <img className="lower-whatsapp-icon" src={WhatsappIcon} alt="" /></span>
-          </a>
+           icon={WhatsappIcon}>Whatsapp</Button>
         </div>
       </div>
     </section>

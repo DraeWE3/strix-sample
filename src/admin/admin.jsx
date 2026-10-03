@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, orderBy } from 'firebase/firestore';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, LogOut, Check } from 'lucide-react';
+import Button from '../components/Button';
 import { auth, db } from './firebaseconfig';
 import { uploadImage } from './storage';
 import { setLogLevel } from "firebase/firestore";
@@ -348,7 +349,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin }) => (
           className="login-input"
           required
         />
-        <button type="submit" className="login-button">Login</button>
+        <Button type="submit" className="login-button">Login</Button>
       </form>
     </div>
   </div>
@@ -360,9 +361,9 @@ const Header = ({ user, handleLogout }) => (
       <h1 className="header-title">Admin Panel</h1>
       <div className="header-actions">
         <span className="header-email">{user.email}</span>
-        <button onClick={handleLogout} className="logout-button">
-          <LogOut size={16} /> Logout
-        </button>
+        <Button onClick={handleLogout}>
+          <LogOut size={16} color="#ccc" /> Logout
+        </Button>
       </div>
     </div>
   </header>
@@ -373,26 +374,26 @@ const Tabs = ({ activeTab, setActiveTab, setShowForm, setEditingItem }) => (
     <div className="tabs">
       <button
         onClick={() => { setActiveTab('projects'); setShowForm(false); setEditingItem(null); }}
-        className={`tab ${activeTab === 'projects' ? 'tab-active' : ''}`}
+        className={`tab ${activeTab === 'projects' ? 'tab-active' : ''} ui-btn-icon-only`}
       >
         Project Cards
       </button>
       <button
         onClick={() => { setActiveTab('caseStudies'); setShowForm(false); setEditingItem(null); }}
-        className={`tab ${activeTab === 'caseStudies' ? 'tab-active' : ''}`}
+        className={`tab ${activeTab === 'caseStudies' ? 'tab-active' : ''} ui-btn-icon-only`}
       >
         Case Studies
       </button>
       <button
         onClick={() => { setActiveTab('blogs'); setShowForm(false); setEditingItem(null); }}
-        className={`tab ${activeTab === 'blogs' ? 'tab-active' : ''}`}
+        className={`tab ${activeTab === 'blogs' ? 'tab-active' : ''} ui-btn-icon-only`}
       >
         Blogs
       </button>
     </div>
-    <button onClick={() => { setShowForm(true); setEditingItem(null); }} className="add-new-button">
-      <Plus size={20} /> Add New
-    </button>
+    <Button onClick={() => { setShowForm(true); setEditingItem(null); }} className="add-new-button">
+      <Plus size={20} color="#ccc" /> Add New
+    </Button>
   </div>
 );
 
@@ -476,7 +477,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-header">
         <h2 className="form-title">{editingItem ? 'Edit' : 'Add'} Project Card</h2>
-        <button type="button" onClick={() => setShowForm(false)} className="close-button">
+        <button type="button" onClick={() => setShowForm(false)} className="close-button ui-btn-icon-only">
           <X size={24} />
         </button>
       </div>
@@ -557,7 +558,7 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
                     key={option}
                     type="button"
                     onClick={() => toggleFilter(category, option)}
-                    className={`filter-option ${formData.filters[category].includes(option) ? 'filter-option-active' : ''}`}
+                    className={`filter-option ${formData.filters[category].includes(option) ? 'filter-option-active' : ''} ui-btn-icon-only`}
                   >
                     {option}
                   </button>
@@ -580,9 +581,9 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
         </div>
       </div>
 
-      <button type="submit" disabled={saving} className="submit-button">
-        <Save size={20} /> {saving ? 'Saving...' : 'Save Project'}
-      </button>
+      <Button type="submit" disabled={saving} className="submit-button">
+        <Save size={20} color="#ccc" /> {saving ? 'Saving...' : 'Save Project'}
+      </Button>
     </form>
   );
 };
@@ -820,7 +821,7 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
     <div className="form-container case-study-form">
       <div className="form-header">
         <h2 className="form-title">{editingItem ? 'Edit' : 'Add'} Case Study</h2>
-        <button type="button" onClick={() => setShowForm(false)} className="close-button">
+        <button type="button" onClick={() => setShowForm(false)} className="close-button ui-btn-icon-only">
           <X size={24} />
         </button>
       </div>
@@ -832,32 +833,30 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">1. Basic Information</h3>
             <div className="button-group">
               {!savedSections.basic ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('basic', {
                     projectId: formData.projectId,
                     projectTitle: formData.projectTitle
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.basic && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('basic', {
                     projectId: formData.projectId,
                     projectTitle: formData.projectTitle
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -895,32 +894,30 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">2. Hero Section</h3>
             <div className="button-group">
               {!savedSections.hero ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('hero', {
                     heroVideo: formData.heroVideo,
                     heroThumbnail: formData.heroThumbnail
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.hero && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('hero', {
                     heroVideo: formData.heroVideo,
                     heroThumbnail: formData.heroThumbnail
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -977,30 +974,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">3. Client Details</h3>
             <div className="button-group">
               {!savedSections.client ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('client', {
                     client: formData.client
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.client && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('client', {
                     client: formData.client
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1048,30 +1043,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">4. About Project</h3>
             <div className="button-group">
               {!savedSections.about ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('about', {
                     aboutProject: formData.aboutProject
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.about && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('about', {
                     aboutProject: formData.aboutProject
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1147,30 +1140,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">5. Process Cards</h3>
             <div className="button-group">
               {!savedSections.process ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('process', {
                     processCards: formData.processCards
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.process && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('process', {
                     processCards: formData.processCards
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1231,30 +1222,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">6. Initial Concepts (9 slides)</h3>
             <div className="button-group">
               {!savedSections.concepts ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('concepts', {
                     conceptSlides: formData.conceptSlides
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.concepts && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('concepts', {
                     conceptSlides: formData.conceptSlides
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1283,30 +1272,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">7. Design System</h3>
             <div className="button-group">
               {!savedSections.design ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('design', {
                     designSystemImage: formData.designSystemImage
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.design && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('design', {
                     designSystemImage: formData.designSystemImage
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1321,30 +1308,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">8. Responsive Carousel (8 images)</h3>
             <div className="button-group">
               {!savedSections.responsive ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('responsive', {
                     responsiveImages: formData.responsiveImages
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.responsive && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('responsive', {
                     responsiveImages: formData.responsiveImages
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1373,30 +1358,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">9. Technologies</h3>
             <div className="button-group">
               {!savedSections.tech ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('tech', {
                     technologies: formData.technologies
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.tech && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('tech', {
                     technologies: formData.technologies
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1416,7 +1399,7 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
                         console.log('Button clicked:', category, tech.name);
                         toggleTechnology(category, tech.name);
                       }}
-                      className={`tech-option ${isSelected ? 'tech-option-selected' : ''}`}
+                      className={`tech-option ${isSelected ? 'tech-option-selected' : ''} ui-btn-icon-only`}
                     >
                       <span className="tech-icon">{tech.icon}</span>
                       <span className="tech-name">{tech.name}</span>
@@ -1434,30 +1417,28 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             <h3 className="section-title">10. Results (4 cards)</h3>
             <div className="button-group">
               {!savedSections.results ? (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('results', {
                     results: formData.results
                   })}
-                  className="save-section-button"
                 >
-                  <Save size={16} /> Save Section
-                </button>
+                  <Save size={16} color="#ccc" /> Save Section
+                </Button>
               ) : (
-                <button className="save-section-button saved">
-                  <Check size={16} /> Saved
-                </button>
+                <Button>
+                  <Check size={16} color="#ccc" /> Saved
+                </Button>
               )}
               {savedSections.results && (
-                <button
+                <Button
                   type="button"
                   onClick={() => saveSection('results', {
                     results: formData.results
                   })}
-                  className="update-section-button"
                 >
-                  <Save size={16} /> Update
-                </button>
+                  <Save size={16} color="#ccc" /> Update
+                </Button>
               )}
             </div>
           </div>
@@ -1501,7 +1482,7 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
         </div>
       </div>
 
-      <button
+      <Button
         type="button"
         onClick={() => {
           setShowForm(false);
@@ -1510,8 +1491,8 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
         className="submit-button"
         style={{ marginTop: '20px' }}
       >
-        <Check size={20} /> Done Editing
-      </button>
+        <Check size={20} color="#ccc" /> Done Editing
+      </Button>
     </div>
   );
 };
@@ -1679,7 +1660,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
     <form onSubmit={handleSubmit} className="form-container blog-form">
       <div className="form-header">
         <h2 className="form-title">{editingItem ? 'Edit' : 'Add'} Blog Post</h2>
-        <button type="button" onClick={() => setShowForm(false)} className="close-button">
+        <button type="button" onClick={() => setShowForm(false)} className="close-button ui-btn-icon-only">
           <X size={24} />
         </button>
       </div>
@@ -1779,13 +1760,13 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
                     {block.type === 'keypoints' && '📋 Key Points'}
                   </span>
                   <div className="content-block-actions">
-                    <button type="button" onClick={() => moveContentBlock(block.id, 'up')} disabled={index === 0}>
+                    <button className="ui-btn-icon-only" type="button" onClick={() => moveContentBlock(block.id, 'up')} disabled={index === 0}>
                       ↑
                     </button>
-                    <button type="button" onClick={() => moveContentBlock(block.id, 'down')} disabled={index === formData.content.length - 1}>
+                    <button className="ui-btn-icon-only" type="button" onClick={() => moveContentBlock(block.id, 'down')} disabled={index === formData.content.length - 1}>
                       ↓
                     </button>
-                    <button type="button" onClick={() => deleteContentBlock(block.id)} className="delete-block-btn">
+                    <button type="button" onClick={() => deleteContentBlock(block.id)} className="delete-block-btn ui-btn-icon-only">
                       🗑️
                     </button>
                   </div>
@@ -1834,32 +1815,32 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
                           className="form-input"
                           placeholder={`Key point ${i + 1}`}
                         />
-                        <button type="button" onClick={() => deleteKeyPoint(block.id, i)} className="delete-keypoint-btn">
+                        <button type="button" onClick={() => deleteKeyPoint(block.id, i)} className="delete-keypoint-btn ui-btn-icon-only">
                           ✕
                         </button>
                       </div>
                     ))}
-                    <button type="button" onClick={() => addKeyPoint(block.id)} className="add-keypoint-btn">
+                    <Button type="button" onClick={() => addKeyPoint(block.id)} >
                       + Add Point
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>
             ))}
 
             <div className="add-content-buttons">
-              <button type="button" onClick={() => addContentBlock('paragraph')} className="add-content-btn">
+              <Button type="button" onClick={() => addContentBlock('paragraph')} className="add-content-btn">
                 Add Paragraph
-              </button>
-              <button type="button" onClick={() => addContentBlock('image')} className="add-content-btn">
+              </Button>
+              <Button type="button" onClick={() => addContentBlock('image')} className="add-content-btn">
                 Add Image
-              </button>
-              <button type="button" onClick={() => addContentBlock('subheading')} className="add-content-btn">
+              </Button>
+              <Button type="button" onClick={() => addContentBlock('subheading')} className="add-content-btn">
                 Add Subheading
-              </button>
-              <button type="button" onClick={() => addContentBlock('keypoints')} className="add-content-btn">
+              </Button>
+              <Button type="button" onClick={() => addContentBlock('keypoints')} className="add-content-btn">
                 Add Key Points
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -1877,9 +1858,9 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
         </div>
       </div>
 
-      <button type="submit" disabled={saving} className="submit-button">
-        <Save size={20} /> {saving ? 'Saving...' : 'Save Blog Post'}
-      </button>
+      <Button type="submit" disabled={saving} className="submit-button">
+        <Save size={20} color="#ccc" /> {saving ? 'Saving...' : 'Save Blog Post'}
+      </Button>
     </form>
   );
 };
@@ -1977,7 +1958,7 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
               <td>
                 <button
                   onClick={() => toggleStatus(item, collectionName)}
-                  className={`status-button ${item.status === 'published' ? 'status-published' : 'status-draft'}`}
+                  className={`status-button ${item.status === 'published' ? 'status-published' : 'status-draft'} ui-btn-icon-only`}
                 >
                   {item.status === 'published' ? <Eye size={14} /> : <EyeOff size={14} />}
                   {item.status === 'published' ? 'Published' : 'Draft'}
@@ -1990,13 +1971,13 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
                       setEditingItem(item);
                       setShowForm(true);
                     }}
-                    className="action-button action-edit"
+                    className="action-button action-edit ui-btn-icon-only"
                   >
                     <Edit2 size={16} />
                   </button>
                   <button
                     onClick={() => handleDelete(item.id, collectionName)}
-                    className="action-button action-delete"
+                    className="action-button action-delete ui-btn-icon-only"
                   >
                     <Trash2 size={16} />
                   </button>

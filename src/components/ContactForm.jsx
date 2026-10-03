@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Paperclip, ArrowRight, Check } from 'lucide-react';
+import { Paperclip, Check } from 'lucide-react';
+import Button from './Button';
 import { sendInquiry } from '../lib/contactApi';
 
 const SERVICES = ['UI/UX design', 'Websites', 'MVP & development', 'Mobile application', 'Motion & video'];
@@ -117,10 +118,8 @@ const ContactForm = () => {
           <p className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
           <h2>Great things<br />are on the way.</h2>
           <p>Your inquiry is in. We’ll review your project and reply to <strong>{submitted.email}</strong> with the next steps.</p>
-          <a className="success-call" href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer">
-            Book a discovery call <ArrowRight size={18} />
-          </a>
-          <button type="button" onClick={resetForm}>Send another inquiry</button>
+          <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book a discovery call" arrow />
+          <Button text="Send another inquiry" onClick={resetForm} />
         </div>
       </section>
     );
@@ -246,10 +245,7 @@ const ContactForm = () => {
             We’ll only use your details to discuss your project.{' '}
             <a href="/policy" target="_blank" rel="noopener noreferrer">Privacy policy ↗</a>
           </p>
-          <button type="submit" className="submit-button" disabled={sending}>
-            <span className="submit-arrow" aria-hidden="true"><ArrowRight size={18} /></span>
-            <span className="submit-label">{sending ? 'Sending…' : 'Let’s talk'}</span>
-          </button>
+          <Button type="submit" className="submit-button" arrow disabled={sending}>{sending ? 'Sending…' : 'Let’s talk'}</Button>
         </div>
 
         {status && (

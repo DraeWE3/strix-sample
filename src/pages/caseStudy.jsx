@@ -6,7 +6,6 @@ import ArrowLeft from '../assets/img/work/arrow-left.svg'
 import React, { useState, useRef, useEffect } from "react";
 import { Play } from 'lucide-react';
 import Circle from '../assets/img/shared/updown-circle.webp'
-import ButtonArrow from '../components/button-arrow'
 import Cardbg1 from '../assets/img/work/pr-card1.webp'
 import Cardbg2 from '../assets/img/work/pr-card2.webp'
 import Cardbg3 from '../assets/img/work/pr-card3.webp'
@@ -203,7 +202,7 @@ useEffect(() => {
               src={caseStudy.heroThumbnail}
               alt="Video thumbnail"
               className="thumbnail-image"
-            />
+ />
           ) : (
             <div style={{ width: '100%', height: '100%', background: '#333' }}></div>
           )}
@@ -211,7 +210,7 @@ useEffect(() => {
             <div className="play-button-overlay">
               <button
                 onClick={handlePlay}
-                className="play-button"
+                className="play-button ui-btn-icon-only"
                 aria-label="Play video"
               >
                 <Play className="play-icon" fill="white" />
@@ -510,25 +509,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
           <p style={{ fontSize: '16px', color: '#666', marginTop: '10px' }}>
             Project ID: {id}
           </p>
-          <button 
-            onClick={() => navigate('/works')}
-            style={{
-              marginTop: '30px',
-              padding: '15px 30px',
-              background: '#007bff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              transition: 'background 0.3s'
-            }}
-            onMouseOver={(e) => e.target.style.background = '#0056b3'}
-            onMouseOut={(e) => e.target.style.background = '#007bff'}
-          >
-            ← Back to Projects
-          </button>
+          <Button onClick={() => navigate('/works')} style={{ marginTop: "30px" }} text="← Back to Projects" />
         </div>
         <Footer />
       </div>
@@ -598,7 +579,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
             caseStudy={caseStudy}
             isPlaying={isPlaying}
             handlePlay={handlePlay}
-          />
+ />
           <img src={Circle} className='updowncircle' alt="Circle" />
         </div>
          <motion.h1 
@@ -625,7 +606,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
              caseStudy={caseStudy} 
              processCardBgs={processCardBgs}
              getProcessIcon={getProcessIcon}
-           />
+ />
          )}
 
      {/* =======================initial concept============= */}
@@ -644,7 +625,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
             caseStudy={caseStudy}
             carouselRef={carouselRef}
             scroll={scroll}
-          />
+ />
         )}
 
       {/* =======================Technology============= */}
@@ -701,7 +682,7 @@ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
               </p>
             </div>
           </div>
-          <a href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer"><Button text="Book Appointment" /></a>
+          <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book Appointment" />
         </motion.div>
       <Footer />
     </div>
@@ -766,7 +747,7 @@ const AboutProjectSection = ({ caseStudy }) => {
                 initial={{ opacity: 0, x: -60, y: -60 }}
                 animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -60, y: -60 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
+ />
             )}
             {caseStudy.aboutProject.images[1] && (
               <motion.img 
@@ -775,7 +756,7 @@ const AboutProjectSection = ({ caseStudy }) => {
                 initial={{ opacity: 0, x: -60, y: 60 }}
                 animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -60, y: 60 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
+ />
             )}
           </div>
           <div className="ap-right">
@@ -786,18 +767,16 @@ const AboutProjectSection = ({ caseStudy }) => {
                 initial={{ opacity: 0, x: 100 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
+ />
             )}
           </div>
         </div>
       )}
            <div className="aboutprojectbtn">
   {caseStudy.aboutProject?.experienceLink ? (
-    <a href={caseStudy.aboutProject.experienceLink} target="_blank" rel="noopener noreferrer">
-      <ButtonArrow text='Experience' />
-    </a>
+    <Button href={caseStudy.aboutProject.experienceLink} target="_blank" rel="noopener noreferrer" text='Experience' arrow />
   ) : (
-    <ButtonArrow text='Experience' />
+    <Button text='Experience' arrow />
   )}
 </div>
 
@@ -822,7 +801,7 @@ const ProcessSection = ({ caseStudy, processCardBgs, getProcessIcon }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <motion.h1 
         className="process-h1"
         initial={{ opacity: 0, y: 30 }}
@@ -907,7 +886,7 @@ const ConceptSection = ({ caseStudy }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -921,7 +900,7 @@ const ConceptSection = ({ caseStudy }) => {
           direction="left"
           speedMultiplier={scrollSpeed}
           className="case-slide1"
-        />
+ />
       )}
       {caseStudy.conceptSlides.slice(5, 9).some(slide => slide) && (
         <InfiniteSlider 
@@ -929,7 +908,7 @@ const ConceptSection = ({ caseStudy }) => {
           direction="right"
           speedMultiplier={scrollSpeed}
           className="case-slide2"
-        />
+ />
       )}
     </div>
   )
@@ -978,7 +957,7 @@ const InfiniteSlider = ({ images, direction, speedMultiplier, className }) => {
             src={slide} 
             alt={`Concept ${i+1}`}
             style={{ minWidth: '400px', height: 'auto' }}
-          />
+ />
         ))}
       </div>
     </div>
@@ -1000,7 +979,7 @@ const SystemSection = ({ caseStudy }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -1014,7 +993,7 @@ const SystemSection = ({ caseStudy }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
         transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-      />
+ />
     </div>
   )
 }
@@ -1034,7 +1013,7 @@ const ResponsiveSection = ({ caseStudy, carouselRef, scroll }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -1059,7 +1038,7 @@ const ResponsiveSection = ({ caseStudy, carouselRef, scroll }) => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.6, delay: 0.4 + (i * 0.1) }}
-              />
+ />
             )
           ))}
         </motion.div>
@@ -1098,7 +1077,7 @@ const TechnologySection = ({ caseStudy, getTechIcon }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -1129,7 +1108,7 @@ const TechnologySection = ({ caseStudy, getTechIcon }) => {
                     delay: 0.3 + (i * 0.1),
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
-                />
+ />
               ))}
             </div>
           </motion.div>
@@ -1156,7 +1135,7 @@ const TechnologySection = ({ caseStudy, getTechIcon }) => {
                     delay: 0.5 + (i * 0.1),
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
-                />
+ />
               ))}
             </div>
           </motion.div>
@@ -1183,7 +1162,7 @@ const TechnologySection = ({ caseStudy, getTechIcon }) => {
                     delay: 0.7 + (i * 0.1),
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
-                />
+ />
               ))}
             </div>
           </motion.div>
@@ -1208,7 +1187,7 @@ const ResultsSection = ({ caseStudy }) => {
         initial={{ height: 0 }}
         animate={lineInView ? { height: '100%' } : { height: 0 }}
         transition={{ duration: 1.2, ease: "easeInOut" }}
-      />
+ />
       <div className="result-grid">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
