@@ -1,7 +1,8 @@
 import '../../style/button.css'
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getOptimizedImage } from "../../lib/cloudinary";
+import { projectHref, isExternalProject } from "../../lib/projects";
 import DotIdle from "../../assets/img/projects/8f231.svg";
 import DotActive from "../../assets/img/projects/4e3a0.svg";
 import CardGlow from "../../assets/img/projects/ccefa.svg";
@@ -15,7 +16,15 @@ const Chevron = ({ direction }) => (
   </svg>
 );
 
-const ProjectsFeatured = ({ projects, children }) => {
+const SlideLink = ({ project, className, children, ...rest }) => {
+  const href = projectHref(project);
+  if (isExternalProject(project)) {
+    return <a className={className} href={href} target="_blank" rel="noopener noreferrer" {...rest}>{children}</a>;
+  }
+  return <Link className={className} to={href} {...rest}>{children}</Link>;
+};
+
+const ProjectsFeatured = ({ projects, loading = false, error = null, children }) => {
   const slides = projects.slice(0, FEATURED_COUNT);
   const [activeIndex, setActiveIndex] = useState(2);
   const cardRef = useRef(null);
@@ -23,12 +32,15 @@ const ProjectsFeatured = ({ projects, children }) => {
   const gesture = useRef(null);
   const suppressClickUntil = useRef(0);
   const [dragging, setDragging] = useState(false);
+  const navigate = useNavigate();
 
   const count = slides.length;
   const current = count ? Math.min(activeIndex, count - 1) : 0;
   const slide = slides[current];
 
-  const slideLink = slide && (slide.link || `/case-study/${slide.id}`);
+  let status = "";
+  if (error) status = "Projects could not be loaded right now.";
+  else if (!loading && !count) status = "No projects published yet.";
 
   const showSlide = (index) => setActiveIndex((index + count) % count);
 
@@ -92,8 +104,26 @@ const ProjectsFeatured = ({ projects, children }) => {
     }
   };
 
+  const openSlide = (newTab = false) => {
+    if (!slide) return;
+    const href = projectHref(slide);
+    if (newTab || isExternalProject(slide)) window.open(href, "_blank", "noopener,noreferrer");
+    else navigate(href);
+  };
+
+  const onCardClick = (event) => {
+    // Pointer capture retargets the click to the card, so the overlay link never receives it.
+    if (event.target.closest("a, button")) return;
+    openSlide(event.metaKey || event.ctrlKey || event.shiftKey);
+  };
+
   const onKeyDown = (event) => {
-    if (!count || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (!count) return;
+    if (event.key === "Enter" && event.target === cardRef.current) {
+      event.preventDefault();
+      return openSlide(event.metaKey || event.ctrlKey || event.shiftKey);
+    }
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
     if (!event.target.closest(".featured-card, .featured-direction, #featured-pagination button")) return;
     event.preventDefault();
@@ -101,7 +131,7 @@ const ProjectsFeatured = ({ projects, children }) => {
   };
 
   return (
-    <section className="featured-projects" id="featured-projects" aria-label="Featured projects" aria-roledescription="carousel" aria-busy={!count} onKeyDown={onKeyDown}>
+    <section className="featured-projects" id="featured-projects" aria-label="Featured projects" aria-roledescription="carousel" aria-busy={loading} onKeyDown={onKeyDown}>
       <div className="featured-stage">
         <button type="button" className="featured-direction featured-direction--prev ui-btn-icon-only" aria-label="Previous featured project" disabled={!count} onClick={() => showSlide(current - 1)}><Chevron direction="prev" /></button>
         <div
@@ -117,9 +147,10 @@ const ProjectsFeatured = ({ projects, children }) => {
           onLostPointerCapture={clearGesture}
           onDragStart={(event) => event.preventDefault()}
           onClickCapture={onClickCapture}
+          onClick={onCardClick}
         >
           {slide && (
-            <Link className="featured-card__link" to={slideLink} tabIndex={-1} aria-hidden="true" draggable="false" />
+            <SlideLink project={slide} className="featured-card__link" tabIndex={-1} aria-hidden="true" draggable="false" />
           )}
           {slide && (
             <img
@@ -135,8 +166,8 @@ const ProjectsFeatured = ({ projects, children }) => {
           )}
           {!slide && <div className="featured-image featured-image--skeleton" aria-hidden="true" />}
           <div className="featured-copy">
-            <p>{slide?.categoryText}</p>
-            <p>{slide && <Link to={slideLink}>{slide.title}</Link>}</p>
+            <p>{slide ? slide.categoryText : status}</p>
+            <p>{slide && <SlideLink project={slide}>{slide.title}</SlideLink>}</p>
             <div id="featured-pagination" aria-label="Choose featured project">
               {slides.map((item, index) => (
                 <button

@@ -4,14 +4,14 @@ import "../style/projects-page.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
-import useProjects from "../components/projects/useProjects";
+import { useProjects } from "../lib/projects";
 import ProjectsHero from "../components/projects/ProjectsHero";
 import ProjectsCatalog from "../components/projects/ProjectsCatalog";
 import ProjectsCall from "../components/projects/ProjectsCall";
 import ProjectsWhatsApp from "../components/projects/ProjectsWhatsApp";
 
 const Project = () => {
-  const { projects, loading } = useProjects();
+  const { projects, loading, error } = useProjects();
 
   return (
     <div>
@@ -22,8 +22,8 @@ const Project = () => {
       />
       <Nav />
       <main className="projects-page">
-        <ProjectsHero projects={projects} />
-        <ProjectsCatalog projects={projects} loading={loading} />
+        <ProjectsHero projects={projects} loading={loading} error={error} />
+        <ProjectsCatalog projects={projects} loading={loading} error={error} />
         <ProjectsCall />
         <ProjectsWhatsApp />
       </main>

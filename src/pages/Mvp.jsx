@@ -5,6 +5,7 @@ import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import useScrollReveal from "../animations/useScrollReveal";
+import { useProjects } from "../lib/projects";
 import MvpBackdrops from "../components/mvp/MvpBackdrops";
 import MvpHero from "../components/mvp/MvpHero";
 import MvpSuccess from "../components/mvp/MvpSuccess";
@@ -15,7 +16,9 @@ import MvpConnect from "../components/mvp/MvpConnect";
 import FAQ from "../components/FAQ";
 import MvpCaseDialog from "../components/mvp/MvpCaseDialog";
 import { mvpFaqs } from "../components/mvp/mvpFaqs";
-import { mvpCases } from "../components/mvp/mvpCases";
+
+const SUCCESS_COUNT = 2;
+const MORE_COUNT = 4;
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -30,6 +33,7 @@ const faqSchema = {
 const Mvp = () => {
   const shellRef = useRef(null);
   const [activeCase, setActiveCase] = useState(null);
+  const { projects, loading, error } = useProjects();
   useScrollReveal(shellRef, { readyClass: "mvp-motion-ready" });
 
   return (
@@ -43,13 +47,13 @@ const Mvp = () => {
       <div className="mvp-page-shell" ref={shellRef}>
         <MvpBackdrops />
         <MvpHero />
-        <MvpSuccess onOpen={setActiveCase} />
+        <MvpSuccess projects={projects.slice(0, SUCCESS_COUNT)} loading={loading} error={error} onOpen={setActiveCase} />
         <MvpBenefits />
         <MvpProcess />
-        <MvpMore onOpen={setActiveCase} />
+        <MvpMore projects={projects.slice(SUCCESS_COUNT, SUCCESS_COUNT + MORE_COUNT)} loading={loading} error={error} />
         <MvpConnect />
         <FAQ faqData={mvpFaqs} />
-        {activeCase && <MvpCaseDialog project={mvpCases[activeCase]} onClose={() => setActiveCase(null)} />}
+        {activeCase && <MvpCaseDialog project={activeCase} onClose={() => setActiveCase(null)} />}
       </div>
       <Footer />
     </div>

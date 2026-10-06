@@ -9,6 +9,7 @@ import BadgeLabel from "../../assets/img/about/5353e.svg";
 import CrownIcon from "../../assets/img/shared/9eacb.png";
 import TopRatedArrow from "../../assets/img/about/8d76b.svg";
 import AgencyArrow from "../../assets/img/about/d3029.svg";
+import { upworkProfiles, reviewStats, formatRating } from "../../data/reviews";
 
 const AboutProof = () => {
   return (
@@ -30,11 +31,11 @@ const AboutProof = () => {
           <p className="about-proof-caption">Building products and <br />brand experiences</p>
         </article>
         <article className="about-proof-metric-card" data-reveal>
-          <p className="about-proof-value">5.0/5</p>
+          <p className="about-proof-value">{formatRating(reviewStats.freelancerAverageRating)}/5</p>
           <h2 className="about-proof-label">Client rating</h2>
-          <p className="about-proof-caption">11 reviews on the founder&rsquo;s <br />Upwork profile</p>
-          <div className="about-proof-stars" role="img" aria-label="5 out of 5 stars">
-            {Array.from({ length: 5 }).map((_, i) => (
+          <p className="about-proof-caption">{reviewStats.freelancerCount} reviews on the founder&rsquo;s <br />Upwork profile</p>
+          <div className="about-proof-stars" role="img" aria-label={`${formatRating(reviewStats.freelancerAverageRating)} out of 5 stars`}>
+            {Array.from({ length: Math.round(reviewStats.freelancerAverageRating) }).map((_, i) => (
               <img key={i} src={StarIcon} width="19" height="19" alt="" />
             ))}
           </div>
@@ -43,7 +44,7 @@ const AboutProof = () => {
       <div className="about-proof-profile-grid">
         <a
           className="about-proof-profile-card"
-          href="https://www.upwork.com/freelancers/rajnandan"
+          href={upworkProfiles.freelancer}
           target="_blank"
           rel="noopener noreferrer"
           data-reveal
@@ -64,13 +65,13 @@ const AboutProof = () => {
           <div className="about-proof-profile-identity">
             <p className="about-proof-profile-status">TOP RATED</p>
             <p className="about-proof-profile-name">Rajnandan S.</p>
-            <p className="about-proof-profile-detail">100% Job Success &middot; 5.0/5</p>
+            <p className="about-proof-profile-detail">100% Job Success &middot; {formatRating(reviewStats.freelancerAverageRating)}/5</p>
           </div>
           <img className="about-proof-profile-arrow" src={TopRatedArrow} width="24" height="24" alt="" />
         </a>
         <a
           className="about-proof-profile-card"
-          href="https://www.upwork.com/agencies/1799430219619033088/"
+          href={upworkProfiles.agency}
           target="_blank"
           rel="noopener noreferrer"
           data-reveal

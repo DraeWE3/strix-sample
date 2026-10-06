@@ -23,16 +23,8 @@ const MvpCaseDialog = ({ project, onClose }) => {
       <button className="mvp-case-dialog__close ui-btn-icon-only" type="button" aria-label="Close project preview" onClick={() => dialogRef.current.close()}>×</button>
       <img className="mvp-case-dialog__image" src={project.image} alt={`${project.title} project artwork`} />
       <div className="mvp-case-dialog__body">
-        <p className="mvp-case-dialog__eyebrow">{project.service}</p>
+        <p className="mvp-case-dialog__eyebrow">{project.categoryText}</p>
         <h2 className="mvp-case-dialog__title" id="case-preview-title">{project.title}</h2>
-        {project.description && <p className="mvp-case-dialog__description">{project.description}</p>}
-        {project.facts && (
-          <dl className="mvp-case-dialog__facts">
-            {project.facts.map(([value, label]) => (
-              <div key={value}><dt>{value}</dt><dd>{label}</dd></div>
-            ))}
-          </dl>
-        )}
         <a className="mvp-case-dialog__cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Let’s discuss your MVP ↗</a>
       </div>
     </dialog>

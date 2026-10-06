@@ -59,56 +59,96 @@
 .nav-left{
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
+    gap: 1.5rem;
     margin-top: 10%;
 }
 
-.nav-left div{
-     display: flex;
-  align-items: center;
-  justify-content: center;
+.nav-left > div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-
-
 .nav-left-div-div{
-    margin: 0;
-    margin-right: 10px;
-    margin-bottom: 5px;
+    margin: 0 10px 0 0;
+    font-size: 0.75em;
+    line-height: 1;
 }
 
 .nav-left-div-p{
     font-weight: 100;
     margin: 0;
     font-family: cd-reg;
-    font-size: 1.5vw !important;
+    font-size: 1.25vw !important;
+    letter-spacing: 0.02em;
 }
-
 
 .nav-left-p{
     font-weight: 600;
     font-size: 2.5vw !important;
+    line-height: 1.15;
+    margin: 0;
     text-align: start;
     width: 80% !important;
-     font-family: cd-reg;
+    font-family: cd-reg;
+}
 
+/* Smaller CTA button inside the connect modal */
+.nav-left .ui-btn{
+    min-width: 0;
+    height: 48px;
+    padding: 0 22px;
+}
+
+.nav-left .ui-btn-label{
+    font-size: 16px;
+    gap: 8px;
+}
+
+.nav-left .ui-btn-arrow{
+    width: 15px;
+    height: 12px;
 }
 
 .close-btn {
+  /* Centred inside the rounded tab at the top-right of the modal artwork */
   position: absolute !important;
-  top: 2.5%;
-  right: 0.3% !important;
+  top: 4.4%;
+  right: 3% !important;
+  /* `translate` (not `transform`) so the global button:active { transform:none } rule can't shift it */
+  translate: 50% -50%;
+  transform: none;
   font-size: 20px;
   color: white;
   cursor: pointer;
-  width: 3.2vw !important;
-  height: 2.9vw  !important;
+  width: 1.8vw !important;
+  height: 1.8vw !important;
+  min-width: 18px;
+  min-height: 18px;
   z-index: 10 !important;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.close-btn.ui-btn-icon-only,
+.close-btn.ui-btn-icon-only:hover:not(:disabled),
+.close-btn.ui-btn-icon-only:focus,
+.close-btn.ui-btn-icon-only:focus-visible,
+.close-btn.ui-btn-icon-only:active {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  translate: 50% -50%;
 }
 
 @media (max-width: 990px) {
   .close-btn{
-    right: -0.3rem !important;
+    right: 3% !important;
   }
 }
 
@@ -124,7 +164,7 @@
   background-size: 100% 100%;
 
   /* Inline SVG with gradient */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fff'/%3E%3Cstop offset='100%25' stop-color='%23333'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23grad)' d='M12.727 3.687a1 1 0 1 0-1.454-1.374l-8.5 9a1 1 0 0 0 0 1.374l8.5 9.001a1 1 0 1 0 1.454-1.373L4.875 12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fff'/%3E%3Cstop offset='100%25' stop-color='%23777'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='none' stroke='url(%23grad)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M15 4l-8 8 8 8'/%3E%3C/svg%3E");
 
   /* Drop shadow */
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));

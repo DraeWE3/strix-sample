@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Paperclip, Check } from 'lucide-react';
 import Button from './Button';
+import ArrowIcon from '../assets/img/home/e23f5-hero-intro.svg';
 import { sendInquiry } from '../lib/contactApi';
 
 const SERVICES = ['UI/UX design', 'Websites', 'MVP & development', 'Mobile application', 'Motion & video'];
@@ -245,7 +246,12 @@ const ContactForm = () => {
             We’ll only use your details to discuss your project.{' '}
             <a href="/policy" target="_blank" rel="noopener noreferrer">Privacy policy ↗</a>
           </p>
-          <Button type="submit" className="submit-button" arrow disabled={sending}>{sending ? 'Sending…' : 'Let’s talk'}</Button>
+          <div className="submit-group">
+            <button type="submit" className="submit-circle ui-btn-icon-only" disabled={sending} aria-label={sending ? 'Sending' : 'Send inquiry'}>
+              <img src={ArrowIcon} alt="" />
+            </button>
+            <Button type="submit" className="submit-button" disabled={sending}>{sending ? 'Sending…' : 'Let’s talk'}</Button>
+          </div>
         </div>
 
         {status && (

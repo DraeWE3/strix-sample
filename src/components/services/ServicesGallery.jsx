@@ -76,8 +76,11 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
         </button>
         <div className="service-carousel__footer">
           <div className="service-tools" aria-hidden="true">
-            {tools.map((tool) => (
-              <span className={modifierClass("service-tool", tool.modifier)} key={tool.icon}>
+            {tools.map((tool, toolIndex) => (
+              <span
+                className={`${modifierClass("service-tool", tool.modifier)}${toolIndex === index ? " is-active" : ""}`}
+                key={tool.icon}
+              >
                 {tool.frame ? (
                   <>
                     <img className="service-tool__video-body" src={tool.icon} alt="" />

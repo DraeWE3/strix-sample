@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Pi1 from "../assets/img/service-pages/common/proca1.webp";
-import Pi2 from "../assets/img/service-pages/common/proca2.webp";
-import Pi3 from "../assets/img/service-pages/common/proca3.webp";
-import Pi4 from '../assets/img/service-pages/common/pi4.webp'
-import Pi5 from '../assets/img/service-pages/common/pi5.webp'
-import Pi6 from '../assets/img/service-pages/common/pi6.webp'
-import Pi7 from '../assets/img/service-pages/common/pi7.webp'
+import { useProjects, projectHref, isExternalProject } from '../lib/projects';
+import { getOptimizedImage } from '../lib/cloudinary';
 import '../style/carousal.css';
 import '../style/button.css';
 
 const ProjectCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(2); 
+  const { projects: carouselData, loading, error } = useProjects();
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [isAnimating, setIsAnimating] = useState(false);
   const [buttonOffset, setButtonOffset] = useState("22.5%");
   const containerRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const updateOffset = () => {
@@ -31,16 +29,9 @@ const ProjectCarousel = () => {
     return () => window.removeEventListener("resize", updateOffset);
   }, []);
 
-  // ✅ Added text for each carousel item
-  const carouselData = [
-    { id: 1, image: Pi1, title: "Modern Architecture" },
-    { id: 2, image: Pi2, title: "Futuristic Design" },
-    { id: 3, image: Pi3, title: "Eco Smart Home" },
-    { id: 4, image: Pi4, title: "Urban Lifestyle" },
-    { id: 5, image: Pi5, title: "Luxury Interior" },
-    { id: 6, image: Pi6, title: "Creative Workspace" },
-    { id: 7, image: Pi7, title: "Minimalist Haven" },
-  ];
+  useEffect(() => {
+    setCurrentIndex(Math.min(2, Math.max(0, carouselData.length - 1)));
+  }, [carouselData.length]);
 
   const infiniteItems = [...carouselData, ...carouselData, ...carouselData];
   const totalItems = infiniteItems.length;
@@ -86,7 +77,7 @@ const ProjectCarousel = () => {
   };
 
   const nextSlide = () => {
-    if (isAnimating) return;
+    if (isAnimating || !carouselData.length) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => {
       const newIndex = prev + 1;
@@ -95,7 +86,7 @@ const ProjectCarousel = () => {
   };
 
   const prevSlide = () => {
-    if (isAnimating) return;
+    if (isAnimating || !carouselData.length) return;
     setIsAnimating(true);
     setCurrentIndex((prev) => {
       const newIndex = prev - 1;
@@ -111,9 +102,17 @@ const ProjectCarousel = () => {
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [isAnimating]);
+  }, [isAnimating, carouselData.length]);
 
-  // ✅ Touch & Drag Events
+  const openProject = (project) => {
+    const href = projectHref(project);
+    if (isExternalProject(project)) {
+      window.open(href, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(href);
+    }
+  };
+
   const startX = useRef(0);
   const isDragging = useRef(false);
   const handleStart = (x) => { startX.current = x; isDragging.current = true; };
@@ -140,7 +139,7 @@ const ProjectCarousel = () => {
       position: 'relative',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       perspective: '1200px', marginBottom: '1.5rem',
-      
+
     },
     carouselItem: {
       position: 'absolute',
@@ -159,7 +158,7 @@ const ProjectCarousel = () => {
       borderRadius: '2rem',
       overflow: 'hidden',
       boxShadow: isCenter
-        ? '0 0 20px 2px rgba(255, 255, 255, 0.4)' // ✅ outer glow for focused card
+        ? '0 0 20px 2px rgba(255, 255, 255, 0.4)'
         : '0 15px 30px -10px rgba(0, 0, 0, 0.6)',
       transition: 'box-shadow 0.4s ease',
     }),
@@ -172,7 +171,42 @@ const ProjectCarousel = () => {
       textAlign: 'center',
       textShadow: '0 2px 6px rgba(0,0,0,0.6)',
     },
+    status: {
+      color: '#ccc',
+      fontFamily: "cd-reg",
+      fontSize: '1.1rem',
+      textAlign: 'center',
+      margin: 0,
+    },
+    spinner: {
+      width: '40px',
+      height: '40px',
+      border: '3px solid rgba(255,255,255,0.1)',
+      borderTop: '3px solid rgba(255,255,255,0.6)',
+      borderRadius: '50%',
+      animation: 'p-carousel-spin 1s linear infinite',
+    },
   };
+
+  if (loading || error || carouselData.length === 0) {
+    return (
+      <div className='p-carousel-container' style={styles.container}>
+        <div style={styles.backgroundEffect}></div>
+        <div className='p-carousel-con' style={styles.carouselContainer} role="status" aria-live="polite">
+          {loading ? (
+            <>
+              <div style={styles.spinner} aria-label="Loading projects" />
+              <style>{`@keyframes p-carousel-spin { to { transform: rotate(360deg); } }`}</style>
+            </>
+          ) : (
+            <p style={styles.status}>
+              {error ? 'Projects could not be loaded right now.' : 'No projects published yet.'}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='p-carousel-container' style={styles.container}>
@@ -193,10 +227,18 @@ const ProjectCarousel = () => {
             <div
               key={`${item.id}-${index}`}
               style={{ ...styles.carouselItem, ...getItemStyle(index) }}
-              onClick={() => !isAnimating && setCurrentIndex(index)}
+              onClick={() => {
+                if (isAnimating) return;
+                if (isCenter) {
+                  openProject(item);
+                } else {
+                  setIsAnimating(true);
+                  setCurrentIndex(index);
+                }
+              }}
             >
               <div style={styles.imageContainer(isCenter)}>
-                <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={getOptimizedImage(item.image)} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
               </div>
               <div style={styles.title}>{item.title}</div>
             </div>
@@ -204,7 +246,6 @@ const ProjectCarousel = () => {
         })}
       </div>
 
-      {/* ✅ Navigation */}
       <button
         className="ui-btn-icon-only"
         onClick={prevSlide}

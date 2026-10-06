@@ -2,16 +2,10 @@ import useScrollCarousel from "../../animations/useScrollCarousel";
 import StarIcon from "../../assets/img/home/9d002.svg";
 import PrevArrow from "../../assets/img/home/d3c18.svg";
 import NextArrow from "../../assets/img/home/899df.svg";
-import reviewData from "../../data/reviews.json";
-
-const reviews = reviewData.reviews.map((review) => ({
-  ...review,
-  upwork: review.source === "upwork",
-  url: review.url || reviewData.upworkProfiles[review.profile],
-}));
+import { reviews, formatRating } from "../../data/reviews";
 
 const START_INDEX = Math.min(2, reviews.length - 1);
-const reviewLabel = (review) => ("Upwork client review");
+const reviewLabel = () => "Upwork client review";
 
 const slideState = (slideIndex, activeIndex) => {
   if (slideIndex === activeIndex) return "is-active";
@@ -41,12 +35,12 @@ const HomeTestimonials = () => {
                     <p className="hl-review-category">{review.upwork ? review.category || "Upwork review" : "Client perspective"}</p>
                     {review.upwork && (
                       <div className="hl-review-rating">
-                        <div className="hl-review-stars" aria-label={`${review.rating ?? 5} out of 5 stars`}>
-                          {Array.from({ length: Math.round(review.rating ?? 5) }, (_, star) => star).map((star) => (
+                        <div className="hl-review-stars" aria-label={`${review.rating} out of 5 stars`}>
+                          {Array.from({ length: Math.round(review.rating) }, (_, star) => star).map((star) => (
                             <span key={star} className="hl-review-star" aria-hidden="true"><span><img src={StarIcon} alt="" draggable="false" /></span></span>
                           ))}
                         </div>
-                        <span className="hl-review-rating-value" aria-hidden="true">{(review.rating ?? 5).toFixed(1)} / 5</span>
+                        <span className="hl-review-rating-value" aria-hidden="true">{formatRating(review.rating)} / 5</span>
                       </div>
                     )}
                   </div>

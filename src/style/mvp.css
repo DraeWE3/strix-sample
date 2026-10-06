@@ -23,6 +23,7 @@
 .mvp-hero,.mvp-success{position:relative;z-index:1;margin-inline:auto;isolation:isolate}
 .mvp-hero *,.mvp-hero *::before,.mvp-hero *::after,.mvp-success *,.mvp-success *::before,.mvp-success *::after{box-sizing:border-box}
 .mvp-hero p,.mvp-hero h1,.mvp-hero h2,.mvp-success p,.mvp-success h2,.mvp-success h3{margin:0}
+.mvp-hero .mvp-hero__title{margin-top:136px}
 .mvp-hero{width:min(1261px,calc(100% - 80px));display:flex;flex-direction:column;align-items:center;gap:30px}
 .mvp-hero__title{width:1135px;max-width:100%;height:auto;font:700 60px/68px 'Syne',sans-serif;letter-spacing:0;text-align:center;background:radial-gradient(ellipse 1295.2px 73.94px at 50% 50.18%,#fcfcfd 0,#c9c9ca 50%,#969697 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 4px 4px #0004)}
 .mvp-hero__showcase{width:1004px;max-width:100%;height:503px;position:relative;flex:none;border:1px solid #fff;border-radius:43px;overflow:hidden;background:#000;box-shadow:0 4px 50px #ffffff40}
@@ -301,7 +302,7 @@
 .mvp-more-intro{margin:40px 0;font:400 20px/39px "Epilogue",sans-serif;color:#e6e6e6;text-align:center}
 .mvp-more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 152px}
 .mvp-work-card{min-width:0;margin:0}
-.mvp-work-open{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;width:100%;height:454px;margin:0;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.mvp-work-open{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;width:100%;height:454px;margin:0;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;font:inherit;text-decoration:none}
 .mvp-work-media{position:relative;display:block;flex:none;width:100%;height:381px;overflow:hidden;border:1px solid #fff;border-radius:35px;background:linear-gradient(#fff,#666);isolation:isolate;transition:box-shadow .25s ease,border-color .25s ease}
 .mvp-work-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
 .mvp-work-image{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;object-fit:fill;transition:filter .3s ease}
@@ -322,7 +323,7 @@
 .mvp-work-open:hover .mvp-work-media{border-color:#999;box-shadow:0 0 28px #ffffff0f}
 .mvp-work-open:hover .mvp-work-image{filter:brightness(1.08)}
 .mvp-work-open:hover .mvp-work-arrow{transform:translate(3px,-3px) scale(var(--mvp-work-arrow-scale,1))}
-.mvp-work-open:focus-visible{outline:2px solid #ddd;outline-offset:9px;border-radius:35px 35px 3px 3px}
+.mvp-work-open:focus,.mvp-work-open:focus-visible{outline:0}
 .mvp-connect{width:min(1214px,calc(100% - 64px));margin:176px auto 0;display:flex;flex-direction:column;align-items:center;gap:80px}
 .mvp-connect h2{display:block;width:min(1138px,100%);height:150px;margin:0;font:500 56px/75px "Clash Display","Syne",sans-serif;letter-spacing:2.8px;text-align:center;background:radial-gradient(ellipse at 51.45% 45.24%,#fff 0,#d9d8d7 25%,#b3b2b0 50%,#8c8b88 75%,#666460 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 4px 4px #0004)}
 .mvp-connect-feature{display:flex;justify-content:space-between;align-items:center;gap:63px;width:100%;height:200px}
@@ -367,3 +368,8 @@
 .mvp-page-shell .mvp-process__icon{transition:box-shadow .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
 .mvp-motion-ready .mvp-process__step:not(.is-active){filter:brightness(.35)}
 .mvp-process__step.is-active .mvp-process__icon{box-shadow:0 0 24px #ffffff59;transform:scale(1.08)}
+.mvp-case__logo--text{width:100%;overflow:visible;margin:0;font:500 40px/1.15 'Epilogue',sans-serif;letter-spacing:.5px;color:#fff;text-shadow:0 4px 4px #0004}
+.mvp-work-media--project .mvp-work-image{object-fit:cover}
+.mvp-status{grid-column:1 / -1;margin:0;text-align:center;font:400 16px/26px 'Epilogue',sans-serif;color:#999}
+@media(max-width:900px){.mvp-case__logo--text{font-size:32px}}
+@media(max-width:600px){.mvp-case__logo--text{font-size:28px}}

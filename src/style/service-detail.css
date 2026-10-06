@@ -395,3 +395,4 @@
 /* Anchor targets (#related-projects, #start-project) land below the fixed header like the source's scroll-padding-top. */
 .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 135px; }
 @media(max-width:600px){ .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 100px; } }
+.service-detail-shell .ds-related-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 24px; text-align: center; font-size: 16px; line-height: 26px; color: #999; }

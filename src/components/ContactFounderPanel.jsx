@@ -5,6 +5,7 @@ import Linkedin from '../assets/img/contact/52917.svg';
 import Google from '../assets/img/contact/5874c.svg';
 import MailIcon from '../assets/img/contact/c3170.svg';
 import WhatsappIcon from '../assets/img/contact/cd979.svg';
+import { upworkProfiles } from "../data/reviews";
 
 const BENEFITS = [
   'A direct conversation with our founder',
@@ -17,7 +18,7 @@ const ContactFounderPanel = () => (
     <div className="founder">
       <a
         className="portrait"
-        href="https://www.upwork.com/freelancers/rajnandan"
+        href={upworkProfiles.freelancer}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="View Rajnandan’s Upwork profile"

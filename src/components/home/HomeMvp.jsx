@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
 import Button from "../Button";
 import useMobileCarousel from "./useMobileCarousel";
+import { useProjects, projectHref, isExternalProject } from "../../lib/projects";
+import { getOptimizedImage } from "../../lib/cloudinary";
 import PhaseImage from "../../assets/img/home/cd596.png";
 import CopyTexture from "../../assets/img/home/09427.png";
 import CaseGlowFirst from "../../assets/img/home/c8da3.svg";
 import CaseGlowLast from "../../assets/img/home/1b34e.svg";
 import CaseActionArrow from "../../assets/img/home/ad547.svg";
-import KundliLogo from "../../assets/img/home/40416.png";
-import KundliPreview from "../../assets/img/home/ffd8f.png";
-import PlayStoreIcon from "../../assets/img/home/09993.png";
-import RyvonLogo from "../../assets/img/home/29eab.png";
-import RyvonPreview from "../../assets/img/home/7d95c.png";
 
 const phases = ["Research", "Development", "Design"];
+const CASE_COUNT = 2;
 
 const CaseGlow = () => (
   <div className="hm-case-glows" aria-hidden="true">
@@ -21,59 +19,53 @@ const CaseGlow = () => (
   </div>
 );
 
-const CaseVisual = ({ image, alt, category, name }) => (
+const CaseLink = ({ project, children, ...rest }) => {
+  const href = projectHref(project);
+  if (isExternalProject(project)) {
+    return <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>{children}</a>;
+  }
+  return <Link to={href} {...rest}>{children}</Link>;
+};
+
+const CaseVisual = ({ project }) => (
   <div className="hm-case-visual">
-    <Link to="/works" className="hm-case-preview" aria-label={`Explore ${name} and other case studies`}>
-      <img className="hm-case-image" src={image} alt={alt} loading="lazy" />
+    <CaseLink project={project} className="hm-case-preview" aria-label={`Explore the ${project.title} case study`}>
+      <img className="hm-case-image" src={getOptimizedImage(project.image)} alt={project.title} loading="lazy" />
       <span className="hm-case-action"><span>View Case Study</span><img src={CaseActionArrow} alt="" aria-hidden="true" /></span>
-    </Link>
-    <p className="hm-case-category"><span aria-hidden="true">•</span> {category}</p>
+    </CaseLink>
+    <p className="hm-case-category"><span aria-hidden="true">•</span> {project.categoryText}</p>
   </div>
 );
 
-const MvpCases = () => (
-  <div className="hm-cases">
-    <h3 className="hm-cases-title" data-reveal>Our Successful MVPs</h3>
-    <article className="hm-case hm-case-kundli" data-reveal aria-label="The Kundli Pro mobile MVP">
-      <CaseGlow />
-      <div className="hm-case-content">
-        <div className="hm-case-info">
-          <div className="hm-case-logo hm-kundli-logo"><img src={KundliLogo} alt="The Kundli Pro" loading="lazy" /></div>
-          <p className="hm-case-description">The Kundli Pro is a Vedic astrology software used to create detailed birth charts, predict future events, and analyze horoscopes.</p>
-          <div className="hm-kundli-metrics">
-            <div className="hm-kundli-metric">
-              <p>50k+Downloads</p>
-              <div className="hm-play-store-badge">
-                <span className="hm-play-store-icon"><img src={PlayStoreIcon} alt="" aria-hidden="true" /></span>
-                <span><small>Google</small><strong>Play Store</strong></span>
-              </div>
+const MvpCases = () => {
+  const { projects, loading, error } = useProjects();
+  const cases = projects.slice(0, CASE_COUNT);
+
+  let status = "";
+  if (loading) status = "Loading projects...";
+  else if (error) status = "Projects could not be loaded right now.";
+  else if (!cases.length) status = "No projects published yet.";
+
+  return (
+    <div className="hm-cases" aria-busy={loading}>
+      <h3 className="hm-cases-title" data-reveal>Our Successful MVPs</h3>
+      {status && <p className="hm-case-status" role="status" aria-live="polite">{status}</p>}
+      {cases.map((project) => (
+        <article className="hm-case" data-reveal aria-label={`${project.title} MVP`} key={project.id}>
+          <CaseGlow />
+          <div className="hm-case-content">
+            <div className="hm-case-info">
+              <h4 className="hm-case-logo hm-case-logo-text">{project.title}</h4>
+              <p className="hm-case-description">{project.categoryText}</p>
             </div>
-            <div className="hm-kundli-metric">
-              <p>4.0 <span aria-label="star">⭐</span> - Ratings</p>
-              <div className="hm-reviews-badge"><span>100+</span><strong>User Reviews</strong></div>
-            </div>
+            <CaseVisual project={project} />
           </div>
-        </div>
-        <CaseVisual name="The Kundli Pro" image={KundliPreview} alt="The Kundli Pro mobile astrology application" category="Mobile MVP" />
-      </div>
-    </article>
-    <article className="hm-case hm-case-ryvon" data-reveal aria-label="Ryvon AI SaaS platform">
-      <CaseGlow />
-      <div className="hm-case-content">
-        <div className="hm-case-info">
-          <div className="hm-case-logo hm-ryvon-logo"><img src={RyvonLogo} alt="Ryvon AI" loading="lazy" /></div>
-          <p className="hm-case-description"><strong>Ryvon</strong> is one platform for document chat, audio transcription, and workflow automation.</p>
-          <div className="hm-ryvon-metrics">
-            <div><strong>&lt;3 Weeks</strong><p>From Idea to<br />launch ready</p></div>
-            <div><strong>$1M+</strong><p>Pre-seed<br />Valuation</p></div>
-          </div>
-        </div>
-        <CaseVisual name="Ryvon AI" image={RyvonPreview} alt="Ryvon AI document chat and workflow automation interface" category="AI SaaS Platform" />
-      </div>
-    </article>
-    <Button to="/works">Explore Cases</Button>
-  </div>
-);
+        </article>
+      ))}
+      <Button to="/works">Explore Cases</Button>
+    </div>
+  );
+};
 
 const HomeMvp = () => {
   const { mobile, viewportRef, settledIndex, isDragging } = useMobileCarousel();

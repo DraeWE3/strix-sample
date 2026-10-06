@@ -2,6 +2,7 @@ import Button from "../Button";
 import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getOptimizedImage } from "../../lib/cloudinary";
+import { projectHref, isExternalProject } from "../../lib/projects";
 import ProjectsTypeSelect from "./ProjectsTypeSelect";
 import {
   CATEGORIES,
@@ -16,9 +17,17 @@ import CardArrow from "../../assets/img/projects/6499e.svg";
 
 const CATEGORY_LABELS = { All: "All work" };
 
+const ProjectCardLink = ({ project, children }) => {
+  const href = projectHref(project);
+  if (isExternalProject(project)) {
+    return <a className="project-card__open" href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
+  }
+  return <Link className="project-card__open" to={href}>{children}</Link>;
+};
+
 const ProjectCard = ({ project, index }) => (
   <article className="project-card" style={{ "--card-index": index % PAGE_SIZE }}>
-    <Link className="project-card__open" to={project.link || `/case-study/${project.id}`}>
+    <ProjectCardLink project={project}>
       <div className="project-card__media">
         <img
           className="project-card__image"
@@ -35,11 +44,11 @@ const ProjectCard = ({ project, index }) => (
         <h3 className="project-card__title">{project.title}</h3>
         <img className="project-card__arrow" src={CardArrow} alt="" width="20" height="20" aria-hidden="true" />
       </div>
-    </Link>
+    </ProjectCardLink>
   </article>
 );
 
-const ProjectsCatalog = ({ projects, loading }) => {
+const ProjectsCatalog = ({ projects, loading, error }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const state = useMemo(() => stateFromSearch(searchParams), [searchParams]);
   const filtered = useMemo(() => filterProjects(projects, state), [projects, state]);
@@ -54,10 +63,14 @@ const ProjectsCatalog = ({ projects, loading }) => {
   const clearFilters = () => setSearchParams({});
 
   let count = "";
-  if (!loading) {
+  if (error) {
+    count = "Projects could not be loaded";
+  } else if (!loading) {
     count = filtered.length
       ? `Showing ${visible.length} of ${filtered.length} project${filtered.length === 1 ? "" : "s"}`
-      : "No projects match these filters";
+      : projects.length
+        ? "No projects match these filters"
+        : "No projects published yet";
   }
 
   return (
@@ -90,16 +103,26 @@ const ProjectsCatalog = ({ projects, loading }) => {
         {active && <button type="button" onClick={clearFilters}>Clear filters <span aria-hidden="true">×</span></button>}
       </div>
       {loading && <div className="project-empty"><p>Loading projects...</p></div>}
-      {!loading && filtered.length > 0 && (
+      {!loading && error && (
+        <div className="project-empty">
+          <p className="project-empty__eyebrow">Something went wrong</p>
+          <h3>Projects could not be loaded right now.</h3>
+          <p>Please refresh the page or try again in a moment.</p>
+          <div>
+            <Link to="/contact">Discuss your project ↗</Link>
+          </div>
+        </div>
+      )}
+      {!loading && !error && filtered.length > 0 && (
         <div className="project-grid">
           {visible.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
         </div>
       )}
-      {!loading && filtered.length === 0 && (
+      {!loading && !error && filtered.length === 0 && (
         <div className="project-empty">
           <p className="project-empty__eyebrow">A fresh possibility</p>
-          <h3>No projects match these filters.</h3>
-          <p>Explore another combination, or tell us what you’re planning.</p>
+          <h3>{projects.length ? "No projects match these filters." : "No projects published yet."}</h3>
+          <p>{projects.length ? "Explore another combination, or tell us what you’re planning." : "Tell us what you’re planning and let’s build it together."}</p>
           <div>
             {active && <button type="button" onClick={clearFilters}>Show all projects</button>}
             <Link to="/contact">Discuss your project ↗</Link>

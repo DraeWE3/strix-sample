@@ -505,3 +505,4 @@
   .about-member-link { width: 72px; }
   .about-exported-link img { left: 50%; transform: translateX(-50%) scaleX(.86); }
 }
+.about-project-status { grid-column: 1 / -1; margin: 0; font: 400 16px/26px var(--about-body); color: #999; }

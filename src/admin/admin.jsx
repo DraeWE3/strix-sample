@@ -5,6 +5,7 @@ import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, LogOut, Check } from 'lucide
 import Button from '../components/Button';
 import { auth, db } from './firebaseconfig';
 import { uploadImage } from './storage';
+import { useProjects } from '../lib/projects';
 import { setLogLevel } from "firebase/firestore";
 setLogLevel('debug');
 
@@ -195,7 +196,7 @@ const AdminPanel = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('projects');
-  const [projects, setProjects] = useState([]);
+  const { projects, loading: projectsLoading } = useProjects({ includeDrafts: true });
   const [blogs, setBlogs] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -214,9 +215,6 @@ const AdminPanel = () => {
 
   const loadData = async () => {
     try {
-      const projectsSnap = await getDocs(query(collection(db, 'projects'), orderBy('createdAt', 'desc')));
-      setProjects(projectsSnap.docs.map(d => ({ id: d.id, ...d.data() })));
-
       const blogsSnap = await getDocs(query(collection(db, 'blogs'), orderBy('createdAt', 'desc')));
       setBlogs(blogsSnap.docs.map(d => ({ id: d.id, ...d.data() })));
 
@@ -296,7 +294,6 @@ const AdminPanel = () => {
               editingItem={editingItem}
               setEditingItem={setEditingItem}
               setShowForm={setShowForm}
-              loadData={loadData}
             />
           ) : activeTab === 'caseStudies' ? (
             <CaseStudyForm
@@ -318,6 +315,7 @@ const AdminPanel = () => {
           <DataTable
             activeTab={activeTab}
             items={activeTab === 'projects' ? projects : activeTab === 'caseStudies' ? caseStudies : blogs}
+            loading={activeTab === 'projects' && projectsLoading}
             setShowForm={setShowForm}
             setEditingItem={setEditingItem}
             loadData={loadData}
@@ -397,7 +395,7 @@ const Tabs = ({ activeTab, setActiveTab, setShowForm, setEditingItem }) => (
   </div>
 );
 
-const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
+const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
   const [formData, setFormData] = useState({
     title: '',
     categoryText: '',
@@ -451,7 +449,6 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => 
         await addDoc(collection(db, 'projects'), { ...data, createdAt: new Date().toISOString() });
       }
 
-      await loadData('projects');
       setShowForm(false);
       setEditingItem(null);
     } catch (error) {
@@ -1864,7 +1861,7 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
     </form>
   );
 };
-const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) => {
+const DataTable = ({ activeTab, items, loading = false, setShowForm, setEditingItem, loadData }) => {
   const handleDelete = async (id, collectionName) => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
 
@@ -1893,6 +1890,10 @@ const DataTable = ({ activeTab, items, setShowForm, setEditingItem, loadData }) 
   };
 
   const collectionName = activeTab === 'projects' ? 'projects' : activeTab === 'caseStudies' ? 'caseStudies' : 'blogs';
+
+  if (loading) {
+    return <div className="admin-loading">Loading...</div>;
+  }
 
   if (items.length === 0) {
     return (
