@@ -850,6 +850,19 @@ width: 50% !important;
     visibility 0.6s ease-in-out;
 }
 
+/* Smaller "Know more" button inside service + MVP cards */
+.btn-con .ui-btn,
+.btn-con2 .ui-btn {
+  min-width: 150px;
+  height: 46px;
+  padding: 0 22px;
+}
+
+.btn-con .ui-btn-label,
+.btn-con2 .ui-btn-label {
+  font-size: 16px;
+}
+
 /* When hovering carousel container */
 .card-con:hover .btn-con {
   transform: translate(-50%, -50%) translateY(0);
@@ -1171,7 +1184,7 @@ width: 50% !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8rem 10%;
+  padding: 4rem 10%;
 }
 
 .left-booking {

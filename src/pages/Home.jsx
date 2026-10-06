@@ -896,14 +896,6 @@ const Home = () => {
 
           <SmoothTextReveal as="h2" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
 
-          <div className="links">
-            <PortfolioLink delay={0}>Branding</PortfolioLink>
-            <PortfolioLink delay={0.1}>Websites</PortfolioLink>
-            <PortfolioLink delay={0.2}>All</PortfolioLink>
-            <PortfolioLink delay={0.3}>UI/UX</PortfolioLink>
-            <PortfolioLink delay={0.4}>Media</PortfolioLink>
-          </div>
-
           <div className="cl relative flex flex-col items-center justify-center">
             <CircleBlurAnimation className="circleblur2 circleblurtop" src={CircleBlur} />
 

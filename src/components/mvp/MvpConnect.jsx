@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../Button";
 import { BOOKING_URL } from "./mvpCases";
 import OrbBackground from "../../assets/img/services/4b4d2.svg";
@@ -12,11 +13,11 @@ const MvpConnect = () => (
         <p className="mvp-connect-eyebrow">Connect with us</p>
         <p className="mvp-connect-statement">Ideas are easy,<br />Execution wins. Let’s build yours.</p>
       </div>
-      <a className="mvp-start-project" href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label="Let's start your project — book a discovery call">
+      <Link className="mvp-start-project" to="/contact" aria-label="Let's start your project — contact us">
         <span className="mvp-start-circle" aria-hidden="true"><img src={OrbBackground} alt="" loading="lazy" /></span>
         <span className="mvp-start-arrow"><span><img src={OrbArrow} alt="" loading="lazy" /></span></span>
         <span className="mvp-start-label">Let’s start<br />your project</span>
-      </a>
+      </Link>
     </div>
     <div className="mvp-connect-actions" data-reveal>
       <p>Connect with us</p>

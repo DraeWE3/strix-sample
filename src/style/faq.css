@@ -1,34 +1,34 @@
 /* Shared FAQ section */
-.faq { --faq-heading: "Syne", sans-serif; --faq-body: "Epilogue", sans-serif; width: calc(100% - 246px); max-width: 1195px; margin: 150px auto 0; position: relative; z-index: 1; color: #fff; }
-.faq > h2 { max-width: 755px; margin: 0 auto; font: 600 60px/72px var(--faq-heading); text-align: center; background: linear-gradient(180.21deg, #fff .94%, #999 88.16%); background-clip: text; -webkit-background-clip: text; color: transparent; }
-.faq-list { display: grid; gap: 51.034px; margin-top: 81px; }
-.faq-list details { padding: 35.845px; border: .919px solid white; border-radius: 22.058px; background: linear-gradient(99.54deg, #000, #141414); box-shadow: 0 0 16.85px #ffffff40; }
+.faq { --faq-heading: "Syne", sans-serif; --faq-body: "Epilogue", sans-serif; width: calc(100% - 246px); max-width: 1195px; margin: 150px auto 64px; position: relative; z-index: 1; color: #fff; }
+.faq > h2 { max-width: 640px; margin: 0 auto; font: 600 48px/56px var(--faq-heading); text-align: center; background: linear-gradient(180.21deg, #fff .94%, #999 88.16%); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.faq-list { display: grid; gap: 24px; margin-top: 56px; }
+.faq-list details { padding: 26px 28px; border-radius: 18px; background: linear-gradient(99.54deg, #000, #141414); box-shadow: 0 0 16.85px #ffffff40; }
 .faq-list details:nth-child(even) { background: linear-gradient(-80.392deg, #000, #141414); }
-.faq-list summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 18.382px; cursor: pointer; list-style: none; font: 600 32px/38px var(--faq-heading); }
+.faq-list summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font: 600 24px/30px var(--faq-heading); }
 .faq-list summary::-webkit-details-marker { display: none; }
-.faq-list summary img { flex-shrink: 0; transition: transform .22s ease; }
+.faq-list summary img { flex-shrink: 0; width: 22px; height: 22px; margin-top: 4px; transition: transform .22s ease; }
 .faq-list details:not([open]) summary img { transform: rotate(45deg); }
-.faq-list details p { padding-right: 42.279px; margin: 21px 0 0; font: 400 20px/30px var(--faq-body); color: #ffffff99; }
+.faq-list details p { padding-right: 40px; margin: 14px 0 0; font: 400 17px/26px var(--faq-body); color: #ffffff99; }
 
 @media (prefers-reduced-motion: reduce) { .faq-list summary img { transition: none; } }
 
 @media (max-width: 1100px) {
-  .faq { width: calc(100% - 128px); margin-top: 120px; }
+  .faq { width: calc(100% - 128px); margin-top: 120px; margin-bottom: 56px; }
 }
 @media (max-width: 900px) {
-  .faq { margin-top: 100px; }
-  .faq > h2 { font-size: 52px; line-height: 1.15; }
-  .faq-list { margin-top: 64px; gap: 30px; }
-  .faq-list summary { font-size: 26px; line-height: 34px; }
-  .faq-list details p { font-size: 17px; line-height: 28px; }
+  .faq { margin-top: 100px; margin-bottom: 48px; }
+  .faq > h2 { font-size: 42px; line-height: 1.15; }
+  .faq-list { margin-top: 48px; gap: 20px; }
+  .faq-list summary { font-size: 22px; line-height: 29px; }
+  .faq-list details p { font-size: 16px; line-height: 25px; }
 }
 @media (max-width: 600px) {
-  .faq { width: calc(100% - 40px); }
-  .faq > h2 { font-size: 40px; line-height: 46px; max-width: 360px; }
-  .faq-list { margin-top: 44px; gap: 24px; }
-  .faq-list details { padding: 23px; border-radius: 20px; }
-  .faq-list summary { font-size: 25px; line-height: 31px; gap: 16px; }
+  .faq { width: calc(100% - 40px); margin-bottom: 40px; }
+  .faq > h2 { font-size: 34px; line-height: 40px; max-width: 360px; }
+  .faq-list { margin-top: 36px; gap: 16px; }
+  .faq-list details { padding: 20px; border-radius: 16px; }
+  .faq-list summary { font-size: 19px; line-height: 25px; gap: 14px; }
   .faq-list summary img { transform: scale(.8); transform-origin: top right; }
   .faq-list details:not([open]) summary img { transform: scale(.8) rotate(45deg); }
-  .faq-list details p { font-size: 16px; line-height: 26px; padding-right: 0; margin-top: 20px; }
+  .faq-list details p { font-size: 15px; line-height: 24px; padding-right: 0; margin-top: 12px; }
 }
