@@ -45,7 +45,7 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
                 </div>
-                <Link className="service-card__explore" to="/contact" aria-label={`Explore ${card.title} with Strix Production`}>
+                <Link className="service-card__explore" to={card.href || "/contact"} aria-label={`Explore ${card.title} with Strix Production`}>
                   <img className="service-card__explore-rim" src={ExploreRim} alt="" width="97.477" height="33" />
                   <span className="service-card__explore-glow" aria-hidden="true"><img src={ExploreGlow} alt="" /></span>
                   <span>Explore</span>

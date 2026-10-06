@@ -120,7 +120,7 @@ const CreativeDesign = () => {
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">Creative Designs</h1>
+          <h1 className="slideinLoad">Creative Design</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -160,7 +160,7 @@ const CreativeDesign = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">Our creative design team blends next-gen visuals with strategy — crafting concepts that help your brand stand out through innovation and creativity.</p>
+        <p className="ui-hero-p scrollReveal">Creative work built to perform across every platform and format.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -178,10 +178,10 @@ const CreativeDesign = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon1} alt="" />
-                <p>Corporate & Business Websites</p>
+                <p>Social Media Creatives</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Scroll-stopping visuals sized and styled for every platform.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -190,10 +190,10 @@ const CreativeDesign = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="top-card-con1" src={Cardcon2} alt="" />
-                <p>Landing Page Design</p>
+                <p>Thumbnails & Banners</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">The first frame people judge your content by — designed to win the click.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -202,10 +202,10 @@ const CreativeDesign = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon3} alt="" />
-                <p>E-Commerce Storefront Designs</p>
+                <p>Pitch Decks & Presentations</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Slides that make the story land in the room and in the inbox.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -214,10 +214,10 @@ const CreativeDesign = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui2" src={Cardcon4} alt="" />
-                <p>Portfolio & Showcase websites</p>
+                <p>Marketing Collateral</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Brochures, one-pagers and ads that look like one brand.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -229,7 +229,7 @@ const CreativeDesign = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Why Choose us ?</h1>
-        <p className="p-inde scrollReveal">Our creative practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

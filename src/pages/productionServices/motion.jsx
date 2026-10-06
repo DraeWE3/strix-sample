@@ -9,15 +9,14 @@ import Blur2 from '../../assets/img/shared/p-blur1.png'
 import Blur3 from '../../assets/img/shared/Ellipse 7.png'
 import Blur4 from '../../assets/img/shared/Ellipse 8.png'
 import '../../style/uiux.css'
-import CardImg from '../../assets/img/service-pages/common/ui-card.webp'
-import Cardcon1 from '../../assets/img/service-pages/production/motion1.png'
-import Cardcon2 from '../../assets/img/service-pages/production/motion2.png'
-import Cardcon3 from '../../assets/img/service-pages/production/motion3.png'
-import Cardcon4 from '../../assets/img/service-pages/production/motion4.png'
+import Card1 from '../../assets/img/service-pages/production/figma-motion-1.png'
+import Card2 from '../../assets/img/service-pages/production/figma-motion-2.png'
+import Card3 from '../../assets/img/service-pages/production/figma-motion-3.png'
+import Card4 from '../../assets/img/service-pages/production/figma-motion-4.png'
 import ProjectCarousel from "../../components/projectCarouel";
 import Button from "../../components/Button";
 import ProjectCircle from '../../assets/img/shared/project-circle.webp'
-import HeroImg from '../../assets/img/service-pages/production/pro-bg.webp'
+import HeroImg from '../../assets/img/service-pages/production/motion-hero.webp'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DotGrid from "../../animations/DotGrid";
@@ -160,7 +159,7 @@ const Motion = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">We bring static ideas to life with motion graphics that communicates clearly, captivate viewers, and elevate your brand storytelling.</p>
+        <p className="ui-hero-p scrollReveal">We bring static ideas to life with motion graphics that communicate clearly, captivate viewers, and elevate your brand storytelling.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -175,49 +174,33 @@ const Motion = () => {
         <div className="provide-grid">
           <div className="provide-card p-sec2-card1">
             <div className="p-top-card">
-              <img src={CardImg} alt="" />
-              <div className="top-card-con">
-                <img className="ui2" src={Cardcon1} alt="" />
-                <p>Explainer Animations</p>
-              </div>
+              <img className="figma-card" src={Card1} alt="Explainer Animations" />
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Your product's value, visualised in under 60 seconds.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
             <div className="p-top-card">
-              <img src={CardImg} alt="" />
-              <div className="top-card-con">
-                <img className="top-card-con1 ui1" src={Cardcon2} alt="" />
-                <p>Text & Title Motion Effects</p>
-              </div>
+              <img className="figma-card" src={Card2} alt="Text & Title Motion Effects" />
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Words that move — and make people stop to read them.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card1">
             <div className="p-top-card">
-              <img src={CardImg} alt="" />
-              <div className="top-card-con">
-                <img className="ui1" src={Cardcon3} alt="" />
-                <p>Logo Animations</p>
-              </div>
+              <img className="figma-card" src={Card3} alt="Logo Animations" />
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">A logo that doesn't just sit there — it arrives.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
           <div className="provide-card p-sec2-card2">
             <div className="p-top-card">
-              <img src={CardImg} alt="" />
-              <div className="top-card-con">
-                <img className="ui1" src={Cardcon4} alt="" />
-                <p>Infrographic Videos</p>
-              </div>
+              <img className="figma-card" src={Card4} alt="Infographic Videos" />
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Data that people actually watch, understand, and remember.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -229,7 +212,7 @@ const Motion = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Why Choose us ?</h1>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

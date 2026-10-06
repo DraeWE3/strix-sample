@@ -11,6 +11,7 @@ import "./style/services.css";
 // Shared styles for the service pages and case study (previously loaded via the old Projects page)
 import "./style/Project.css";
 import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import Uiux from "./pages/designServices/uiux";
 import Product from "./pages/designServices/product";
 import Branding from "./pages/designServices/Branding";
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/works" element={<Project />} />
           <Route path="/case-study/:id" element={<CaseStudy />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Url" element={<Url />} />

@@ -119,7 +119,7 @@ const AppDev = () => {
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">Application Development</h1>
+          <h1 className="slideinLoad">App Development</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -177,10 +177,10 @@ const AppDev = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui2" src={Cardcon1} alt="" />
-                <p>Native IOS App</p>
+                <p>Native iOS Apps</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Swift-built apps that feel at home on every iPhone and iPad.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -192,7 +192,7 @@ const AppDev = () => {
                 <p>Native Android Apps</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Kotlin apps tuned for the devices your users actually own.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -201,12 +201,10 @@ const AppDev = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui4" src={Cardcon3} alt="" />
-                <p>Cross Platform Apps
-
-                </p>
+                <p>Cross-Platform Apps</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">One codebase, two stores, no compromise on feel.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -219,7 +217,7 @@ const AppDev = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Why Choose us ?</h1>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

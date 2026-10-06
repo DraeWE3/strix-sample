@@ -182,7 +182,7 @@ const Product = () => {
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">Product design</h1>
+          <h1 className="slideinLoad">Product Design</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -222,7 +222,7 @@ const Product = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">We craft end-to-end product designs that bring bold ideas to life - balancing aesthetics, usability, and functionality for market-ready impact.</p>
+        <p className="ui-hero-p scrollReveal">End-to-end product design built for retention, not just launch day.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -240,10 +240,10 @@ const Product = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon1} alt="" />
-                <p>Build your on MVP</p>
+                <p>Build Your Own MVP</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Core features first — launched early, tested fast, improved with real data.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -255,7 +255,7 @@ const Product = () => {
                 <p>Hardware + Digital Interfaces</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Where the device ends and the app begins, designed as one experience.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -267,7 +267,7 @@ const Product = () => {
                 <p>Product Concept Development</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">From a rough idea to a product people can see, click and believe in.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -276,10 +276,10 @@ const Product = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img src={Cardcon1} alt="" />
-                <p>Interactive product mockup</p>
+                <p>Interactive Product Mockups</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Clickable prototypes that sell the vision before the build.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -307,7 +307,7 @@ const Product = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h2 className="scrollReveal">Why Choose us ?</h2>
-        <p className="p-inde scrollReveal">Our UI/UX practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

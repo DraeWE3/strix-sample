@@ -1,0 +1,397 @@
+/* Service detail pages — ported from strix-production-services-developer (Figma 965:8162 … 965:8883).
+   Header/nav and footer markup intentionally excluded: the pages reuse the site's shared <Nav/> and <Footer/>.
+   Every rule is scoped to .service-detail-shell so nothing leaks to other pages. Values match the source
+   styles.css / lower.css one-to-one; only the scoping prefix and asset paths changed. */
+
+@font-face {
+  font-family: 'Nasalization';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/nasalization.otf') format('opentype');
+}
+
+/* Neutralize site-wide element rules from index.css / cs.css (div z-index, span size, button chrome, p font). */
+.service-detail-shell :where(div) { z-index: auto; }
+.service-detail-shell :where(span) { width: auto; height: auto; }
+.service-detail-shell :where(button) { padding: 0; border-radius: 0; transition: none; appearance: none; }
+.service-detail-shell :where(button):focus:not(:focus-visible) { outline: none; }
+.service-detail-shell p, .service-detail-shell p[class] { font-family: Epilogue, Arial, sans-serif !important; }
+.service-detail-shell .service-offer__art p, .service-detail-shell .service-proof-art p { font-family: inherit !important; }
+.service-detail-shell :where(section, article, nav, main) { display: block; }
+
+/* ---- styles.css ---- */
+.service-detail-shell{color-scheme:dark;--primary:#000;--secondary:#999;--body:#fff;--heading:Syne,Arial,sans-serif;--text:Epilogue,Arial,sans-serif}
+.service-detail-shell *{box-sizing:border-box}
+.service-detail-shell{margin:0;min-width:280px;background:#000;color:#fff;font:400 14px/1.6 Epilogue,Arial,sans-serif;-webkit-font-smoothing:antialiased;position:relative;isolation:isolate;overflow-x:clip}
+.service-detail-shell :where(button),.service-detail-shell :where(input),.service-detail-shell :where(select),.service-detail-shell :where(textarea){font:inherit;color:inherit}
+.service-detail-shell :where(a){color:inherit;text-decoration:none}
+.service-detail-shell :where(button),.service-detail-shell :where(a){-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.service-detail-shell :where(button){cursor:pointer;background:none;border:0}
+.service-detail-shell :where(img){display:block;max-width:100%}
+.service-detail-shell :where(h1),.service-detail-shell :where(h2),.service-detail-shell :where(h3),.service-detail-shell :where(p){margin:0}
+.service-detail-shell :where(a):focus-visible,.service-detail-shell :where(button):focus-visible,.service-detail-shell :where([tabindex]):focus-visible{outline:2px solid #fff;outline-offset:5px}
+.service-detail-shell :where([hidden]){display:none!important}
+.service-detail-shell .service-detail-main{position:relative;isolation:isolate;overflow:clip;padding-top:302px}
+.service-detail-shell .service-pager{position:absolute;left:69px;right:69px;top:147.5px;z-index:2;display:flex;justify-content:space-between;font-size:14.414px;line-height:19px}
+.service-detail-shell .service-pager a{display:flex;align-items:center;gap:12px;min-height:44px}
+.service-detail-shell .service-pager img{max-width:none;width:auto;height:auto}
+.service-detail-shell .service-pager a:hover{color:#999}
+.service-detail-shell .service-background{position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.service-detail-shell .service-background img{position:absolute;width:auto;height:auto;max-width:none;mix-blend-mode:plus-lighter}
+.service-detail-shell .service-glow--top-left{left:calc(50% - 1476.5px);top:-527.5px}
+.service-detail-shell .service-glow--top-right{left:calc(50% + 504.5px);top:-527.5px}
+.service-detail-shell .service-glow--left{left:calc(50% - 2174px);top:2242px}
+.service-detail-shell .service-glow--left2{left:calc(50% - 2174px);top:3443px}
+.service-detail-shell .service-glow--right,.service-detail-shell .service-glow--right2{position:absolute;left:calc(50% + 557px);top:2321px;width:564px;height:1046px;display:flex;align-items:center;justify-content:center;mix-blend-mode:plus-lighter}
+.service-detail-shell .service-glow--right2{top:3522px}
+.service-detail-shell .service-glow--right img,.service-detail-shell .service-glow--right2 img{position:relative;transform:rotate(90deg);flex:none}
+.service-detail-shell .service-hero{position:relative;display:flex;flex-direction:column;align-items:center;isolation:isolate}
+.service-detail-shell .service-hero-orbit{top:-208px!important}
+.service-detail-shell .service-hero h1{width:min(1100px,calc(100% - 48px));height:150px;text-align:center;font:600 75px/150px Syne,sans-serif;letter-spacing:6px;text-transform:capitalize;background:linear-gradient(180.014deg,#fcfcfd .1%,#969697 118.86%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .service-hero-media{position:relative;isolation:isolate;overflow:hidden;width:min(1004px,calc(100% - 80px));height:503px;margin-top:12px;border:1px solid #fff;border-radius:43px;box-shadow:0 4px 50px #fff4}
+.service-detail-shell .service-hero-poster{position:absolute;inset:0;max-width:none;width:100%;height:100%;object-fit:cover}
+.service-detail-shell .service-hero-description{width:min(1261px,calc(100% - 60px));height:48px;margin-top:45px;font:400 25px/48px Epilogue,sans-serif;letter-spacing:.5px;text-align:center}
+.service-detail-shell .service-hero-actions{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:44px;height:65.25px}
+.service-detail-shell .service-button{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;width:213.75px;height:65.25px;border:1.125px solid #ffffff1a;border-radius:70px;background:#000;box-shadow:0 10.125px 15.75px #000c;backdrop-filter:blur(5.625px);font:500 22.5px/1.2 'Clash Display',Syne,sans-serif;flex:none;transition:transform .25s,filter .25s}
+.service-detail-shell .service-button:hover{transform:translateY(-3px);filter:brightness(1.3)}
+.service-detail-shell .service-button>span:last-child{background:linear-gradient(90deg,#fff,#999);background-clip:text;-webkit-background-clip:text;color:transparent;position:relative}
+.service-detail-shell .service-button__rim{position:absolute;left:-1px;top:-1px;max-width:none;width:auto;height:auto}
+.service-detail-shell .service-button__glow{position:absolute;inset:0;overflow:hidden;mask:url("../assets/img/service-pages/figma/81e7e.svg") 0 0/213.75px 65.25px no-repeat;pointer-events:none}
+.service-detail-shell .service-button__glow img{position:absolute;left:-24px;top:4.5px;max-width:none;width:auto;height:auto}
+.service-detail-shell .service-provide{position:relative;isolation:isolate;margin:209.75px auto 0;width:100%}
+.service-detail-shell .service-provide-orbit{top:-162px!important;margin-left:-10.13px}
+.service-detail-shell .service-provide>h2{display:flex;align-items:center;justify-content:center;text-align:center;height:177px;font:500 75px/86px 'Clash Display',Syne,sans-serif;letter-spacing:3.75px;background:linear-gradient(180.31deg,#fff 17.517%,#999 115.55%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .service-offers{display:grid;grid-template-columns:repeat(2,minmax(0,527.2px));grid-auto-rows:519.4px;justify-content:space-between;gap:58.6px 80px;width:min(1204.4px,calc(100% - 80px));margin:64px auto 0}
+.service-detail-shell .service-offer{display:flex;flex-direction:column;align-items:center;min-width:0}
+.service-detail-shell .service-offer__canvas{width:100%;aspect-ratio:527.2 / 354.4;position:relative;container-type:inline-size}
+.service-detail-shell .service-offer__art{width:527.2px;height:354.4px;position:absolute;left:0;top:0;transform:scale(calc(100cqw / 527.2px));transform-origin:0 0}
+.service-detail-shell .service-offer__art .figma-svg{max-width:none!important}
+.service-detail-shell .service-offer__description{width:min(100%,var(--description-width,420px));font:400 20px/26.4px Epilogue,sans-serif;text-align:center;color:#e6e6e6;margin-top:24px}
+.service-detail-shell .service-offer>.service-button{margin-top:24px}
+.service-detail-shell .service-offers--3>.service-offer:last-child{grid-column:1/-1;width:527.2px;max-width:100%;justify-self:center}
+.service-detail-shell .service-proof{width:min(1221px,calc(100% - 60px));position:relative;isolation:isolate;display:flex;align-items:center;flex-direction:column;gap:30px;min-height:547px;margin:242.6px auto 405px}
+.service-detail-shell .service-proof__heading{width:100%;font:500 51px/75px 'Clash Display',Syne,sans-serif;text-align:center;letter-spacing:2.55px;background:linear-gradient(#fff,#999);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .service-proof__intro{width:min(1129px,calc(100vw - 60px));min-height:48px;padding:8px 0;box-sizing:border-box;text-align:center;font:400 18px/32px Epilogue,sans-serif;letter-spacing:.36px}
+.service-detail-shell .service-proof__cards{display:grid;grid-template-columns:repeat(3,298px);gap:31px;width:956px;max-width:100%}
+.service-detail-shell .service-proof-native{width:298px;height:364px;position:relative;container-type:inline-size}
+.service-detail-shell .service-proof-art{width:298px;height:364px;position:absolute;left:0;top:0;transform:scale(calc(100cqw / 298px));transform-origin:0 0}
+.service-detail-shell[data-cta-mode="call"]{--ds-related-gap:100px;--ds-contact-gap:62px}
+.service-detail-shell [data-reveal]{transition:opacity .65s ease,translate .65s cubic-bezier(.16,1,.3,1)}
+.service-detail-shell.svc-motion-ready [data-reveal]:not(.is-visible){opacity:0;translate:0 18px}
+.service-detail-shell.svc-motion-ready [data-reveal].is-visible{opacity:1;translate:0 0}
+.service-detail-shell [data-carousel]{scrollbar-width:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;touch-action:pan-x pan-y;cursor:grab;scroll-behavior:auto!important;overflow-anchor:none}
+.service-detail-shell [data-carousel]::-webkit-scrollbar{display:none}
+.service-detail-shell [data-carousel].is-dragging{cursor:grabbing;user-select:none}
+.service-detail-shell .case-carousel-group{display:flex;flex:none;gap:inherit;align-items:center}
+.service-detail-shell [data-carousel] img{user-select:none;-webkit-user-drag:none}
+.service-detail-shell .service-video-mount{position:absolute;inset:0;z-index:4;background:#000}
+.service-detail-shell .service-video-mount iframe{position:absolute;inset:0;border:0;width:100%;height:100%}
+.service-detail-shell .case-media-close{position:absolute;right:14px;top:14px;z-index:6;width:42px;height:42px;border:1px solid #777;border-radius:50%;background:#111e;color:#fff;font:300 26px/1 Arial;display:grid;place-items:center}
+.service-detail-shell .case-media-status{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:32px;gap:20px;background:#090909e8;color:#ddd;text-align:center;font:400 15px/1.7 Epilogue,sans-serif}
+.service-detail-shell .case-media-status a{border:1px solid #777;border-radius:40px;padding:10px 20px}
+.service-detail-shell .case-media-note{position:absolute;left:18px;bottom:16px;z-index:5;color:#ddd;background:#000b;border-radius:20px;padding:5px 12px;font-size:10px;pointer-events:none}
+@media(max-width:1190px){
+.service-detail-shell .service-hero-description{height:auto;min-height:48px;font-size:22px;line-height:1.8}
+.service-detail-shell .service-offers{column-gap:60px;grid-auto-rows:auto;row-gap:60px}
+.service-detail-shell .service-provide{margin-top:160px}
+.service-detail-shell .service-proof{height:auto;margin-top:170px;margin-bottom:260px}
+.service-detail-shell .service-proof__intro{height:auto;line-height:1.9}
+.service-detail-shell .service-proof__cards{grid-template-columns:repeat(3,minmax(0,1fr));width:956px}
+.service-detail-shell .service-proof-native{width:100%;height:auto;aspect-ratio:298/364}
+.service-detail-shell .service-provide>h2{font-size:66px}
+.service-detail-shell .service-hero h1{font-size:68px}
+.service-detail-shell .service-hero-media{height:auto;aspect-ratio:1004/503}
+}
+@media(max-width:850px){
+.service-detail-shell .service-detail-main{padding-top:230px}
+.service-detail-shell .service-pager{left:25px;right:25px;top:124px}
+.service-detail-shell .service-hero h1{font-size:58px;height:auto;min-height:115px;line-height:1.2;letter-spacing:3px}
+.service-detail-shell .service-hero-media{margin-top:26px;width:calc(100% - 48px);border-radius:28px}
+.service-detail-shell .service-hero-description{width:calc(100% - 48px);font-size:20px;margin-top:32px}
+.service-detail-shell .service-hero-actions{margin-top:30px}
+.service-detail-shell .service-provide{margin-top:115px}
+.service-detail-shell .service-provide>h2{font-size:52px;height:135px;letter-spacing:2px}
+.service-detail-shell .service-offers{width:calc(100% - 48px);gap:55px 30px;margin-top:40px}
+.service-detail-shell .service-offer__description{font-size:17px;line-height:1.6}
+.service-detail-shell .service-offer>.service-button{width:185px;transform:scale(.86);margin-top:13px}
+.service-detail-shell .service-offers--3>.service-offer:last-child{width:calc((100% - 30px)/2)}
+.service-detail-shell .service-proof{margin-top:130px;margin-bottom:150px}
+.service-detail-shell .service-proof__heading{font-size:42px;line-height:1.3;letter-spacing:2px}
+.service-detail-shell .service-proof__intro{font-size:16px;line-height:1.9}
+.service-detail-shell .service-proof__cards{grid-template-columns:1fr;justify-items:center;gap:24px}
+.service-detail-shell .service-proof-native{width:298px;max-width:100%;aspect-ratio:298/364}
+.service-detail-shell .service-proof__cards{width:100%}
+.service-detail-shell .service-hero-orbit{transform:translateX(-50%) scale(.8)!important;transform-origin:top center}
+.service-detail-shell .service-provide-orbit{transform:translateX(-50%) scale(.7)!important;transform-origin:top center}
+}
+@media(max-width:600px){
+.service-detail-shell .service-detail-main{padding-top:180px}
+.service-detail-shell .service-pager{top:102px;left:22px;right:22px;font-size:11px;gap:20px}
+.service-detail-shell .service-pager a{gap:8px}
+.service-detail-shell .service-hero h1{font-size:43px;min-height:105px;letter-spacing:2px}
+.service-detail-shell .service-hero-media{width:calc(100% - 40px);margin-top:20px;border-radius:20px}
+.service-detail-shell .service-hero-description{width:calc(100% - 40px);font-size:17px;line-height:1.8;margin-top:30px}
+.service-detail-shell .service-hero-actions{gap:12px;height:56px;margin-top:25px}
+.service-detail-shell .service-hero-actions .service-button{width:155px;font-size:18px;height:54px}
+.service-detail-shell .service-hero-actions .service-button__rim{transform:scale(.725,.827);transform-origin:0 0}
+.service-detail-shell .service-hero-actions .service-button__glow{mask-size:155px 54px}
+.service-detail-shell .service-provide{margin-top:95px}
+.service-detail-shell .service-provide>h2{height:105px;font-size:37px;letter-spacing:1.5px}
+.service-detail-shell .service-offers{grid-template-columns:1fr;width:min(440px,calc(100% - 44px));margin-top:32px;gap:44px}
+.service-detail-shell .service-offers--3>.service-offer:last-child{width:100%}
+.service-detail-shell .service-offer__description{margin-top:22px;font-size:17px;line-height:1.65;max-width:310px}
+.service-detail-shell .service-offer>.service-button{margin-top:16px}
+.service-detail-shell .service-proof{width:calc(100% - 40px);gap:25px;margin-top:110px;margin-bottom:140px}
+.service-detail-shell .service-proof__heading{font-size:34px;line-height:1.3;letter-spacing:1.5px}
+.service-detail-shell .service-proof__intro{width:100%;font-size:15px;line-height:1.9}
+.service-detail-shell .service-hero-orbit{top:-100px!important;transform:translateX(-50%) scale(.49)!important}
+.service-detail-shell .service-provide-orbit{top:-80px!important;transform:translateX(-50%) scale(.5)!important}
+.service-detail-shell .service-background{opacity:.6}
+.service-detail-shell .case-media-status{padding:15px;font-size:12px;gap:10px}
+.service-detail-shell .case-media-close{width:32px;height:32px;top:8px;right:8px}
+}
+@media(prefers-reduced-motion:reduce){
+.service-detail-shell *,.service-detail-shell *::before,.service-detail-shell *::after{animation:none!important;transition:none!important}
+.service-detail-shell [data-reveal]{opacity:1!important;translate:none!important}
+}
+.service-detail-shell .service-pager a:last-child img{transform:rotate(180deg)}
+.service-detail-shell .service-hero-description{opacity:.76}
+.service-detail-shell .service-glow--provide-left{left:calc(50% - 2180px);top:783px}
+.service-detail-shell .service-glow--provide-right{left:calc(50% + 117px);top:731px}
+.service-detail-shell .service-proof__heading{background-image:url("../assets/img/service-pages/figma/09bc8.png");background-size:cover;background-position:center}
+.service-detail-shell .service-hero-description{display:grid;place-content:center}
+@media(min-width:1191px){
+.service-detail-shell .service-offer__description{width:var(--description-width,420px)}
+}
+.service-detail-shell .service-offer__art *,.service-detail-shell .service-proof-art *{border-width:0}
+@media(max-width:600px){
+.service-detail-shell .ds-why-grid>.ds-why-card{height:254px}
+}
+@media(max-width:360px){
+.service-detail-shell .service-hero-actions{transform:scale(.86);transform-origin:center}
+}
+.service-detail-shell{--ds-contact-gap:140px}
+.service-detail-shell .service-proof__heading{background-image:url("../assets/img/service-pages/figma/ed208.png")}
+@media(min-width:1191px){
+.service-detail-shell .service-hero-description{width:var(--hero-description-width,1261px)}
+.service-detail-shell .service-proof__intro{width:821px}
+}
+.service-detail-shell .capability-card{position:relative;width:298px;height:364px;border:1px solid #999;border-radius:23px;overflow:hidden;background:#000;isolation:isolate;text-align:left}
+.service-detail-shell .capability-card__glow{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.7}
+.service-detail-shell .capability-card__label{position:absolute;top:42px;left:28px;width:240px;min-height:65px;display:flex;align-items:center;justify-content:center;text-align:center;font:600 23px/1.2 Syne,sans-serif;letter-spacing:1px;color:#ddd}
+.service-detail-shell .capability-card__logo{position:absolute;top:30px;left:22px;width:254px;height:80px;display:flex;align-items:center;justify-content:center}
+.service-detail-shell .capability-card__logo .client-logo{display:block;height:auto;max-width:100%}
+.service-detail-shell .client-logo--min-maria{width:116px}
+.service-detail-shell .client-logo--impact-river{width:170px}
+.service-detail-shell .client-logo--arhiwar{width:112px}
+.service-detail-shell .capability-card h3{position:absolute;left:32px;right:28px;top:143px;height:79px;display:flex;align-items:center;font:400 22px/26px Epilogue,sans-serif;letter-spacing:.44px}
+.service-detail-shell .capability-card>p{position:absolute;top:234px;left:23px;width:250px;padding-top:12px;border-top:.5px solid #ffffff80;font:400 14px/24px Epilogue,sans-serif}
+@media(max-width:600px){
+.service-detail-shell .capability-card h3{font-size:22px}
+}
+@media(max-width:850px){
+.service-detail-shell .service-proof__cards{grid-template-columns:minmax(0,1fr)}
+}
+.service-detail-shell .ds-why,.service-detail-shell .ds-related,.service-detail-shell .ds-project-contact,.service-detail-shell .ds-call-contact{box-sizing:border-box;position:relative;isolation:isolate;color:#fff}
+.service-detail-shell .ds-why *,.service-detail-shell .ds-related *,.service-detail-shell .ds-project-contact *,.service-detail-shell .ds-call-contact *{box-sizing:border-box}
+.service-detail-shell .ds-why h2,.service-detail-shell .ds-why h3,.service-detail-shell .ds-why p,.service-detail-shell .ds-related h2,.service-detail-shell .ds-related p,.service-detail-shell .ds-project-contact h2,.service-detail-shell .ds-project-contact p,.service-detail-shell .ds-call-contact h2{margin:0}
+.service-detail-shell .ds-why a,.service-detail-shell .ds-related a,.service-detail-shell .ds-project-contact a,.service-detail-shell .ds-call-contact a{color:inherit;text-decoration:none}
+.service-detail-shell .ds-why a:focus-visible,.service-detail-shell .ds-related a:focus-visible,.service-detail-shell .ds-related button:focus-visible,.service-detail-shell .ds-project-contact a:focus-visible,.service-detail-shell .ds-call-contact a:focus-visible{outline:2px solid #fff;outline-offset:6px}
+.service-detail-shell .ds-orbit{position:absolute;z-index:-1;pointer-events:none;left:50%;width:831.75px;height:885px;transform:translateX(-50%)}
+.service-detail-shell .ds-orbit-light{position:absolute;left:50%;top:103px;transform:translateX(-50%);width:534px;height:534px;border-radius:50%;opacity:.9;background:linear-gradient(#fff,transparent 70.673%);filter:blur(125px)}
+.service-detail-shell .ds-orbit-ring{position:absolute;left:0;top:117.5px;width:831.75px;height:847.5px;border:1px solid white;border-radius:839.63px;background:linear-gradient(#0008,#0000001a);backdrop-filter:blur(25px);mask:url("../assets/img/service-pages/figma/481b8.svg") 0 0/831.75px 847.5px no-repeat;-webkit-mask:url("../assets/img/service-pages/figma/481b8.svg") 0 0/831.75px 847.5px no-repeat}
+.service-detail-shell .ds-why{width:min(1140px,calc(100% - 80px));margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+.service-detail-shell .ds-why-orbit{top:-186px;margin-left:-11.13px}
+.service-detail-shell .ds-why>h2{display:flex;align-items:center;justify-content:center;width:100%;height:177px;font:600 90px/106px 'Syne',sans-serif;letter-spacing:3.75px;background:linear-gradient(180.206deg,#fff 17.517%,#999 115.55%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
+.service-detail-shell .ds-why-card{background:#000;border:1.336px solid #999;border-radius:21.371px;height:236px;overflow:hidden;position:relative;isolation:isolate}
+.service-detail-shell .ds-why-unified{width:100%;margin-top:60px}
+.service-detail-shell .ds-why-unified h3{position:absolute;top:59.3px;left:50%;transform:translateX(-50%);width:1057px;font:500 51px/50.413px 'Epilogue',sans-serif;letter-spacing:2.55px;background:url("../assets/img/service-pages/figma/cedf5.png") center/cover no-repeat;background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-why-unified>p{position:absolute;top:128px;left:50%;transform:translateX(-50%);width:966px;font:400 26px/46px 'Epilogue',sans-serif}
+.service-detail-shell .ds-why-glow{max-width:none!important;width:auto;height:auto;position:absolute;left:83.45px;top:194.06px;transform:translate(-50%,-50%) rotate(-17.2deg);mix-blend-mode:screen;pointer-events:none;z-index:-1}
+.service-detail-shell .ds-why-unified>.ds-why-glow{left:282.45px}
+.service-detail-shell .ds-why-verified>.ds-why-glow{left:191.8px;transform:translate(-50%,-50%) rotate(-162.8deg) scaleY(-1)}
+.service-detail-shell .ds-why-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:27px;width:100%;margin-top:54px}
+.service-detail-shell .ds-why-badges{position:absolute;top:45px;left:48px;display:flex;gap:28px;align-items:center}
+.service-detail-shell .ds-upwork-badge{position:relative;width:118px;height:106px;display:block;flex:none}
+.service-detail-shell .ds-upwork-badge>img,.service-detail-shell .ds-badge-outline{position:absolute;max-width:none!important}
+.service-detail-shell .ds-badge-outline{inset:-2.95% 4.7% -3.44% 4.6%}
+.service-detail-shell .ds-badge-outline img{position:absolute;left:6.7%;top:0;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-badge-inner{left:17.565px;top:5.48px;width:82.76px;height:95.563px}
+.service-detail-shell .ds-badge-stroke{left:7.26%;top:-4.63%}
+.service-detail-shell .ds-badge-wordmark{left:21.83%;top:38.78%}
+.service-detail-shell .ds-badge-icon{left:42.18%;top:16.12%;width:15.43%;height:17.17%;object-fit:contain;border-radius:16px}
+.service-detail-shell .ds-badge-ribbon{left:.62%;top:63.03%}
+.service-detail-shell .ds-badge-ribbon-label{position:absolute;left:24.85px;top:72.39px;display:flex;gap:5.056px;align-items:center}
+.service-detail-shell .ds-badge-star{position:relative;width:11.62px;height:11.62px}
+.service-detail-shell .ds-badge-star img,.service-detail-shell .ds-badge-label img{position:absolute;left:-4px;top:0;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-badge-label{position:relative;width:51.755px;height:6.989px}
+.service-detail-shell .ds-job-success{width:120.75px;display:flex;flex-direction:column;align-items:center;gap:5px;font:500 22.5px/23px 'Epilogue',sans-serif;letter-spacing:1.125px}
+.service-detail-shell .ds-job-success>span:last-child{height:57.75px;display:flex;justify-content:center;align-items:center}
+.service-detail-shell .ds-crown{position:relative;width:44px;height:44px;overflow:hidden;display:block}
+.service-detail-shell .ds-crown img{position:absolute;width:126.79%;height:131.76%;left:-18.82%;top:-23.53%;max-width:none!important}
+.service-detail-shell .ds-why-card-caption{position:absolute;top:175px;left:50%;transform:translateX(-50%);width:334px;font:400 16px/22px 'Epilogue',sans-serif;background:linear-gradient(#fff 43.103%,#999);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-why-rating h3{position:absolute;top:28px;width:100%;font:600 44.454px/77px 'Epilogue',sans-serif;letter-spacing:2.2227px;background:radial-gradient(ellipse,#fff,#999);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-rating-stars{position:absolute;top:94px;left:0;width:100%;font:500 44.454px/77px 'Clash Display',sans-serif;letter-spacing:2.2227px;background:radial-gradient(ellipse,#fff,#999);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-why-rating .ds-why-card-caption{width:217px;top:171px}
+.service-detail-shell .ds-why-rating-arrow{position:absolute;right:22px;bottom:21px;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-why-projects h3{position:absolute;top:31px;left:0;width:100%;font:500 50.227px/67.268px 'Clash Display',sans-serif;letter-spacing:2.5113px}
+.service-detail-shell .ds-why-projects .ds-why-card-caption{top:178px;width:191px}
+.service-detail-shell .ds-related{width:100%;min-height:885px;margin:var(--ds-related-gap,140px) auto 0;padding-top:187px;text-align:center}
+.service-detail-shell .ds-related-orbit{top:0;margin-left:-1.13px}
+.service-detail-shell .ds-related-orbit .ds-orbit-light{top:33px;background:linear-gradient(#ffffff87,#666460)}
+.service-detail-shell .ds-related-orbit .ds-orbit-ring{border-width:2px;background:linear-gradient(#ffffff4d,transparent 54.81%)}
+.service-detail-shell .ds-related>h2{height:55px;font:500 45px/55px 'Clash Display',sans-serif;letter-spacing:2.25px;opacity:.9;background:linear-gradient(#000 41.818%,#666 208.18%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
+.service-detail-shell .ds-related-gallery{position:relative;width:100%;height:392px;margin-top:33px}
+.service-detail-shell .ds-related-viewport{width:100%;height:392px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;touch-action:pan-x pan-y pinch-zoom;scrollbar-width:none;cursor:grab;outline-offset:-4px;-webkit-overflow-scrolling:touch;scroll-behavior:auto}
+.service-detail-shell .ds-related-viewport::-webkit-scrollbar{display:none}
+.service-detail-shell .ds-related-viewport:focus-visible{outline:2px solid #ccc}
+.service-detail-shell .ds-related-viewport.is-dragging{cursor:grabbing;user-select:none}
+.service-detail-shell .ds-related-viewport img{user-select:none;-webkit-user-drag:none}
+.service-detail-shell .ds-related-track{display:flex;align-items:center;gap:44px;width:max-content;height:392px}
+.service-detail-shell .ds-related-card{position:relative;display:block;flex:none;width:286.086px;height:200.92px;border-radius:31.697px;--ds-card-width:286.086px;--ds-card-height:200.92px;--ds-card-radius:31.697px;--ds-card-mask:url("../assets/img/service-pages/figma/5ffcd.svg")}
+.service-detail-shell .ds-related-card--laptop{--ds-card-mask:url("../assets/img/service-pages/figma/92cd5.svg")}
+.service-detail-shell .ds-related-card--laptop-right{--ds-card-mask:url("../assets/img/service-pages/figma/8aeda.svg")}
+.service-detail-shell .ds-related-card--featured{width:400.68px;height:281.4px;--ds-card-width:400.68px;--ds-card-height:281.4px;--ds-card-radius:44.394px;--ds-card-mask:url("../assets/img/service-pages/figma/8146e.svg")}
+.service-detail-shell .ds-related-native{position:relative;display:block;width:var(--ds-card-width);height:var(--ds-card-height);transform-origin:0 0}
+.service-detail-shell .ds-related-card-glow,.service-detail-shell .ds-related-card-media,.service-detail-shell .ds-related-card-rim{position:absolute;inset:0;mask:var(--ds-card-mask) no-repeat 0 0/var(--ds-card-width) var(--ds-card-height);-webkit-mask:var(--ds-card-mask) no-repeat 0 0/var(--ds-card-width) var(--ds-card-height)}
+.service-detail-shell .ds-related-card-glow{inset:0 .84% -1.49% 0;pointer-events:none}
+.service-detail-shell .ds-related-card-glow img{position:absolute;left:-47.4%;top:-65.94%;width:auto;height:auto;max-width:none!important}
+.service-detail-shell .ds-related-card-media{border:.906px solid #ffffff1a;border-radius:var(--ds-card-radius);box-shadow:0 4.585px 7.132px #000c}
+.service-detail-shell .ds-related-card-media img{display:block;width:100%;height:100%;object-fit:cover}
+.service-detail-shell .ds-related-card-media:after{content:'';position:absolute;inset:0;background:#0008;backdrop-filter:blur(2.547px);transition:background .2s}
+.service-detail-shell .ds-related-card--featured .ds-related-card-media{border-width:1.268px;box-shadow:0 6.421px 9.989px #000c}
+.service-detail-shell .ds-related-card--featured .ds-related-card-media img{object-fit:contain}
+.service-detail-shell .ds-related-card--featured .ds-related-card-media:after,.service-detail-shell .ds-related-card:hover .ds-related-card-media:after,.service-detail-shell .ds-related-card:focus-visible .ds-related-card-media:after{background:transparent;backdrop-filter:none}
+.service-detail-shell .ds-related-card-rim{pointer-events:none}
+.service-detail-shell .ds-related-card-rim img{position:absolute;inset:0;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{position:absolute;top:174px;display:grid;place-items:center;width:44px;height:44px;z-index:2;padding:0;background:transparent;border:0;color:white;cursor:pointer}
+.service-detail-shell .ds-related-prev{left:calc(50% - 244px)}
+.service-detail-shell .ds-related-next{right:calc(50% - 244px)}
+.service-detail-shell .ds-related-prev img,.service-detail-shell .ds-related-next img{max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-related-next img{transform:scaleX(-1)}
+.service-detail-shell .ds-related-prev:disabled,.service-detail-shell .ds-related-next:disabled{opacity:.35;cursor:default}
+.service-detail-shell .ds-related-pause{position:absolute;right:30px;bottom:36px;z-index:2;padding:8px 10px;border:1px solid #ffffff30;border-radius:20px;background:#080808aa;color:#bbb;font:400 11px/1 'Epilogue',sans-serif;cursor:pointer}
+.service-detail-shell .ds-related-caption{position:relative;width:min(943px,calc(100% - 48px));margin:-26px auto 0!important;font:400 25px/48px 'Epilogue',sans-serif;letter-spacing:.5px;background:url("../assets/img/service-pages/figma/13b32.png") center/cover no-repeat;background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
+.service-detail-shell .ds-lower-button{position:relative;display:flex;justify-content:center;align-items:center;flex:none;height:65px;padding:0;border:1.125px solid #ffffff1a;border-radius:70px;background:#000;backdrop-filter:blur(5.625px);box-shadow:0 10.125px 15.75px #000c;transition:transform .25s ease,filter .25s ease;isolation:isolate}
+.service-detail-shell .ds-lower-button:hover{transform:translateY(-3px);filter:brightness(1.2)}
+.service-detail-shell .ds-button-art{position:absolute;inset:-1.125px;overflow:hidden;border-radius:inherit;pointer-events:none}
+.service-detail-shell .ds-button-rim{position:absolute;inset:0;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-button-light{position:absolute;inset:0;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-size:100% 100%;-webkit-mask-size:100% 100%}
+.service-detail-shell .ds-button-light img{position:absolute;top:3.2px;left:50%;transform:translateX(-50%);max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-button-label{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;font:500 22.5px/1.2 'Clash Display',sans-serif;white-space:nowrap;background:linear-gradient(90deg,#fff,#999);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 2.25px 2.25px #0004}
+.service-detail-shell .ds-button-arrow{max-width:none!important;width:auto;height:auto;transform:rotate(-45deg)}
+.service-detail-shell .ds-related-more{width:153.9px;height:46.98px;margin:38px auto 0;border-width:.81px;border-radius:50.4px}
+.service-detail-shell .ds-related-more .ds-button-label{font-size:16.2px}
+.service-detail-shell .ds-related-more .ds-button-art{inset:-.81px}
+.service-detail-shell .ds-related-more .ds-button-light{mask-image:url("../assets/img/service-pages/figma/9f067.svg");-webkit-mask-image:url("../assets/img/service-pages/figma/9f067.svg")}
+.service-detail-shell .ds-related-more .ds-button-light img{top:2.43px}
+.service-detail-shell .ds-project-contact{width:min(1214px,calc(100% - 80px));margin:var(--ds-contact-gap,14px) auto 0;display:flex;flex-direction:column;align-items:center;gap:127px}
+.service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{width:831px;max-width:100%;height:193px;display:flex;align-items:center;justify-content:center;font:500 56px/84px 'Clash Display',sans-serif;text-align:center;letter-spacing:2.8px;background:radial-gradient(ellipse at 51% 45%,#fff 0,#d9d8d7 25%,#b3b2b0 50%,#8c8b88 75%,#666460 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
+.service-detail-shell .ds-contact-prompt{width:100%;height:200px;display:flex;align-items:center;gap:63px}
+.service-detail-shell .ds-contact-copy{position:relative;flex:1;height:195px;min-width:0}
+.service-detail-shell .ds-contact-kicker{position:absolute;top:0;left:0;width:429px;max-width:100%;height:22px;display:flex;align-items:center;font:400 25px/48px 'Epilogue',sans-serif;letter-spacing:.5px;padding-left:37.5px}
+.service-detail-shell .ds-contact-kicker:before{content:'•';position:absolute;left:9px;top:50%;transform:translateY(-50%)}
+.service-detail-shell .ds-contact-statement{position:absolute;left:26px;top:30px;width:925px;max-width:calc(100% - 26px);height:165px;display:flex;align-items:center;font:400 45px/60px 'Epilogue',sans-serif;letter-spacing:2.25px;background:linear-gradient(259.761deg,#ccc 8.388%,#fff 57.786%,#999 107.18%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-project-orb{position:relative;flex:0 0 200px;width:200px;height:200px;transition:transform .3s ease,filter .3s ease}
+.service-detail-shell .ds-project-orb:hover{transform:translateY(-5px);filter:brightness(1.16)}
+.service-detail-shell .ds-project-orb-bg{position:absolute;inset:0;max-width:none!important;width:auto;height:auto}
+.service-detail-shell .ds-project-orb-arrow{position:absolute;max-width:none!important;width:auto;height:auto;left:61.45px;top:48.69px;transform:rotate(-45deg)}
+.service-detail-shell .ds-project-orb span{position:absolute;left:49px;top:118.78px;width:102px;height:35px;display:flex;align-items:center;justify-content:center;text-align:center;font:400 15px/20px 'Epilogue',sans-serif;letter-spacing:.75px;background:linear-gradient(#fff 2.857%,#999 45.356%,#fff 119.69%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.service-detail-shell .ds-appointment{width:286px}
+.service-detail-shell .ds-appointment .ds-button-light{mask-image:url("../assets/img/service-pages/figma/d2b1f.svg");-webkit-mask-image:url("../assets/img/service-pages/figma/d2b1f.svg")}
+.service-detail-shell .ds-call-contact{display:none;width:100%;margin:var(--ds-contact-gap,62px) auto 0;flex-direction:column;align-items:center;gap:23px}
+.service-detail-shell .ds-call-contact>h2{height:175px;width:941px}
+.service-detail-shell .ds-call-contact>a{display:flex;align-items:center;justify-content:center;width:100%;height:190px;font:400 140px/1 'Nasalization','Syne',sans-serif;background:linear-gradient(180.12deg,#ffffff33 1.029%,#26262633 98.971%);background-clip:text;-webkit-background-clip:text;color:transparent;text-align:center;white-space:nowrap;transition:filter .3s ease}
+.service-detail-shell .ds-call-contact>a:hover{filter:brightness(2)}
+.service-detail-shell[data-cta-mode="call"] .ds-project-contact{display:none}
+.service-detail-shell[data-cta-mode="call"] .ds-call-contact{display:flex}
+@media(max-width:1279px){
+.service-detail-shell .ds-why{width:calc(100% - 80px)}
+.service-detail-shell .ds-why>h2{font-size:clamp(58px,6.25vw,90px)}
+.service-detail-shell .ds-why-unified h3{width:95%;font-size:clamp(30px,3.54vw,51px);letter-spacing:1.5px}
+.service-detail-shell .ds-why-unified>p{width:95%;font-size:22px;line-height:38px;top:135px}
+.service-detail-shell .ds-why-badges{left:50%;transform:translateX(-50%) scale(.86);transform-origin:center}
+.service-detail-shell .ds-why-card-caption{width:94%;font-size:14px}
+.service-detail-shell .ds-why-projects h3{font-size:44px}
+.service-detail-shell .ds-rating-stars{font-size:36px}
+.service-detail-shell .ds-contact-statement{font-size:36px;line-height:54px;letter-spacing:1.5px}
+.service-detail-shell .ds-contact-prompt{gap:28px}
+.service-detail-shell .ds-project-contact{gap:90px}
+.service-detail-shell .ds-call-contact>a{font-size:10vw}
+}
+@media(max-width:850px){
+.service-detail-shell .ds-why{width:calc(100% - 40px)}
+.service-detail-shell .ds-why>h2{height:130px;font-size:58px;line-height:1.08;letter-spacing:2px}
+.service-detail-shell .ds-why-unified{margin-top:42px}
+.service-detail-shell .ds-why-unified h3{font-size:clamp(28px,4.5vw,38px);line-height:1.3;top:42px}
+.service-detail-shell .ds-why-unified>p{font-size:19px;line-height:32px;top:138px}
+.service-detail-shell .ds-why-grid{grid-template-columns:1fr;gap:24px;margin-top:24px;max-width:500px}
+.service-detail-shell .ds-why-badges{transform:translateX(-50%)}
+.service-detail-shell .ds-why-card-caption{font-size:16px;width:334px;max-width:92%}
+.service-detail-shell .ds-why-rating h3{font-size:44.454px}
+.service-detail-shell .ds-rating-stars{font-size:44.454px}
+.service-detail-shell .ds-why-projects h3{font-size:50.227px}
+.service-detail-shell .ds-why-orbit{top:-155px;transform:translateX(-50%) scale(.8);transform-origin:center top}
+.service-detail-shell .ds-related{margin-top:70px;min-height:780px;padding-top:158px}
+.service-detail-shell .ds-related-orbit{transform:translateX(-50%) scale(.85);transform-origin:center top}
+.service-detail-shell .ds-related>h2{font-size:38px}
+.service-detail-shell .ds-related-gallery{margin-top:12px}
+.service-detail-shell .ds-related-caption{font-size:20px;line-height:36px;max-width:650px;margin-top:-36px!important}
+.service-detail-shell .ds-related-more{margin-top:25px}
+.service-detail-shell .ds-related-pause{right:18px;bottom:32px}
+.service-detail-shell .ds-project-contact{width:calc(100% - 48px);margin-top:35px;gap:55px}
+.service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{height:auto;min-height:150px;font-size:44px;line-height:1.35;letter-spacing:2px;max-width:680px}
+.service-detail-shell .ds-contact-prompt{height:auto;flex-direction:column;gap:30px}
+.service-detail-shell .ds-contact-copy{width:100%;flex:auto;height:200px}
+.service-detail-shell .ds-contact-kicker{font-size:21px}
+.service-detail-shell .ds-contact-statement{font-size:31px;line-height:48px;height:150px;width:calc(100% - 26px)}
+.service-detail-shell .ds-call-contact{margin-top:35px;padding:0 24px}
+.service-detail-shell .ds-call-contact>a{height:150px}
+}
+@media(max-width:600px){
+.service-detail-shell .ds-why>h2{font-size:42px;height:110px;letter-spacing:1.5px}
+.service-detail-shell .ds-why-unified{margin-top:30px;height:245px}
+.service-detail-shell .ds-why-unified h3{font-size:27px;line-height:1.3;top:35px;width:calc(100% - 32px)}
+.service-detail-shell .ds-why-unified>p{font-size:16px;line-height:28px;top:133px;width:calc(100% - 30px)}
+.service-detail-shell .ds-why-grid{gap:20px;margin-top:20px}
+.service-detail-shell .ds-why-orbit{transform:translateX(-50%) scale(.55)}
+.service-detail-shell .ds-related{padding-top:130px;min-height:680px;margin-top:70px}
+.service-detail-shell .ds-related-orbit{transform:translateX(-50%) scale(.61)}
+.service-detail-shell .ds-related>h2{font-size:33px;line-height:48px;height:48px;letter-spacing:1.5px}
+.service-detail-shell .ds-related-gallery{height:315px;margin-top:8px}
+.service-detail-shell .ds-related-viewport,.service-detail-shell .ds-related-track{height:315px}
+.service-detail-shell .ds-related-track{gap:25px}
+.service-detail-shell .ds-related-card{width:228.869px;height:160.736px}
+.service-detail-shell .ds-related-card--featured{width:320.544px;height:225.12px}
+.service-detail-shell .ds-related-native{transform:scale(.8)}
+.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{top:135px}
+.service-detail-shell .ds-related-prev{left:5px}
+.service-detail-shell .ds-related-next{right:5px}
+.service-detail-shell .ds-related-pause{bottom:16px;right:12px}
+.service-detail-shell .ds-related-caption{font-size:17px;line-height:30px;margin-top:-10px!important;width:calc(100% - 44px)}
+.service-detail-shell .ds-related-more{margin-top:25px}
+.service-detail-shell .ds-project-contact{margin-top:30px;gap:45px}
+.service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{min-height:130px;font-size:34px;line-height:1.3;letter-spacing:1.6px}
+.service-detail-shell .ds-contact-copy{height:215px}
+.service-detail-shell .ds-contact-kicker{font-size:18px;line-height:30px;padding-left:26px}
+.service-detail-shell .ds-contact-statement{left:12px;top:40px;width:calc(100% - 24px);max-width:none;height:175px;font-size:27px;line-height:42px;letter-spacing:1px}
+.service-detail-shell .ds-contact-statement br{display:none}
+.service-detail-shell .ds-contact-prompt{gap:25px}
+.service-detail-shell .ds-call-contact{gap:16px}
+.service-detail-shell .ds-call-contact>a{height:110px;font-size:12vw}
+.service-detail-shell .ds-call-contact>h2{max-width:400px}
+}
+@media(prefers-reduced-motion:reduce){
+.service-detail-shell .ds-lower-button,.service-detail-shell .ds-project-orb,.service-detail-shell .ds-call-contact>a,.service-detail-shell .ds-related-card-media:after{transition:none}
+}
+
+/* Space the shared site footer the way the source page spaced its own footer (.ds-site-footer margin-top). */
+.service-detail-shell { padding-bottom: 130px; }
+@media(max-width:1279px){ .service-detail-shell { padding-bottom: 150px; } }
+@media(max-width:900px){ .service-detail-shell { padding-bottom: 120px; } }
+@media(max-width:600px){ .service-detail-shell { padding-bottom: 90px; } }
+
+/* Anchor targets (#related-projects, #start-project) land below the fixed header like the source's scroll-padding-top. */
+.service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 135px; }
+@media(max-width:600px){ .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 100px; } }

@@ -179,7 +179,7 @@ const Uiux = () => {
 
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="Design background blur" />
-          <h1 className="slideinLoad">UI/UX design</h1>
+          <h1 className="slideinLoad">UI/UX Design</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -226,7 +226,7 @@ const Uiux = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">From concept to launch, we design products that captivate users and elevate businesses.</p>
+        <p className="ui-hero-p scrollReveal">Real outcomes from real products we have shipped.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -247,7 +247,7 @@ const Uiux = () => {
                 <p>SaaS Interfaces</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Screens your users understand on the first visit — and keep paying for.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -259,7 +259,7 @@ const Uiux = () => {
                 <p>Dashboards</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Dense data, calm layout. Every metric where the eye expects it.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -271,7 +271,7 @@ const Uiux = () => {
                 <p>Enterprise Applications</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Complex workflows designed so teams stop needing a manual.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -283,7 +283,7 @@ const Uiux = () => {
                 <p>User Flows & Wireframes</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">The thinking before the pixels — mapped, tested and agreed.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
         </div>
@@ -293,7 +293,7 @@ const Uiux = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h2 className="scrollReveal">Why Choose us ?</h2>
-        <p className="p-inde scrollReveal">Our UI/UX practice combines research, strategy, and sleek execution — helping startups and enterprises create designs that actually perform.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

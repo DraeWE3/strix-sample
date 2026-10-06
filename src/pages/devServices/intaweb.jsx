@@ -120,7 +120,7 @@ const InteractiveWeb = () => {
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">Interactive Website</h1>
+          <h1 className="slideinLoad">Interactive Websites</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -178,10 +178,10 @@ const InteractiveWeb = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui2" src={Cardcon1} alt="" />
-                <p>Animated Landing Page</p>
+                <p>Animated Landing Pages</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Motion that guides the eye to the one button that matters.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -193,7 +193,7 @@ const InteractiveWeb = () => {
                 <p>Gamified Web Experiences</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Interaction that turns visitors into participants.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -202,10 +202,10 @@ const InteractiveWeb = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui1" src={Cardcon3} alt="" />
-                <p>INteractive Produnct Showcase</p>
+                <p>Interactive Product Showcases</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Let people explore the product instead of reading about it.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -214,10 +214,10 @@ const InteractiveWeb = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui1" src={Cardcon4} alt="" />
-                <p>Parallex Scrolling Sites</p>
+                <p>Parallax Scrolling Sites</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Depth and pace that make a long page feel short.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -229,7 +229,7 @@ const InteractiveWeb = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Why Choose us ?</h1>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

@@ -179,7 +179,7 @@ const WebApp = () => {
         </div>
         <div className="sh-top uiux-hero">
           <img src={Circleblur} alt="" />
-          <h1 className="slideinLoad">Website Application</h1>
+          <h1 className="slideinLoad">Web Applications</h1>
         </div>
 
         <div className="case-box-con uiu-con">
@@ -237,10 +237,10 @@ const WebApp = () => {
               <img src={CardImg} alt="" />
               <div className="top-card-con">
                 <img className="ui2" src={Cardcon1} alt="" />
-                <p>Saas Platform</p>
+                <p>SaaS Platforms</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Multi-tenant products built to onboard the first user and the ten-thousandth.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -252,7 +252,7 @@ const WebApp = () => {
                 <p>Custom Dashboards & Panels</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Admin and analytics panels that make the data easy to act on.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -264,7 +264,7 @@ const WebApp = () => {
                 <p>Workflow Automation Tools</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Internal tools that remove the spreadsheet from the process.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -276,7 +276,7 @@ const WebApp = () => {
                 <p>Real-Time Web Applications</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Live updates, chat and collaboration that feel instant.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -288,7 +288,7 @@ const WebApp = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h2 className="scrollReveal">Why Choose us ?</h2>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className="service-hero saas-webapp-section">

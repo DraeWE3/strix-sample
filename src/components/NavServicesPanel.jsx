@@ -39,19 +39,19 @@ export const NAV_SERVICES_PANEL_ID = "nav-services-panel";
 
 const serviceGroups = [
   { name: "Design", tone: "design", items: [
-    { title: "UI/UX Design", description: "Web & Mobile App Design", href: "/uiux", icon: UiuxIcon, iconKey: "de61c", texture: UiuxTexture },
-    { title: "Product Design", description: "Digital Product, SaaS, Dashboards", href: "/product", icon: ProductIcon, iconKey: "743ca", texture: ProductTexture },
-    { title: "3D Design", description: "3D Product renders, 3D Real estate", href: "/threed", icon: ThreeDDesignIcon, iconKey: "dad6f", texture: ThreeDDesignTexture },
+    { title: "UI/UX Design", description: "Web & Mobile App Design", href: "/services/ui-ux-design", icon: UiuxIcon, iconKey: "de61c", texture: UiuxTexture },
+    { title: "Product Design", description: "Digital Product, SaaS, Dashboards", href: "/services/product-design", icon: ProductIcon, iconKey: "743ca", texture: ProductTexture },
+    { title: "3D Design", description: "3D Product renders, 3D Real estate", href: "/services/3d-design", icon: ThreeDDesignIcon, iconKey: "dad6f", texture: ThreeDDesignTexture },
   ] },
   { name: "Development", tone: "development", items: [
-    { title: "Web Applications", description: "Custom AI Development", href: "/webapp", icon: WebAppIcon, iconKey: "824e1", texture: WarmTexture },
-    { title: "Website Development", description: "Front-End & Back-End Development", href: "/webdev", icon: WebDevIcon, iconKey: "bc8da", texture: WebDevTexture },
-    { title: "Mobile App Development", description: "IOS, Android, Cross-platform", href: "/appdev", icon: AppDevIcon, iconKey: "d0d8b", texture: AppDevTexture },
+    { title: "Web Applications", description: "Custom AI Development", href: "/services/web-app", icon: WebAppIcon, iconKey: "824e1", texture: WarmTexture },
+    { title: "Website Development", description: "Front-End & Back-End Development", href: "/services/web-dev", icon: WebDevIcon, iconKey: "bc8da", texture: WebDevTexture },
+    { title: "Mobile App Development", description: "IOS, Android, Cross-platform", href: "/services/app-dev", icon: AppDevIcon, iconKey: "d0d8b", texture: AppDevTexture },
   ] },
   { name: "Production", tone: "production", items: [
-    { title: "Commercials", description: "Product promos, ads, teasers", href: "/commercials", icon: CommercialsIcon, iconKey: "cb129", texture: WarmTexture },
-    { title: "3D Animations", description: "Pixar level visuals and rendering", href: "/threed", icon: ThreeDAnimationIcon, iconKey: "f9cb5", texture: ThreeDAnimationTexture },
-    { title: "Long Format Videos", description: "Vlogs, Documentaries, Podcasts etc.", href: "/longform", icon: LongFormIcon, iconKey: "0913d", texture: LongFormTexture },
+    { title: "Commercials", description: "Product promos, ads, teasers", href: "/services/commercials", icon: CommercialsIcon, iconKey: "cb129", texture: WarmTexture },
+    { title: "3D Animations", description: "Pixar level visuals and rendering", href: "/services/3d-animations", icon: ThreeDAnimationIcon, iconKey: "f9cb5", texture: ThreeDAnimationTexture },
+    { title: "Long Format Videos", description: "Vlogs, Documentaries, Podcasts etc.", href: "/services/long-format", icon: LongFormIcon, iconKey: "0913d", texture: LongFormTexture },
   ] },
 ];
 

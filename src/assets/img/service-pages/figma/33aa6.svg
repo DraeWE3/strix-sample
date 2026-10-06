@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="248.973" height="124.361" viewBox="0 0 248.973 124.361" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Ellipse 2576 (Stroke)">
+<path d="M124.486 120.63C58.4165 120.63 4.73875 67.6324 3.73563 1.87501C3.7199 0.843736 2.88523 0 1.85384 0C0.822449 0 -0.0150547 0.843834 0.00020528 1.87511C1.00372 69.693 56.3537 124.361 124.486 124.361V120.63Z" fill="url(#paint0_linear_0_264)"/>
+<path d="M247.119 0C246.087 0 245.253 0.843745 245.237 1.87501C244.234 67.6324 190.556 120.63 124.486 120.63V124.361C192.619 124.361 247.969 69.693 248.972 1.87511C248.988 0.84384 248.15 0 247.119 0Z" fill="url(#paint1_linear_0_264)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_264" x1="124.486" y1="0" x2="124.486" y2="124.361" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="0.5" stop-color="#006ACC"/>
+<stop offset="1"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_264" x1="124.486" y1="0" x2="124.486" y2="124.361" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="0.5" stop-color="#006ACC"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>

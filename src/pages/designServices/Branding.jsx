@@ -160,7 +160,7 @@ const Branding = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">We build strong, memorable identities that express your essence, connect emotionally, drive recognition, and create a lasting brand presence.</p>
+        <p className="ui-hero-p scrollReveal">We design brand systems built to scale with you — not a logo that needs redesigning the moment you grow.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -181,7 +181,7 @@ const Branding = () => {
                 <p>Brand Identity & Guidelines</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">A logo is the start. The system around it is what people remember.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -193,7 +193,7 @@ const Branding = () => {
                 <p>Graphic Design</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Visuals that carry the brand into every post, deck and print run.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -205,7 +205,7 @@ const Branding = () => {
                 <p>Brand Strategy & Consulting</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Positioning, voice and promise — decided before the design begins.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -217,7 +217,7 @@ const Branding = () => {
                 <p>Packaging Design</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Shelf presence that makes the product the obvious pick.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -229,7 +229,7 @@ const Branding = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h1 className="scrollReveal">Why Choose us ?</h1>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>

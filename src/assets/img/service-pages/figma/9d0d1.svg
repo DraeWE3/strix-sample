@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="23.6995" height="23.6995" viewBox="0 0 23.6995 23.6995" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-16.7366" y="-16.7366" width="57.1727" height="57.1727"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(8.37px);clip-path:url(#bgblur_0_0_325_clip_path);height:100%;width:100%"></div></foreignObject><circle id="Ellipse 2586" data-figma-bg-blur-radius="16.7366" cx="11.8498" cy="11.8498" r="10.1761" fill="white" stroke="url(#paint0_linear_0_325)" stroke-width="3.34731"/>
+<defs>
+<clipPath id="bgblur_0_0_325_clip_path" transform="translate(16.7366 16.7366)"><circle cx="11.8498" cy="11.8498" r="10.1761"/>
+</clipPath><linearGradient id="paint0_linear_0_325" x1="11.8498" y1="3.34731" x2="11.8498" y2="20.3522" gradientUnits="userSpaceOnUse">
+<stop stop-color="#010550"/>
+<stop offset="1" stop-color="#020BB6"/>
+</linearGradient>
+</defs>
+</svg>

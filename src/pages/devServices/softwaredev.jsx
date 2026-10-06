@@ -165,7 +165,7 @@ const SoftwareDev = () => {
             )}
           </div>
         </div>
-        <p className="ui-hero-p scrollReveal">We provide reliable hosting and continuous website maintenance, ensuring security, uptime, and smooth performance.</p>
+        <p className="ui-hero-p scrollReveal">We build reliable, scalable custom software — from internal tools to enterprise platforms — engineered around your business goals.</p>
         <img src={Blur1} className='p-blur1' alt="" />
         <img src={Blur2} className='p-blur2' alt="" />
       </div>
@@ -186,7 +186,7 @@ const SoftwareDev = () => {
                 <p>Custom Business Software</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Tools shaped around how your team actually works.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -198,7 +198,7 @@ const SoftwareDev = () => {
                 <p>API Development</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Clean, documented interfaces other systems are happy to talk to.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -210,7 +210,7 @@ const SoftwareDev = () => {
                 <p>System Integrations</p>
               </div>
             </div>
-            <p className="provide-card-p">At Strix Productions, we design, develop, and deliver world-class visuals and experience</p>
+            <p className="provide-card-p">Your existing tools, finally sharing the same data.</p>
             <Button text="Get a quote" to="/contact" />
           </div>
 
@@ -222,7 +222,7 @@ const SoftwareDev = () => {
       <div className="sh-top uiux-hero what-con">
         <img src={Circleblur} alt="" />
         <h2 className="scrollReveal">Why Choose us ?</h2>
-        <p className="p-inde scrollReveal">Our branding practice combines research, strategy, and sleek execution — helping startups and enterprises create brands that actually stand out.</p>
+        <p className="p-inde scrollReveal">Design + Development + Production — no briefing three agencies and chasing handoffs. Everything ships from one studio.</p>
       </div>
 
       <div className='project-carousel-con'>
