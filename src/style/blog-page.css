@@ -148,6 +148,8 @@
 
 .blog-shell .blog-hero h1>span{display:block}
 .blog-shell .blog-empty>p{font-family:Syne,sans-serif!important}
+.blog-shell .blog-categories button:is(:focus,:focus-visible){outline:none}
+.blog-shell .blog-categories button:focus-visible{color:#fff}
 .blog-shell .blog-card--placeholder{pointer-events:none}
 .blog-shell .blog-card--placeholder .blog-card__visual,.blog-shell .blog-card__line{background:linear-gradient(90deg,#111 20%,#262626 50%,#111 80%) 0 0/300% 100%;animation:blog-shimmer 1.4s linear infinite}
 .blog-shell .blog-card__line{display:block;height:14px;width:80%;margin:6px 6px 0;border-radius:8px}
