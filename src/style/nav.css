@@ -139,6 +139,12 @@
   background: transparent;
 }
 
+.hamburger.ui-btn-icon-only:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
 .linenav {
   height: 2px;
   background: white;

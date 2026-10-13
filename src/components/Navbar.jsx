@@ -3,7 +3,7 @@ import '../style/button.css'
 import Logo from '../assets/img/layout/Header-s.webp'
 import { Link } from "react-router-dom";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ConnectModal from './ConnectModal';
+import ConnectModal, { SITE_MENU_ID } from './ConnectModal';
 import NavServicesPanel, { NAV_SERVICES_PANEL_ID } from './NavServicesPanel';
 
 const PANEL_QUERY = "(hover: hover) and (min-width: 771px)";
@@ -21,7 +21,7 @@ const Nav = () => {
   const closeServices = useCallback(() => { clearCloseTimer(); setServicesOpen(false); }, [clearCloseTimer]);
 
   const openModal = () => { closeServices(); setIsModalOpen(true); };
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
 
   // The Services link still navigates to /services; the panel is a desktop enhancement.
   const openServicesOnHover = (event) => {
@@ -98,7 +98,16 @@ const Nav = () => {
           <div><Link className="nav-link link-button" to="/works" onPointerEnter={closeServices}>Projects</Link></div>
         </div>
 
-        <button className="hamburger ui-btn-icon-only" onClick={openModal} onPointerEnter={closeServices}>
+        <button
+          type="button"
+          className="hamburger ui-btn-icon-only"
+          aria-label="Open menu"
+          aria-haspopup="dialog"
+          aria-expanded={isModalOpen}
+          aria-controls={SITE_MENU_ID}
+          onClick={openModal}
+          onPointerEnter={closeServices}
+        >
           <div className="linenav top"></div>
           <div className="linenav bottom"></div>
         </button>
