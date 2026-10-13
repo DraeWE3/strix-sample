@@ -54,6 +54,13 @@ import InteractiveLandingArt from "../../assets/img/service-pages/figma/landing-
 import InteractiveGamifiedShot from "../../assets/img/service-pages/figma/d54c1.png";
 import InteractiveShowcaseShot from "../../assets/img/service-pages/figma/c5313.png";
 import InteractiveParallaxArt from "../../assets/img/service-pages/figma/parallax-3152-4529.png";
+import ReelsSocialIcon from "../../assets/img/service-pages/figma/02f77.png";
+import ReelsShortsFlag from "../../assets/img/service-pages/figma/46f91.png";
+import ReelsAdCreative from "../../assets/img/service-pages/figma/ad-creatives-3049-4638.jpg";
+import ReelsViralCut from "../../assets/img/service-pages/figma/viral-cuts-965-9640.jpg";
+import CommercialsPromosFrame from "../../assets/img/service-pages/figma/commercials-promos-965-8318.jpg";
+import CommercialsTeasersFrame from "../../assets/img/service-pages/figma/commercials-teasers-965-8336.jpg";
+import CommercialsSaasShot from "../../assets/img/service-pages/figma/acb54.png";
 
 // Per-card media for offer canvases that carry their own Figma composition instead of the single
 // generic image slot. Coordinates are in the canvas's rotated 360 x 528.8 frame, exactly as Figma
@@ -518,7 +525,68 @@ const SoftwareBackend = () => (
   </Layer>
 );
 
+// 965:8318 — Product Promos. Figma fills this layer with a video; its source frame is used here.
+const CommercialsPromos = () => (
+  <Layer box={{ height: "404px", left: "calc(50% + 6.5px)", top: "61.26px", width: "287px", transform: "translateX(-50%)", mixBlendMode: "lighten" }} inner={{ height: "287px", width: "404px" }}>
+    <Img src={CommercialsPromosFrame} />
+    <div style={{ ...abs, inset: 0, backgroundImage: "linear-gradient(180.40887763767284deg, rgba(0, 0, 0, 0) 58.805%, rgb(0, 0, 0) 99.503%)" }} />
+  </Layer>
+);
+
+// 965:8336 — Launch Teasers (video fill, source frame).
+const CommercialsTeasers = () => (
+  <Layer box={{ height: "409px", left: "calc(50% + 15.5px)", top: "59.06px", width: "283px", transform: "translateX(-50%)", mixBlendMode: "lighten" }} inner={{ height: "283px", width: "409px", borderRadius: "10px", overflow: "hidden" }}>
+    <Img src={CommercialsTeasersFrame} />
+  </Layer>
+);
+
+// 965:8327 — SaaS Product Demos
+const CommercialsSaas = () => (
+  <Layer box={{ height: "402px", left: "calc(50% + 17.5px)", top: "62.26px", width: "223px", transform: "translateX(-50%)", mixBlendMode: "lighten" }} inner={{ height: "223px", width: "402px", borderRadius: "23px", overflow: "hidden" }}>
+    <Img src={CommercialsSaasShot} />
+    <div style={{ ...abs, inset: 0, backgroundImage: "linear-gradient(180.31928205799557deg, rgba(0, 0, 0, 0) 58.805%, rgb(0, 0, 0) 99.503%)" }} />
+  </Layer>
+);
+
+// 965:8683 "Add a heading (41) 3" — Social Media Reels (lightened onto the plate).
+const ReelsSocial = () => (
+  <Layer box={{ height: "308px", left: "calc(50% + 12.5px)", top: "109.26px", width: "253px", transform: "translateX(-50%)", mixBlendMode: "lighten" }} inner={{ height: "253px", width: "308px" }}>
+    <Crop src={ReelsSocialIcon} crop={{ height: "89.09%", left: "0.86%", top: "23.88%", width: "73.18%" }} />
+  </Layer>
+);
+
+// 965:8692 "Add a heading (41) 3" — Youtube Shorts flag.
+const SHORTS_RADIUS = "39px 39px 39px 72px";
+const ReelsShorts = () => (
+  <Layer box={{ height: "365px", left: "calc(50% + 22.5px)", top: "81.06px", width: "239px", transform: "translateX(-50%)" }} inner={{ height: "239px", width: "365px", borderRadius: SHORTS_RADIUS }}>
+    <div style={{ ...abs, inset: 0, overflow: "hidden", pointerEvents: "none", borderRadius: SHORTS_RADIUS }}>
+      <img alt="" src={ReelsShortsFlag} style={{ ...abs, height: "189.43%", left: "2%", maxWidth: "none", top: "-0.13%", width: "96.24%" }} loading="lazy" draggable={false} />
+    </div>
+  </Layer>
+);
+
+// 3049:4637 — Animated Ad Creatives. Figma fills this slot with a video; its poster frame is shown cover-fit.
+const ReelsAdCreatives = () => (
+  <Layer box={{ height: "238.645px", left: "calc(50% + 17.5px)", top: "142.94px", width: "243px", transform: "translateX(-50%)" }} inner={{ height: "243px", width: "238.645px", borderRadius: "10px", overflow: "clip", filter: "drop-shadow(0px 0px 19.7px rgba(0,80,228,0.4))" }}>
+    <Img src={ReelsAdCreative} style={{ borderRadius: "10px" }} />
+  </Layer>
+);
+
+// 965:9640 — Viral-Ready Cuts. Video fill in Figma; its poster frame is shown cover-fit in the white-bordered card.
+const ReelsViralCuts = () => (
+  <Layer box={{ height: "365px", left: "calc(50% + 15.5px)", top: "81.06px", width: "253px", transform: "translateX(-50%)" }} inner={{ height: "253px", width: "365px", border: "1px solid #fff", borderRadius: "10px", overflow: "hidden" }}>
+    <Img src={ReelsViralCut} />
+  </Layer>
+);
+
 const MEDIA = {
+  "reels-social": ReelsSocial,
+  "reels-shorts": ReelsShorts,
+  "reels-ad-creatives": ReelsAdCreatives,
+  "reels-viral-cuts": ReelsViralCuts,
+  "commercials-promos": CommercialsPromos,
+  "commercials-teasers": CommercialsTeasers,
+  "commercials-saas": CommercialsSaas,
   "interactive-landing": InteractiveLanding,
   "interactive-gamified": InteractiveGamified,
   "interactive-showcase": InteractiveShowcase,

@@ -37,6 +37,7 @@ import AppDevPoster from "../assets/img/service-pages/figma/1cb30.png";
 import InteractivePoster from "../assets/img/service-pages/figma/25150.jpg";
 import WebDevPoster from "../assets/img/service-pages/figma/adef1.png";
 import SoftwareDevPoster from "../assets/img/service-pages/figma/56c3e.png";
+import LongFormatHeadingTexture from "../assets/img/service-pages/figma/68442.png";
 
 // Shared by the web-app (3511:8326) and app-dev (3511:8307) proof strips.
 const WEB_APP_PROOF_CARDS = [
@@ -539,13 +540,16 @@ export const serviceDetails = {
       description: "We produce high-quality commercials that tell compelling stories and position your brand as unforgettable in the marketplace.",
     },
     offers: [
-      { title: "Product Promos", description: "Show your product at its best — before a single word is spoken.", descriptionWidth: 465, art: "commercials-1" },
-      { title: "Launch Teasers", description: "Build anticipation that makes your launch day feel like an event.", descriptionWidth: 442, art: "commercials-2" },
-      { title: "SaaS Product Demos", description: "Turn a feature walkthrough into a reason to sign up right now.", descriptionWidth: 467, art: "commercials-3" },
+      // 965:8313 / 8331 / 8322 / 8340. Product Ads' Figma video fill is a black frame, so that canvas stays empty.
+      { title: "Product Promos", description: "Show your product at its best — before a single word is spoken.", descriptionWidth: 465, media: "commercials-promos" },
+      { title: "Launch Teasers", description: "Build anticipation that makes your launch day feel like an event.", descriptionWidth: 442, media: "commercials-teasers" },
+      { title: "SaaS Product Demos", description: "Turn a feature walkthrough into a reason to sign up right now.", descriptionWidth: 467, media: "commercials-saas" },
       { title: "Product Ads", description: "Ads that stop the scroll and make people actually want to buy.", descriptionWidth: 490, art: "commercials-4" },
     ],
     proof: {
       heading: "Ads that earn their airtime.",
+      // 3511:8437: same heading texture as the 3D/dev proof strips.
+      headingImage: ThreeDHeadingTexture,
       intro: "Commercial production that positions brands — not just promotes products.",
       cards: [
         { art: "commercials-1", title: "AI Product Launch Video", description: "SaaS product commercial that generated the first 500 sign-ups before the platform went live." },
@@ -563,25 +567,26 @@ export const serviceDetails = {
       title: "Long Format Videos Services",
       description: "From documentaries to podcasts, we craft long-format content that educates, entertains, and deeply engages audiences.",
     },
+    // Figma 965:8349 (hero 965:8485, offers 965:8500 / 8518 / 8509 / 9610, proof 3511:8458).
     hero: {
       ...VIEW_WORK,
       poster: LongFormatPoster,
       description: "From documentaries to podcasts, we craft long-format content that educates, entertains, and deeply engages audiences.",
     },
+    // Figma wraps at 363/322/343/367 in McQueen Display; widths are widened so the Epilogue fallback breaks on the same words.
     offers: [
-      { title: "Vlogs Editing", description: "Raw footage turned into content your audience keeps coming back for.", descriptionWidth: 363, art: "long-format-1" },
-      { title: "Content Highlights", description: "The best moments — cut, polished, and ready to travel.", descriptionWidth: 322, art: "long-format-2" },
-      { title: "Documentaries & Podcasts", description: "Stories worth telling, produced the way they deserve to be heard.", descriptionWidth: 343, art: "long-format-3" },
-      { title: "Explainer & Educational Videos", description: "Complex ideas made so clear, anyone gets it on the first watch.", descriptionWidth: 367, art: "long-format-4" },
+      { title: "Vlogs Editing", description: "Raw footage turned into content your audience keeps coming back for.", descriptionWidth: 376, art: "long-format-1" },
+      { title: "Content Highlights", description: "The best moments — cut, polished, and ready to travel.", descriptionWidth: 346, art: "long-format-2" },
+      { title: "Documentaries & Podcasts", description: "Stories worth telling, produced the way they deserve to be heard.", descriptionWidth: 392, art: "long-format-3" },
+      { title: "Explainer & Educational Videos", description: "Complex ideas made so clear, anyone gets it on the first watch.", descriptionWidth: 374, art: "long-format-4" },
     ],
     proof: {
       heading: "Content worth watching in full.",
+      headingImage: LongFormatHeadingTexture,
       intro: "Long-form production that holds attention from the first frame to the last.",
-      cards: [
-        { label: "STORY FIRST", title: "A clear narrative", description: "Shape interviews, footage and ideas into a story your audience can follow." },
-        { label: "EDITED TO ENGAGE", title: "Pacing with purpose", description: "Refine the structure, sound and visual rhythm so every sequence earns its place." },
-        { label: "READY TO PUBLISH", title: "A complete finish", description: "Bring editing, colour, audio and final delivery together for your chosen platform." },
-      ],
+      introWidth: 821,
+      // 3511:8461: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "reels-shorts": {
@@ -598,20 +603,20 @@ export const serviceDetails = {
       poster: ReelsPoster,
       description: "We create engaging reels and short-form content that’s designed to grab attention and perform on social platforms.",
     },
+    // Figma 965:8527 (hero 965:8663, offers 965:8678 / 8687 / 9626 / 9635, proof 3511:8392).
     offers: [
-      { title: "Social Media Reels", description: "Designed for the first second — because that's all you get.", descriptionWidth: 379, art: "reels-shorts-1" },
-      { title: "Youtube Shorts", description: "Short enough to watch twice, good enough to share.", descriptionWidth: 364, art: "reels-shorts-2" },
-      { title: "Animated Ad Creatives", description: "Motion that sells — without a single second of dead air.", descriptionWidth: 499, art: "reels-shorts-3" },
-      { title: "Viral-Ready Cuts", description: "Edited for the algorithm. Built for the audience.", descriptionWidth: 415, art: "reels-shorts-4" },
+      { title: "Social Media Reels", description: "Designed for the first second — because that's all you get.", descriptionWidth: 379, media: "reels-social" },
+      { title: "Youtube Shorts", description: "Short enough to watch twice, good enough to share.", descriptionWidth: 364, media: "reels-shorts" },
+      { title: "Animated Ad Creatives", description: "Motion that sells — without a single second of dead air.", descriptionWidth: 499, media: "reels-ad-creatives" },
+      { title: "Viral-Ready Cuts", description: "Edited for the algorithm. Built for the audience.", descriptionWidth: 415, media: "reels-viral-cuts" },
     ],
     proof: {
       heading: "Seconds that do the work.",
+      headingImage: ThreeDHeadingTexture,
       intro: "Short-form content built for the algorithm and designed for the audience.",
-      cards: [
-        { label: "HOOK FIRST", title: "Make the opening count", description: "Lead with the moment or message that gives viewers a reason to keep watching." },
-        { label: "VERTICAL FIRST", title: "Made for the feed", description: "Frame your content, captions and pacing for mobile viewing and short-form platforms." },
-        { label: "ON BRAND", title: "A recognisable style", description: "Keep typography, colour and motion consistent across your short-form content." },
-      ],
+      introWidth: 821,
+      // 3511:8395: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "motion-graphics": {
@@ -623,25 +628,25 @@ export const serviceDetails = {
       title: "Motion Graphics Services",
       description: "We bring static ideas to life with motion graphics that communicate clearly, captivate viewers, and elevate your brand storytelling.",
     },
+    // Figma 965:8696 (hero 965:8832, offers 965:8847 / 8874 / 8856 / 8865, proof 3511:8480).
     hero: {
       ...VIEW_WORK,
       poster: MotionPoster,
       description: "We bring static ideas to life with motion graphics that communicate clearly, captivate viewers, and elevate your brand storytelling.",
     },
     offers: [
-      { title: "Explainer Animations", description: "Your product's value, visualised in under 60 seconds.", descriptionWidth: 475, art: "motion-graphics-1" },
-      { title: "Text & Title Motion Effects", description: "Words that move — and make people stop to read them.", descriptionWidth: 526, art: "motion-graphics-2" },
-      { title: "Logo Animations", description: "A logo that doesn't just sit there — it arrives.", descriptionWidth: 415, art: "motion-graphics-3" },
-      { title: "Infographic Videos", description: "Data that people actually watch, understand, and remember.", descriptionWidth: 564, art: "motion-graphics-4" },
+      { title: "Explainer Animations", description: "Your product's value, visualised in under 60 seconds.", descriptionWidth: 527, art: "motion-graphics-1" },
+      { title: "Text & Title Motion Effects", description: "Words that move — and make people stop to read them.", descriptionWidth: 552, art: "motion-graphics-2" },
+      { title: "Logo Animations", description: "A logo that doesn't just sit there — it arrives.", descriptionWidth: 527, art: "motion-graphics-3" },
+      { title: "Infographic Videos", description: "Data that people actually watch, understand, and remember.", descriptionWidth: 606, art: "motion-graphics-4" },
     ],
     proof: {
       heading: "Motion that makes ideas land.",
+      headingImage: ThreeDHeadingTexture,
       intro: "Animation that communicates in seconds what words take paragraphs to explain.",
-      cards: [
-        { label: "CLARITY IN MOTION", title: "Make complex ideas clear", description: "Use animated graphics to explain products, processes and information with clarity." },
-        { label: "TIMING + RHYTHM", title: "Movement with purpose", description: "Connect transitions, pacing and sound to guide attention through your message." },
-        { label: "BRAND IN MOTION", title: "A consistent visual voice", description: "Extend your identity into titles, explainers and branded motion assets." },
-      ],
+      introWidth: 821,
+      // 3511:8483: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "3d-animations": {
@@ -655,17 +660,21 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK_AND_SHOWREEL,
+      // Figma 965:9019: 1004 x 503 render, object-cover.
       poster: ThreeDAnimationsPoster,
       description: "Cinematic 3D animations that make your product, space, or story impossible to ignore.",
     },
+    // Figma 965:8883 (offers 965:9034 / 9052 / 9043 / 9061, proof 3511:8414). Figma keeps the first-row
+    // copy on one line in McQueen Display; the wider Epilogue fallback needs 572 / 510px for that.
     offers: [
-      { title: "Product 3D Animations", description: "See your product from every angle — before it even exists.", descriptionWidth: 527, art: "3d-animations-1" },
-      { title: "Architectural Visualization", description: "Walk through the space before the first brick is laid.", descriptionWidth: 468, art: "3d-animations-2" },
+      { title: "Product 3D Animations", description: "See your product from every angle — before it even exists.", descriptionWidth: 572, art: "3d-animations-1" },
+      { title: "Architectural Visualization", description: "Walk through the space before the first brick is laid.", descriptionWidth: 510, art: "3d-animations-2" },
       { title: "Character Animations", description: "Characters with motion that makes them feel completely real.", descriptionWidth: 415, art: "3d-animations-3" },
       { title: "CGI Animations", description: "Visuals that couldn't be filmed — built frame by frame.", descriptionWidth: 415, art: "3d-animations-4" },
     ],
     proof: {
       heading: "3D that earns the second look.",
+      headingImage: ThreeDHeadingTexture,
       intro: "Cinematic animation that makes products, characters, and spaces unforgettable.",
       cards: [
         { art: "3d-animations-1", title: "3D Cinematic Product Renders and animation", description: "3D product renders for one of the world's most recognized brands such as Nothing, Wroot & More." },
