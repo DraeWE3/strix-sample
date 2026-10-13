@@ -36,6 +36,24 @@ import WebMvpArt from "../../assets/img/service-pages/figma/76841.png";
 import WebAiScreen from "../../assets/img/service-pages/figma/d4313.png";
 import WebSettingsGear from "../../assets/img/service-pages/figma/1d4af.png";
 import WebDashboardScreen from "../../assets/img/service-pages/figma/4cde3.png";
+import AppIosScreens from "../../assets/img/service-pages/figma/5c7b4.png";
+import AppAndroidPhones from "../../assets/img/service-pages/figma/6a81a.png";
+import AppCrossPlatformPhones from "../../assets/img/service-pages/figma/e489a.png";
+import DevEnterpriseSite from "../../assets/img/service-pages/figma/66e37.png";
+import DevPortfolioSite from "../../assets/img/service-pages/figma/839cf.png";
+import DevInteractiveLaptop from "../../assets/img/service-pages/figma/02db5.png";
+import DevInteractiveCube from "../../assets/img/service-pages/figma/d7187.png";
+import DevCmsFramer from "../../assets/img/service-pages/figma/1ed62.png";
+import DevCmsWordpress from "../../assets/img/service-pages/figma/2fe3c.png";
+import DevCmsDatabase from "../../assets/img/service-pages/figma/f1103.png";
+import SoftwareCustomIcon from "../../assets/img/service-pages/figma/7793d.png";
+import SoftwareApiIcon from "../../assets/img/service-pages/figma/1f181.png";
+import SoftwareEnterpriseIcon from "../../assets/img/service-pages/figma/7799a.png";
+import SoftwareBackendIcon from "../../assets/img/service-pages/figma/38bb3.png";
+import InteractiveLandingArt from "../../assets/img/service-pages/figma/landing-3152-4656.png";
+import InteractiveGamifiedShot from "../../assets/img/service-pages/figma/d54c1.png";
+import InteractiveShowcaseShot from "../../assets/img/service-pages/figma/c5313.png";
+import InteractiveParallaxArt from "../../assets/img/service-pages/figma/parallax-3152-4529.png";
 
 // Per-card media for offer canvases that carry their own Figma composition instead of the single
 // generic image slot. Coordinates are in the canvas's rotated 360 x 528.8 frame, exactly as Figma
@@ -368,7 +386,143 @@ const WebDashboards = () => (
   </Layer>
 );
 
+// 3152:5184 "image 1" — Native iOS App
+const AppIos = () => (
+  <Layer box={{ height: "395px", left: "calc(50% + 19.5px)", top: "calc(50% - 0.3px)", width: "239px", transform: "translate(-50%, -50%)" }} inner={{ height: "239px", width: "395px" }}>
+    <Img src={AppIosScreens} />
+  </Layer>
+);
+
+// 3139:4532 "Layer 1-2 1" — Native Android App
+const AppAndroid = () => (
+  <Layer box={{ height: "154.811px", left: "102.99px", top: "186.25px", width: "204.571px" }} inner={{ height: "204.571px", width: "154.811px" }}>
+    <Img src={AppAndroidPhones} />
+  </Layer>
+);
+
+// 3108:4505 "Iphone 15 Screens Mockup 1" — Cross-Platform Apps (stretched to its box, as in Figma).
+const AppCrossPlatform = () => (
+  <Layer box={{ height: "235px", left: "calc(50% + 38.5px)", top: "146.26px", width: "317px", transform: "translateX(-50%)" }} inner={{ height: "317px", width: "235px" }}>
+    <Img src={AppCrossPlatformPhones} style={{ objectFit: "fill", objectPosition: "bottom" }} />
+  </Layer>
+);
+
+// Website screenshot card with Figma's grey glow (3155:5260 / 3143:4672).
+const SITE_SHOT = { height: "229px", width: "358px", borderRadius: "8px", boxShadow: "0px 0px 35.7px 0px rgba(150,150,150,0.69)" };
+const SiteShot = ({ top, children }) => (
+  <Layer box={{ height: "358px", left: "83.66px", top, width: "229px" }} inner={SITE_SHOT}>
+    <div style={{ ...abs, inset: 0, overflow: "hidden", pointerEvents: "none", borderRadius: "8px" }}>{children}</div>
+  </Layer>
+);
+
+// 3155:5260 — Enterprise Websites
+const DevEnterprise = () => (
+  <SiteShot top="84.26px">
+    <Img src={DevEnterpriseSite} />
+  </SiteShot>
+);
+
+// 3143:4672 — Portfolio Websites
+const DevPortfolio = () => (
+  <SiteShot top="84.06px">
+    <img alt="" src={DevPortfolioSite} style={{ ...abs, height: "135.31%", left: "-7.85%", maxWidth: "none", top: "-17.8%", width: "115.7%" }} loading="lazy" draggable={false} />
+  </SiteShot>
+);
+
+// 3153:5251 laptop + 3153:5252 "Vector 472" cube — Interactive 3D Websites
+const DevInteractive3d = () => (
+  <>
+    <Layer box={{ height: "341.241px", left: "67.7px", top: "122.64px", width: "270.932px" }} inner={{ height: "239px", width: "318px" }} rotate="84deg">
+      <Img src={DevInteractiveLaptop} />
+    </Layer>
+    <Layer box={{ height: "83.439px", left: "77.08px", top: "109.26px", width: "81.704px" }} inner={{ height: "60.04px", width: "63.739px" }} rotate="64.37deg">
+      <Img src={DevInteractiveCube} style={{ objectFit: "fill" }} />
+    </Layer>
+  </>
+);
+
+// 3155:5259 — CMS Development: Framer and WordPress marks (lighten) around the purple database tile.
+// The group is offset without a transform so the lighten blends still reach the card plate.
+const DevCms = () => (
+  <div style={{ ...abs, height: "402px", left: "60px", top: "62.06px", width: "264px" }}>
+    <Layer box={{ height: "151.552px", left: "125.17px", top: "-0.15px", width: "138.789px", mixBlendMode: "lighten" }} inner={{ height: "110.002px", width: "127.87px" }} rotate="75.34deg">
+      <Crop src={DevCmsFramer} crop={{ height: "121.32%", left: "-19.53%", top: "-10.66%", width: "139.16%" }} />
+    </Layer>
+    <Layer box={{ height: "207.78px", left: "38.33px", top: "225px", width: "211.666px", mixBlendMode: "lighten" }} inner={{ height: "159px", width: "148.662px" }} rotate="119.58deg">
+      <Crop src={DevCmsWordpress} crop={{ height: "100%", left: "-106.44%", top: "-0.98%", width: "213.91%" }} />
+    </Layer>
+    <Layer box={{ height: "184px", left: 0, top: "103px", width: "239px" }} inner={{ height: "239px", width: "184px", filter: "drop-shadow(0px 0px 51.3px #6c00bf)" }}>
+      <Crop src={DevCmsDatabase} crop={{ height: "142.23%", left: "-36.78%", top: "-21.01%", width: "173.55%" }} />
+    </Layer>
+  </div>
+);
+
+// 3152:4656 "Desktop - 70" — Animated Landing Pages. 100+ layer website mockup, brought in as a
+// node export; the export carries the node's 39.9px glow, hence the 40px bleed around the 408 x 229.5 box.
+// The export is flattened on black, so it is lightened onto the card to let the title show through.
+const InteractiveLanding = () => (
+  <Layer box={{ height: "408px", left: "calc(50% + 15px)", top: "calc(50% + 0.2px)", width: "229.5px", transform: "translate(-50%, -50%)", mixBlendMode: "lighten" }} inner={{ height: "229.5px", width: "408px" }}>
+    <img alt="" src={InteractiveLandingArt} style={{ ...abs, left: "-40px", top: "-40px", width: "488px", height: "309.5px", maxWidth: "none", pointerEvents: "none" }} loading="lazy" draggable={false} />
+  </Layer>
+);
+
+// 3152:4527 "Add a heading (41) 3" — Gamified Web Experiences
+const InteractiveGamified = () => (
+  <Layer box={{ height: "365px", left: "calc(50% + 15.5px)", top: "81.06px", width: "253px", transform: "translateX(-50%)" }} inner={{ height: "253px", width: "365px", borderRadius: "7px", boxShadow: "0px 0px 52.7px 0px rgba(113,113,113,0.25)" }}>
+    <div style={{ ...abs, inset: 0, overflow: "hidden", pointerEvents: "none", borderRadius: "7px" }}>
+      <img alt="" src={InteractiveGamifiedShot} style={{ ...abs, height: "100%", left: "0.12%", maxWidth: "none", top: 0, width: "99.71%" }} loading="lazy" draggable={false} />
+    </div>
+  </Layer>
+);
+
+// 3152:4655 "Iphone 15 Screens Mockup 1" — Interactive product showcases (beneath the glow, see MEDIA_BELOW_GLOW).
+const InteractiveShowcase = () => (
+  <Layer box={{ height: "453px", left: "calc(50% + 0.5px)", top: "36.26px", width: "231px", transform: "translateX(-50%)" }} inner={{ height: "231px", width: "453px" }}>
+    <Crop src={InteractiveShowcaseShot} crop={{ height: "100%", left: "0.04%", top: 0, width: "99.92%" }} />
+    <div style={{ ...abs, inset: 0, backgroundImage: "linear-gradient(90.00002148065467deg, rgba(0, 0, 0, 0) 95.695%, rgb(0, 0, 0) 100%), linear-gradient(-87.05038422295684deg, rgba(0, 0, 0, 0) 93.875%, rgb(0, 0, 0) 98.727%), linear-gradient(180.74405917440998deg, rgba(0, 0, 0, 0) 82.503%, rgb(0, 0, 0) 98.758%)" }} />
+  </Layer>
+);
+
+// 3152:4529 "Table 2" — Parallax Scrolling Sites. Layered real-estate mockup, brought in as a node export.
+const InteractiveParallax = () => (
+  <Layer box={{ height: "400px", left: "calc(50% + 16.09px)", top: "50%", width: "227.813px", transform: "translate(-50%, -50%)" }} inner={{ height: "227.813px", width: "400px", background: "#000", overflow: "hidden" }}>
+    <Img src={InteractiveParallaxArt} style={{ objectFit: "fill" }} />
+  </Layer>
+);
+
+// 3155:5261 "image 1168" — Custom Business Software
+const SoftwareCustom = () => (
+  <Layer box={{ height: "225px", left: "calc(50% + 16px)", top: "151.26px", width: "220px", transform: "translateX(-50%)", mixBlendMode: "exclusion" }} inner={{ height: "220px", width: "225px", filter: "drop-shadow(0px 0px 56.6px rgba(173,173,173,0.44))" }}>
+    <Img src={SoftwareCustomIcon} style={{ mixBlendMode: "color-dodge" }} />
+  </Layer>
+);
+
+// 3156:5267 — API Integrations
+const SoftwareApi = () => (
+  <Layer box={{ height: "297px", left: "calc(50% + 21.5px)", top: "115.06px", width: "239px", transform: "translateX(-50%)" }} inner={{ height: "239px", width: "297px" }}>
+    <Crop src={SoftwareApiIcon} crop={{ height: "141.17%", left: 0, top: "-20.58%", width: "100%" }} />
+  </Layer>
+);
+
+// 3156:5265 "Untitled design (69) 1" — Enterprise Software
+const SoftwareEnterprise = () => (
+  <Layer box={{ height: "437px", left: "calc(50% + 10px)", top: "45.26px", width: "246px", transform: "translateX(-50%)" }} inner={{ height: "246px", width: "437px", filter: "drop-shadow(0px 8px 47.8px rgba(164,164,164,0.25))" }}>
+    <Img src={SoftwareEnterpriseIcon} />
+  </Layer>
+);
+
+// 3385:4767 — Backend & Database
+const SoftwareBackend = () => (
+  <Layer box={{ height: "291px", left: "calc(50% + 0.5px)", top: "117.26px", width: "291px", transform: "translateX(-50%)", mixBlendMode: "screen" }} inner={{ height: "291px", width: "291px" }}>
+    <Img src={SoftwareBackendIcon} />
+  </Layer>
+);
+
 const MEDIA = {
+  "interactive-landing": InteractiveLanding,
+  "interactive-gamified": InteractiveGamified,
+  "interactive-showcase": InteractiveShowcase,
+  "interactive-parallax": InteractiveParallax,
   "ui-ux-corporate": UiuxCorporate,
   "ui-ux-mobile": UiuxMobile,
   "ui-ux-landing": UiuxLanding,
@@ -395,12 +549,26 @@ const MEDIA = {
   "web-custom-ai": WebCustomAi,
   "web-workflow": WebWorkflow,
   "web-dashboards": WebDashboards,
+  "app-ios": AppIos,
+  "app-android": AppAndroid,
+  "app-cross-platform": AppCrossPlatform,
+  "dev-enterprise": DevEnterprise,
+  "dev-portfolio": DevPortfolio,
+  "dev-interactive-3d": DevInteractive3d,
+  "dev-cms": DevCms,
+  "sw-custom": SoftwareCustom,
+  "sw-api": SoftwareApi,
+  "sw-enterprise": SoftwareEnterprise,
+  "sw-backend": SoftwareBackend,
 };
 
 // Media whose Figma layer sits above the card title rather than beneath it.
-export const MEDIA_ABOVE_TITLE = new Set(["product-enterprise", "product-user-flows", "brand-logo", "brand-kit", "brand-identity", "brand-packaging", "game-gamified"]);
+export const MEDIA_ABOVE_TITLE = new Set(["interactive-landing", "interactive-gamified", "interactive-parallax", "product-enterprise", "product-user-flows", "brand-logo", "brand-kit", "brand-identity", "brand-packaging", "game-gamified", "app-ios", "app-android", "dev-enterprise", "dev-portfolio", "dev-interactive-3d", "dev-cms"]);
 
 // Media placed in the unrotated card box (above the glow frame and title) rather than inside the frame.
+// Media drawn beneath the screen-blended glow layer (first child of the Figma frame).
+export const MEDIA_BELOW_GLOW = new Set(["interactive-showcase"]);
+
 export const MEDIA_OUTSIDE_FRAME = new Set(["3d-characters", "3d-product-renders", "game-icons", "game-ui"]);
 
 const OfferMedia = ({ name }) => {

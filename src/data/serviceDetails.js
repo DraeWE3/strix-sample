@@ -29,25 +29,39 @@ import ImpactRiverLogo from "../assets/img/service-pages/figma/impact-river-3510
 import AbhiwanLogo from "../assets/img/service-pages/figma/dd3ca.png";
 import ThreeDPoster from "../assets/img/service-pages/figma/cf59f.png";
 import ThreeDHeadingTexture from "../assets/img/service-pages/figma/ed208.png";
-import DevelopmentPoster from "../assets/img/service-pages/development/dev-bgg.webp";
 
 import WebAppPoster from "../assets/img/service-pages/figma/3fd0f.png";
 import NothingLogo from "../assets/img/service-pages/figma/0c914.png";
 import PenguinKartsLogo from "../assets/img/service-pages/figma/5fd6b.png";
-import AppDev1 from "../assets/img/service-pages/development/appdev1.png";
-import AppDev2 from "../assets/img/service-pages/development/appdev2.png";
-import AppDev3 from "../assets/img/service-pages/development/appdev3.png";
-import Interactive1 from "../assets/img/service-pages/development/intaweb1.png";
-import Interactive2 from "../assets/img/service-pages/development/intaweb2.png";
-import Interactive3 from "../assets/img/service-pages/development/intaweb3.png";
-import Interactive4 from "../assets/img/service-pages/development/intaweb4.png";
-import WebDev1 from "../assets/img/service-pages/development/webdev1.png";
-import WebDev2 from "../assets/img/service-pages/development/webdev2.png";
-import WebDev3 from "../assets/img/service-pages/common/webdev3.png";
-import WebDev4 from "../assets/img/service-pages/common/webdev4.png";
-import Software1 from "../assets/img/service-pages/development/softdev1.png";
-import Software2 from "../assets/img/service-pages/development/softdev2.png";
-import Software3 from "../assets/img/service-pages/development/softdev3.png";
+import AppDevPoster from "../assets/img/service-pages/figma/1cb30.png";
+import InteractivePoster from "../assets/img/service-pages/figma/25150.jpg";
+import WebDevPoster from "../assets/img/service-pages/figma/adef1.png";
+import SoftwareDevPoster from "../assets/img/service-pages/figma/56c3e.png";
+
+// Shared by the web-app (3511:8326) and app-dev (3511:8307) proof strips.
+const WEB_APP_PROOF_CARDS = [
+  {
+    // 3511:8335: 693 x 125 image object-contain in a 180 x 106 box at top 9.
+    logoImage: { src: NothingLogo, width: 180, height: 32.47, top: 45.77, offsetX: 0.5, alt: "Nothing" },
+    title: "3D Cinematic Product Renders and animation",
+    description: "3D product renders for one of the world's most recognized brands such as Nothing, Wroot & More.",
+    layout: { titleLeft: 41.5, titleLine: 26, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
+  },
+  {
+    // 3511:8338: 116 x 70 box, image 105.68% wide at 1.47% (clipped edge is transparent).
+    logoImage: { src: PenguinKartsLogo, width: 122.59, height: 70, top: 37, offsetX: 5.49, alt: "Penguin Karts" },
+    title: "3D - Game Environment & Assets",
+    description: "Game Environments, Racing car and other 3D assets delivered for penguin cart racing game.",
+    layout: { titleLeft: 32.5, titleLine: 26 },
+  },
+  {
+    // 3511:8347 "Astra": 126.36 x 94 box, image 87.91% tall at 7.17%.
+    logoImage: { src: AbhiwanLogo, width: 126.36, height: 82.64, top: 31.74, offsetX: -0.32, alt: "Abhiwan" },
+    title: "XR Visualisation",
+    description: "3D scene design and spatial visualisation for immersive enterprise training environments.",
+    layout: { titleLeft: 33, titleTop: 193.5, titleLine: 26, copyLeft: 0, copyRight: 0 },
+  },
+];
 
 export const SERVICE_ROUTE_BASE = "/services";
 export const serviceRoute = (slug) => `${SERVICE_ROUTE_BASE}/${slug}`;
@@ -381,29 +395,7 @@ export const serviceDetails = {
       headingImage: ThreeDHeadingTexture,
       intro: "Web apps that handle real growth — without being rebuilt at scale.",
       introWidth: 821,
-      cards: [
-        {
-          // 3511:8335: 693 x 125 image object-contain in a 180 x 106 box at top 9.
-          logoImage: { src: NothingLogo, width: 180, height: 32.47, top: 45.77, offsetX: 0.5, alt: "Nothing" },
-          title: "3D Cinematic Product Renders and animation",
-          description: "3D product renders for one of the world's most recognized brands such as Nothing, Wroot & More.",
-          layout: { titleLeft: 41.5, titleLine: 26, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
-        },
-        {
-          // 3511:8338: 116 x 70 box, image 105.68% wide at 1.47% (clipped edge is transparent).
-          logoImage: { src: PenguinKartsLogo, width: 122.59, height: 70, top: 37, offsetX: 5.49, alt: "Penguin Karts" },
-          title: "3D - Game Environment & Assets",
-          description: "Game Environments, Racing car and other 3D assets delivered for penguin cart racing game.",
-          layout: { titleLeft: 32.5, titleLine: 26 },
-        },
-        {
-          // 3511:8347 "Astra": 126.36 x 94 box, image 87.91% tall at 7.17%.
-          logoImage: { src: AbhiwanLogo, width: 126.36, height: 82.64, top: 31.74, offsetX: -0.32, alt: "Abhiwan" },
-          title: "XR Visualisation",
-          description: "3D scene design and spatial visualisation for immersive enterprise training environments.",
-          layout: { titleLeft: 33, titleTop: 193.5, titleLine: 26, copyLeft: 0, copyRight: 0 },
-        },
-      ],
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "app-dev": {
@@ -417,22 +409,22 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DevelopmentPoster,
+      poster: AppDevPoster,
       description: "From idea to app store, we deliver powerful mobile applications with sleek performance, robust backend, and cross-platform reach.",
     },
+    // Figma 965:6852 (hero 965:6988, offers 965:7003 / 7021 / 7012, proof 3511:8304).
     offers: [
-      { title: "Native iOS Apps", description: "Swift-built apps that feel at home on every iPhone and iPad.", descriptionWidth: 442, image: AppDev1 },
-      { title: "Native Android Apps", description: "Kotlin apps tuned for the devices your users actually own.", descriptionWidth: 442, image: AppDev2 },
-      { title: "Cross-Platform Apps", description: "One codebase, two stores, no compromise on feel.", descriptionWidth: 415, image: AppDev3 },
+      { title: "Native iOS App", description: "Built specifically for Apple — fast, polished, and App Store ready.", descriptionWidth: 415, media: "app-ios" },
+      { title: "Native Android App", description: "Performance and feel that Android users expect from day one.", descriptionWidth: 415, media: "app-android" },
+      { title: "Cross-Platform Apps", description: "One codebase. Both stores. No compromise on experience.", descriptionWidth: 317, media: "app-cross-platform" },
     ],
     proof: {
-      heading: "Apps people keep installed.",
-      intro: "Performance, stability and store-ready polish from the first build to the first review.",
-      cards: [
-        { label: "PERFORMANCE", title: "Fast on real devices", description: "Profiled on the phones your audience uses, not just the simulator." },
-        { label: "ROBUST BACKEND", title: "APIs built alongside", description: "Secure, documented services designed with the app, not after it." },
-        { label: "STORE READY", title: "Launch without surprises", description: "Review guidelines, assets and release pipelines handled end to end." },
-      ],
+      heading: "Apps users open every day.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Mobile products designed and built in the same sprint, by the same team.",
+      introWidth: 821,
+      // 3511:8307: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "interactive-web": {
@@ -446,23 +438,25 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DevelopmentPoster,
+      // Figma 965:7176: image cropped at 104.77% x 139.44%, offset into the 1004 x 503 frame.
+      poster: InteractivePoster,
+      posterCrop: { width: "104.77%", height: "139.44%", left: "-2.39%", top: "-8.63%" },
       description: "We build conversion - optimized landing pages that drive sign-ups, leads, and sales - engineered for speed and performance.",
     },
+    // Figma 965:7039 (hero 965:7175, offers 965:7190 / 7208 / 1043:6588 / 6597, proof 3511:8348).
     offers: [
-      { title: "Animated Landing Pages", description: "Motion that guides the eye to the one button that matters.", descriptionWidth: 442, image: Interactive1 },
-      { title: "Gamified Web Experiences", description: "Interaction that turns visitors into participants.", descriptionWidth: 415, image: Interactive2 },
-      { title: "Interactive Product Showcases", description: "Let people explore the product instead of reading about it.", descriptionWidth: 467, image: Interactive3 },
-      { title: "Parallax Scrolling Sites", description: "Depth and pace that make a long page feel short.", descriptionWidth: 415, image: Interactive4 },
+      { title: "Animated Landing Pages", description: "Motion that guides attention — and turns visits into conversions.", descriptionWidth: 333, media: "interactive-landing" },
+      { title: "Gamified Web Experiences", description: "Websites people actually want to spend time on.", descriptionWidth: 345, media: "interactive-gamified" },
+      { title: "Interactive product showcases", description: "Let visitors experience your product before they buy it.", descriptionWidth: 560, media: "interactive-showcase" },
+      { title: "Parallax Scrolling Sites", description: "Depth and storytelling built into every scroll.", descriptionWidth: 527, media: "interactive-parallax" },
     ],
+    // 3511:8348: same cards as the web-app strip; only the heading and intro differ.
     proof: {
-      heading: "Experiences that convert.",
-      intro: "Interaction and animation built on a fast, accessible foundation — engineered for speed and performance.",
-      cards: [
-        { label: "SPEED FIRST", title: "Motion without the weight", description: "GPU-friendly animation and lean bundles keep the page fast on every device." },
-        { label: "CONVERSION LED", title: "Every interaction has a job", description: "Scroll, hover and play states are designed around the sign-up, not the spectacle." },
-        { label: "ACCESSIBLE", title: "Works for everyone", description: "Reduced-motion, keyboard and screen-reader paths built in from the start." },
-      ],
+      heading: "Websites worth sharing.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Interactive experiences that make visitors stay longer and come back.",
+      introWidth: 821,
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "web-dev": {
@@ -476,29 +470,31 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DevelopmentPoster,
+      // Figma 965:7550: image cropped at 111.57% x 111.58%, centred in the 1004 x 503 frame.
+      poster: WebDevPoster,
+      posterCrop: { width: "111.57%", height: "111.58%", left: "-5.76%", top: "-5.77%" },
       description: "We develop websites that blend speed, security, and scalability - built with clean code and optimized for long-term growth.",
     },
+    // Figma 965:7413 (hero 965:7549, offers 965:7564 / 7582 / 7573 / 7591, proof 3511:8282).
     offers: [
-      { title: "Corporate Websites", description: "A digital headquarters that looks the part and loads in a blink.", descriptionWidth: 465, image: WebDev1 },
-      { title: "Portfolio Websites", description: "Work shown the way it deserves — big, fast and easy to browse.", descriptionWidth: 467, image: WebDev2 },
-      { title: "Interactive 3D Websites", description: "WebGL experiences that run smoothly on ordinary laptops.", descriptionWidth: 442, image: WebDev3 },
-      { title: "CMS Development", description: "Content your team can update without calling a developer.", descriptionWidth: 442, image: WebDev4 },
+      { title: "Enterprise Websites", description: "A web presence that earns trust before the first meeting.", descriptionWidth: 415, media: "dev-enterprise" },
+      { title: "Portfolio Websites", description: "Work that speaks for itself — presented the way it deserves.", descriptionWidth: 382, media: "dev-portfolio" },
+      { title: "Interactive 3D Websites", description: "Experiences visitors share — because they've never seen it before.", descriptionWidth: 415, media: "dev-interactive-3d" },
+      { title: "CMS Development", description: "Update your site yourself — without touching a single line of code.", descriptionWidth: 400, media: "dev-cms" },
     ],
     proof: {
-      heading: "Websites built for the long run.",
-      intro: "Clean code, solid hosting and a structure that keeps growing with the business.",
-      cards: [
-        { label: "CLEAN CODE", title: "Maintainable from day one", description: "Readable, documented builds that any developer can pick up later." },
-        { label: "SECURE", title: "Hardened by default", description: "Updates, backups and best practices handled before launch, not after an incident." },
-        { label: "SEO READY", title: "Found by the right people", description: "Fast loads, semantic markup and metadata set up for search from the start." },
-      ],
+      heading: "Websites that grow with you.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Fast, clean, and built to be updated without a developer on call.",
+      introWidth: 821,
+      // 3511:8285: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
   "software-dev": {
     slug: "software-dev",
     category: "development",
-    title: "Software Development",
+    title: "SaaS AI Development",
     navLabel: "Software Dev",
     seo: {
       title: "Custom Software Development Services for Startups",
@@ -506,22 +502,24 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DevelopmentPoster,
-      description: "We build reliable, scalable custom software — from internal tools to enterprise platforms — engineered around your business goals.",
+      // Figma 965:7737: image object-cover in the 1004 x 503 frame.
+      poster: SoftwareDevPoster,
+      description: "Custom Business Software Built for exactly how your business works — not how a template assumes it does.",
     },
+    // Figma 965:7600 (hero 965:7736, offers 965:7751 / 7769 / 7760 / 3385:4748, proof 3511:8370).
     offers: [
-      { title: "Custom Business Software", description: "Tools shaped around how your team actually works.", descriptionWidth: 415, image: Software1 },
-      { title: "API Development", description: "Clean, documented interfaces other systems are happy to talk to.", descriptionWidth: 467, image: Software2 },
-      { title: "System Integrations", description: "Your existing tools, finally sharing the same data.", descriptionWidth: 415, image: Software3 },
+      { title: "Custom Business Software", description: "Built for exactly how your business works — not how a template assumes it does.", descriptionWidth: 457, media: "sw-custom" },
+      { title: "API Integrations", description: "Connect every tool you use into one seamless system.", descriptionWidth: 338, media: "sw-api" },
+      { title: "Enterprise Software", description: "Scalable, secure, and built to grow as fast as your business does.", descriptionWidth: 357, media: "sw-enterprise" },
+      { title: "Backend & Database", description: "The infrastructure your product runs on, designed to never become the bottleneck", descriptionWidth: 415, media: "sw-backend" },
     ],
     proof: {
-      heading: "Software that fits the business.",
-      intro: "Modern stacks, dependable delivery and systems built to match your goals rather than the other way round.",
-      cards: [
-        { label: "RELIABLE", title: "Tested before trusted", description: "Automated tests and staged releases keep production calm." },
-        { label: "SCALABLE", title: "Ready for what's next", description: "Architecture that grows with users, data and new requirements." },
-        { label: "TRANSPARENT", title: "Clear milestones", description: "Scoped sprints and visible progress from kickoff to handover." },
-      ],
+      heading: "Software your team can own.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Custom-built, fully documented, and handed over completely clean.",
+      introWidth: 821,
+      // 3511:8373: identical cards (logos, copy and offsets) to the web-app proof strip.
+      cards: WEB_APP_PROOF_CARDS,
     },
   },
 

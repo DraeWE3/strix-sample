@@ -1,4 +1,4 @@
-import OfferMedia, { MEDIA_ABOVE_TITLE, MEDIA_OUTSIDE_FRAME } from "./OfferMedia";
+import OfferMedia, { MEDIA_ABOVE_TITLE, MEDIA_BELOW_GLOW, MEDIA_OUTSIDE_FRAME } from "./OfferMedia";
 import FrameGlow from "../../assets/img/service-pages/figma/88df4.svg";
 
 // Offer-card canvas skeleton shared by every template card: black plate, inset glow frame, optional
@@ -14,6 +14,7 @@ const OfferArtwork = ({ title, image, imageAlt = "", media }) => (
     <div style={{ ...abs, display: "flex", height: "360px", alignItems: "center", justifyContent: "center", left: "-1.6px", top: 0, width: "528.8px" }}>
       <div style={{ flex: "none", transform: "rotate(-90deg)" }}>
         <div style={{ borderColor: "#999", borderWidth: "1.336px", borderStyle: "solid", height: "528.8px", overflow: "clip", position: "relative", borderRadius: "21.371px", width: "360px" }}>
+          {media && MEDIA_BELOW_GLOW.has(media) && <OfferMedia name={media} />}
           <div style={{ ...abs, display: "flex", height: "982.279px", alignItems: "center", justifyContent: "center", left: "-258.83px", mixBlendMode: "screen", top: "-324.69px", width: "849.544px" }}>
             <div style={{ flex: "none", transform: "rotate(72.8deg)" }}>
               <div style={{ height: "631.518px", position: "relative", width: "832.771px" }}>
@@ -23,7 +24,7 @@ const OfferArtwork = ({ title, image, imageAlt = "", media }) => (
               </div>
             </div>
           </div>
-          {media ? !MEDIA_ABOVE_TITLE.has(media) && !MEDIA_OUTSIDE_FRAME.has(media) && <OfferMedia name={media} /> : image && (
+          {media ? !MEDIA_ABOVE_TITLE.has(media) && !MEDIA_BELOW_GLOW.has(media) && !MEDIA_OUTSIDE_FRAME.has(media) && <OfferMedia name={media} /> : image && (
             <div style={{ ...abs, display: "flex", height: "455.601px", alignItems: "center", justifyContent: "center", left: "calc(50% + 6.5px)", mixBlendMode: "lighten", top: "35.66px", width: "253px", transform: "translateX(-50%)" }}>
               <div style={{ flex: "none", transform: "rotate(90deg)" }}>
                 <div style={{ height: "253px", position: "relative", width: "455.601px" }}>
