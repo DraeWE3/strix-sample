@@ -1,173 +1,161 @@
-import Button from '../components/Button'
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Nav from '../components/Navbar'
-import Footer from '../components/Footer'
-import SEO from '../components/SEO'
-import BlogNav from '../components/BlogNav'
-import { ArrowLeft } from 'lucide-react';
-import '../style/blog.css'
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../admin/firebaseconfig'; // Adjust path as needed
-import Shadow1 from "../assets/img/shared/shadow1.webp";
-import Shadow2 from "../assets/img/shared/shadow2.webp";
-import ScrollAnimation from '../animations/scrollReveal'
-import SlideInFramerOnLoad from '../animations/SlideInFramerOnLoad'
+import { useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import Nav from '../components/Navbar';
+import Footer from '../components/Footer';
+import SEO from '../components/SEO';
+import BlogCard from '../components/blog/BlogCard';
+import BlogSidebar, { ALL_TOPICS, SAVED_TOPIC } from '../components/blog/BlogSidebar';
+import { useSavedBlogs } from '../components/blog/savedBlogs';
+import { BLOG_SITE_URL, blogSearchText, useBlogCategories, useBlogs } from '../lib/blogs';
+import '../style/fonts.css';
+// Not used by this page; kept because other pages' mobile `.mobile-socials` layout relies on it loading globally.
+import '../style/blogNav.css';
+import '../style/blog-page.css';
+import ReturnArrow from '../assets/img/mvp/a9103.svg';
+import Atmosphere from '../assets/img/blog/figma/1617b.svg';
+import LoadRim from '../assets/img/blog/figma/7c70a.svg';
+import LoadGlow from '../assets/img/blog/figma/426e3.svg';
+
+const PAGE_SIZE = 9;
 
 const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All Topics');
+  const { blogs, loading, error } = useBlogs();
+  const { saved, isSaved, toggle } = useSavedBlogs();
+  const categories = useBlogCategories(blogs);
+  const [params, setParams] = useSearchParams();
+  const [limit, setLimit] = useState(PAGE_SIZE);
 
-  useEffect(() => {
-    loadBlogs();
-  }, []);
+  const search = (params.get('q') || '').slice(0, 200);
+  const requestedTopic = params.get('topic') || ALL_TOPICS;
+  const topic = loading || [ALL_TOPICS, SAVED_TOPIC, ...categories.pinned, ...categories.rest].includes(requestedTopic) ? requestedTopic : ALL_TOPICS;
 
-  useEffect(() => {
-    filterBlogs();
-  }, [searchTerm, selectedCategory, blogs]);
-
-  const loadBlogs = async () => {
-    try {
-      setLoading(true);
-      const blogsSnap = await getDocs(
-        query(
-          collection(db, 'blogs'),
-          where('status', '==', 'published')
-        )
-      );
-      const blogsData = blogsSnap.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      
-      // Sort in memory to avoid index requirement
-      blogsData.sort((a, b) => {
-        const dateA = new Date(a.createdAt || 0);
-        const dateB = new Date(b.createdAt || 0);
-        return dateB - dateA;
-      });
-      
-      setBlogs(blogsData);
-      setFilteredBlogs(blogsData);
-    } catch (error) {
-      console.error('Error loading blogs:', error);
-    } finally {
-      setLoading(false);
-    }
+  const updateParams = (next) => {
+    const merged = { q: search, topic, ...next };
+    const query = {};
+    if (merged.q) query.q = merged.q;
+    if (merged.topic && merged.topic !== ALL_TOPICS) query.topic = merged.topic;
+    setParams(query, { replace: true });
+    setLimit(PAGE_SIZE);
   };
 
-  const filterBlogs = () => {
-    let filtered = [...blogs];
+  const searchIndex = useMemo(() => new Map(blogs.map((blog) => [blog.id, blogSearchText(blog)])), [blogs]);
 
-    if (selectedCategory !== 'All Topics') {
-      filtered = filtered.filter(blog => 
-        blog.tag?.toLowerCase() === selectedCategory.toLowerCase()
-      );
-    }
+  const matches = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    return blogs.filter(
+      (blog) =>
+        (topic === ALL_TOPICS || (topic === SAVED_TOPIC ? saved.includes(blog.id) : blog.category === topic)) &&
+        (!term || searchIndex.get(blog.id).includes(term))
+    );
+  }, [blogs, topic, search, saved, searchIndex]);
 
-    if (searchTerm.trim()) {
-      const search = searchTerm.toLowerCase();
-      filtered = filtered.filter(blog =>
-        blog.topic?.toLowerCase().includes(search) ||
-        blog.tag?.toLowerCase().includes(search) ||
-        blog.paragraphs?.some(p => p.text?.toLowerCase().includes(search))
-      );
-    }
+  const shown = matches.slice(0, limit);
+  const filtered = topic !== ALL_TOPICS || Boolean(search);
+  const savedCount = blogs.filter((blog) => saved.includes(blog.id)).length;
 
-    setFilteredBlogs(filtered);
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      month: 'numeric', 
-      day: 'numeric', 
-      year: 'numeric' 
-    });
-  };
+  let status = null;
+  if (loading) {
+    status = (
+      <div className="blog-grid" aria-hidden="true">
+        {Array.from({ length: 6 }, (_, index) => (
+          <div key={index} className="blog-card blog-card--placeholder">
+            <span className="blog-card__visual" />
+            <span className="blog-card__line" />
+            <span className="blog-card__line blog-card__line--short" />
+          </div>
+        ))}
+      </div>
+    );
+  } else if (error && !blogs.length) {
+    status = (
+      <div className="blog-empty" role="alert">
+        <p>We couldn’t load articles right now.</p>
+        <span>Please check your connection and try again.</span>
+        <button type="button" onClick={() => window.location.reload()}>Try again ↗</button>
+      </div>
+    );
+  } else if (!blogs.length) {
+    status = (
+      <div className="blog-empty">
+        <p>No articles published yet.</p>
+        <span>New stories are on the way. Check back soon.</span>
+      </div>
+    );
+  } else if (!matches.length) {
+    status = (
+      <div className="blog-empty">
+        <p>{topic === SAVED_TOPIC ? 'No saved articles yet.' : 'No articles found.'}</p>
+        <span>{topic === SAVED_TOPIC ? 'Save an article to find it here later.' : 'Try another topic or clear your search.'}</span>
+        <button type="button" onClick={() => updateParams({ q: '', topic: ALL_TOPICS })}>Show all articles ↗</button>
+      </div>
+    );
+  }
 
   return (
     <div>
       <SEO
         title="Design, Tech & Creative Strategy Insights"
         description="Read expert articles on UI/UX design, web development, branding, and digital marketing trends from the creative minds at Strix Production."
-        canonical="https://www.strixproduction.com/blog"
+        canonical={`${BLOG_SITE_URL}/blog`}
       />
-        <Nav />
-          <ScrollAnimation />
-           <SlideInFramerOnLoad />
-        <div className="blog">
-            <img
-            src={Shadow1}
-            alt=""
-            className="shadow1 absolute top-10 left-0 w-40"
-          />
-          <img
-            src={Shadow2}
-            alt=""
-            className="shadow2 bgsha absolute bottom-0 right-0 w-40"
-          />
-          <div className="blog-top">
-             <Button to='/'><ArrowLeft size={16} /> Return to Homepage</Button>
+      <Nav />
+      <div className="blog-shell">
+        <Link className="blog-return" to="/">
+          <img src={ReturnArrow} alt="" width="13.13" height="8.25" />
+          <span>Return to Homepage</span>
+        </Link>
+        <main className={`blog-main${filtered ? ' is-filtered' : ''}`}>
+          <div className="blog-atmosphere" aria-hidden="true">
+            <img className="blog-atmosphere__left" src={Atmosphere} alt="" />
+            <img className="blog-atmosphere__right" src={Atmosphere} alt="" />
           </div>
-
-          <h1 className='blog-header slideinLoad'>Our Space to Think and Share</h1>
-
-            <div className="blog-con">
-                <div className="blog-nav slideInLeft">
-                  <BlogNav
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                </div>
-
-                <div className="blogcards">
-                  {loading ? (
-                    <div style={{ padding: '40px', textAlign: 'center' }}>
-                      Loading blogs...
-                    </div>
-                  ) : filteredBlogs.length === 0 ? (
-                    <div style={{ padding: '40px', textAlign: 'center' }}>
-                      No blogs found
-                    </div>
-                  ) : (
-                    filteredBlogs.map(blog => (
-                      <Link 
-                        key={blog.id} 
-                        to={`/blog/${blog.id}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        <div className="blogcard scrollReveal">
-                          <div className="blog-card">
-                            <img 
-                              src={blog.image || '/placeholder.png'} 
-                              alt={blog.topic}
-                              onError={(e) => {
-                                e.target.src = '/placeholder.png';
-                              }}
-                            />
-                          </div>
-                          <div className="blog-details">
-                            <p className='blog-tag'>{blog.tag || 'General'}</p>
-                            <p className="blog-date">{formatDate(blog.date)}</p>
-                            <p className="description-blog">{blog.topic}</p>
-                          </div>
-                        </div>
-                      </Link>
-                    ))
-                  )}
-                </div>
+          <div className="blog-layout">
+            <BlogSidebar
+              search={search}
+              onSearch={(value) => updateParams({ q: value.slice(0, 200) })}
+              topic={topic}
+              onTopic={(value) => updateParams({ topic: value })}
+              categories={categories}
+              savedCount={savedCount}
+            />
+            <div className="blog-content">
+              <header className="blog-hero">
+                <div className="blog-hero__glow" aria-hidden="true"><span /></div>
+                <h1><span>Our Space to</span><span>Think and Share</span></h1>
+                <p>Expert Perspectives on Design, Development &amp; Product Strategy</p>
+              </header>
+              <section className="blog-results" aria-label="Articles" aria-busy={loading}>
+                <p className="sr-only" role="status" aria-live="polite">
+                  {loading ? 'Loading articles…' : `Showing ${shown.length} of ${matches.length} articles${topic === ALL_TOPICS ? '' : ` in ${topic}`}.`}
+                </p>
+                {status || (
+                  <div className="blog-grid">
+                    {shown.map((blog, index) => (
+                      <BlogCard
+                        key={blog.id}
+                        blog={blog}
+                        saved={isSaved(blog.id)}
+                        onToggleSave={toggle}
+                        style={{ '--delay': `${Math.min(index % PAGE_SIZE, 5) * 45}ms` }}
+                      />
+                    ))}
+                  </div>
+                )}
+                {!status && shown.length < matches.length && (
+                  <button type="button" className="blog-load" onClick={() => setLimit((value) => value + PAGE_SIZE)}>
+                    <img className="blog-load__rim" src={LoadRim} alt="" />
+                    <span className="blog-load__glow" aria-hidden="true"><img src={LoadGlow} alt="" /></span>
+                    <span className="blog-load__label">Load More</span>
+                  </button>
+                )}
+              </section>
             </div>
-        </div>
-        <Footer /> 
+          </div>
+        </main>
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;

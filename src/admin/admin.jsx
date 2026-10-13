@@ -1527,6 +1527,8 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
   );
 };
 
+const EMPTY_BLOG_AUTHOR = { name: '', role: '', bio: '', avatar: '', linkedin: '', email: '' };
+
 const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
   const [formData, setFormData] = useState({
     image: '', // Card image
@@ -1535,13 +1537,15 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
     topic: '', // Card title
     detailsImage: '', // Main header image for details page
     headerText: '', // Main header text for details page
+    excerpt: '', // Optional summary for SEO/sharing; the first paragraph is used when empty
+    author: EMPTY_BLOG_AUTHOR, // Optional "About the author" card
     content: [], // Array of content blocks
     status: 'draft'
   });
 
   useEffect(() => {
     if (editingItem) {
-      setFormData(editingItem);
+      setFormData({ excerpt: '', ...editingItem, author: { ...EMPTY_BLOG_AUTHOR, ...editingItem.author } });
     } else {
       setFormData({
         image: '',
@@ -1550,6 +1554,8 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
         topic: '',
         detailsImage: '',
         headerText: '',
+        excerpt: '',
+        author: EMPTY_BLOG_AUTHOR,
         content: [],
         status: 'draft'
       });
@@ -1558,6 +1564,11 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
 
   const [imageFile, setImageFile] = useState(null);
   const [detailsImageFile, setDetailsImageFile] = useState(null);
+  const [authorImageFile, setAuthorImageFile] = useState(null);
+
+  const updateAuthor = (field, value) => {
+    setFormData(prev => ({ ...prev, author: { ...prev.author, [field]: value } }));
+  };
   const [saving, setSaving] = useState(false);
 
   const addContentBlock = (type) => {
@@ -1663,11 +1674,22 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
           return;
         }
       }
+      let authorAvatarUrl = formData.author.avatar;
+      if (authorImageFile) {
+        try {
+          authorAvatarUrl = await uploadImage(authorImageFile);
+        } catch (error) {
+          alert("Author photo upload failed: " + error.message);
+          setSaving(false);
+          return;
+        }
+      }
 
       const data = {
         ...formData,
         image: imageUrl,
         detailsImage: detailsImageUrl,
+        author: { ...formData.author, avatar: authorAvatarUrl },
         updatedAt: new Date().toISOString()
       };
 
@@ -1771,6 +1793,85 @@ const BlogForm = ({ editingItem, setEditingItem, setShowForm, loadData }) => {
               className="form-input"
               placeholder="Main title for the blog details page"
               required
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Excerpt (optional)</label>
+            <textarea
+              value={formData.excerpt}
+              onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+              className="form-textarea"
+              placeholder="Short summary used for search results and social sharing. Leave empty to use the first paragraph."
+              rows={3}
+            />
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h3 className="section-title">About the Author (optional)</h3>
+
+          <div className="form-group">
+            <label className="form-label">Name</label>
+            <input
+              type="text"
+              value={formData.author.name}
+              onChange={(e) => updateAuthor('name', e.target.value)}
+              className="form-input"
+              placeholder="Leave empty to hide the author card"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Role</label>
+            <input
+              type="text"
+              value={formData.author.role}
+              onChange={(e) => updateAuthor('role', e.target.value)}
+              className="form-input"
+              placeholder="e.g., Founder & Creative Director"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Bio</label>
+            <textarea
+              value={formData.author.bio}
+              onChange={(e) => updateAuthor('bio', e.target.value)}
+              className="form-textarea"
+              rows={3}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Photo</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setAuthorImageFile(e.target.files[0])}
+              className="form-input-file"
+            />
+            {formData.author.avatar && <img src={formData.author.avatar} className="image-preview" alt="Author" />}
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">LinkedIn URL</label>
+            <input
+              type="url"
+              value={formData.author.linkedin}
+              onChange={(e) => updateAuthor('linkedin', e.target.value)}
+              className="form-input"
+              placeholder="https://www.linkedin.com/in/..."
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              value={formData.author.email}
+              onChange={(e) => updateAuthor('email', e.target.value)}
+              className="form-input"
             />
           </div>
         </div>

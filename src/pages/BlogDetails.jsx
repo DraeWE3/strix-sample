@@ -1,245 +1,301 @@
-import Button from '../components/Button'
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import BlogNav from '../components/BlogNav';
-import { ArrowLeft, Heart, Bookmark, Share2 } from 'lucide-react';
-import '../style/blog.css';
-import Circleblur from '../assets/img/shared/sr-img.webp';
-import { collection, getDocs, doc, updateDoc, increment } from 'firebase/firestore';
-import { db } from '../admin/firebaseconfig';
-import Shadow1 from "../assets/img/shared/shadow1.webp";
-import Shadow2 from "../assets/img/shared/shadow2.webp";
-import Love from "../assets/img/blog/love.svg"
-import Save from "../assets/img/blog/save.svg"
-import Share from "../assets/img/blog/share.svg"
+import BlogCard from '../components/blog/BlogCard';
+import BlogContent from '../components/blog/BlogContent';
+import BlogSummaryLinks from '../components/blog/BlogSummaryLinks';
+import { useSavedBlogs } from '../components/blog/savedBlogs';
+import { BLOG_SITE_URL, blogHeadings, blogHref, formatBlogDate, relatedBlogs, useBlogs } from '../lib/blogs';
+import '../style/fonts.css';
+import '../style/blog-page.css';
+import '../style/blog-article.css';
+import LinkedInIcon from '../assets/img/blog/figma/4bc62.svg';
+import FacebookIcon from '../assets/img/blog/figma/9c714.svg';
+import XIcon from '../assets/img/blog/figma/f8920.svg';
+import CopyIcon from '../assets/img/blog/figma/a1564.svg';
+import AuthorGlowLeft from '../assets/img/blog/figma/ab6e7.svg';
+import AuthorGlowRight from '../assets/img/blog/figma/1b34e.svg';
+import AuthorLinkedIn from '../assets/img/blog/figma/88da1.svg';
+import AuthorEmail from '../assets/img/blog/figma/5e398.svg';
+import CtaRim from '../assets/img/blog/figma/1a428.svg';
+import CtaArrow from '../assets/img/blog/figma/4acc0.svg';
+
+const BOOKING_URL = 'https://calendly.com/strixmufasa/30min';
+const PROGRESS_OFFSET = 150;
+
+const useReadingProgress = (targetRef, barRef, active) => {
+  useEffect(() => {
+    if (!active) return undefined;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const target = targetRef.current;
+      const bar = barRef.current;
+      if (!target || !bar) return;
+      const rect = target.getBoundingClientRect();
+      const distance = Math.max(1, rect.height - window.innerHeight + PROGRESS_OFFSET);
+      const progress = Math.min(1, Math.max(0, (PROGRESS_OFFSET - rect.top) / distance));
+      bar.style.transform = `scaleX(${progress})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener('scroll', onScroll, { capture: true });
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [targetRef, barRef, active]);
+};
+
+const useActiveHeading = (headings) => {
+  const [activeId, setActiveId] = useState('');
+  useEffect(() => {
+    setActiveId(headings[0]?.id || '');
+    if (!headings.length || !('IntersectionObserver' in window)) return undefined;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => entry.isIntersecting && setActiveId(entry.target.id)),
+      { rootMargin: '-15% 0px -70% 0px', threshold: 0 }
+    );
+    headings.forEach(({ id }) => {
+      const node = document.getElementById(id);
+      if (node) observer.observe(node);
+    });
+    return () => observer.disconnect();
+  }, [headings]);
+  return [activeId, setActiveId];
+};
+
+const ArticleState = ({ title, children, noindex }) => (
+  <div>
+    <SEO title={title} noindex={noindex} />
+    <Nav />
+    <div className="blog-shell article-shell">
+      <main className="article-page article-page--state">
+        <Link className="article-return" to="/blog"><span aria-hidden="true">←</span> Return to Blogs</Link>
+        {children}
+      </main>
+    </div>
+    <Footer />
+  </div>
+);
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [liked, setLiked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  const { blogs, loading, error } = useBlogs();
+  const { isSaved, toggle } = useSavedBlogs();
+  const blog = blogs.find((item) => item.id === id);
+  const bodyRef = useRef(null);
+  const progressRef = useRef(null);
+  const [shareStatus, setShareStatus] = useState('');
+  const [tocOpen, setTocOpen] = useState(() => !window.matchMedia('(max-width: 960px)').matches);
+
+  const headings = useMemo(() => (blog ? blogHeadings(blog.content) : []), [blog]);
+  const [activeId, setActiveId] = useActiveHeading(headings);
+  useReadingProgress(bodyRef, progressRef, Boolean(blog));
+
+  useEffect(() => setShareStatus(''), [id]);
 
   useEffect(() => {
-    loadBlogDetails();
-    const savedLiked = localStorage.getItem(`blog_liked_${id}`) === 'true';
-    const savedBookmarked = localStorage.getItem(`blog_bookmarked_${id}`) === 'true';
-    setLiked(savedLiked);
-    setBookmarked(savedBookmarked);
-  }, [id]);
-
-  const loadBlogDetails = async () => {
+    if (!headings.length) return;
+    let fragment = '';
     try {
-      setLoading(true);
-      const blogsSnap = await getDocs(collection(db, 'blogs'));
-      const blogData = blogsSnap.docs
-        .map(doc => ({ id: doc.id, ...doc.data() }))
-        .find(b => b.id === id);
-      
-      setBlog(blogData);
-      setLikeCount(blogData?.likes || 0);
-    } catch (error) {
-      console.error('Error loading blog details:', error);
-    } finally {
-      setLoading(false);
+      fragment = decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return;
     }
-  };
-
-  const handleLike = async () => {
-    if (!blog) return;
-    
-    const newLikedState = !liked;
-    setLiked(newLikedState);
-    localStorage.setItem(`blog_liked_${id}`, newLikedState);
-    
-    const newCount = newLikedState ? likeCount + 1 : likeCount - 1;
-    setLikeCount(newCount);
-    
-    try {
-      await updateDoc(doc(db, 'blogs', id), {
-        likes: increment(newLikedState ? 1 : -1)
-      });
-    } catch (error) {
-      console.error('Error updating likes:', error);
-    }
-  };
-
-  const handleBookmark = () => {
-    const newBookmarkedState = !bookmarked;
-    setBookmarked(newBookmarkedState);
-    localStorage.setItem(`blog_bookmarked_${id}`, newBookmarkedState);
-    
-    if (newBookmarkedState) {
-      alert('Post bookmarked! 📌');
-    }
-  };
-
-  const handleShare = async () => {
-    const shareData = {
-      title: blog?.headerText || blog?.topic,
-      text: 'Check out this blog post!',
-      url: window.location.href
-    };
-
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard! 📋');
-      }
-    } catch (error) {
-      console.error('Error sharing:', error);
-    }
-  };
-
-  const renderContent = (contentBlock) => {
-    switch (contentBlock.type) {
-      case 'paragraph':
-        return <p className='blog-writeup' key={contentBlock.id}>{contentBlock.content}</p>;
-      
-      case 'image':
-        return <img className='blog-content-image' key={contentBlock.id} src={contentBlock.content} alt="Blog content" />;
-      
-      case 'subheading':
-        return <h2 className='blog-subheading' key={contentBlock.id}>{contentBlock.content}</h2>;
-      
-      case 'keypoints':
-        return (
-          <ul className='blog-keypoints' key={contentBlock.id}>
-            {contentBlock.content.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
-        );
-      
-      default:
-        return null;
-    }
-  };
+    if (!headings.some((heading) => heading.id === fragment)) return;
+    requestAnimationFrame(() => document.getElementById(fragment)?.scrollIntoView());
+    setActiveId(fragment);
+  }, [headings, setActiveId]);
 
   if (loading) {
     return (
-      <div>
-
-        <Nav />
-           <img
-                    src={Shadow1}
-                    alt=""
-                    className="shadow1 absolute top-10 left-0 w-40"
-                  />
-                  <img
-                    src={Shadow2}
-                    alt=""
-                    className="shadow2 absolute bottom-0 right-0 w-40"
-                  />
-        <div className="blog">
-          <div style={{ padding: '40px', textAlign: 'center' }}>
-            Loading blog details...
-          </div>
+      <ArticleState title="Blog">
+        <div className="article-loading" role="status" aria-live="polite">
+          <span className="article-loading__title" />
+          <span className="article-loading__cover" />
+          <span className="sr-only">Loading article…</span>
         </div>
-        <Footer />
-      </div>
+      </ArticleState>
     );
   }
 
   if (!blog) {
+    const failed = Boolean(error);
     return (
-      <div>
-        <Nav />
-        <div className="blog">
-          <div style={{ padding: '40px', textAlign: 'center' }}>
-            Blog not found
-          </div>
-        </div>
-        <Footer />
-      </div>
+      <ArticleState title={failed ? 'Blog unavailable' : 'Article not found'} noindex>
+        <header className="article-hero article-hero--state">
+          <h1>{failed ? 'Something went wrong' : 'Article not found'}</h1>
+        </header>
+        <p className="article-state-message">
+          {failed
+            ? 'We couldn’t load this article right now. Please check your connection and try again.'
+            : 'This article is unavailable. It may have been moved or unpublished.'}
+          <br />
+          <Link to="/blog">Explore the latest stories</Link>
+        </p>
+      </ArticleState>
     );
   }
+
+  const canonical = `${BLOG_SITE_URL}${blogHref(blog)}`;
+  const summaryPrompt = `Summarize this Strix Production article in 5 concise points: ${canonical}\n\n${[blog.title, blog.excerpt].filter(Boolean).join('\n\n')}`;
+  const shareLinks = [
+    { key: 'linkedin', label: 'Share on LinkedIn', icon: LinkedInIcon, href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}` },
+    { key: 'facebook', label: 'Share on Facebook', icon: FacebookIcon, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}` },
+    { key: 'x', label: 'Share on X', icon: XIcon, href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(canonical)}&text=${encodeURIComponent(blog.title)}` },
+  ];
+  const related = relatedBlogs(blogs, blog);
+  const saved = isSaved(blog.id);
+  const { author } = blog;
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(canonical);
+      setShareStatus('Link copied');
+    } catch {
+      setShareStatus('Copy this page URL from your address bar.');
+    }
+  };
+
+  const jumpTo = (event, headingId) => {
+    event.preventDefault();
+    document.getElementById(headingId)?.scrollIntoView({ behavior: 'smooth' });
+    window.history.replaceState(null, '', `#${headingId}`);
+    setActiveId(headingId);
+  };
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: blog.title,
+    description: blog.excerpt || undefined,
+    image: blog.coverImage || undefined,
+    datePublished: blog.date || undefined,
+    dateModified: blog.updatedAt || blog.date || undefined,
+    mainEntityOfPage: canonical,
+    articleSection: blog.category || undefined,
+    author: author ? { '@type': 'Person', name: author.name } : { '@type': 'Organization', name: 'Strix Production' },
+    publisher: { '@type': 'Organization', name: 'Strix Production', url: BLOG_SITE_URL },
+  };
 
   return (
     <div>
       <SEO
-        title={blog?.headerText || blog?.topic || 'Blog Post'}
-        description={blog?.excerpt || blog?.summary || 'Read this Strix Production blog post.'}
-        canonical={`https://www.strixproduction.com/blog/${id}`}
+        title={blog.title}
+        description={blog.excerpt || `Read “${blog.title}” on the Strix Production blog.`}
+        canonical={canonical}
+        ogImage={blog.coverImage || undefined}
+        type="article"
+        schema={schema}
       />
       <Nav />
-      <div className="blog">
-        <div className="blog-top">
-          <Button to='/blog'><ArrowLeft size={16} /> Return to Blog</Button>
-        </div>
-
-        {/* HERO SECTION - UNCHANGED, USES YOUR ORIGINAL STATIC DESIGN */}
-        <div className="blog-deatil-hero">
-          <div className="slidein sh-top uiux-hero">
-            <img src={Circleblur} alt="" />
-            <h1>Our Space to <br/>Think and Share</h1>
-          </div>
-        </div>
-
-        <div className="blog-con">
-          <div className="blog-nav">
-            <BlogNav />
-          </div>
-
-          {/* ONLY THIS SECTION GETS DATA FROM FIREBASE */}
-          <div className="blogcards blog-con-de">
-            <img className='blogdetails-img' src={blog.detailsImage} alt="" />
-            <p className='blog-tag de-blog-tag'>{blog.tag}</p>
-            <h2>{blog.headerText || blog.topic}</h2>
-            
-            {/* First paragraph */}
-            {blog.content && blog.content.length > 0 && blog.content[0].type === 'paragraph' && (
-              <p className='blog-writeup'>{blog.content[0].content}</p>
-            )}
-
-            {/* Social Icons */}
-            <div className="blog-iconn">
-              <div
-                className={`blog-action-btn love ${liked ? 'active' : ''}`} 
-                onClick={handleLike}
-                title="Like"
-              >
-                <img className='reaction' src={Love} alt="" />
-                {likeCount > 0 && <span className="like-count">{likeCount}</span>}
+      <div className="blog-shell article-shell">
+        <main className="article-page">
+          <div className="article-progress" aria-hidden="true"><span ref={progressRef} /></div>
+          <Link className="article-return" to="/blog"><span aria-hidden="true">←</span> Return to Blogs</Link>
+          <header className="article-hero">
+            <h1>{blog.title}</h1>
+            <BlogSummaryLinks prompt={summaryPrompt} />
+          </header>
+          {blog.coverImage && (
+            <figure className="article-cover">
+              <img src={blog.coverImage} alt={blog.title} width="921" height="519" fetchPriority="high" />
+            </figure>
+          )}
+          <div className="article-layout">
+            <aside className="article-share" aria-label="Share this article">
+              <span className="article-share__label">Share</span>
+              {shareLinks.map(({ key, label, icon, href }) => (
+                <a key={key} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}><img src={icon} alt="" /></a>
+              ))}
+              <button type="button" aria-label="Copy article link" onClick={copyLink}><img src={CopyIcon} alt="" /></button>
+              <span className="article-share__status" role="status" aria-live="polite">{shareStatus}</span>
+            </aside>
+            <article className="article-content" aria-label="Article">
+              <div className="article-meta">
+                <p>
+                  Posted: <time dateTime={blog.date}>{formatBlogDate(blog.date, 'article')}</time>
+                  <span aria-hidden="true"> · </span>
+                  <span>{blog.readTime} min read</span>
+                  {blog.category && <><span aria-hidden="true"> · </span><span>{blog.category}</span></>}
+                </p>
+                <button className="article-save" type="button" aria-pressed={saved} onClick={() => toggle(blog.id)}>
+                  {saved ? 'Saved' : 'Save article'}
+                </button>
               </div>
-              
-              <div
-                className={`blog-action-btn favourite ${bookmarked ? 'active' : ''}`} 
-                onClick={handleBookmark}
-                title="Bookmark"
-              >
-                <img className='reaction' src={Save} alt="" />
+              <div className="article-body" ref={bodyRef}>
+                {blog.content.length ? (
+                  <BlogContent blocks={blog.content} headings={headings} title={blog.title} />
+                ) : (
+                  <p className="article-body__empty">This article doesn’t have any content yet.</p>
+                )}
               </div>
-              
-              <div 
-                className="blog-action-btn share" 
-                onClick={handleShare}
-                title="Share"
-              >
-                <img className='reaction' src={Share} alt="" />
-              </div>
-            </div>
-
-            {/* Remaining content */}
-            {blog.content && blog.content.length > 0 && 
-              blog.content.slice(blog.content[0].type === 'paragraph' ? 1 : 0).map((block) => (
-                <div key={block.id}>
-                  {renderContent(block)}
-                </div>
-              ))
-            }
-
-            {(!blog.content || blog.content.length === 0) && (
-              <p className='blog-writeup'>No content available.</p>
-            )}
+              {author && (
+                <section className="article-author" aria-labelledby="article-author-name">
+                  <div className="article-author__glow article-author__glow--left" aria-hidden="true"><img src={AuthorGlowLeft} alt="" /></div>
+                  <div className="article-author__glow article-author__glow--right" aria-hidden="true"><img src={AuthorGlowRight} alt="" /></div>
+                  {author.avatar && (
+                    <div className="article-author__portrait"><img src={author.avatar} alt={author.name} loading="lazy" /></div>
+                  )}
+                  <div className="article-author__details">
+                    <span className="article-author__eyebrow">About the author</span>
+                    <h2 id="article-author-name">{author.name}</h2>
+                    {author.role && <p className="article-author__role">{author.role}</p>}
+                    {author.bio && <p className="article-author__bio">{author.bio}</p>}
+                    {(author.linkedin || author.email) && (
+                      <div className="article-author__links">
+                        {/^https:\/\//.test(author.linkedin) && (
+                          <a href={author.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${author.name} on LinkedIn`}><img src={AuthorLinkedIn} alt="" /></a>
+                        )}
+                        {author.email && (
+                          <a href={`mailto:${author.email}`} aria-label={`Email ${author.name}`}><img src={AuthorEmail} alt="" /></a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
+            </article>
+            <aside className="article-toc" aria-label="Table of contents">
+              {headings.length > 0 && (
+                <details open={tocOpen} onToggle={(event) => setTocOpen(event.currentTarget.open)}>
+                  <summary>Table of contents</summary>
+                  <nav aria-label="On this page">
+                    <ol>
+                      {headings.map((heading) => (
+                        <li key={heading.id}>
+                          <a href={`#${heading.id}`} aria-current={heading.id === activeId ? 'true' : undefined} onClick={(event) => jumpTo(event, heading.id)}>
+                            {heading.text.replace(/^\d+\.\s*/, '')}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </nav>
+                </details>
+              )}
+              <a className="article-cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                <img className="article-cta-button__rim" src={CtaRim} alt="" />
+                <span>Book a free call</span>
+                <span className="article-cta-button__arrow" aria-hidden="true"><img src={CtaArrow} alt="" /></span>
+              </a>
+            </aside>
           </div>
-        </div>
+          {related.length > 0 && (
+            <section className="article-related" aria-labelledby="article-related-title">
+              <h2 id="article-related-title">Top Stories</h2>
+              <div className="blog-grid article-related__grid">
+                {related.map((item) => <BlogCard key={item.id} blog={item} />)}
+              </div>
+            </section>
+          )}
+        </main>
       </div>
       <Footer />
     </div>
