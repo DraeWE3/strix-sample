@@ -5,6 +5,7 @@ import { getOptimizedImage } from "../../lib/cloudinary";
 import { projectHref, isExternalProject } from "../../lib/projects";
 import DotIdle from "../../assets/img/projects/8f231.svg";
 import DotActive from "../../assets/img/projects/4e3a0.svg";
+import DotFar from "../../assets/img/projects/ce620.svg";
 import CardGlow from "../../assets/img/projects/ccefa.svg";
 
 const FEATURED_COUNT = 5;
@@ -167,17 +168,19 @@ const ProjectsFeatured = ({ projects, loading = false, error = null, children })
           {!slide && <div className="featured-image featured-image--skeleton" aria-hidden="true" />}
           <div className="featured-copy">
             <p>{slide ? slide.categoryText : status}</p>
-            <p>{slide && <SlideLink project={slide}>{slide.title}</SlideLink>}</p>
+            <p>{slide && <SlideLink project={slide}>{slide.description || slide.title}</SlideLink>}</p>
             <div id="featured-pagination" aria-label="Choose featured project">
               {slides.map((item, index) => (
                 <button
                   key={item.id}
                   type="button"
                   aria-current={index === current}
+                  data-far={Math.abs(index - current) > 1}
                   aria-label={`Show featured project ${index + 1} of ${count}: ${item.title}`}
                   onClick={() => showSlide(index)}
                 >
                   <img className="dot-idle" src={DotIdle} alt="" />
+                  <img className="dot-far" src={DotFar} alt="" />
                   <img className="dot-active" src={DotActive} alt="" />
                 </button>
               ))}

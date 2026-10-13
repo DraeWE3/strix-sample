@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "../style/fonts.css";
 import "../style/mvp.css";
 import Nav from "../components/Navbar";
@@ -16,6 +17,8 @@ import MvpConnect from "../components/mvp/MvpConnect";
 import FAQ from "../components/FAQ";
 import MvpCaseDialog from "../components/mvp/MvpCaseDialog";
 import { mvpFaqs } from "../components/mvp/mvpFaqs";
+import ReturnArrow from "../assets/img/mvp/a9103.svg";
+import FaqClosedIcon from "../assets/img/mvp/8c8df.svg";
 
 const SUCCESS_COUNT = 2;
 const MORE_COUNT = 4;
@@ -46,13 +49,17 @@ const Mvp = () => {
       <Nav />
       <div className="mvp-page-shell" ref={shellRef}>
         <MvpBackdrops />
+        <Link className="mvp-return" to="/">
+          <img src={ReturnArrow} alt="" aria-hidden="true" width="13.13" height="8.25" />
+          <span>Return to Homepage</span>
+        </Link>
         <MvpHero />
         <MvpSuccess projects={projects.slice(0, SUCCESS_COUNT)} loading={loading} error={error} onOpen={setActiveCase} />
         <MvpBenefits />
         <MvpProcess />
         <MvpMore projects={projects.slice(SUCCESS_COUNT, SUCCESS_COUNT + MORE_COUNT)} loading={loading} error={error} />
         <MvpConnect />
-        <FAQ faqData={mvpFaqs} />
+        <FAQ faqData={mvpFaqs} closedIcon={FaqClosedIcon} />
         {activeCase && <MvpCaseDialog project={activeCase} onClose={() => setActiveCase(null)} />}
       </div>
       <Footer />

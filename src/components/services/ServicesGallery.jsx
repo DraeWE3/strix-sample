@@ -2,11 +2,24 @@ import Button from "../Button";
 import { Link } from "react-router-dom";
 import useScrollCarousel from "../../animations/useScrollCarousel";
 import Arrow from "../../assets/img/shared/e23f5.svg";
+import ExploreRim from "../../assets/img/services/97acd.svg";
+import ExploreShine from "../../assets/img/services/f3ffd.svg";
 
 const modifierClass = (base, modifier) => (modifier ? `${base} ${base}--${modifier}` : base);
 
+const descStyle = (gallery, card) => {
+  const { top, width, size, line, tracking } = { ...gallery, ...card };
+  return {
+    "--desc-top": top !== undefined ? `${top}px` : undefined,
+    "--desc-width": width !== undefined ? `${width}px` : undefined,
+    "--desc-size": size !== undefined ? `${size}px` : undefined,
+    "--desc-line": line !== undefined ? `${line}px` : undefined,
+    "--desc-tracking": tracking !== undefined ? `${tracking}px` : undefined,
+  };
+};
+
 const ServicesGallery = ({ gallery, onShowreel }) => {
-  const { id, title, tagline, cards, tools } = gallery;
+  const { id, title, tagline, desc, cards, tools } = gallery;
   const name = title.toLowerCase();
   const viewportId = `${id}-gallery`;
   const { viewportRef, index, controlIndex, settledIndex, isDragging, go, step } = useScrollCarousel();
@@ -41,7 +54,12 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
                     <img src={card.image} alt="" loading="lazy" draggable={false} width="1004" height="503" />
                   </div>
                   <h3>{card.title}</h3>
-                  <p>{card.description}</p>
+                  <p style={descStyle(desc, card.desc)}>{card.description}</p>
+                </Link>
+                <Link className="service-card__explore" to={card.href || "/contact"} draggable={false} tabIndex={-1} aria-hidden="true">
+                  <img src={ExploreRim} alt="" draggable={false} />
+                  <span className="service-card__explore-shine"><img src={ExploreShine} alt="" draggable={false} /></span>
+                  <span>Explore</span>
                 </Link>
               </article>
             ))}
@@ -89,6 +107,23 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
                 )}
               </button>
             ))}
+          </div>
+          <div className="service-pagination" role="group" aria-label={`${title} slides`}>
+            {cards.map((card, dotIndex) => {
+              const distance = Math.abs(dotIndex - index);
+              const state = distance === 0 ? " is-active" : distance === 1 ? " is-near" : "";
+              return (
+                <button
+                  type="button"
+                  className={state.trim() || undefined}
+                  key={card.title}
+                  aria-label={`Go to ${card.title}`}
+                  aria-controls={viewportId}
+                  aria-current={distance === 0 ? "true" : undefined}
+                  onClick={() => go(dotIndex)}
+                />
+              );
+            })}
           </div>
           <div className="service-actions">
             <Button href="#selected-work">View Work</Button>

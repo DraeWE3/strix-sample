@@ -5,9 +5,9 @@ import Circle from "../../assets/img/projects/a9b34.svg";
 const ProjectsCall = () => (
   <section className="projects-call" aria-labelledby="projects-call-heading">
     <div className="projects-call-art" aria-hidden="true">
-      <div className="projects-call-glow projects-call-glow--left"><div><img src={GlowLeft} alt="" loading="lazy" /></div></div>
-      <div className="projects-call-glow projects-call-glow--right"><div><img src={GlowRight} alt="" loading="lazy" /></div></div>
-      <div className="projects-call-circle"><img src={Circle} alt="" loading="lazy" /></div>
+      <div className="projects-call-glow projects-call-glow--left"><div><img src={GlowLeft} alt="" /></div></div>
+      <div className="projects-call-glow projects-call-glow--right"><div><img src={GlowRight} alt="" /></div></div>
+      <div className="projects-call-circle"><img src={Circle} alt="" /></div>
     </div>
     <div className="projects-call-message">
       <h2 id="projects-call-heading">Turn Your Vision Into an&nbsp;Experience That Lasts</h2>

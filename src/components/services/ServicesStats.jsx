@@ -3,7 +3,7 @@ import LabelLineRight from "../../assets/img/services/9c4d7.svg";
 import StatGlow from "../../assets/img/services/1d4b1.svg";
 
 const stats = [
-  { value: "5.0  ⭐", label: "Average Client Rating" },
+  { value: "5.0", emoji: "⭐", label: "Average Client Rating" },
   { value: "200+", label: "Projects delivered" },
   { value: "100+", label: "Happy clients" },
   { value: "$1M +", label: "Revenue Generated for Clients" },
@@ -18,10 +18,10 @@ const ServicesStats = () => {
         <img src={LabelLineRight} alt="" />
       </div>
       <div className="stats-grid">
-        {stats.map(({ value, label }) => (
+        {stats.map(({ value, emoji, label }) => (
           <div className="stat-card" key={label} data-reveal>
             <img className="stat-glow" src={StatGlow} alt="" />
-            <p className="stat-value">{value}</p>
+            <p className="stat-value">{value}{emoji && <span className="stat-emoji" role="img" aria-label="star">{emoji}</span>}</p>
             <p className="stat-label">{label}</p>
           </div>
         ))}

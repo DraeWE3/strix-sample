@@ -5,8 +5,6 @@ import { getOptimizedImage } from "../../lib/cloudinary";
 import { projectHref, isExternalProject } from "../../lib/projects";
 import ProjectsTypeSelect from "./ProjectsTypeSelect";
 import {
-  CATEGORIES,
-  FILTERS,
   INDUSTRIES,
   PAGE_SIZE,
   filterProjects,
@@ -15,8 +13,6 @@ import {
   stateFromSearch,
 } from "./projectFilters";
 import CardArrow from "../../assets/img/projects/6499e.svg";
-
-const CATEGORY_LABELS = { All: "All work" };
 
 const ProjectCardLink = ({ project, children }) => {
   const href = projectHref(project);
@@ -45,6 +41,7 @@ const ProjectCard = ({ project, index }) => (
         <h3 className="project-card__title">{project.title}</h3>
         <img className="project-card__arrow" src={CardArrow} alt="" width="20" height="20" aria-hidden="true" />
       </div>
+      {project.description && <p className="project-card__description">{project.description}</p>}
     </ProjectCardLink>
   </article>
 );
@@ -55,8 +52,6 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
   const filtered = useMemo(() => filterProjects(projects, state), [projects, state]);
   const visible = filtered.slice(0, state.limit);
   const remaining = filtered.length - visible.length;
-  const typeGroups = (FILTERS[state.category] ? [state.category] : Object.keys(FILTERS))
-    .map((category) => ({ label: category, types: FILTERS[category] }));
   const active = state.category !== "All" || Boolean(state.type) || Boolean(state.industry);
 
   const update = (next) => setSearchParams(searchFromState(normalizeState({ ...state, ...next })));
@@ -77,37 +72,19 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
   return (
     <section className="catalog" id="projects-catalog" aria-labelledby="catalog-title">
       <div className="catalog-controls">
-        <div className="category-tabs" role="group" aria-label="Filter by service category">
-          {CATEGORIES.map((category) => (
-            <button
-              key={category}
-              type="button"
-              aria-pressed={state.category === category}
-              onClick={() => setFilter({ category, type: "" })}
-            >
-              {CATEGORY_LABELS[category] || category}
-            </button>
-          ))}
-        </div>
-        <div className="filter-selects">
-          <ProjectsTypeSelect
-            value={state.type}
-            allLabel="All project types"
-            groups={typeGroups}
-            onChange={(type) => setFilter({ type })}
-          />
-          <ProjectsTypeSelect
-            label="Industry"
-            value={state.industry}
-            allLabel="All industries"
-            groups={[{ label: "Industry", types: INDUSTRIES }]}
-            onChange={(industry) => setFilter({ industry })}
-          />
-        </div>
+        <ProjectsTypeSelect
+          className="filter-select--industries"
+          label="Industry"
+          value={state.industry}
+          allLabel="All industries"
+          placeholder="Industries"
+          groups={[{ label: "Industry", types: INDUSTRIES }]}
+          onChange={(industry) => setFilter({ industry })}
+        />
       </div>
       <h2 id="catalog-title">Work that doesn’t just look good – it drives real results</h2>
       <div className="catalog-meta">
-        <p role="status" aria-live="polite" aria-atomic="true">{count}</p>
+        <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{count}</p>
         {active && <button type="button" onClick={clearFilters}>Clear filters <span aria-hidden="true">×</span></button>}
       </div>
       {loading && <div className="project-empty"><p>Loading projects...</p></div>}

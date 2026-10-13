@@ -30,7 +30,7 @@ const AboutCapabilities = () => {
         </div>
       </article>
       <a className="about-text-link" href="/services" target="_blank" rel="noopener noreferrer">
-        Explore all services &#8599;
+        Explore all services&nbsp; &#8599;
       </a>
     </section>
   );
