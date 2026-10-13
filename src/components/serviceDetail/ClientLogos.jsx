@@ -34,7 +34,15 @@ const Arhiwar = () => (
   </svg>
 );
 
-const LOGOS = { "min-maria": MinAndMaria, "impact-river": ImpactRiver, arhiwar: Arhiwar };
+// Figma 3510:6263 is live text (Poppins SemiBold), so it stays HTML rather than an SVG wordmark.
+const Structly = () => (
+  <div className="client-logo client-logo--structly" role="img" aria-label="Structly">
+    <span className="client-logo--structly__mark" aria-hidden="true">S</span>
+    <span className="client-logo--structly__name" aria-hidden="true">Structly</span>
+  </div>
+);
+
+const LOGOS = { "min-maria": MinAndMaria, "impact-river": ImpactRiver, arhiwar: Arhiwar, structly: Structly };
 
 const ClientLogo = ({ name }) => {
   const Logo = LOGOS[name];

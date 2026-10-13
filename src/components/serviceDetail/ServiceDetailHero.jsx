@@ -24,7 +24,7 @@ const ServiceDetailHero = ({ title, hero }) => {
           className="service-hero-poster"
           src={hero.poster}
           alt={`${title} — selected Strix Production work`}
-          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          style={{ objectFit: hero.posterFit || "cover", objectPosition: hero.posterPosition || "center", width: "100%", height: "100%" }}
           width="1004"
           height="503"
           fetchPriority="high"

@@ -1,10 +1,11 @@
+import OfferMedia, { MEDIA_ABOVE_TITLE } from "./OfferMedia";
 import FrameGlow from "../../assets/img/service-pages/figma/88df4.svg";
 
 // Offer-card canvas skeleton shared by every template card: black plate, inset glow frame, optional
 // media and the gradient title. Mirrors the Figma export's node structure and measurements.
 const abs = { position: "absolute" };
 
-const OfferArtwork = ({ title, image, imageAlt = "" }) => (
+const OfferArtwork = ({ title, image, imageAlt = "", media }) => (
   <div style={{ height: "354.4px", position: "relative", flexShrink: 0, width: "527.2px" }}>
     <div style={{ ...abs, height: "355.2px", left: 0, pointerEvents: "none", borderRadius: "20.035px", top: "1.6px", width: "527.2px" }}>
       <div style={{ ...abs, background: "#000", inset: 0, borderRadius: "20.035px" }} />
@@ -22,7 +23,7 @@ const OfferArtwork = ({ title, image, imageAlt = "" }) => (
               </div>
             </div>
           </div>
-          {image && (
+          {media ? !MEDIA_ABOVE_TITLE.has(media) && <OfferMedia name={media} /> : image && (
             <div style={{ ...abs, display: "flex", height: "455.601px", alignItems: "center", justifyContent: "center", left: "calc(50% + 6.5px)", mixBlendMode: "lighten", top: "35.66px", width: "253px", transform: "translateX(-50%)" }}>
               <div style={{ flex: "none", transform: "rotate(90deg)" }}>
                 <div style={{ height: "253px", position: "relative", width: "455.601px" }}>
@@ -41,6 +42,7 @@ const OfferArtwork = ({ title, image, imageAlt = "" }) => (
               </p>
             </div>
           </div>
+          {media && MEDIA_ABOVE_TITLE.has(media) && <OfferMedia name={media} />}
         </div>
       </div>
     </div>

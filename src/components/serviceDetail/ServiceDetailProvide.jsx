@@ -14,7 +14,7 @@ const OfferCanvas = ({ offer, categoryName }) => {
   }
   return (
     <div className="service-offer__canvas" role="img" aria-label={label}>
-      <div className="service-offer__art"><OfferArtwork title={offer.title} image={offer.image} /></div>
+      <div className="service-offer__art"><OfferArtwork title={offer.title} image={offer.image} media={offer.media} /></div>
     </div>
   );
 };

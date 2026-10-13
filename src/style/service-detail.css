@@ -175,7 +175,7 @@
 .service-detail-shell .service-proof__heading{background-image:url("../assets/img/service-pages/figma/ed208.png")}
 @media(min-width:1191px){
 .service-detail-shell .service-hero-description{width:var(--hero-description-width,1261px)}
-.service-detail-shell .service-proof__intro{width:821px}
+.service-detail-shell .service-proof__intro{width:var(--proof-intro-width,821px)}
 }
 .service-detail-shell .capability-card{position:relative;width:298px;height:364px;border:1px solid #999;border-radius:23px;overflow:hidden;background:#000;isolation:isolate;text-align:left}
 .service-detail-shell .capability-card__glow{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.7}
@@ -193,6 +193,16 @@
 @media(max-width:850px){
 .service-detail-shell .service-proof__cards{grid-template-columns:minmax(0,1fr)}
 }
+/* Stat proof cards (UI/UX "Design that moves the numbers.", Figma 3510:6228): logo, metric, label, rule + copy. */
+.service-detail-shell .capability-card__logo-image{position:absolute;top:11px;left:50%;transform:translateX(-50%);max-width:none;object-fit:cover;pointer-events:none}
+.service-detail-shell .capability-card--stat .capability-card__logo{top:18.11px;left:0;width:100%;height:auto}
+.service-detail-shell .capability-card .capability-card__stat{position:absolute;left:var(--stat-left);top:123px;width:auto;height:32px;display:flex;align-items:center;font:500 26px/48px Epilogue,sans-serif;letter-spacing:.52px;color:#fff;white-space:nowrap}
+.service-detail-shell .capability-card--stat h3{left:var(--title-left);right:auto;top:167.5px;width:198px;height:52px;align-items:flex-start;white-space:pre-line;text-transform:capitalize;font:400 22px/26px Epilogue,sans-serif;letter-spacing:.44px;margin:0}
+.service-detail-shell .capability-card--stat>p{left:var(--rule-left);width:var(--rule-width);height:114px;display:flex;align-items:center;padding:0 var(--copy-right) 0 var(--copy-left);margin:0}
+.service-detail-shell .capability-card__logo .client-logo--structly{display:flex;align-items:center;gap:22.95px;font-family:Poppins,sans-serif;font-weight:600;color:#fff}
+.service-detail-shell .client-logo--structly span{width:auto;height:auto}
+.service-detail-shell .client-logo--structly .client-logo--structly__mark{display:flex;align-items:center;justify-content:center;width:45.9px;height:46.7375px;padding:2.869px;border-radius:5.737px;background:#4c64ff;font-size:34.425px;line-height:40.162px}
+.service-detail-shell .client-logo--structly .client-logo--structly__name{font-size:28.688px;line-height:34.425px;white-space:nowrap}
 .service-detail-shell .ds-why,.service-detail-shell .ds-related,.service-detail-shell .ds-project-contact,.service-detail-shell .ds-call-contact{box-sizing:border-box;position:relative;isolation:isolate;color:#fff}
 .service-detail-shell .ds-why *,.service-detail-shell .ds-related *,.service-detail-shell .ds-project-contact *,.service-detail-shell .ds-call-contact *{box-sizing:border-box}
 .service-detail-shell .ds-why h2,.service-detail-shell .ds-why h3,.service-detail-shell .ds-why p,.service-detail-shell .ds-related h2,.service-detail-shell .ds-related p,.service-detail-shell .ds-project-contact h2,.service-detail-shell .ds-project-contact p,.service-detail-shell .ds-call-contact h2{margin:0}

@@ -11,21 +11,54 @@ const GLOWS = [
   { src: GlowThree, height: "849.544px", left: "-291px", top: "-223.05px", width: "982.279px", transform: "rotate(-162.8deg) scaleY(-1.0)" },
 ];
 
-const CapabilityCard = ({ card, index }) => {
-  const glow = GLOWS[index % GLOWS.length];
-  return (
-    <div className="capability-card">
-      <div className="capability-card__glow" aria-hidden="true">
-        <div style={{ position: "absolute", display: "flex", height: glow.height, alignItems: "center", justifyContent: "center", left: glow.left, mixBlendMode: "screen", top: glow.top, width: glow.width }}>
-          <div style={{ flex: "none", transform: glow.transform }}>
-            <div style={{ height: "631.518px", position: "relative", width: "832.771px" }}>
-              <div style={{ position: "absolute", inset: "-15.65% -11.86%" }}>
-                <img alt="" src={glow.src} className="figma-svg" style={{ display: "block", maxWidth: "none" }} loading="lazy" draggable={false} />
-              </div>
-            </div>
+const CardGlow = ({ glow }) => (
+  <div className="capability-card__glow" aria-hidden="true">
+    <div style={{ position: "absolute", display: "flex", height: glow.height, alignItems: "center", justifyContent: "center", left: glow.left, mixBlendMode: "screen", top: glow.top, width: glow.width }}>
+      <div style={{ flex: "none", transform: glow.transform }}>
+        <div style={{ height: "631.518px", position: "relative", width: "832.771px" }}>
+          <div style={{ position: "absolute", inset: "-15.65% -11.86%" }}>
+            <img alt="" src={glow.src} className="figma-svg" style={{ display: "block", maxWidth: "none" }} loading="lazy" draggable={false} />
           </div>
         </div>
       </div>
+    </div>
+  </div>
+);
+
+// Stat cards (logo, metric, label, rule) nudge their columns per card exactly as the Figma frames do.
+const statLayout = ({ statLeft = 32, titleLeft = statLeft, ruleLeft = 22, ruleWidth = 254, copyLeft = 11, copyRight = 11 } = {}) => ({
+  "--stat-left": `${statLeft}px`,
+  "--title-left": `${titleLeft}px`,
+  "--rule-left": `${ruleLeft}px`,
+  "--rule-width": `${ruleWidth}px`,
+  "--copy-left": `${copyLeft}px`,
+  "--copy-right": `${copyRight}px`,
+});
+
+const CardLogo = ({ card }) => {
+  if (card.logoImage) {
+    const { src, width, height, alt, top } = card.logoImage;
+    return <img className="capability-card__logo-image" src={src} alt={alt} width={width} height={height} style={{ width, height, top }} loading="lazy" draggable={false} />;
+  }
+  return card.logo ? <div className="capability-card__logo"><ClientLogo name={card.logo} /></div> : null;
+};
+
+const CapabilityCard = ({ card, index }) => {
+  const glow = GLOWS[index % GLOWS.length];
+  if (card.stat) {
+    return (
+      <div className="capability-card capability-card--stat" style={statLayout(card.layout)}>
+        <CardGlow glow={glow} />
+        <CardLogo card={card} />
+        <span className="capability-card__stat">{card.stat}</span>
+        <h3>{card.title}</h3>
+        <p>{card.description}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="capability-card">
+      <CardGlow glow={glow} />
       {card.logo ? (
         <div className="capability-card__logo"><ClientLogo name={card.logo} /></div>
       ) : (
@@ -38,7 +71,11 @@ const CapabilityCard = ({ card, index }) => {
 };
 
 const ServiceDetailProof = ({ proof }) => (
-  <section className="service-proof" aria-labelledby="service-proof-heading">
+  <section
+    className="service-proof"
+    aria-labelledby="service-proof-heading"
+    style={proof.introWidth ? { "--proof-intro-width": `${proof.introWidth}px` } : undefined}
+  >
     <h2 id="service-proof-heading" className="service-proof__heading" data-reveal>{proof.heading}</h2>
     <p className="service-proof__intro" data-reveal>{proof.intro}</p>
     <div className="service-proof__cards">

@@ -11,14 +11,13 @@ import ReelsPoster from "../assets/img/service-pages/figma/c2ec4.png";
 import MotionPoster from "../assets/img/service-pages/figma/e4b89.png";
 import ThreeDAnimationsPoster from "../assets/img/service-pages/figma/4e9ac.png";
 import DesignPoster from "../assets/img/service-pages/common/serv.webp";
+import UiuxPoster from "../assets/img/service-pages/figma/a265f.png";
+import KundliLogo from "../assets/img/service-pages/figma/40416.png";
+import AmiloHalosLogo from "../assets/img/service-pages/figma/6ec5f.png";
+import ProductPoster from "../assets/img/service-pages/figma/12aa1.png";
+import RyvonLogo from "../assets/img/service-pages/figma/29eab.png";
 import DevelopmentPoster from "../assets/img/service-pages/development/dev-bgg.webp";
 
-import Ui1 from "../assets/img/service-pages/design/ui1.png";
-import Ui2 from "../assets/img/service-pages/design/ui2.png";
-import Ui3 from "../assets/img/service-pages/design/ui3.png";
-import Ui4 from "../assets/img/service-pages/design/ui4.png";
-import ProductCard1 from "../assets/img/service-pages/design/ui-card1.png";
-import ProductCard2 from "../assets/img/service-pages/design/ui-card2.png";
 import Brand1 from "../assets/img/service-pages/design/brand1.png";
 import Brand2 from "../assets/img/service-pages/design/brand2.png";
 import Brand3 from "../assets/img/service-pages/design/brand3.png";
@@ -75,22 +74,41 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK_AND_SHOWREEL,
-      poster: DesignPoster,
+      poster: UiuxPoster,
       description: "Real outcomes from real products we have shipped.",
     },
+    // Figma 925:4701 (offers 3346:5197 / 5218 / 5240 / 5263, proof 3510:6225).
     offers: [
-      { title: "SaaS Interfaces", description: "Screens your users understand on the first visit — and keep paying for.", descriptionWidth: 465, image: Ui1 },
-      { title: "Dashboards", description: "Dense data, calm layout. Every metric where the eye expects it.", descriptionWidth: 442, image: Ui2 },
-      { title: "Enterprise Applications", description: "Complex workflows designed so teams stop needing a manual.", descriptionWidth: 467, image: Ui3 },
-      { title: "User Flows & Wireframes", description: "The thinking before the pixels — mapped, tested and agreed.", descriptionWidth: 490, image: Ui4 },
+      { title: "Corporate & Business Websites", description: "A website that works as hard as your sales team.", descriptionWidth: 320, media: "ui-ux-corporate" },
+      { title: "Mobile Application Design", description: "Apps users open daily — and actually enjoy using.", descriptionWidth: 300, media: "ui-ux-mobile" },
+      { title: "Landing Page Designs", description: "Turn first-time visitors into ready-to-buy leads.", descriptionWidth: 465, media: "ui-ux-landing" },
+      { title: "E-Commerce Designs", description: "A storefront designed to sell while you sleep.", descriptionWidth: 450, media: "ui-ux-ecommerce" },
     ],
     proof: {
-      heading: "Interfaces people come back to.",
-      intro: "UI/UX that combines research, strategy and sleek execution — designs that actually perform.",
+      heading: "Design that moves the numbers.",
+      intro: "Every design decision is backed by user behaviour — not personal preference, not trends, not what looked good last year.",
+      introWidth: 1129,
       cards: [
-        { label: "RESEARCH FIRST", title: "Decisions backed by users", description: "Interviews, audits and flows come before a single screen is drawn." },
-        { label: "SYSTEMATIC", title: "A design system, not just screens", description: "Components, tokens and states built so the product scales without drift." },
-        { label: "BUILT TO SHIP", title: "Handoff developers love", description: "Specs, prototypes and assets ready for engineering from day one." },
+        {
+          logoImage: { src: KundliLogo, width: 138, height: 68, alt: "The Kundli Pro" },
+          stat: "50,000+",
+          title: "Downloads delivered",
+          description: "App UI/UX redesign that took a dated astrology app to trending on the Play Store.",
+          layout: { statLeft: 40.5, titleLeft: 41, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
+        },
+        {
+          logoImage: { src: AmiloHalosLogo, width: 105, height: 70, alt: "Amilo Halos" },
+          stat: "500k+",
+          title: "Funds Raised\nin pre-seed",
+          description: "Pitch deck and presentation design that helped close their funding round.",
+        },
+        {
+          logo: "structly",
+          stat: "3x",
+          title: "Faster onboarding",
+          description: "SaaS dashboard redesign that reduced time-to-value for new users.",
+          layout: { titleLeft: 33, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },
@@ -104,23 +122,47 @@ export const serviceDetails = {
       description: "Custom SaaS product development company and SaaS product design agency delivering innovative, scalable solutions to bring your software ideas to life.",
     },
     hero: {
-      ...VIEW_WORK_AND_SHOWREEL,
-      poster: DesignPoster,
+      ...VIEW_WORK,
+      poster: ProductPoster,
+      // Figma 3466:5337 fills the 1004 x 503 frame with the 4:3 render (no crop), anchored bottom.
+      posterFit: "fill",
+      posterPosition: "bottom",
       description: "End-to-end product design built for retention, not just launch day.",
     },
+    // Figma 965:5403 (hero 3466:5336, offers 3346:5118 / 5137 / 5128 / 5146, proof 3510:6526).
     offers: [
-      { title: "Build Your Own MVP", description: "Core features first — launched early, tested fast, improved with real data.", descriptionWidth: 490, image: ProductCard1 },
-      { title: "Hardware + Digital Interfaces", description: "Where the device ends and the app begins, designed as one experience.", descriptionWidth: 499, image: ProductCard2 },
-      { title: "Product Concept Development", description: "From a rough idea to a product people can see, click and believe in.", descriptionWidth: 490, image: Ui3 },
-      { title: "Interactive Product Mockups", description: "Clickable prototypes that sell the vision before the build.", descriptionWidth: 442, image: Ui4 },
+      { title: "SaaS Interfaces", description: "Complex features, simple enough your users never need support.", descriptionWidth: 373, media: "product-saas" },
+      { title: "Dashboards", description: "Every metric your team needs, exactly where they expect it.", descriptionWidth: 348, media: "product-dashboards" },
+      { title: "Enterprise Applications", description: "Powerful tools your teams actually want to open.", descriptionWidth: 293, media: "product-enterprise" },
+      { title: "User Flows & Wireframes", description: "Map the journey before a single pixel is designed.", descriptionWidth: 262, media: "product-user-flows" },
     ],
     proof: {
-      heading: "Products built to grow.",
-      intro: "Strategy, design and development move together — faster output, better results, less confusion at every step.",
+      heading: "Products users keep returning to.",
+      intro: "Every product design is built component-first — so your developers can implement without a single clarification call.",
+      introWidth: 1095,
       cards: [
-        { label: "ONE FLOW", title: "Idea to build, same team", description: "No handoff gaps and no mixed direction between design, code and production." },
-        { label: "LAUNCH EARLY", title: "MVP thinking", description: "Only core features go first, keeping time short and costs under control." },
-        { label: "SCALE READY", title: "Structure that lasts", description: "Flexible foundations so adding features later never means rebuilding." },
+        {
+          // 3510:6532: 207 x 48 frame, image inset 14.4% top at 71.2% height.
+          logoImage: { src: RyvonLogo, width: 207, height: 34.18, top: 27.91, alt: "Ryvon AI" },
+          stat: "<3 Weeks",
+          title: "From Idea to MVP",
+          description: "Full AI SaaS product design — from zero architecture to launch-ready in under 21 days.",
+          layout: { statLeft: 40.5, titleLeft: 41, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
+        },
+        {
+          logoImage: { src: KundliLogo, width: 138, height: 68, alt: "The Kundli Pro" },
+          stat: "50,000+",
+          title: "Downloads",
+          description: "Complete product redesign of a mobile app — UX, flows, and design system rebuilt from scratch.",
+          layout: { statLeft: 31.5, titleLeft: 32 },
+        },
+        {
+          logo: "structly",
+          stat: "3x",
+          title: "Increased Retention",
+          description: "Project management dashboard designed for clarity — reducing support tickets & improving daily active use.",
+          layout: { titleLeft: 33, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },
