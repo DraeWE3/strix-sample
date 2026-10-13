@@ -23,6 +23,6 @@ const FAQS = [
   },
 ];
 
-const AboutFAQ = () => <FAQ faqData={FAQS} className="about-faq" allOpen />;
+const AboutFAQ = () => <FAQ faqData={FAQS} />;
 
 export default AboutFAQ;

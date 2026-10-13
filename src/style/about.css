@@ -35,12 +35,6 @@
   display: block;
 }
 
-/* index.css forces every <p> to ep-light (Epilogue Light) with !important;
-   Figma body copy is Epilogue Regular/Medium, and the stat values are Syne. */
-.about-page-shell p { font-family: var(--about-body) !important; }
-.about-page-shell .about-proof-value { font-family: var(--about-heading) !important; }
-.about-page-shell .about-client-trust-pill { font-family: "Motive", var(--about-body) !important; }
-
 .about-content-width {
   width: calc(100% - 160px);
   max-width: var(--about-content);
@@ -60,7 +54,7 @@
 
 .about-page-backdrops img { position: absolute; max-width: none; }
 
-.about-backdrop-hero { left: calc(50% - 1062px); top: -1096px; width: 2124px; height: 2035px; }
+.about-backdrop-hero { left: calc(50% - 1338px); top: -1270px; }
 .about-backdrop-top-vector { left: -85px; top: -317px; width: 1653px; height: 634px; transform: rotate(180deg); position: absolute; }
 .about-backdrop-top-vector img { transform: scale(51.65625, 19.8125); transform-origin: 0 0; }
 .about-backdrop-team { left: calc(50% - 1170.4px); top: 2190.6px; mix-blend-mode: plus-lighter; }
@@ -75,11 +69,9 @@
 
 /* ================= Hero ================= */
 
-.about-hero { margin: 105px auto 0; padding-top: 102px; width: 871px; display: flex; flex-direction: column; align-items: center; gap: 34px; text-align: center; position: relative; z-index: 1; }
+.about-hero { margin: 105px auto 0; padding-top: 60px; width: 871px; display: flex; flex-direction: column; align-items: center; gap: 34px; text-align: center; position: relative; z-index: 1; }
 .about-hero-copy { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
 .about-hero-copy h1 { font: 700 60px/68px var(--about-heading); letter-spacing: 0; width: 781px; }
-.about-hero-copy h1 span { display: block; background: linear-gradient(90deg, #fff, #999); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.about-hero-copy h1 span + span { background-image: linear-gradient(179.9deg, #fff .48%, #999 99.52%); }
 .about-hero-copy > p { font: 400 18px/39px var(--about-body); width: 951px; }
 .about-hero-actions { display: flex; align-items: center; gap: 13px; }
 
@@ -110,7 +102,6 @@
 .about-clients { margin-top: 217.75px; display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; position: relative; z-index: 1; }
 .about-client-trust-pill { min-height: 51px; padding: 8px 24px; border: 1.2px solid transparent; border-radius: 90px; display: flex; align-items: center; justify-content: center; gap: 8px; color: #f0f0f0; font: 400 18px/27px "Motive", var(--about-body); letter-spacing: -.2px; background: linear-gradient(198.46deg, #202020 16.282%, #050505 54.364%, #202020 92.446%) padding-box, linear-gradient(145deg, #999, transparent 32%, transparent 65%, #999) border-box; }
 .about-client-trust-pill img { flex: none; }
-.about-clients .logo-loop { height: 75px; padding: 0; display: flex; align-items: center; }
 .about-client-wall-viewport { height: 75px; width: 100%; overflow: hidden; }
 .about-client-wall-track { display: flex; align-items: center; justify-content: center; gap: 70px; width: calc(100% + 3px); margin-left: -3px; height: 75px; }
 .about-client-logo { display: flex; align-items: center; justify-content: center; flex: none; }
@@ -177,7 +168,7 @@
 .about-capability-row > div { display: flex; flex-direction: column; gap: 16px; }
 .about-capability-row > div > p:first-child { font-size: 20px; line-height: 32px; }
 .about-capability-row .about-capability-detail { width: 620px; color: #999; font-size: 16px; line-height: 26px; }
-.about-text-link { font: 400 16px/26px var(--about-body); text-decoration: underline; text-underline-offset: 3px; color: inherit; }
+.about-text-link { font-size: 16px; line-height: 26px; text-decoration: underline; text-underline-offset: 3px; color: inherit; }
 
 /* ================= Team ================= */
 
@@ -263,12 +254,8 @@
 .about-review-aggregate p { font: 400 16px/26px var(--about-body); }
 .about-review-source > a { font: 400 14px/22px var(--about-body); text-decoration: underline; text-underline-offset: 3px; color: inherit; }
 .about-review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: 50px; }
-.about-review-card { display: block; position: relative; height: 322px; padding: 31px; border: 1px solid white; border-radius: 24px; background: linear-gradient(89.337deg, transparent 19.401%, #fff 199.08%); color: inherit; text-decoration: none; isolation: isolate; }
-/* Figma renders this fill ~0.56x as bright as the same CSS gradient, and its inner shadow dims the side strokes. */
-.about-review-card { border-inline-color: #ffffff78; }
-.about-review-card::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #0000008c; }
-/* Figma's inner shadow sits over the stroke too, fading the border on the dark side. */
-.about-review-card::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; box-shadow: inset 0 0 38px #000; pointer-events: none; }
+.about-review-card { display: block; position: relative; height: 322px; padding: 31px; border: 1px solid white; border-radius: 24px; background: linear-gradient(89.337deg, transparent 19.401%, #fff 199.08%); box-shadow: inset 0 0 38px black; color: inherit; text-decoration: none; isolation: isolate; }
+.about-review-card::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #0003; }
 .about-review-card blockquote { margin: 24px 0 0; font: 600 32px/40px var(--about-heading); }
 .about-review-project, .about-review-date { font: 400 14px/22px var(--about-body); position: absolute; left: 32px; right: 32px; }
 .about-review-project { top: 220px; }
@@ -277,13 +264,6 @@
 .about-review-card:hover .about-review-arrow { transform: translate(3px, -3px); }
 
 /* ================= FAQ ================= */
-
-.faq.about-faq > h2 { max-width: 640px; font: 600 60px/normal var(--about-heading); }
-.about-faq .faq-list { margin-top: 81px; gap: 51px; }
-.about-faq .faq-list details { padding: 36.764px; border: .919px solid #fff; border-radius: 22.058px; box-shadow: none; filter: drop-shadow(0 0 16.85px #ffffff40); }
-.about-faq .faq-list summary { gap: 18.382px; font: 600 32px/38px var(--about-heading); }
-.about-faq .faq-list summary img { width: 23.897px; height: 23.897px; margin-top: 0; }
-.about-faq .faq-list details p { margin-top: 21px; padding-right: 42.279px; font: 400 20px/1.5 var(--about-body); }
 
 
 /* ================= Closing CTA ================= */
@@ -514,7 +494,7 @@
   .about-process-grid h3 { font-size: 28px; line-height: 34px; }
   .about-process-grid article > p:last-child { font-size: 15px; line-height: 26px; }
   .about-page-backdrops { opacity: .55; }
-  .about-backdrop-hero { transform: scale(.5); transform-origin: 50% 47%; top: -1126px; }
+  .about-backdrop-hero { transform: scale(.5); transform-origin: 50% 47%; top: -1300px; }
   .about-backdrop-team { transform: scale(.5); }
 }
 @media (max-width: 360px) {
@@ -526,26 +506,3 @@
   .about-exported-link img { left: 50%; transform: translateX(-50%) scaleX(.86); }
 }
 .about-project-status { grid-column: 1 / -1; margin: 0; font: 400 16px/26px var(--about-body); color: #999; }
-
-/* About FAQ uses Figma's larger desktop scale; step it back down on smaller screens. */
-@media (max-width: 1100px) {
-  .faq.about-faq > h2 { font-size: 52px; }
-  .about-faq .faq-list { margin-top: 64px; gap: 36px; }
-  .about-faq .faq-list summary { font-size: 28px; line-height: 34px; }
-  .about-faq .faq-list details p { font-size: 18px; }
-}
-@media (max-width: 900px) {
-  .faq.about-faq > h2 { font-size: 42px; line-height: 1.15; }
-  .about-faq .faq-list { margin-top: 48px; gap: 24px; }
-  .about-faq .faq-list details { padding: 28px; }
-  .about-faq .faq-list summary { font-size: 22px; line-height: 29px; }
-  .about-faq .faq-list details p { margin-top: 14px; font-size: 16px; line-height: 25px; }
-}
-@media (max-width: 600px) {
-  .faq.about-faq > h2 { font-size: 34px; line-height: 40px; max-width: 360px; }
-  .about-faq .faq-list { margin-top: 36px; gap: 16px; }
-  .about-faq .faq-list details { padding: 20px; border-radius: 16px; }
-  .about-faq .faq-list summary { font-size: 19px; line-height: 25px; gap: 14px; }
-  .about-faq .faq-list summary img { width: 22px; height: 22px; }
-  .about-faq .faq-list details p { padding-right: 0; margin-top: 12px; font-size: 15px; line-height: 24px; }
-}

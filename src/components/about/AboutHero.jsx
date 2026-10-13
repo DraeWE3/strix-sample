@@ -32,7 +32,7 @@ const AboutHero = () => {
         <div className="about-orb-neutralize"></div>
       </div>
       <div className="about-hero-copy">
-        <h1 id="about-hero-title"><span>Big ideas.</span><span>Built to launch.</span></h1>
+        <h1 id="about-hero-title">Big ideas.<br />Built to launch.</h1>
         <p>
           We are a design, development and production studio for startups, SaaS and technology teams. <br />
           One team to shape your product, build it and bring its story to life.

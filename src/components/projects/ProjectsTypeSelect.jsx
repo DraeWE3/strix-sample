@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 
-const ProjectsTypeSelect = ({ label = "Project type", value, groups, allLabel, placeholder, className = "", onChange }) => {
+const ProjectsTypeSelect = ({ label = "Project type", value, groups, allLabel, onChange }) => {
   const id = useId();
   const rootRef = useRef(null);
   const options = [
@@ -51,7 +51,7 @@ const ProjectsTypeSelect = ({ label = "Project type", value, groups, allLabel, p
   };
 
   return (
-    <div className={`filter-select ${className}`.trim()} ref={rootRef} data-open={open}>
+    <div className="filter-select" ref={rootRef} data-open={open}>
       <span id={`${id}-label`}>{label}</span>
       <button
         type="button"
@@ -65,7 +65,7 @@ const ProjectsTypeSelect = ({ label = "Project type", value, groups, allLabel, p
         onClick={() => (open ? setOpen(false) : openMenu())}
         onKeyDown={onKeyDown}
       >
-        <span className="filter-select__value">{(!value && placeholder) || options[selectedIndex].label}</span>
+        {options[selectedIndex].label}
       </button>
       {open && (
         <ul className="filter-select__menu" id={`${id}-list`} role="listbox" aria-labelledby={`${id}-label`}>

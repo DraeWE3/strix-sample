@@ -401,7 +401,6 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
   const [formData, setFormData] = useState({
     title: '',
     categoryText: '',
-    description: '',
     industry: '',
     link: '',
     externalLink: '',
@@ -420,7 +419,6 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
       setFormData({
         title: '',
         categoryText: '',
-        description: '',
         industry: '',
         link: '',
         externalLink: '',
@@ -516,16 +514,6 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
             onChange={(e) => setFormData({ ...formData, categoryText: e.target.value })}
             className="form-input"
             required
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Short Description (e.g., "AI SaaS Platform - From Idea to MVP")</label>
-          <input
-            type="text"
-            value={formData.description || ''}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="form-input"
           />
         </div>
 

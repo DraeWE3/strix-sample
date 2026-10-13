@@ -15,7 +15,6 @@ import { db } from '../admin/firebaseconfig';
  * @property {string} id Firestore document id
  * @property {string} title
  * @property {string} categoryText
- * @property {string} description Short one-line summary shown on project cards
  * @property {string} industry
  * @property {string} image
  * @property {string} link
@@ -50,7 +49,6 @@ export const mapProject = (id, data = {}) => ({
   id,
   title: asString(data.title),
   categoryText: asString(data.categoryText),
-  description: asString(data.description),
   industry: asString(data.industry),
   image: asString(data.image),
   link: asString(data.link),
