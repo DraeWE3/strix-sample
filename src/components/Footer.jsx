@@ -86,12 +86,10 @@ const Footer = () => {
 
         <div className="ft-links">
           <p className="hea">Services</p>
-          <ul>
-            <li className="ft-num"><Link to="/mvp">Build MVP</Link></li>
-            <li className="ft-num"><Link to="/uiux">UI/UX Design</Link></li>
-            <li className="ft-num"><Link to="/webdesign">Website</Link></li>
-            <li className="ft-num"><Link to="/commercials">SaaS Promos</Link></li>
-          </ul>
+          <Link to="/mvp"><p className="ft-num">Build MVP</p></Link>
+          <Link to="/uiux"><p className="ft-num">UI/UX Design</p></Link>
+          <Link to="/webdesign"><p className="ft-num">Website</p></Link>
+          <Link to="/commercials"><p className="ft-num">SaaS Promos</p></Link>
         </div>
 
         <div className="ft-links">

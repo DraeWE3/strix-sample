@@ -101,22 +101,6 @@ font-size: 14px;
     margin-bottom: 0.3rem;
 }
 
-.ft-links ul li{
-    font-family: ep-light;
-    padding: 0;
-    margin-bottom: 0.3rem;
-    margin-right: 1rem;
-    margin-bottom: 18px;
-}
-
-.ft-links ul {
-    padding: 0 10px;
-      background: linear-gradient(to bottom, #FCFCFD, #969697);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 13px;
-}
-
 .ri--behance-fill {
   display: inline-block;
   width: 1.5rem;
@@ -186,7 +170,7 @@ font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 4rem;
 }
 
 .ft-icon img{
@@ -197,7 +181,7 @@ font-size: 14px;
    height: 1px;
    width: 60%;
    background-color: #fcfcfd40;
-   margin: 2rem;
+   margin: 3rem 2rem 2rem;
    position: relative;
       z-index: 5;
 }
@@ -305,3 +289,27 @@ font-size: 14px;
 /* git add . */
 /* git commit -m "scroll trigger adjust" */
 /* git push origin main */
+/* Footer text is gradient-clipped (transparent fill), which hides text-decoration,
+   so the hover underline is drawn as a pseudo-element. */
+.ft-links a .ft-num{
+  position: relative;
+  width: fit-content;
+}
+
+.ft-links a .ft-num::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+
+.ft-links a:hover .ft-num::after,
+.ft-links a:focus-visible .ft-num::after{
+  transform: scaleX(1);
+}
