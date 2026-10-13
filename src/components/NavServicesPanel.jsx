@@ -56,9 +56,9 @@ const serviceGroups = [
 ];
 
 const solutions = [
-  { title: "MVP SPRINT", audience: "For startups & SaaS", description: "Design, build & launch your product in 4 weeks.", action: "Build your MVP", href: "/mvp", icon: "mvp" },
-  { title: "PRODUCT REDESIGN", audience: "For existing companies", description: "Redesign your UX, improve conversion, ship faster.", action: "Start a redesign", href: "/contact", icon: "redesign" },
-  { title: "PRODUCTION PACK", audience: "For brands", description: "High-impact video, 3D & motion content that converts.", action: "See production work", href: "/works", icon: "production" },
+  { title: "MVP SPRINT", audience: "For startups & SaaS", description: "Design, build & launch your product in 4 weeks.", action: "Build your MVP", href: "/mvp", icon: "mvp", descriptionWidth: 210 },
+  { title: "PRODUCT REDESIGN", audience: "For existing companies", description: "Redesign your UX, improve conversion, ship faster.", action: "Start a redesign", href: "/contact", icon: "redesign", descriptionWidth: 190 },
+  { title: "PRODUCTION PACK", audience: "For brands", description: "High-impact video, 3D & motion content that converts.", action: "See production work", href: "/works", icon: "production", descriptionWidth: 188, titleWidth: 165 },
 ];
 
 const SolutionIcon = ({ type }) => (
@@ -156,9 +156,9 @@ const NavServicesPanel = ({ onNavigate, onPointerEnter, onPointerLeave }) => {
               <Link className="nav-mega__solution" to={solution.href} onClick={onNavigate} key={solution.title}>
                 <SolutionIcon type={solution.icon} />
                 <span className="nav-mega__solution-copy">
-                  <span className="nav-mega__solution-title">{solution.title}<img src={TitleArrow} alt="" /></span>
+                  <span className="nav-mega__solution-title"><span style={{ minWidth: solution.titleWidth }}>{solution.title}</span><img src={TitleArrow} alt="" /></span>
                   <span className="nav-mega__solution-audience">{solution.audience}</span>
-                  <span className="nav-mega__solution-description">{solution.description}</span>
+                  <span className="nav-mega__solution-description" style={{ maxWidth: solution.descriptionWidth }}>{solution.description}</span>
                   <span className="nav-mega__solution-action">{solution.action}<img src={ActionArrow} alt="" /></span>
                 </span>
               </Link>
