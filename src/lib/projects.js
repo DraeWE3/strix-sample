@@ -7,6 +7,7 @@ import { db } from '../admin/firebaseconfig';
  * @property {string[]} Design
  * @property {string[]} Development
  * @property {string[]} Production
+ * @property {string[]} MVP
  */
 
 /**
@@ -14,6 +15,7 @@ import { db } from '../admin/firebaseconfig';
  * @property {string} id Firestore document id
  * @property {string} title
  * @property {string} categoryText
+ * @property {string} industry
  * @property {string} image
  * @property {string} link
  * @property {string} externalLink
@@ -32,7 +34,7 @@ import { db } from '../admin/firebaseconfig';
 
 export const PROJECTS_COLLECTION = 'projects';
 
-const FILTER_GROUPS = ['Design', 'Development', 'Production'];
+const FILTER_GROUPS = ['Design', 'Development', 'Production', 'MVP'];
 
 const asString = (value) => (typeof value === 'string' ? value : '');
 
@@ -47,6 +49,7 @@ export const mapProject = (id, data = {}) => ({
   id,
   title: asString(data.title),
   categoryText: asString(data.categoryText),
+  industry: asString(data.industry),
   image: asString(data.image),
   link: asString(data.link),
   externalLink: asString(data.externalLink),

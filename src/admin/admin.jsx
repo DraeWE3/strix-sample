@@ -10,11 +10,13 @@ import { setLogLevel } from "firebase/firestore";
 setLogLevel('debug');
 
 import './style/admin.css';
+import { INDUSTRIES } from '../components/projects/projectFilters';
 
 const FILTERS = {
   Design: ['UI/UX', 'Graphics', 'Branding', 'App Design', 'Web Design'],
   Development: ['Website', 'Web-app', 'Application', 'E-commerce', 'Landing page'],
-  Production: ['3D', 'Promos', 'Long Format', 'Reels/shorts', 'Motion Graphics']
+  Production: ['3D', 'Promos', 'Long Format', 'Reels/shorts', 'Motion Graphics'],
+  MVP: ['SaaS', 'Web MVP', 'Mobile MVP', 'AI Product', 'Prototype']
 };
 
 const getDataSize = (data) => {
@@ -399,24 +401,29 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
   const [formData, setFormData] = useState({
     title: '',
     categoryText: '',
+    industry: '',
     link: '',
     externalLink: '',
     image: '',
-    filters: { Design: [], Development: [], Production: [] },
+    filters: { Design: [], Development: [], Production: [], MVP: [] },
     status: 'draft'
   });
 
   useEffect(() => {
     if (editingItem) {
-      setFormData(editingItem);
+      setFormData({
+        ...editingItem,
+        filters: Object.fromEntries(Object.keys(FILTERS).map((key) => [key, editingItem.filters?.[key] || []]))
+      });
     } else {
       setFormData({
         title: '',
         categoryText: '',
+        industry: '',
         link: '',
         externalLink: '',
         image: '',
-        filters: { Design: [], Development: [], Production: [] },
+        filters: { Design: [], Development: [], Production: [], MVP: [] },
         status: 'draft'
       });
     }
@@ -508,6 +515,20 @@ const ProjectForm = ({ editingItem, setEditingItem, setShowForm }) => {
             className="form-input"
             required
           />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Industry</label>
+          <select
+            value={formData.industry || ''}
+            onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+            className="form-select"
+          >
+            <option value="">Not set</option>
+            {INDUSTRIES.map((industry) => (
+              <option key={industry} value={industry}>{industry}</option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group">

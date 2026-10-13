@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 
-const ProjectsTypeSelect = ({ value, groups, allLabel, onChange }) => {
+const ProjectsTypeSelect = ({ label = "Project type", value, groups, allLabel, onChange }) => {
   const id = useId();
   const rootRef = useRef(null);
   const options = [
@@ -52,7 +52,7 @@ const ProjectsTypeSelect = ({ value, groups, allLabel, onChange }) => {
 
   return (
     <div className="filter-select" ref={rootRef} data-open={open}>
-      <span id={`${id}-label`}>Project type</span>
+      <span id={`${id}-label`}>{label}</span>
       <button
         type="button"
         className="filter-select__trigger"

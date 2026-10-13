@@ -7,6 +7,7 @@ import ProjectsTypeSelect from "./ProjectsTypeSelect";
 import {
   CATEGORIES,
   FILTERS,
+  INDUSTRIES,
   PAGE_SIZE,
   filterProjects,
   normalizeState,
@@ -56,7 +57,7 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
   const remaining = filtered.length - visible.length;
   const typeGroups = (FILTERS[state.category] ? [state.category] : Object.keys(FILTERS))
     .map((category) => ({ label: category, types: FILTERS[category] }));
-  const active = state.category !== "All" || Boolean(state.type);
+  const active = state.category !== "All" || Boolean(state.type) || Boolean(state.industry);
 
   const update = (next) => setSearchParams(searchFromState(normalizeState({ ...state, ...next })));
   const setFilter = (next) => update({ ...next, limit: PAGE_SIZE });
@@ -94,6 +95,13 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
             allLabel="All project types"
             groups={typeGroups}
             onChange={(type) => setFilter({ type })}
+          />
+          <ProjectsTypeSelect
+            label="Industry"
+            value={state.industry}
+            allLabel="All industries"
+            groups={[{ label: "Industry", types: INDUSTRIES }]}
+            onChange={(industry) => setFilter({ industry })}
           />
         </div>
       </div>
