@@ -7,7 +7,6 @@ import FundsIcon from "../../assets/img/home/eaf84.png";
 import YearsIcon from "../../assets/img/home/488f4.png";
 import { SHOWREEL_ID } from "../showreel";
 import SuccessIcon from "../../assets/img/shared/9eacb.png";
-import ShowreelPoster from "../../assets/img/services/40d71.png";
 
 const badges = [
   { icon: TopRatedIcon, label: "Top Rated", key: "top-rated" },
@@ -34,7 +33,7 @@ const HomeHeroMedia = ({ style }) => {
       </div>
     ) : (
       <button type="button" className="hh-showreel" onClick={() => setPlaying(true)} aria-label="Play the Strix showreel">
-        <img className="hh-showreel-poster" src={ShowreelPoster} alt="Strix showreel" fetchPriority="high" />
+        <img className="hh-showreel-poster" src={`https://i.ytimg.com/vi/${SHOWREEL_ID}/maxresdefault.jpg`} alt="Strix showreel" fetchPriority="high" />
         <img className="hh-showreel-play" src={PlayIcon} alt="" />
       </button>
     )}

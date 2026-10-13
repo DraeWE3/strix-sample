@@ -4,7 +4,7 @@ import useScrollCarousel from "../../animations/useScrollCarousel";
 import Button from "../Button";
 import { useProjects, projectHref, isExternalProject, projectsKey } from "../../lib/projects";
 import { getOptimizedImage } from "../../lib/cloudinary";
-import { filterProjects } from "../projects/projectFilters";
+import { CATEGORIES, filterProjects } from "../projects/projectFilters";
 import DomeMask from "../../assets/img/home/481b8.svg";
 import DesktopMask from "../../assets/img/services/5ffcd.svg";
 import DesktopGlow from "../../assets/img/home/485ae.svg";
@@ -21,15 +21,6 @@ const FRAMES = [
   { mask: DesktopMask, glow: DesktopGlow, rim: DesktopRim },
   { mask: DesktopMask, glow: LaptopGlow, rim: LaptopRim },
   { mask: WebsiteMask, glow: WebsiteGlow, rim: WebsiteRim, center: true },
-];
-
-// Figma tab order; each tab maps onto the project filters stored in Firestore.
-const TABS = [
-  { label: "Branding", category: "Design", type: "Branding" },
-  { label: "Website", category: "Development", type: "Website" },
-  { label: "All", category: "All", type: "" },
-  { label: "UI/UX", category: "Design", type: "UI/UX" },
-  { label: "Media", category: "Production", type: "" },
 ];
 
 const frameFor = (index) => FRAMES[index % FRAMES.length];
@@ -90,14 +81,14 @@ const PortfolioCarousel = ({ items, startIndex }) => {
 };
 
 const HomePortfolio = () => {
-  const [tab, setTab] = useState(TABS[2]);
+  const [category, setCategory] = useState("All");
   const { projects, loading, error } = useProjects();
-  const items = filterProjects(projects, tab);
+  const items = filterProjects(projects, { category, type: "" });
 
   let status = "";
   if (loading) status = "Loading projects...";
   else if (error) status = "Projects could not be loaded right now.";
-  else if (!items.length) status = projects.length ? `Explore our full portfolio for ${tab.label.toLowerCase()} projects.` : "No projects published yet.";
+  else if (!items.length) status = projects.length ? `Explore our full portfolio for ${category.toLowerCase()} projects.` : "No projects published yet.";
 
   return (
     <section className="hl-portfolio" id="portfolio" aria-labelledby="hl-portfolio-title">
@@ -107,8 +98,8 @@ const HomePortfolio = () => {
       </div>
       <h2 id="hl-portfolio-title" data-reveal>Our Craft, Your Expression.</h2>
       <div className="hl-portfolio-filters" role="group" aria-label="Filter portfolio">
-        {TABS.map((item) => (
-          <button key={item.label} type="button" aria-pressed={tab === item} onClick={() => setTab(item)}>{item.label}</button>
+        {CATEGORIES.map((name) => (
+          <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>
         ))}
       </div>
       {status ? (
@@ -119,7 +110,7 @@ const HomePortfolio = () => {
           </div>
         </div>
       ) : (
-        <PortfolioCarousel key={`${tab.label}-${projectsKey(items)}`} items={items} startIndex={Math.min(2, items.length - 1)} />
+        <PortfolioCarousel key={`${category}-${projectsKey(items)}`} items={items} startIndex={Math.min(2, items.length - 1)} />
       )}
       <Button to="/works" arrow className="hl-portfolio-link">Portfolio</Button>
     </section>

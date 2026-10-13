@@ -11,15 +11,14 @@ import logo5 from "../assets/img/shared/logos/logo5.svg";
 import logo6 from "../assets/img/shared/logos/logo6.svg";
 import logo7 from "../assets/img/shared/logos/logo7.svg";
 
-// Order follows the Figma client strip: Ryvon, Structly, Axis Bank, Runloop, Wurkzen, Locovo, Abhiwan.
 const logos = [
-  { src: logo2, className: "logo-ryvon" },
-  { src: logo5, className: "logo-structly" },
-  { src: logo6, className: "logo-axis" },
-  { src: logo3, className: "logo-runloop" },
   { src: logo1, className: "logo-wurkzen" },
+  { src: logo2 },
+  { src: logo3 },
+  { src: logo4 },
+  { src: logo5 },
+  { src: logo6 },
   { src: logo7, className: "logo-locovo" },
-  { src: logo4, className: "logo-abhiwan" },
 ];
 
 const LogoLoop = () => {
