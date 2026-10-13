@@ -37,20 +37,21 @@ const statLayout = ({ statLeft = 32, titleLeft = statLeft, ruleLeft = 22, ruleWi
 
 const CardLogo = ({ card }) => {
   if (card.logoImage) {
-    const { src, width, height, alt, top } = card.logoImage;
-    return <img className="capability-card__logo-image" src={src} alt={alt} width={width} height={height} style={{ width, height, top }} loading="lazy" draggable={false} />;
+    const { src, width, height, alt, top, offsetX } = card.logoImage;
+    const left = offsetX ? `calc(50% + ${offsetX}px)` : undefined;
+    return <img className="capability-card__logo-image" src={src} alt={alt} width={width} height={height} style={{ width, height, top, left }} loading="lazy" draggable={false} />;
   }
   return card.logo ? <div className="capability-card__logo"><ClientLogo name={card.logo} /></div> : null;
 };
 
 const CapabilityCard = ({ card, index }) => {
   const glow = GLOWS[index % GLOWS.length];
-  if (card.stat) {
+  if (card.stat || card.logoImage) {
     return (
-      <div className="capability-card capability-card--stat" style={statLayout(card.layout)}>
+      <div className={`capability-card ${card.stat ? "capability-card--stat" : "capability-card--case"}`} style={statLayout(card.layout)}>
         <CardGlow glow={glow} />
         <CardLogo card={card} />
-        <span className="capability-card__stat">{card.stat}</span>
+        {card.stat && <span className="capability-card__stat">{card.stat}</span>}
         <h3>{card.title}</h3>
         <p>{card.description}</p>
       </div>
@@ -76,7 +77,7 @@ const ServiceDetailProof = ({ proof }) => (
     aria-labelledby="service-proof-heading"
     style={proof.introWidth ? { "--proof-intro-width": `${proof.introWidth}px` } : undefined}
   >
-    <h2 id="service-proof-heading" className="service-proof__heading" data-reveal>{proof.heading}</h2>
+    <h2 id="service-proof-heading" className="service-proof__heading" data-reveal style={proof.headingImage ? { backgroundImage: `url("${proof.headingImage}")` } : undefined}>{proof.heading}</h2>
     <p className="service-proof__intro" data-reveal>{proof.intro}</p>
     <div className="service-proof__cards">
       {proof.cards.map((card, index) => (

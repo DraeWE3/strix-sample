@@ -42,7 +42,10 @@ const Structly = () => (
   </div>
 );
 
-const LOGOS = { "min-maria": MinAndMaria, "impact-river": ImpactRiver, arhiwar: Arhiwar, structly: Structly };
+// Figma 3510:6723 is live text (Syne SemiBold) filled with a radial pink gradient.
+const MultipleClients = () => <div className="client-logo client-logo--multiple-clients">Multiple Clients</div>;
+
+const LOGOS = { "min-maria": MinAndMaria, "impact-river": ImpactRiver, arhiwar: Arhiwar, structly: Structly, "multiple-clients": MultipleClients };
 
 const ClientLogo = ({ name }) => {
   const Logo = LOGOS[name];

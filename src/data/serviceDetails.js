@@ -16,16 +16,14 @@ import KundliLogo from "../assets/img/service-pages/figma/40416.png";
 import AmiloHalosLogo from "../assets/img/service-pages/figma/6ec5f.png";
 import ProductPoster from "../assets/img/service-pages/figma/12aa1.png";
 import RyvonLogo from "../assets/img/service-pages/figma/29eab.png";
+import BrandingPoster from "../assets/img/service-pages/figma/9b8c9.png";
+import BrandingHeadingTexture from "../assets/img/service-pages/figma/90b1d.png";
+import TdoLogo from "../assets/img/service-pages/figma/34d8a.png";
+import ArcovaLogo from "../assets/img/service-pages/figma/deaf8.png";
+import GizaLogo from "../assets/img/service-pages/figma/7b9c4.png";
+import CreativePoster from "../assets/img/service-pages/figma/0c100.png";
 import DevelopmentPoster from "../assets/img/service-pages/development/dev-bgg.webp";
 
-import Brand1 from "../assets/img/service-pages/design/brand1.png";
-import Brand2 from "../assets/img/service-pages/design/brand2.png";
-import Brand3 from "../assets/img/service-pages/design/brand3.png";
-import Brand4 from "../assets/img/service-pages/design/brand4.png";
-import Creative1 from "../assets/img/service-pages/design/cdesign1.png";
-import Creative2 from "../assets/img/service-pages/design/cdesign2.png";
-import Creative3 from "../assets/img/service-pages/design/cdesign3.png";
-import Creative4 from "../assets/img/service-pages/design/cdesign4.png";
 import ThreeD1 from "../assets/img/service-pages/production/3d1.png";
 import ThreeD2 from "../assets/img/service-pages/production/3d2.png";
 import ThreeD3 from "../assets/img/service-pages/production/3d3.png";
@@ -177,29 +175,48 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DesignPoster,
+      poster: BrandingPoster,
       description: "We design brand systems built to scale with you — not a logo that needs redesigning the moment you grow.",
     },
+    // Figma 965:5655 (hero 965:5791, offers 965:5806 / 5824 / 5815 / 5833, proof 3510:6582).
     offers: [
-      { title: "Brand Identity & Guidelines", description: "A logo is the start. The system around it is what people remember.", descriptionWidth: 490, image: Brand1 },
-      { title: "Graphic Design", description: "Visuals that carry the brand into every post, deck and print run.", descriptionWidth: 465, image: Brand2 },
-      { title: "Brand Strategy & Consulting", description: "Positioning, voice and promise — decided before the design begins.", descriptionWidth: 490, image: Brand3 },
-      { title: "Packaging Design", description: "Shelf presence that makes the product the obvious pick.", descriptionWidth: 415, image: Brand4 },
+      { title: "Logo Design", description: "A mark that says everything — before you say a word.", descriptionWidth: 527, media: "brand-logo" },
+      { title: "Brand Kit & Rebranding", description: "One system your whole team uses without asking twice.", descriptionWidth: 527, media: "brand-kit" },
+      { title: "Brand Identity & Visuals", description: "Look the part everywhere your brand shows up.", descriptionWidth: 527, media: "brand-identity" },
+      { title: "Packaging Design", description: "Make them reach for yours off the shelf.", descriptionWidth: 415, media: "brand-packaging" },
     ],
     proof: {
-      heading: "Brands that actually stand out.",
-      intro: "Research, strategy and sleek execution — helping startups and enterprises create brands with staying power.",
+      heading: "Brands that get remembered.",
+      headingImage: BrandingHeadingTexture,
+      intro: "Identity work that earns recognition before a word is spoken.",
       cards: [
-        { label: "STRATEGY LED", title: "Meaning before marks", description: "Audience, market and positioning shape every visual choice." },
-        { label: "CONSISTENT", title: "One voice everywhere", description: "Guidelines that keep the brand recognisable across every touchpoint." },
-        { label: "BUILT TO LAST", title: "Identity that scales", description: "Systems flexible enough to grow with new products and markets." },
+        {
+          logoImage: { src: TdoLogo, width: 83, height: 83, top: 17, alt: "TDO" },
+          title: "Launch Collateral for Web-series",
+          description: "Full creative design suite for a youtube web-series launch — thumbnails, banners, and digital ads.",
+          layout: { titleLeft: 41, ruleLeft: 34, ruleWidth: 230, copyLeft: 0.5, copyRight: 0.5 },
+        },
+        {
+          // 3510:6595: 192 x 64 frame, image at 2.96% / 94.08% width.
+          logoImage: { src: ArcovaLogo, width: 180.63, height: 64, top: 25, offsetX: -0.5, alt: "Arcova Solutions" },
+          title: "Full Brand Design in <2 Weeks",
+          description: "Brand kit, visual identity, and website design. Repositioned for premium enterprise buyers.",
+          layout: { titleLeft: 32 },
+        },
+        {
+          // 3510:6731: 189 x 61 frame, vector inset 1.4% / 0.41% / 0.58% / 0.03%.
+          logoImage: { src: GizaLogo, width: 188.16, height: 59.8, top: 19.85, offsetX: -0.86, alt: "Giza Systems" },
+          title: "Enterprise Credibility",
+          description: "Full brand system for a global technology company. Positioned them for international expansion.",
+          layout: { titleLeft: 21.5, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },
   "creative-design": {
     slug: "creative-design",
     category: "design",
-    title: "Creative Design",
+    title: "Creative Designs",
     navLabel: "Creative Design",
     seo: {
       title: "Creative Design Services — Graphics, Thumbnails & Presentations",
@@ -207,22 +224,42 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DesignPoster,
+      // Figma 965:6044: 1004 x 591 render (117.5% tall) centred in the 1004 x 503 frame.
+      poster: CreativePoster,
       description: " Creative work built to perform across every platform and format.",
     },
+    // Figma 965:5907 (hero 965:6043, offers 965:6058 / 6076 / 6067 / 6085, proof 3510:6703).
     offers: [
-      { title: "Social Media Creatives", description: "Scroll-stopping visuals sized and styled for every platform.", descriptionWidth: 465, image: Creative1 },
-      { title: "Thumbnails & Banners", description: "The first frame people judge your content by — designed to win the click.", descriptionWidth: 499, image: Creative2 },
-      { title: "Pitch Decks & Presentations", description: "Slides that make the story land in the room and in the inbox.", descriptionWidth: 467, image: Creative3 },
-      { title: "Marketing Collateral", description: "Brochures, one-pagers and ads that look like one brand.", descriptionWidth: 442, image: Creative4 },
+      { title: "Presentations & Pitch Decks", description: "Decks that gets fundings, not just fill the slides.", descriptionWidth: 527, media: "creative-pitch-decks" },
+      { title: "Posters, Flyers & Thumbnails", description: "Works that people actually stop to see.", descriptionWidth: 400, media: "creative-posters" },
+      { title: "Social Media Designs", description: "Content your audience wants to share, not scroll past.", descriptionWidth: 513, media: "creative-social" },
+      { title: "Illustrations, Iconograph, Arts", description: "Visuals that give your brand a voice without words.", descriptionWidth: 500, media: "creative-illustrations" },
     ],
     proof: {
-      heading: "Creative that earns attention.",
-      intro: "Research, strategy and sleek execution — helping startups and enterprises create designs that actually perform.",
+      heading: "Visuals that earn attention.",
+      headingImage: BrandingHeadingTexture,
+      intro: "Every piece is built from your brand — original artwork, not stock assets with your logo dropped in.",
+      introWidth: 951,
       cards: [
-        { label: "CONCEPT FIRST", title: "An idea behind every visual", description: "Each creative starts from a message, not a template." },
-        { label: "ON BRAND", title: "Recognisable at a glance", description: "Typography, colour and layout stay consistent across every format." },
-        { label: "FAST TURNAROUND", title: "Campaign-ready delivery", description: "Assets exported for every channel, sized and ready to post." },
+        {
+          logoImage: { src: TdoLogo, width: 73, height: 73, top: 16, alt: "TDO" },
+          title: "Launch Collateral for Web-series",
+          description: "Full creative design suite for a youtube web-series launch — thumbnails, banners, and digital ads.",
+          layout: { titleLeft: 41, ruleLeft: 34, ruleWidth: 230, copyLeft: 0.5, copyRight: 0.5 },
+        },
+        {
+          logoImage: { src: AmiloHalosLogo, width: 105, height: 70, top: 17, offsetX: -0.5, alt: "Amilo Halos" },
+          stat: "500k+",
+          title: "Funds Raised\nin pre-seed",
+          description: "Pitch deck and presentation design that helped close their funding round.",
+        },
+        {
+          logo: "multiple-clients",
+          stat: "10M+",
+          title: "Reach and Impressions",
+          description: "Social media design systems for brands across fintech, gaming, and consumer apps.",
+          layout: { titleLeft: 33, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },

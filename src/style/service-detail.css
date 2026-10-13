@@ -199,6 +199,9 @@
 .service-detail-shell .capability-card .capability-card__stat{position:absolute;left:var(--stat-left);top:123px;width:auto;height:32px;display:flex;align-items:center;font:500 26px/48px Epilogue,sans-serif;letter-spacing:.52px;color:#fff;white-space:nowrap}
 .service-detail-shell .capability-card--stat h3{left:var(--title-left);right:auto;top:167.5px;width:198px;height:52px;align-items:flex-start;white-space:pre-line;text-transform:capitalize;font:400 22px/26px Epilogue,sans-serif;letter-spacing:.44px;margin:0}
 .service-detail-shell .capability-card--stat>p{left:var(--rule-left);width:var(--rule-width);height:114px;display:flex;align-items:center;padding:0 var(--copy-right) 0 var(--copy-left);margin:0}
+/* Case proof cards (Branding "Brands that get remembered.", Figma 3510:6585): logo image, title, rule + copy. */
+.service-detail-shell .capability-card--case h3{left:var(--title-left);right:auto;top:181.5px;transform:translateY(-50%);width:198px;height:auto;display:block;text-transform:capitalize;font:400 22px/30px Epilogue,sans-serif;letter-spacing:.44px;margin:0}
+.service-detail-shell .capability-card--case>p{left:var(--rule-left);width:var(--rule-width);height:114px;display:flex;align-items:center;padding:0 var(--copy-right) 0 var(--copy-left);margin:0}
 .service-detail-shell .capability-card__logo .client-logo--structly{display:flex;align-items:center;gap:22.95px;font-family:Poppins,sans-serif;font-weight:600;color:#fff}
 .service-detail-shell .client-logo--structly span{width:auto;height:auto}
 .service-detail-shell .client-logo--structly .client-logo--structly__mark{display:flex;align-items:center;justify-content:center;width:45.9px;height:46.7375px;padding:2.869px;border-radius:5.737px;background:#4c64ff;font-size:34.425px;line-height:40.162px}
@@ -406,3 +409,4 @@
 .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 135px; }
 @media(max-width:600px){ .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 100px; } }
 .service-detail-shell .ds-related-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 24px; text-align: center; font-size: 16px; line-height: 26px; color: #999; }
+.service-detail-shell .client-logo--multiple-clients{width:174px;margin-left:-1px;font:600 28.688px/34.425px Syne,sans-serif;text-align:center;color:transparent;background:radial-gradient(187.6px 74.4px at 87px 34.5px,#ff9697 0%,#ee719f 25%,#dd4ba7 50%,#cb26af 75%,#c313b3 87.5%,#ba00b7 100%);-webkit-background-clip:text;background-clip:text}
