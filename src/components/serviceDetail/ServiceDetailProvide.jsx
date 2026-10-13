@@ -19,6 +19,12 @@ const OfferCanvas = ({ offer, categoryName }) => {
   );
 };
 
+// The whole card acts as its "View Work" button; the shell's hash-link handler does the scrolling.
+const openOfferWork = (event) => {
+  if (event.target.closest("a")) return;
+  event.currentTarget.querySelector(".service-button")?.click();
+};
+
 const ServiceDetailProvide = ({ offers, categoryName }) => (
   <section className="service-provide" aria-labelledby="service-provide-title">
     <ServiceOrbit className="service-provide-orbit" />
@@ -30,6 +36,7 @@ const ServiceDetailProvide = ({ offers, categoryName }) => (
           data-reveal
           aria-label={offer.title}
           key={offer.title}
+          onClick={openOfferWork}
           style={offer.descriptionWidth ? { "--description-width": `${offer.descriptionWidth}px` } : undefined}
         >
           <OfferCanvas offer={offer} categoryName={categoryName} />
