@@ -204,20 +204,20 @@
   .services-page-shell *, .services-page-shell *::before, .services-page-shell *::after { animation: none !important; transition: none !important; }
   .services-page-shell.services-motion-ready [data-reveal]:not(.is-visible) { opacity: 1; translate: none; }
 }
-.services-page-shell .service-section { --service-card-width: 1004px; --service-art-height: 503px; --service-gutter: max(24px, calc((100vw - 1044px) / 2)); position: relative; width: 100%; min-width: 0; height: 1007.875px; isolation: isolate; }
-.services-page-shell .service-section--development { height: 1007.25px; }
-.services-page-shell .service-section--production { height: 1000.25px; }
+.services-page-shell .service-section { --service-card-width: 1004px; --service-art-height: 503px; --service-gutter: max(24px, calc((100vw - 1044px) / 2)); position: relative; width: 100%; min-width: 0; height: 961.875px; isolation: isolate; }
+.services-page-shell .service-section--development { height: 961.25px; }
+.services-page-shell .service-section--production { height: 954.25px; }
 .services-page-shell .service-section__heading { display: flex; flex-direction: column; align-items: center; width: 100%; height: 213px; margin-bottom: 34px; text-align: center; font-family: var(--services-display, "Clash Display", sans-serif); font-weight: 500; }
 .services-page-shell .service-section__heading h2 { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: min(100%, 937px); height: 154px; margin: 0 0 -18px; font: inherit; font-size: 90px; line-height: 90px; letter-spacing: 4.5px; color: transparent; -webkit-background-clip: text; background-clip: text; background-image: linear-gradient(180.377deg, #ff9697 27.843%, #ba00b7 68.359%); }
 .services-page-shell .service-section--development .service-section__heading h2 { background-image: linear-gradient(182.142deg, #00e6a5 25.801%, #819eff 76.21%); }
 .services-page-shell .service-section--production .service-section__heading h2 { background-image: linear-gradient(180deg, #00c81e 24.513%, #116abd 74.838%); }
 .services-page-shell .service-section__heading > p { display: flex; align-items: center; justify-content: center; height: 77px; flex-shrink: 0; max-width: calc(100% - 48px); margin: 0; font-size: 30px; line-height: 46px; letter-spacing: 1.5px; color: transparent; -webkit-background-clip: text; background-clip: text; background-image: linear-gradient(180deg, #fff 19.422%, #999 73.308%); }
 .services-page-shell .service-carousel { display: flow-root; position: relative; width: 100%; min-width: 0; }
-.services-page-shell .service-carousel__viewport { width: 100%; height: 644px; padding: 50px 0 45px; margin-top: -50px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline-start: var(--service-gutter); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.services-page-shell .service-carousel__viewport { width: 100%; height: 598px; padding: 50px 0 45px; margin-top: -50px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline-start: var(--service-gutter); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .services-page-shell .service-carousel__viewport::-webkit-scrollbar { display: none; }
 .services-page-shell .service-carousel__viewport:focus-visible { outline: 1px solid #aaa; outline-offset: -3px; border-radius: 24px; }
 .services-page-shell .service-carousel__track { display: flex; align-items: flex-start; gap: 50px; width: max-content; min-width: 100%; padding-inline: var(--service-gutter) max(24px, calc(100vw - var(--service-gutter) - var(--service-card-width))); }
-.services-page-shell .service-card { position: relative; flex: 0 0 var(--service-card-width); width: var(--service-card-width); height: 549px; scroll-snap-align: start; }
+.services-page-shell .service-card { position: relative; flex: 0 0 var(--service-card-width); width: var(--service-card-width); height: var(--service-art-height); scroll-snap-align: start; }
 .services-page-shell .service-card__art { position: relative; width: 100%; height: var(--service-art-height); border: 1px solid rgba(255, 255, 255, .92); border-radius: 23px; box-shadow: 0 4px 49px rgba(255, 255, 255, .25); overflow: hidden; isolation: isolate; }
 .services-page-shell .service-card__image { position: absolute; inset: 0; overflow: hidden; z-index: -1; }
 .services-page-shell .service-card__image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #000 0%, transparent 13.519%), rgba(0, 0, 0, .54); }
@@ -238,16 +238,17 @@
 .services-page-shell .service-card--production-long .service-card__image > img { height: 174.35%; position: absolute; top: -37.18%; }
 .services-page-shell .service-card__art h3 { position: absolute; left: 50%; top: 50%; width: max-content; max-width: 96%; margin: 0; transform: translate(-50%, -50%); text-align: center; font-family: var(--services-heading, "Syne", sans-serif); font-size: 60px; font-weight: 700; line-height: 1.32; color: transparent; -webkit-background-clip: text; background-clip: text; background-image: linear-gradient(180deg, #fff .555%, #999 99.445%); text-shadow: 0 4px 4px rgba(0, 0, 0, .25); }
 .services-page-shell .service-card__art > p { position: absolute; top: 453px; left: 50%; transform: translateX(-50%); width: 579px; max-width: calc(100% - 64px); margin: 0; text-align: center; font-family: var(--services-body, "Epilogue", sans-serif); font-size: 20px; font-weight: 400; line-height: 26px; letter-spacing: 1px; color: #fff; }
-.services-page-shell .service-card__explore { position: absolute; top: 516px; left: 50%; translate: -50% 0; display: grid; place-items: center; width: 97.477px; height: 33px; border: .571px solid rgba(255, 255, 255, .1); border-radius: 70px; background: #000; box-shadow: 0 5.14px 7.996px rgba(0, 0, 0, .8); backdrop-filter: blur(2.856px); text-decoration: none; font-family: var(--services-display, "Clash Display", sans-serif); font-size: 11.42px; font-weight: 500; color: #fff; isolation: isolate; }
-.services-page-shell .service-card__explore > span:last-child { color: transparent; -webkit-background-clip: text; background-clip: text; background-image: linear-gradient(90deg, #fff, #999); text-shadow: 0 1.142px 1.142px rgba(0, 0, 0, .25); }
-.services-page-shell .service-card__explore-rim { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.services-page-shell .service-card__explore-glow { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; mask: url('../assets/img/services/ef70a.svg') center / 100% 100% no-repeat; -webkit-mask: url('../assets/img/services/ef70a.svg') center / 100% 100% no-repeat; }
-.services-page-shell .service-card__explore-glow img { position: absolute; width: 119.297px; height: 29.6737px; left: calc(50% - 59.6485px); top: calc(50% - 14.83685px); }
 .services-page-shell .service-carousel__footer { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .services-page-shell .service-tools { display: flex; align-items: center; justify-content: center; gap: 17.086px; height: 50.625px; }
 .services-page-shell .service-tool { position: relative; display: flex; align-items: center; justify-content: center; flex: 0 0 50.625px; width: 50.625px; height: 50.625px; }
+.services-page-shell .service-tool { appearance: none; margin: 0; padding: 0; border: 0; border-radius: 10px; background: none; font: inherit; cursor: pointer; }
 .services-page-shell .service-tool { opacity: .45; filter: saturate(.3) brightness(.9); transform: scale(.92); transition: opacity .35s ease, filter .35s ease, transform .35s ease; }
 .services-page-shell .service-tool.is-active { opacity: 1; filter: saturate(1) brightness(1.08) drop-shadow(0 0 10px rgba(255, 255, 255, .35)); transform: scale(1.12); }
+.services-page-shell .service-tool:hover:not(.is-active) { opacity: .8; filter: saturate(.7) brightness(1); border-color: transparent; }
+.services-page-shell .service-tool:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+/* index.css flattens every button:active with !important; keep the icon states steady while pressed. */
+.services-page-shell .service-tool:active { opacity: .8 !important; filter: saturate(.7) !important; transform: scale(.92) !important; }
+.services-page-shell .service-tool.is-active:active { opacity: 1 !important; filter: saturate(1) brightness(1.08) drop-shadow(0 0 10px rgba(255, 255, 255, .35)) !important; transform: scale(1.12) !important; }
 .services-page-shell .service-tool > img { max-width: none; width: 100%; height: 100%; object-fit: contain; }
 .services-page-shell .service-tool--phone > img { width: 37.931px; height: 45.673px; transform: translate(.825px, -.825px); }
 .services-page-shell .service-section--development .service-tools { gap: 16px; height: 50px; }
@@ -266,16 +267,11 @@
 .services-page-shell .service-tool--video > img { position: absolute; object-fit: fill; }
 .services-page-shell .service-tool--video .service-tool__video-body { left: 1.07px; top: 10.786px; width: 42.347px; height: 22.923px; }
 .services-page-shell .service-tool--video .service-tool__video-frame { left: 2.552px; top: 7.812px; width: 39.37px; height: 29.082px; }
-.services-page-shell .service-carousel__pagination { display: flex; align-items: center; justify-content: center; gap: 7px; height: 12px; margin-top: 20px; }
-.services-page-shell .service-section--production .service-carousel__pagination { margin-top: 13px; }
-.services-page-shell .service-carousel__pagination button { appearance: none; position: relative; padding: 0; width: 12px; height: 12px; border: 0; border-radius: 50%; background: #4a4a4a; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
-.services-page-shell .service-carousel__pagination button::after { content: ""; position: absolute; inset: -6px -3px; }
-.services-page-shell .service-carousel__pagination button[aria-current="true"] { background: #fff; }
-.services-page-shell .service-carousel__pagination button:hover { background: #b5b5b5; }
-.services-page-shell .service-carousel__pagination button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 .services-page-shell .service-actions { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 19px; }
-.services-page-shell .service-card__explore:hover { filter: brightness(1.35); }
-.services-page-shell .service-card__explore:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.services-page-shell .service-card__art { display: block; color: inherit; text-decoration: none; cursor: pointer; transition: box-shadow .25s ease; }
+.services-page-shell .service-card__art:hover { box-shadow: 0 4px 60px rgba(255, 255, 255, .4); }
+.services-page-shell .service-card__art:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.services-page-shell .carousel.is-dragging .service-card__art { cursor: grabbing; }
 .services-page-shell .service-carousel-arrow { position: absolute; top: 227.5px; z-index: 2; display: grid; place-items: center; padding: 0; width: 48px; height: 48px; border: 1px solid #727272; border-radius: 50%; background: rgba(7, 7, 7, .85); backdrop-filter: blur(8px); cursor: pointer; opacity: 0; transition: opacity .2s ease, background-color .2s ease; }
 .services-page-shell .service-carousel-arrow--prev { left: max(24px, calc(var(--service-gutter) - 72px)); }
 .services-page-shell .service-carousel-arrow--next { left: calc(var(--service-gutter) + var(--service-card-width) + 24px); }
@@ -288,11 +284,9 @@
   .services-page-shell .service-section { --service-card-width: min(84vw, 1004px); --service-art-height: 46vw; --service-gutter: 8vw; height: auto; }
   .services-page-shell .service-section__heading h2 { font-size: 76px; letter-spacing: 3px; }
   .services-page-shell .service-section__heading > p { font-size: 27px; }
-  .services-page-shell .service-carousel__viewport { height: calc(var(--service-art-height) + 141px); }
-  .services-page-shell .service-card { height: calc(var(--service-art-height) + 46px); }
+  .services-page-shell .service-carousel__viewport { height: calc(var(--service-art-height) + 95px); }
   .services-page-shell .service-card__art h3 { font-size: clamp(36px, 4.65vw, 60px); }
   .services-page-shell .service-card__art > p, .services-page-shell .service-section--development .service-card__art > p, .services-page-shell .service-section--production .service-card__art > p { top: auto; bottom: 16px; max-width: calc(100% - 56px); }
-  .services-page-shell .service-card__explore { top: calc(var(--service-art-height) + 13px); }
   .services-page-shell .service-carousel-arrow { top: calc(var(--service-art-height) / 2 - 24px); }
   .services-page-shell .service-carousel-arrow--prev { left: 16px; }
   .services-page-shell .service-carousel-arrow--next { left: auto; right: 16px; }
@@ -307,23 +301,19 @@
   .services-page-shell .service-card__art h3 { top: 42%; width: calc(100% - 28px); font-size: 31px; line-height: 1.2; }
   .services-page-shell .service-card__art > p, .services-page-shell .service-section--development .service-card__art > p, .services-page-shell .service-section--production .service-card__art > p { bottom: 20px; max-width: calc(100% - 32px); font-size: 13px; line-height: 20px; letter-spacing: .25px; }
   .services-page-shell .service-card__art > p { font-size: 16px; line-height: 24px; }
-  .services-page-shell .service-card__explore { width: 115px; height: 38px; font-size: 13px; }
   .services-page-shell .service-card { height: calc(var(--service-art-height) + 51px); }
-  .services-page-shell .service-carousel__viewport { height: calc(var(--service-art-height) + 146px); }
+  .services-page-shell .service-carousel__viewport { height: calc(var(--service-art-height) + 95px); }
   .services-page-shell .service-carousel-arrow { width: 44px; height: 44px; top: calc(var(--service-art-height) / 2 - 22px); opacity: .82; }
   .services-page-shell .service-carousel-arrow:disabled { opacity: 0; }
   .services-page-shell .service-carousel-arrow--prev { left: 6px; }
   .services-page-shell .service-carousel-arrow--next { right: 6px; }
   .services-page-shell .service-tools, .services-page-shell .service-section--development .service-tools { gap: 8px; transform: scale(.88); }
   .services-page-shell .service-section--production .service-tools { gap: 12px; transform: scale(.92); }
-  .services-page-shell .service-carousel__pagination { height: 14px; gap: 14px; }
-  .services-page-shell .service-carousel__pagination button { width: 10px; height: 10px; }
-  .services-page-shell .service-carousel__pagination button::after { inset: -16px -7px; }
   .services-page-shell .service-actions { width: calc(100% - 48px); gap: 14px; margin-top: 26px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .services-page-shell .service-carousel__viewport { scroll-behavior: auto; }
-  .services-page-shell .service-carousel-arrow, .services-page-shell .service-carousel__pagination button, .services-page-shell .service-tool { transition: none; }
+  .services-page-shell .service-carousel-arrow, .services-page-shell .service-tool { transition: none; }
 }
 .services-page-shell .services-portfolio { position: relative; isolation: isolate; height: 942px; width: 100%; }
 .services-page-shell .portfolio-atmosphere { position: absolute; z-index: -1; pointer-events: none; top: 57px; left: 50%; width: 831.75px; height: 885px; transform: translateX(-50%); }

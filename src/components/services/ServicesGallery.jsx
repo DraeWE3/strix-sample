@@ -2,8 +2,6 @@ import Button from "../Button";
 import { Link } from "react-router-dom";
 import useScrollCarousel from "../../animations/useScrollCarousel";
 import Arrow from "../../assets/img/shared/e23f5.svg";
-import ExploreRim from "../../assets/img/services/97acd.svg";
-import ExploreGlow from "../../assets/img/services/f3ffd.svg";
 
 const modifierClass = (base, modifier) => (modifier ? `${base} ${base}--${modifier}` : base);
 
@@ -38,17 +36,12 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
                 aria-roledescription="slide"
                 aria-label={`${cardIndex + 1} of ${cards.length}: ${card.title}`}
               >
-                <div className="service-card__art">
+                <Link className="service-card__art" to={card.href || "/contact"} draggable={false}>
                   <div className="service-card__image">
                     <img src={card.image} alt="" loading="lazy" draggable={false} width="1004" height="503" />
                   </div>
                   <h3>{card.title}</h3>
                   <p>{card.description}</p>
-                </div>
-                <Link className="service-card__explore" to={card.href || "/contact"} aria-label={`Explore ${card.title} with Strix Production`}>
-                  <img className="service-card__explore-rim" src={ExploreRim} alt="" width="97.477" height="33" />
-                  <span className="service-card__explore-glow" aria-hidden="true"><img src={ExploreGlow} alt="" /></span>
-                  <span>Explore</span>
                 </Link>
               </article>
             ))}
@@ -75,11 +68,16 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
           <img src={Arrow} alt="" width="20.482" height="16.1336" />
         </button>
         <div className="service-carousel__footer">
-          <div className="service-tools" aria-hidden="true">
+          <div className="service-tools" role="group" aria-label={`Choose ${name} service`}>
             {tools.map((tool, toolIndex) => (
-              <span
+              <button
+                type="button"
                 className={`${modifierClass("service-tool", tool.modifier)}${toolIndex === index ? " is-active" : ""}`}
                 key={tool.icon}
+                aria-label={`Show ${cards[toolIndex].title}`}
+                aria-controls={viewportId}
+                aria-current={toolIndex === index ? "true" : undefined}
+                onClick={() => go(toolIndex)}
               >
                 {tool.frame ? (
                   <>
@@ -89,20 +87,6 @@ const ServicesGallery = ({ gallery, onShowreel }) => {
                 ) : (
                   <img src={tool.icon} alt="" />
                 )}
-              </span>
-            ))}
-          </div>
-          <div className="service-carousel__pagination" role="group" aria-label={`Choose ${name} service`}>
-            {cards.map((card, cardIndex) => (
-              <button
-                type="button"
-                key={card.title}
-                aria-label={`Show ${card.title}`}
-                aria-controls={viewportId}
-                aria-current={cardIndex === index ? "true" : undefined}
-                onClick={() => go(cardIndex)}
-              >
-                <span></span>
               </button>
             ))}
           </div>
