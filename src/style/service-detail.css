@@ -200,7 +200,7 @@
 .service-detail-shell .capability-card--stat h3{left:var(--title-left);right:auto;top:167.5px;width:198px;height:52px;align-items:flex-start;white-space:pre-line;text-transform:capitalize;font:400 22px/26px Epilogue,sans-serif;letter-spacing:.44px;margin:0}
 .service-detail-shell .capability-card--stat>p{left:var(--rule-left);width:var(--rule-width);height:114px;display:flex;align-items:center;padding:0 var(--copy-right) 0 var(--copy-left);margin:0}
 /* Case proof cards (Branding "Brands that get remembered.", Figma 3510:6585): logo image, title, rule + copy. */
-.service-detail-shell .capability-card--case h3{left:var(--title-left);right:auto;top:181.5px;transform:translateY(-50%);width:198px;height:auto;display:block;text-transform:capitalize;font:400 22px/30px Epilogue,sans-serif;letter-spacing:.44px;margin:0}
+.service-detail-shell .capability-card--case h3{left:var(--title-left);right:auto;top:var(--title-top,181.5px);transform:translateY(-50%);width:198px;height:auto;display:block;text-transform:capitalize;font:400 22px/var(--title-line,30px) Epilogue,sans-serif;letter-spacing:.44px;margin:0}
 .service-detail-shell .capability-card--case>p{left:var(--rule-left);width:var(--rule-width);height:114px;display:flex;align-items:center;padding:0 var(--copy-right) 0 var(--copy-left);margin:0}
 .service-detail-shell .capability-card__logo .client-logo--structly{display:flex;align-items:center;gap:22.95px;font-family:Poppins,sans-serif;font-weight:600;color:#fff}
 .service-detail-shell .client-logo--structly span{width:auto;height:auto}

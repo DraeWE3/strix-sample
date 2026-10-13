@@ -23,6 +23,19 @@ import BrandKitArt from "../../assets/img/service-pages/figma/3098d.png";
 import TechouseShowcase from "../../assets/img/service-pages/figma/6519c.png";
 import PackagingLarge from "../../assets/img/service-pages/figma/77139.png";
 import PackagingSmall from "../../assets/img/service-pages/figma/3236e.png";
+import GamifiedPhones from "../../assets/img/service-pages/figma/5cae4.png";
+import GameChest from "../../assets/img/service-pages/figma/cab7d.png";
+import GameLock from "../../assets/img/service-pages/figma/8dbab.png";
+import GameUiScreens from "../../assets/img/service-pages/figma/45a83.png";
+import GameEnvironmentShot from "../../assets/img/service-pages/figma/8b065.png";
+import GameCharacterBase from "../../assets/img/service-pages/figma/edc75.png";
+import GameCharacterDodge from "../../assets/img/service-pages/figma/4d6cb.png";
+import GameKart from "../../assets/img/service-pages/figma/fad36.png";
+import ProductRenderGun from "../../assets/img/service-pages/figma/3c831.png";
+import WebMvpArt from "../../assets/img/service-pages/figma/76841.png";
+import WebAiScreen from "../../assets/img/service-pages/figma/d4313.png";
+import WebSettingsGear from "../../assets/img/service-pages/figma/1d4af.png";
+import WebDashboardScreen from "../../assets/img/service-pages/figma/4cde3.png";
 
 // Per-card media for offer canvases that carry their own Figma composition instead of the single
 // generic image slot. Coordinates are in the canvas's rotated 360 x 528.8 frame, exactly as Figma
@@ -263,6 +276,98 @@ const CreativeIllustrations = () => (
   </Layer>
 );
 
+// 3359:4892 "5968706" — 3D Game Environments
+const ThreedEnvironments = () => (
+  <Layer box={{ height: "369.202px", left: "calc(50% + 14px)", top: "78.26px", width: "224px", transform: "translateX(-50%)" }} inner={{ height: "224px", width: "369.202px", border: "1px solid #fff", borderRadius: "11.813px" }}>
+    <Img src={GameEnvironmentShot} style={{ borderRadius: "11.813px" }} />
+  </Layer>
+);
+
+// 3359:4912 — 3D Game characters. Sits in the unrotated card, outside the glow frame.
+const ThreedCharacters = () => (
+  <div style={{ ...abs, height: "262px", left: "45.8px", top: "30px", width: "449px" }}>
+    <div style={{ ...abs, left: "calc(50% - 93.5px)", top: 0, width: "262px", height: "262px", transform: "translateX(-50%)" }}>
+      <Img src={GameCharacterBase} />
+      <Img src={GameCharacterDodge} style={{ mixBlendMode: "color-dodge" }} />
+    </div>
+    <div style={{ ...abs, height: "150px", left: "150px", top: "112px", width: "299px" }}>
+      <Img src={GameKart} />
+    </div>
+  </div>
+);
+
+// 3359:4902 "image 1169" — Product renders. Sits in the unrotated card, outside the glow frame.
+const ThreedProductRenders = () => (
+  <div style={{ ...abs, height: "184px", left: "72px", top: "76px", width: "384px" }}>
+    <Img src={ProductRenderGun} />
+  </div>
+);
+
+// 3364:5059 — Gamified Applications (sits above the title inside the rotated frame)
+const GameGamified = () => (
+  <Layer box={{ height: "228px", left: "calc(50% + 20px)", top: "149.26px", width: "304px", transform: "translateX(-50%)" }} inner={{ height: "304px", width: "228px" }}>
+    <Img src={GamifiedPhones} />
+  </Layer>
+);
+
+// The next two compositions are siblings of the rotated frame in Figma, so they are positioned in
+// the unrotated 527.2 x 354.4 canvas instead (see MEDIA_OUTSIDE_FRAME).
+
+// 3366:5078 — Gaming Icons and Assets: chest behind, lock in front, each tilted with its own glow
+// (drop-shadow, not box-shadow, so the glow follows the transparent PNG like Figma's shadow does).
+const GameIcons = () => (
+  <div style={{ ...abs, height: "287.087px", left: "72px", top: "36px", width: "373px" }}>
+    <Layer box={{ height: "234.002px", left: "148.47px", top: "5.27px", width: "224.075px" }} inner={{ height: "195.973px", width: "182.39px", filter: "drop-shadow(0px 10.509px 21.439px rgba(56,173,239,0.61))" }} rotate="13.88deg">
+      <Crop src={GameChest} crop={{ height: "102.97%", left: "-10.64%", top: 0, width: "110.64%" }} />
+    </Layer>
+    <Layer box={{ height: "287.087px", left: 0, top: 0, width: "227.431px" }} inner={{ height: "253.831px", width: "173.331px", filter: "drop-shadow(0px 0px 37.623px rgba(255,204,104,0.5))" }} rotate="-13.4deg">
+      <Img src={GameLock} />
+    </Layer>
+  </div>
+);
+
+// 3366:5063 — Gaming UI Screens
+const GameUi = () => (
+  <div style={{ ...abs, height: "262px", left: "45.8px", top: "30px", width: "449px" }}>
+    <div style={{ ...abs, height: "259px", left: "calc(50% + 0.5px)", top: "3px", width: "364px", transform: "translateX(-50%)" }}>
+      <Crop src={GameUiScreens} crop={{ height: "176.08%", left: 0, top: "-38.04%", width: "100%" }} />
+    </div>
+  </div>
+);
+
+// 965:6848 — SaaS MVP Development
+const WebSaasMvp = () => (
+  <Layer box={{ height: "455.601px", left: "calc(50% + 6.5px)", top: "35.66px", width: "253px", transform: "translateX(-50%)", mixBlendMode: "lighten" }} inner={{ height: "253px", width: "455.601px" }}>
+    <Crop src={WebMvpArt} crop={{ height: "142.92%", left: "-2.91%", top: 0, width: "105.82%" }} />
+    <div style={{ ...abs, inset: 0, backgroundImage: "linear-gradient(180.3196183957733deg, rgba(0, 0, 0, 0) 58.805%, rgb(0, 0, 0) 99.503%)" }} />
+  </Layer>
+);
+
+// 965:6821 — Custom AI Development
+const WebCustomAi = () => (
+  <Layer box={{ height: "455.601px", left: "calc(50% + 13.5px)", top: "35.26px", width: "253px", transform: "translateX(-50%)" }} inner={{ height: "253px", width: "455.601px" }}>
+    <Img src={WebAiScreen} />
+  </Layer>
+);
+
+// 3135:4550 "Settings Gear" — Workflow Automation Tools. Figma blends it in luminosity mode over the
+// neutral black/grey card; the rotated frame isolates that blend from the plate, so the equivalent
+// result (source luminance, no hue) is applied as a grayscale filter instead.
+const WebWorkflow = () => (
+  <Layer box={{ height: "286px", left: "calc(50% + 11px)", top: "120.26px", width: "174px", transform: "translateX(-50%)", filter: "grayscale(1)" }} inner={{ height: "174px", width: "286px" }}>
+    <Crop src={WebSettingsGear} crop={{ height: "164.22%", left: 0, top: "-30.95%", width: "100%" }} />
+  </Layer>
+);
+
+// 965:6839 — Custom Dashboards & Panels
+const WebDashboards = () => (
+  <Layer box={{ height: "365px", left: "calc(50% + 15.5px)", top: "81.06px", width: "253px", transform: "translateX(-50%)", mixBlendMode: "screen" }} inner={{ height: "253px", width: "365px", borderRadius: "16px" }}>
+    <div style={{ ...abs, inset: 0, overflow: "hidden", pointerEvents: "none", borderRadius: "16px" }}>
+      <img alt="" src={WebDashboardScreen} style={{ ...abs, height: "200.4%", left: "-15.24%", maxWidth: "none", top: "-50.2%", width: "130.49%" }} loading="lazy" draggable={false} />
+    </div>
+  </Layer>
+);
+
 const MEDIA = {
   "ui-ux-corporate": UiuxCorporate,
   "ui-ux-mobile": UiuxMobile,
@@ -280,10 +385,23 @@ const MEDIA = {
   "creative-social": CreativeSocial,
   "creative-posters": CreativePosters,
   "creative-illustrations": CreativeIllustrations,
+  "3d-environments": ThreedEnvironments,
+  "3d-characters": ThreedCharacters,
+  "3d-product-renders": ThreedProductRenders,
+  "game-gamified": GameGamified,
+  "game-icons": GameIcons,
+  "game-ui": GameUi,
+  "web-saas-mvp": WebSaasMvp,
+  "web-custom-ai": WebCustomAi,
+  "web-workflow": WebWorkflow,
+  "web-dashboards": WebDashboards,
 };
 
 // Media whose Figma layer sits above the card title rather than beneath it.
-export const MEDIA_ABOVE_TITLE = new Set(["product-enterprise", "product-user-flows", "brand-logo", "brand-kit", "brand-identity", "brand-packaging"]);
+export const MEDIA_ABOVE_TITLE = new Set(["product-enterprise", "product-user-flows", "brand-logo", "brand-kit", "brand-identity", "brand-packaging", "game-gamified"]);
+
+// Media placed in the unrotated card box (above the glow frame and title) rather than inside the frame.
+export const MEDIA_OUTSIDE_FRAME = new Set(["3d-characters", "3d-product-renders", "game-icons", "game-ui"]);
 
 const OfferMedia = ({ name }) => {
   const Media = MEDIA[name];

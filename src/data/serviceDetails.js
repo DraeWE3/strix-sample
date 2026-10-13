@@ -22,16 +22,18 @@ import TdoLogo from "../assets/img/service-pages/figma/34d8a.png";
 import ArcovaLogo from "../assets/img/service-pages/figma/deaf8.png";
 import GizaLogo from "../assets/img/service-pages/figma/7b9c4.png";
 import CreativePoster from "../assets/img/service-pages/figma/0c100.png";
+import GameArtPoster from "../assets/img/service-pages/figma/3c589.png";
+import GameArtHeadingTexture from "../assets/img/service-pages/figma/09bc8.png";
+import MinMariaLogo from "../assets/img/service-pages/figma/min-maria-3510-6616.png";
+import ImpactRiverLogo from "../assets/img/service-pages/figma/impact-river-3510-6736.png";
+import AbhiwanLogo from "../assets/img/service-pages/figma/dd3ca.png";
+import ThreeDPoster from "../assets/img/service-pages/figma/cf59f.png";
+import ThreeDHeadingTexture from "../assets/img/service-pages/figma/ed208.png";
 import DevelopmentPoster from "../assets/img/service-pages/development/dev-bgg.webp";
 
-import ThreeD1 from "../assets/img/service-pages/production/3d1.png";
-import ThreeD2 from "../assets/img/service-pages/production/3d2.png";
-import ThreeD3 from "../assets/img/service-pages/production/3d3.png";
-import ThreeD4 from "../assets/img/service-pages/production/3d4.png";
-import WebApp1 from "../assets/img/service-pages/development/webapp.png";
-import WebApp2 from "../assets/img/service-pages/development/webapp2.png";
-import WebApp3 from "../assets/img/service-pages/development/webapp3.png";
-import WebApp4 from "../assets/img/service-pages/development/webapp4.png";
+import WebAppPoster from "../assets/img/service-pages/figma/3fd0f.png";
+import NothingLogo from "../assets/img/service-pages/figma/0c914.png";
+import PenguinKartsLogo from "../assets/img/service-pages/figma/5fd6b.png";
 import AppDev1 from "../assets/img/service-pages/development/appdev1.png";
 import AppDev2 from "../assets/img/service-pages/development/appdev2.png";
 import AppDev3 from "../assets/img/service-pages/development/appdev3.png";
@@ -274,22 +276,44 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DesignPoster,
+      // Figma 965:6296: image fills the 1004 x 503 frame, anchored to the bottom.
+      poster: GameArtPoster,
+      posterPosition: "bottom",
+      descriptionWidth: 1003,
       description: "From character concepts to production-ready assets — we bring your game world to life in 2D and 3D.",
     },
+    // Figma 965:6159 (hero 965:6295, offers 3359:4975 / 4995 / 4985, proof 3510:6610).
     offers: [
-      { title: "Concept Art", description: "The look of the world, decided before a single asset is built.", descriptionWidth: 442 },
-      { title: "Character Design", description: "Characters with personality players recognise from the silhouette alone.", descriptionWidth: 499 },
-      { title: "Environment Art", description: "Spaces that tell the story before the dialogue does.", descriptionWidth: 415 },
-      { title: "Game UI & Icons", description: "Menus, HUDs and icons that stay out of the way of the fun.", descriptionWidth: 442 },
+      { title: "Gamified Applications", description: "Make your app feel like a game — and users like players.", descriptionWidth: 565, media: "game-gamified" },
+      { title: "Gaming UI Screens", description: "Built for split-second decisions and total immersion.", descriptionWidth: 554, media: "game-ui" },
+      { title: "Gaming Icons and Assets", description: "Every asset tells the player what they need, instantly.", descriptionWidth: 609, media: "game-icons" },
     ],
     proof: {
       heading: "Game Art that pulls players in.",
-      intro: "Assets delivered in the exact format your engine needs – Unity, Unreal, Godot. Named, organised, and import-ready from day one.",
+      headingImage: GameArtHeadingTexture,
+      intro: "Assets delivered in the exact format your engine needs — Unity, Unreal, Godot. Named, organised, and import-ready from day one.",
       cards: [
-        { logo: "min-maria", label: "Min & Maria", title: "Full Character Visual Suite", description: "2D and 3D character art for a children's animated game – concept to production-ready assets." },
-        { logo: "impact-river", label: "Impact River", title: "Complete Gaming Asset Library", description: "Game UI, icons, environments, and collectibles delivered across an entire game universe." },
-        { logo: "arhiwar", label: "Arhiwar", title: "XR-Ready Assets", description: "3D game art and interactive assets for an enterprise XR platform used globally." },
+        {
+          // 3510:6616: 199 x 95 node export (Alegreya Sans SC wordmark).
+          logoImage: { src: MinMariaLogo, width: 199, height: 95, top: 11, blend: "lighten", alt: "Min & Maria" },
+          title: "Full Character Visual Suite",
+          description: "2D and 3D character art for a children's animated game — concept to production-ready assets.",
+          layout: { titleLeft: 41, titleTop: 193.5, titleLine: 26, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
+        },
+        {
+          // 3510:6736: 265.6 x 49.8 frame centred 110px above the card middle; its export adds 15px of glow above.
+          logoImage: { src: ImpactRiverLogo, width: 265.67, height: 71.67, top: 31.95, offsetX: 0.31, blend: "lighten", alt: "Impact River" },
+          title: "Complete Gaming Asset Library",
+          description: "Game UI, icons, environments, and collectibles delivered across an entire game universe.",
+          layout: { titleLeft: 32, titleTop: 193.5, titleLine: 26 },
+        },
+        {
+          // 3510:6742: 126.36 x 94 frame, image at 7.17% / 87.91% height.
+          logoImage: { src: AbhiwanLogo, width: 126.36, height: 82.64, top: 31.74, offsetX: -0.32, alt: "Abhiwan" },
+          title: "XR-Ready Assets",
+          description: "3D game art and interactive assets for an enterprise XR platform used globally.",
+          layout: { titleLeft: 33, titleTop: 193.5, titleLine: 26, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },
@@ -304,22 +328,26 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DesignPoster,
+      // Figma 965:6548: render fills the 1004 x 503 frame, anchored bottom.
+      poster: ThreeDPoster,
+      posterPosition: "bottom",
       description: "Photorealistic renders, cinematic animations, and immersive 3D experiences — crafted to make your product unforgettable.",
     },
+    // Figma 965:6411 (hero 965:6547, offers 3359:4886 / 4906 / 4896, proof 3510:6554).
     offers: [
-      { title: "3D Product Renders", description: "Studio-quality product shots — without the studio.", descriptionWidth: 415, image: ThreeD1 },
-      { title: "3D Real Estate Visualization", description: "Walk clients through the space before the first brick is laid.", descriptionWidth: 468, image: ThreeD2 },
-      { title: "3D Modeling & Texturing", description: "Accurate models with materials that read as real.", descriptionWidth: 415, image: ThreeD3 },
-      { title: "Packaging & Product Mockups", description: "See the final pack on the shelf before it goes to print.", descriptionWidth: 467, image: ThreeD4 },
+      { title: "3D Game Environments", description: "Worlds players want to explore — and never leave.", descriptionWidth: 527, media: "3d-environments" },
+      { title: "3D Game characters", description: "Characters with enough depth to become someone's favourite.", descriptionWidth: 462, media: "3d-characters" },
+      { title: "Product renders", description: "Your product, at its absolute best — before it ships.", descriptionWidth: 471, media: "3d-product-renders" },
     ],
     proof: {
-      heading: "3D that earns the second look.",
-      intro: "Visualization that makes products, spaces and ideas feel real before they are built.",
+      heading: "3D that sells before it ships.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Renders and animations that make products impossible to overlook.",
+      // Same Nothing / Penguin Karts / Abhiwan case cards as the 3D Animations page.
       cards: [
-        { label: "PHOTOREAL", title: "Materials that read as real", description: "Lighting, textures and reflections tuned until the render passes for a photo." },
-        { label: "ACCURATE", title: "Built to spec", description: "Models follow drawings and dimensions so what you see is what gets made." },
-        { label: "REUSABLE", title: "One model, every angle", description: "Scenes set up so new views, colours and variants render in hours, not weeks." },
+        { art: "3d-animations-1", title: "3D Cinematic Product Renders and animation", description: "3D product renders for one of the world's most recognized brands such as Nothing, Wroot & More." },
+        { art: "3d-animations-2", title: "3D - Game Environment & Assets", description: "Game Environments, Racing car and other 3D assets delivered for penguin cart racing game." },
+        { art: "3d-animations-3", title: "XR Visualisation", description: "3D scene design and spatial visualisation for immersive enterprise training environments." },
       ],
     },
   },
@@ -336,22 +364,45 @@ export const serviceDetails = {
     },
     hero: {
       ...VIEW_WORK,
-      poster: DevelopmentPoster,
+      // Figma 965:6802: image cropped at 103.59% x 120.5%, centred in the 1004 x 503 frame.
+      poster: WebAppPoster,
+      posterCrop: { width: "103.59%", height: "120.5%", left: "-1.79%", top: "-10.25%" },
       description: "We develop scalable, high-performance web apps tailored for business automation, SaaS platforms, and enterprise-level solutions.",
     },
+    // Figma 965:6665 (hero 965:6801, offers 965:6843 / 6816 / 6825 / 6834, proof 3511:8326).
     offers: [
-      { title: "SaaS Platforms", description: "Multi-tenant products built to onboard the first user and the ten-thousandth.", descriptionWidth: 499, image: WebApp1 },
-      { title: "Custom Dashboards & Panels", description: "Admin and analytics panels that make the data easy to act on.", descriptionWidth: 467, image: WebApp2 },
-      { title: "Workflow Automation Tools", description: "Internal tools that remove the spreadsheet from the process.", descriptionWidth: 465, image: WebApp3 },
-      { title: "Real-Time Web Applications", description: "Live updates, chat and collaboration that feel instant.", descriptionWidth: 442, image: WebApp4 },
+      { title: "SaaS MVP Development", description: "Go from validated idea to live product in 4 weeks", descriptionWidth: 311, media: "web-saas-mvp" },
+      { title: "Custom AI Development", description: "Your product, made intelligent — built for the way your users actually think.", descriptionWidth: 415, media: "web-custom-ai" },
+      { title: "Workflow Automation Tools", description: "Cut the repetitive work. Let your team focus on what actually matters.", descriptionWidth: 420, media: "web-workflow" },
+      { title: "Custom Dashboards & Panels", description: "Every metric your team needs, surfaced exactly when they need it.", descriptionWidth: 415, media: "web-dashboards" },
     ],
     proof: {
-      heading: "Apps that launch early and stay ready.",
-      intro: "Clear plan, simple flow and clean code that works from the first release — and keeps up as demand grows.",
+      heading: "Applications built to last.",
+      headingImage: ThreeDHeadingTexture,
+      intro: "Web apps that handle real growth — without being rebuilt at scale.",
+      introWidth: 821,
       cards: [
-        { label: "ONE PROCESS", title: "Design and code together", description: "The layout feels easy and the system behind it stays stable." },
-        { label: "GROWTH SAFE", title: "Built to handle more", description: "More users, more data and new features without rebuilding from zero." },
-        { label: "TESTED IN USE", title: "Smooth from day one", description: "Weak flows and extra steps are fixed early so the product loads fast and stays reliable." },
+        {
+          // 3511:8335: 693 x 125 image object-contain in a 180 x 106 box at top 9.
+          logoImage: { src: NothingLogo, width: 180, height: 32.47, top: 45.77, offsetX: 0.5, alt: "Nothing" },
+          title: "3D Cinematic Product Renders and animation",
+          description: "3D product renders for one of the world's most recognized brands such as Nothing, Wroot & More.",
+          layout: { titleLeft: 41.5, titleLine: 26, ruleLeft: 34, ruleWidth: 230, copyLeft: 7, copyRight: 7 },
+        },
+        {
+          // 3511:8338: 116 x 70 box, image 105.68% wide at 1.47% (clipped edge is transparent).
+          logoImage: { src: PenguinKartsLogo, width: 122.59, height: 70, top: 37, offsetX: 5.49, alt: "Penguin Karts" },
+          title: "3D - Game Environment & Assets",
+          description: "Game Environments, Racing car and other 3D assets delivered for penguin cart racing game.",
+          layout: { titleLeft: 32.5, titleLine: 26 },
+        },
+        {
+          // 3511:8347 "Astra": 126.36 x 94 box, image 87.91% tall at 7.17%.
+          logoImage: { src: AbhiwanLogo, width: 126.36, height: 82.64, top: 31.74, offsetX: -0.32, alt: "Abhiwan" },
+          title: "XR Visualisation",
+          description: "3D scene design and spatial visualisation for immersive enterprise training environments.",
+          layout: { titleLeft: 33, titleTop: 193.5, titleLine: 26, copyLeft: 0, copyRight: 0 },
+        },
       ],
     },
   },

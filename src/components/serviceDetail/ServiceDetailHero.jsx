@@ -24,7 +24,12 @@ const ServiceDetailHero = ({ title, hero }) => {
           className="service-hero-poster"
           src={hero.poster}
           alt={`${title} — selected Strix Production work`}
-          style={{ objectFit: hero.posterFit || "cover", objectPosition: hero.posterPosition || "center", width: "100%", height: "100%" }}
+          style={
+            // posterCrop: Figma's percentage crop of an image larger than the 1004 x 503 frame.
+            hero.posterCrop
+              ? { inset: "auto", objectFit: "fill", ...hero.posterCrop }
+              : { objectFit: hero.posterFit || "cover", objectPosition: hero.posterPosition || "center", width: "100%", height: "100%" }
+          }
           width="1004"
           height="503"
           fetchPriority="high"

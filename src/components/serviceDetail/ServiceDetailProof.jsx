@@ -26,8 +26,10 @@ const CardGlow = ({ glow }) => (
 );
 
 // Stat cards (logo, metric, label, rule) nudge their columns per card exactly as the Figma frames do.
-const statLayout = ({ statLeft = 32, titleLeft = statLeft, ruleLeft = 22, ruleWidth = 254, copyLeft = 11, copyRight = 11 } = {}) => ({
+const statLayout = ({ statLeft = 32, titleLeft = statLeft, titleTop = 181.5, titleLine = 30, ruleLeft = 22, ruleWidth = 254, copyLeft = 11, copyRight = 11 } = {}) => ({
   "--stat-left": `${statLeft}px`,
+  "--title-top": `${titleTop}px`,
+  "--title-line": `${titleLine}px`,
   "--title-left": `${titleLeft}px`,
   "--rule-left": `${ruleLeft}px`,
   "--rule-width": `${ruleWidth}px`,
@@ -37,9 +39,10 @@ const statLayout = ({ statLeft = 32, titleLeft = statLeft, ruleLeft = 22, ruleWi
 
 const CardLogo = ({ card }) => {
   if (card.logoImage) {
-    const { src, width, height, alt, top, offsetX } = card.logoImage;
+    // blend: Figma node exports rendered on black (text logos in fonts the site doesn't load).
+    const { src, width, height, alt, top, offsetX, blend } = card.logoImage;
     const left = offsetX ? `calc(50% + ${offsetX}px)` : undefined;
-    return <img className="capability-card__logo-image" src={src} alt={alt} width={width} height={height} style={{ width, height, top, left }} loading="lazy" draggable={false} />;
+    return <img className="capability-card__logo-image" src={src} alt={alt} width={width} height={height} style={{ width, height, top, left, mixBlendMode: blend }} loading="lazy" draggable={false} />;
   }
   return card.logo ? <div className="capability-card__logo"><ClientLogo name={card.logo} /></div> : null;
 };
