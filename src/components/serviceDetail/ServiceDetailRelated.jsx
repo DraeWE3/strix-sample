@@ -4,40 +4,22 @@ import ServiceOrbit from "./ServiceOrbit";
 import { createContinuousCarousels } from "./continuousCarousel";
 import { useProjects, projectHref, isExternalProject, projectsKey } from "../../lib/projects";
 import { getOptimizedImage } from "../../lib/cloudinary";
-import DesktopGlow from "../../assets/img/service-pages/figma/485ae.svg";
-import DesktopRim from "../../assets/img/service-pages/figma/0479a.svg";
-import LaptopGlow from "../../assets/img/service-pages/figma/0b74f.svg";
-import LaptopRim from "../../assets/img/service-pages/figma/d97d8.svg";
-import FeaturedGlow from "../../assets/img/service-pages/figma/a2c5c.svg";
-import FeaturedRim from "../../assets/img/service-pages/figma/df9e5.svg";
-import LaptopRightGlow from "../../assets/img/service-pages/figma/acbca.svg";
-import LaptopRightRim from "../../assets/img/service-pages/figma/7862f.svg";
-import PrevArrow from "../../assets/img/service-pages/figma/69e64.svg";
-import NextArrow from "../../assets/img/service-pages/figma/b5b40.svg";
 import MoreRim from "../../assets/img/service-pages/figma/0354d.svg";
 import MoreLight from "../../assets/img/service-pages/figma/5bbe8.svg";
 
-const FRAMES = [
-  { variant: "desktop", glow: DesktopGlow, rim: DesktopRim },
-  { variant: "laptop", glow: LaptopGlow, rim: LaptopRim },
-  { variant: "featured", glow: FeaturedGlow, rim: FeaturedRim },
-  { variant: "desktop", glow: DesktopGlow, rim: DesktopRim },
-  { variant: "laptop-right", glow: LaptopRightGlow, rim: LaptopRightRim },
-];
-
-const frameFor = (index) => FRAMES[index % FRAMES.length];
-
-const RelatedCard = ({ project, index }) => {
-  const frame = frameFor(index);
+const RelatedCard = ({ project }) => {
   const href = projectHref(project);
-  const className = `ds-related-card ds-related-card--${frame.variant}`;
+  const className = "ds-related-card";
   const label = `View ${project.title} project`;
   const content = (
-    <span className="ds-related-native">
-      <span className="ds-related-card-glow" aria-hidden="true"><img src={frame.glow} alt="" loading="lazy" draggable={false} /></span>
+    <>
       <span className="ds-related-card-media"><img src={getOptimizedImage(project.image)} alt={project.title} loading="lazy" draggable={false} data-related-image /></span>
-      <span className="ds-related-card-rim" aria-hidden="true"><img src={frame.rim} alt="" loading="lazy" draggable={false} /></span>
-    </span>
+      <span className="ds-related-card-info">
+        {project.categoryText ? <span className="ds-related-card-cat">{project.categoryText}</span> : null}
+        <span className="ds-related-card-title">{project.title}</span>
+      </span>
+      <span className="ds-related-card-go" aria-hidden="true">↗</span>
+    </>
   );
   if (isExternalProject(project)) {
     return (
@@ -90,18 +72,9 @@ const RelatedGallery = ({ projects, sectionRef }) => {
         aria-label="Related projects. Use arrow keys or swipe to browse."
       >
         <div className="ds-related-track" data-track data-related-track>
-          {projects.map((project, index) => <RelatedCard key={project.id} project={project} index={index} />)}
+          {projects.map((project) => <RelatedCard key={project.id} project={project} />)}
         </div>
       </div>
-      <button className="ds-related-prev" type="button" data-carousel-prev="related" aria-controls="ds-related-viewport" aria-label="Previous related project">
-        <img src={PrevArrow} alt="" loading="lazy" />
-      </button>
-      <button className="ds-related-next" type="button" data-carousel-next="related" aria-controls="ds-related-viewport" aria-label="Next related project">
-        <img src={NextArrow} alt="" loading="lazy" />
-      </button>
-      <button className="ds-related-pause" type="button" data-carousel-toggle="related" aria-controls="ds-related-viewport" aria-label="Pause related projects" aria-pressed="false">
-        Pause
-      </button>
     </div>
   );
 };
