@@ -399,17 +399,9 @@ const StyleGuide = ({ image }) => (
       <p className="case-styleguide__sub" data-reveal>
         Typography, colour palette and brand marks that keep the product consistent.
       </p>
-      <a
-        className="case-styleguide__board"
-        href={image.src}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Open the design system image full size"
-        data-reveal
-      >
+      <div className="case-styleguide__board" data-reveal>
         <img className="case-styleguide__custom" src={image.src} alt={image.alt} loading="lazy" />
-        <span className="case-styleguide__view" aria-hidden="true">View full size ↗</span>
-      </a>
+      </div>
     </section>
     <Rule />
   </>
