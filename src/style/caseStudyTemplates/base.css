@@ -449,3 +449,15 @@
 .strix-case .case-styleguide__board:focus-visible{outline:2px solid #fff;outline-offset:4px}
 @media(max-width:620px){.strix-case .case-styleguide__sub{font-size:14px;padding-inline:8px}.strix-case a.case-styleguide__board:has(.case-styleguide__custom){border-radius:14px}.strix-case .case-styleguide__view{opacity:1;translate:0 0;font-size:11px;padding:6px 10px;right:10px;bottom:10px}}
 .strix-case .case-carousel-arrow:disabled{opacity:.3;cursor:default;transform:none}
+
+/* Meta cards: even columns, consistent padding, logo flows with the label */
+.strix-case .case-meta__item{display:flex;flex-direction:column;justify-content:flex-start}
+.strix-case .case-meta .case-meta__logo{position:static;margin:14px 0 0;align-self:flex-start}
+@media(min-width:1051px){
+.strix-case .case-meta{grid-template-columns:repeat(4,1fr);gap:16px;left:0;max-width:min(1332px,calc(100% - 64px));align-items:stretch}
+.strix-case .case-meta__item{height:auto;min-height:170px;padding:28px 32px}
+.strix-case .case-meta dt{line-height:1.3}
+.strix-case .case-meta dd{margin-top:16px;line-height:1.55}
+.strix-case .case-meta .case-meta__logo{width:160px;height:56px;margin-top:14px}
+.strix-case .case-meta__logo img{width:100%;height:100%;object-fit:contain;object-position:left center}
+}
