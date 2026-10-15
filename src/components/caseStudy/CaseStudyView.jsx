@@ -51,6 +51,90 @@ const lines = (text) =>
     </span>
   ));
 
+function ResponsiveGallery({ images }) {
+  const viewportRef = useRef(null);
+  const dragRef = useRef(null);
+  const [edge, setEdge] = useState({ start: true, end: false });
+
+  const update = () => {
+    const el = viewportRef.current;
+    if (!el) return;
+    setEdge({ start: el.scrollLeft <= 1, end: el.scrollLeft >= el.scrollWidth - el.clientWidth - 1 });
+  };
+
+  useEffect(() => {
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [images]);
+
+  const step = (direction) => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const card = el.querySelector('.case-phone');
+    const gap = parseFloat(getComputedStyle(el.firstElementChild).columnGap) || 0;
+    el.scrollBy({ left: direction * ((card?.getBoundingClientRect().width || el.clientWidth * 0.5) + gap), behavior: 'smooth' });
+  };
+
+  const onPointerDown = (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    dragRef.current = { x: event.clientX, left: viewportRef.current.scrollLeft };
+    viewportRef.current.classList.add('is-dragging');
+    viewportRef.current.setPointerCapture(event.pointerId);
+  };
+  const onPointerMove = (event) => {
+    if (!dragRef.current) return;
+    viewportRef.current.scrollLeft = dragRef.current.left - (event.clientX - dragRef.current.x);
+  };
+  const endDrag = () => {
+    dragRef.current = null;
+    viewportRef.current?.classList.remove('is-dragging');
+  };
+
+  return (
+    <>
+      <div
+        ref={viewportRef}
+        className="case-carousel case-responsive__viewport"
+        role="region"
+        aria-label="Responsive app screens. Scroll, drag or use the arrow controls to explore."
+        tabIndex={0}
+        onScroll={update}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
+          else if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+        }}
+      >
+        <div className="case-responsive__track">
+          {images.map((image, index) => (
+            <article key={`${image.src}-${index}`} className="case-phone">
+              <img src={image.src} alt={image.alt} draggable="false" loading="lazy" />
+            </article>
+          ))}
+        </div>
+      </div>
+      {images.length > 1 ? (
+        <div className="case-responsive__controls" aria-label="Responsive gallery controls">
+          <button className="case-carousel-arrow" type="button" disabled={edge.start} onClick={() => step(-1)} aria-label="Previous app screen">
+            <span className="case-carousel-arrow__left">
+              <img src={art('c175d.svg')} alt="" aria-hidden="true" loading="lazy" />
+            </span>
+          </button>
+          <button className="case-carousel-arrow" type="button" disabled={edge.end} onClick={() => step(1)} aria-label="Next app screen">
+            <span>
+              <img src={art('a8ad6.svg')} alt="" aria-hidden="true" loading="lazy" />
+            </span>
+          </button>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 const Rule = () => (
   <div className="case-section-rule" aria-hidden="true">
     <span>
@@ -312,9 +396,20 @@ const StyleGuide = ({ image }) => (
       <h2 id="case-styleguide-title" className="case-section-title" data-reveal>
         Styleguide / Design System
       </h2>
-      <div className="case-styleguide__board" data-reveal>
+      <p className="case-styleguide__sub" data-reveal>
+        Typography, colour palette and brand marks that keep the product consistent.
+      </p>
+      <a
+        className="case-styleguide__board"
+        href={image.src}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open the design system image full size"
+        data-reveal
+      >
         <img className="case-styleguide__custom" src={image.src} alt={image.alt} loading="lazy" />
-      </div>
+        <span className="case-styleguide__view" aria-hidden="true">View full size ↗</span>
+      </a>
     </section>
     <Rule />
   </>
@@ -685,11 +780,6 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
                   <h2 id="case-concepts-title" className="case-section-title" data-reveal>
                     {conceptsTitle}
                   </h2>
-                  {rowOne.length > 1 || rowTwo.length > 1 ? (
-                    <button className="case-motion-toggle" type="button" data-carousel-toggle="concepts" aria-label="Pause both concept galleries" aria-pressed="false">
-                      Pause
-                    </button>
-                  ) : null}
                 </header>
                 <div className="case-concepts__rows">
                   {rowOne.length ? <Gallery name="concepts-a" images={rowOne} direction="forward" align="center" speed="24" label={`${conceptsTitle} gallery, row one`} itemClass="case-concept" /> : null}
@@ -711,32 +801,7 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
                 <h2 id="case-responsive-title" className="case-section-title" data-reveal>
                   Responsive
                 </h2>
-                <div className="case-carousel case-responsive__viewport" data-carousel="responsive-gallery" data-direction="forward" data-initial-align="start" data-speed="26" role="region" aria-label="Responsive app screens. Drag or use the arrow controls to explore." tabIndex={0}>
-                  <div className="case-responsive__track" data-track>
-                    {record.responsiveImages.map((image, index) => (
-                      <article key={`${image.src}-${index}`} className="case-phone">
-                        <img src={image.src} alt={image.alt} draggable="false" loading="lazy" />
-                      </article>
-                    ))}
-                  </div>
-                </div>
-                {record.responsiveImages.length > 1 ? (
-                  <div className="case-responsive__controls" aria-label="Responsive gallery controls">
-                    <button className="case-carousel-arrow" type="button" data-carousel-prev="responsive-gallery" aria-label="Previous app screen">
-                      <span className="case-carousel-arrow__left">
-                        <img src={art('c175d.svg')} alt="" aria-hidden="true" loading="lazy" />
-                      </span>
-                    </button>
-                    <button className="case-carousel-arrow" type="button" data-carousel-next="responsive-gallery" aria-label="Next app screen">
-                      <span>
-                        <img src={art('a8ad6.svg')} alt="" aria-hidden="true" loading="lazy" />
-                      </span>
-                    </button>
-                    <button className="case-motion-toggle" type="button" data-carousel-toggle="responsive-gallery" aria-label="Pause responsive gallery" aria-pressed="false">
-                      Pause
-                    </button>
-                  </div>
-                ) : null}
+                <ResponsiveGallery images={record.responsiveImages.slice(0, 8)} />
               </section>
               <Rule />
             </>

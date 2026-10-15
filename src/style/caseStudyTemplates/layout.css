@@ -6,9 +6,9 @@
 .strix-case .case-tech-icon--blender img{position:absolute;left:-7px;top:-5.25px}
 .strix-case .case-tech-icon--text{width:auto;min-height:40px;padding:8px 12px;border:1px solid #555;border-radius:20px;font:500 12px/1.4 'CS Epilogue',sans-serif;overflow-wrap:anywhere}
 .strix-case[data-template="design-development"] .case-technologies{width:min(1206px,calc(100% - 64px))}
-.strix-case[data-template="design-development"] .case-tech-groups{display:grid;grid-template-columns:1fr 1.5fr 1fr;justify-content:space-between;gap:48px;width:100%}
-.strix-case[data-template="design-development"] .case-tech-group h3{white-space:nowrap;text-align:left;padding:0!important}
-.strix-case[data-template="design-development"] .case-tech-list{justify-content:flex-start}
+.strix-case[data-template="design-development"] .case-tech-groups{display:grid;grid-template-columns:1fr 1.5fr 1fr;justify-content:space-between;gap:48px;align-items:start;width:100%}
+.strix-case[data-template="design-development"] .case-tech-group h3{white-space:nowrap;text-align:center;padding:0!important}
+.strix-case[data-template="design-development"] .case-tech-list{justify-content:center;gap:24px}
 @media(max-width:1199px){.strix-case[data-template="design-development"] .case-tech-groups{gap:28px}.strix-case[data-template="design-development"] .case-tech-group h3{font-size:30px}.strix-case[data-template="design-development"] .case-tech-list{gap:14px}}
 @media(max-width:850px){.strix-case[data-template="design-development"] .case-tech-groups{grid-template-columns:minmax(0,1fr);gap:36px}.strix-case[data-template="design-development"] .case-tech-group h3{text-align:center}.strix-case[data-template="design-development"] .case-tech-list{justify-content:center;gap:20px;margin-top:22px}}
 @media(min-width:1280px){.strix-case .case-results{height:auto;min-height:514px}.strix-case .case-results-grid{grid-template-rows:none;grid-auto-rows:minmax(245px,auto)}}
