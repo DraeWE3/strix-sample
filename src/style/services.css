@@ -235,3 +235,13 @@
     margin-top: 12%;
     max-width: 60%;
 }
+
+@media (max-width: 700px) {
+  .sh-top {
+    overflow-x: clip;
+  }
+
+  .sh-top h1 {
+    min-width: min(30rem, 100%);
+  }
+}

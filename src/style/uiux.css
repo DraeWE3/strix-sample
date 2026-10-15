@@ -353,3 +353,22 @@
     z-index: 6;
 }
 
+
+@media (max-width: 600px) {
+  .returnNext {
+    gap: 8px;
+  }
+
+  .returnNext .ui-btn {
+    flex: 0 1 213px;
+    min-width: 0;
+    padding: 0 12px;
+  }
+
+  .returnNext .ui-btn-label {
+    font-size: 13px;
+    gap: 6px;
+    white-space: normal;
+    text-align: center;
+  }
+}

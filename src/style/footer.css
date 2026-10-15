@@ -313,3 +313,9 @@ font-size: 14px;
 .ft-links a:focus-visible .ft-num::after{
   transform: scaleX(1);
 }
+
+@media (max-width: 1100px) {
+  .ft-last h2 {
+    letter-spacing: 6vw;
+  }
+}

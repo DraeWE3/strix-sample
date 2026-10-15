@@ -188,7 +188,7 @@ const WebDesign = () => {
                         <div className="p-top-card">
                             <img src={CardImg} alt="" />
                             <div className="top-card-con">
-                                <img class="ui1" src={Cardcon1} alt="" />
+                                <img className="ui1" src={Cardcon1} alt="" />
                                 <p>E-commerce/Product Store</p>
                             </div>
                         </div>
@@ -212,7 +212,7 @@ const WebDesign = () => {
                         <div className="p-top-card">
                             <img src={CardImg} alt="" />
                             <div className="top-card-con">
-                                <img class="ui1" src={Cardcon3} alt="" />
+                                <img className="ui1" src={Cardcon3} alt="" />
                                 <p>E-Commerce/Newsletter Designs</p>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ const WebDesign = () => {
                         <div className="p-top-card">
                             <img src={CardImg} alt="" />
                             <div className="top-card-con">
-                                <img class="ui1" src={Cardcon4} alt="" />
+                                <img className="ui1" src={Cardcon4} alt="" />
                                 <p>Simple UI Interactive Designs</p>
                             </div>
                         </div>

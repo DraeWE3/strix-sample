@@ -243,7 +243,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon1} alt="SaaS Interfaces" />
+                <img className="ui1" src={Cardcon1} alt="SaaS Interfaces" />
                 <p>SaaS Interfaces</p>
               </div>
             </div>
@@ -267,7 +267,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon3} alt="Enterprise Applications" />
+                <img className="ui1" src={Cardcon3} alt="Enterprise Applications" />
                 <p>Enterprise Applications</p>
               </div>
             </div>
@@ -279,7 +279,7 @@ const Uiux = () => {
             <div className="p-top-card">
               <img src={CardImg} alt="" />
               <div className="top-card-con">
-                <img class="ui1" src={Cardcon4} alt="User Flows & Wireframes" />
+                <img className="ui1" src={Cardcon4} alt="User Flows & Wireframes" />
                 <p>User Flows & Wireframes</p>
               </div>
             </div>

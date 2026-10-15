@@ -142,3 +142,8 @@
       height: 1rem;
     }
   }
+@media (max-width: 680px) {
+  .comming {
+    position: relative;
+  }
+}

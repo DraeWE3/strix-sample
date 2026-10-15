@@ -201,3 +201,15 @@
     display: none;
   }
 }
+
+@media (pointer: coarse) {
+  .hamburger.ui-btn-icon-only {
+    position: relative;
+  }
+
+  .hamburger.ui-btn-icon-only::after {
+    content: "";
+    position: absolute;
+    inset: -7px 0;
+  }
+}

@@ -378,3 +378,9 @@
 /* Loading state styling */
 
 /* Responsive adjustments */
+
+@media (max-width: 700px) {
+  .project-carousel-con {
+    overflow-x: clip;
+  }
+}
