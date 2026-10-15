@@ -1,0 +1,40 @@
+.case-study-page {
+  background: #000;
+  color: #fff;
+}
+
+.case-study-page .case-state {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 160px 24px 80px;
+  text-align: center;
+}
+
+.case-study-page .case-state h1 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 500;
+}
+
+.case-study-page .case-state p {
+  color: #999;
+}
+
+.case-study-page .case-state__action {
+  padding: 12px 28px;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.case-study-page .case-state__action:hover,
+.case-study-page .case-state__action:focus-visible {
+  background: #fff;
+  color: #000;
+}

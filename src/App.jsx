@@ -10,6 +10,8 @@ import CaseStudy from "./pages/caseStudy";
 import "./style/services.css";
 // Shared styles for the service pages and case study (previously loaded via the old Projects page)
 import "./style/Project.css";
+// Classes from the previous case study page are still shared by the service pages
+import "./style/caseStudy.css";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import Uiux from "./pages/designServices/uiux";

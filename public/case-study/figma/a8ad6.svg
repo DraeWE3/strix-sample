@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 1261153243">
+<rect x="0.5625" y="0.5625" width="37.875" height="37.875" rx="18.9375" stroke="url(#paint0_linear_0_266)" stroke-width="1.125"/>
+<path id="Arrow 33" d="M12 18.75C11.5858 18.75 11.25 19.0858 11.25 19.5C11.25 19.9142 11.5858 20.25 12 20.25V19.5V18.75ZM27.5303 20.0303C27.8232 19.7374 27.8232 19.2626 27.5303 18.9697L22.7574 14.1967C22.4645 13.9038 21.9896 13.9038 21.6967 14.1967C21.4038 14.4896 21.4038 14.9645 21.6967 15.2574L25.9393 19.5L21.6967 23.7426C21.4038 24.0355 21.4038 24.5104 21.6967 24.8033C21.9896 25.0962 22.4645 25.0962 22.7574 24.8033L27.5303 20.0303ZM12 19.5V20.25L27 20.25V19.5V18.75L12 18.75V19.5Z" fill="url(#paint1_linear_0_266)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_266" x1="0" y1="19.5" x2="39" y2="19.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_266" x1="27.8654" y1="19.5" x2="12" y2="19.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#999999"/>
+</linearGradient>
+</defs>
+</svg>

@@ -1,0 +1,183 @@
+.strix-case[data-template="mvp"] .mvp-shipped {
+  width: min(1208px, calc(100% - 48px));
+  margin-inline: auto;
+  color: #fff;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped .mvp-shipped__title {
+  margin: 0 0 51px;
+  font-family: 'CS Clash Display', sans-serif;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 84px;
+  letter-spacing: 2.8px;
+  text-align: center;
+  color: transparent;
+  background: linear-gradient(180.034deg, #fff 28.161%, #999 105.48%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__content {
+  display: grid;
+  grid-template-columns: minmax(0, 611fr) minmax(0, 597fr);
+  align-items: start;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__list {
+  position: relative;
+  width: calc(100% + 57px);
+  margin: 38px 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'CS Epilogue', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -0.36px;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__list li {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 52.94px;
+  padding: 10px 76px 10px 19px;
+  border-bottom: 1px solid rgb(138 134 128 / 13%);
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 18.48px;
+  letter-spacing: 0;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__card {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  height: 340px;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgb(138 134 128 / 13%);
+  border-radius: 6px;
+  background: #141414;
+  box-shadow: 0 0 23.9px rgb(255 255 255 / 66%);
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(179.669deg, #000 0.502%, transparent 25.689%),
+    linear-gradient(180.19deg, transparent 55.555%, #000 99.711%);
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__caption {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__label {
+  position: absolute;
+  top: 14px;
+  right: 24px;
+  left: 24px;
+  margin: 0;
+  font-family: 'CS Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__result {
+  position: absolute;
+  right: 47px;
+  bottom: 19px;
+  left: 47px;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__eyebrow {
+  margin: 0 0 9px;
+  font-family: 'CS Epilogue', sans-serif;
+  font-size: 10.4px;
+  font-weight: 800;
+  line-height: 17.16px;
+  letter-spacing: 3.12px;
+  text-transform: uppercase;
+}
+
+.strix-case[data-template="mvp"] .mvp-shipped__outcome {
+  margin: 0;
+  font-family: 'CS Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28.6px;
+  color: #eae4d8;
+}
+
+@media (max-width: 850px) {
+  .strix-case[data-template="mvp"] .mvp-shipped .mvp-shipped__title {
+    margin-bottom: 28px;
+    font-size: clamp(30px, 6.4vw, 44px);
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__list {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__list li {
+    padding-right: 0;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__card {
+    height: auto;
+    min-height: 300px;
+    aspect-ratio: 597 / 340;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__caption {
+    position: absolute;
+    inset: 0;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__result {
+    right: 23px;
+    bottom: 23px;
+    left: 23px;
+  }
+
+  .strix-case[data-template="mvp"] .mvp-shipped__outcome {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+}

@@ -980,9 +980,11 @@ const CaseStudyForm = ({ projects, editingItem, setEditingItem, setShowForm, loa
             )}
           </div>
           <div className="form-group">
-            <label className="form-label">Hero Thumbnail</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'heroThumbnail')} className="form-input-file" />
-            {formData.heroThumbnail && <img src={formData.heroThumbnail} className="image-preview" alt="Hero" />}
+            <label className="form-label">Hero Thumbnail (image or video)</label>
+            <input type="file" accept="image/*,video/*" onChange={(e) => handleFileUpload(e, 'heroThumbnail')} className="form-input-file" />
+            {formData.heroThumbnail && (/\.(mp4|webm|mov|m4v|ogv)(\?|#|$)|\/video\/upload\//i.test(formData.heroThumbnail)
+              ? <video src={formData.heroThumbnail} className="image-preview" autoPlay muted loop playsInline />
+              : <img src={formData.heroThumbnail} className="image-preview" alt="Hero" />)}
           </div>
         </div>
 

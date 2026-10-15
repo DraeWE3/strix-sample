@@ -1,0 +1,8 @@
+Source: https://fonts.googleapis.com/css2?family=42dot+Sans:wght@500&display=swap
+@font-face {
+  font-family: '42dot Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/42dotsans/v6/BXR7vFK-2v7FnQ1xTYUJy2T9rRBKbpqjqRjrYkNS.ttf) format('truetype');
+}

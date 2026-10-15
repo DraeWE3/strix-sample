@@ -1,0 +1,21 @@
+/* Shared CMS-content resilience; no change to the Figma sample composition. */
+.strix-case [hidden]{display:none!important}
+.strix-case .case-hero__title,.strix-case .case-process__step h3,.strix-case .case-result h3{overflow-wrap:anywhere}
+.strix-case .case-hero-arch__rim{display:none}
+.strix-case .case-tech-icon--blender{position:relative;width:42px;height:34px}
+.strix-case .case-tech-icon--blender img{position:absolute;left:-7px;top:-5.25px}
+.strix-case .case-tech-icon--text{width:auto;min-height:40px;padding:8px 12px;border:1px solid #555;border-radius:20px;font:500 12px/1.4 'CS Epilogue',sans-serif;overflow-wrap:anywhere}
+.strix-case[data-template="design-development"] .case-technologies{width:min(1206px,calc(100% - 64px))}
+.strix-case[data-template="design-development"] .case-tech-groups{display:grid;grid-template-columns:1fr 1.5fr 1fr;justify-content:space-between;gap:48px;width:100%}
+.strix-case[data-template="design-development"] .case-tech-group h3{white-space:nowrap;text-align:left;padding:0!important}
+.strix-case[data-template="design-development"] .case-tech-list{justify-content:flex-start}
+@media(max-width:1199px){.strix-case[data-template="design-development"] .case-tech-groups{gap:28px}.strix-case[data-template="design-development"] .case-tech-group h3{font-size:30px}.strix-case[data-template="design-development"] .case-tech-list{gap:14px}}
+@media(max-width:850px){.strix-case[data-template="design-development"] .case-tech-groups{grid-template-columns:minmax(0,1fr);gap:36px}.strix-case[data-template="design-development"] .case-tech-group h3{text-align:center}.strix-case[data-template="design-development"] .case-tech-list{justify-content:center;gap:20px;margin-top:22px}}
+@media(min-width:1280px){.strix-case .case-results{height:auto;min-height:514px}.strix-case .case-results-grid{grid-template-rows:none;grid-auto-rows:minmax(245px,auto)}}
+@media(min-width:601px){.strix-case main{padding-top:242px}}
+@media(max-width:600px){.strix-case main{padding-top:208px}}
+@media(min-width:1051px){.strix-case .case-hero__tags{margin:4px 0 80.6px}}
+.strix-case[data-template="production"] .production-related__label .production-related__name{height:auto;min-height:24px;padding-bottom:8px;line-height:1.3;overflow:visible}
+.strix-case[data-template="production"] .production-related__label.production-related__label{gap:16px!important}
+.strix-case .case-next-ring{border:1px solid rgba(255,255,255,.3);border-radius:50%}
+.strix-case .case-next-ring>span{display:none}
