@@ -456,3 +456,40 @@
 .service-detail-shell .ds-related-card-go{top:14px;right:14px;bottom:auto;width:38px;height:38px;font-size:18px;opacity:0;scale:.7;transition:opacity .3s,scale .3s,background .3s,color .3s}
 .service-detail-shell .ds-related-card:hover .ds-related-card-go,.service-detail-shell .ds-related-card:focus-visible .ds-related-card-go{opacity:1;scale:1}
 .service-detail-shell .ds-related-card-info{right:20px}
+
+/* ---- Mobile polish (phones only; desktop/tablet untouched) ---- */
+@media(max-width:600px){
+.service-detail-shell .ds-why-unified{height:auto;min-height:245px;padding:34px 18px 30px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.service-detail-shell .ds-why-unified h3,.service-detail-shell .ds-why-unified>p{position:relative;top:auto;left:auto;transform:none;width:100%}
+.service-detail-shell .ds-why-unified h3{font-size:26px;line-height:1.25;letter-spacing:1px}
+.service-detail-shell .ds-why-unified>p{font-size:15px;line-height:26px}
+.service-detail-shell .ds-why-grid>.ds-why-card{height:auto;min-height:254px}
+.service-detail-shell .ds-why-verified{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:26px 12px 22px}
+.service-detail-shell .ds-why-verified .ds-why-badges{position:relative;top:auto;left:auto;transform:scale(.85);transform-origin:center;margin:-6px 0}
+.service-detail-shell .ds-why-verified .ds-why-card-caption{position:relative;top:auto;left:auto;transform:none;width:100%;max-width:100%}
+.service-detail-shell .ds-why-rating,.service-detail-shell .ds-why-projects{padding:0 12px}
+.service-detail-shell .ds-rating-stars{font-size:min(44px,11vw);letter-spacing:0;white-space:nowrap;text-align:center}
+.service-detail-shell .ds-why-rating-arrow{right:16px;bottom:16px}
+.service-detail-shell .ds-why-projects h3{font-size:44px}
+.service-detail-shell .ds-why-card-caption{width:92%}
+.service-detail-shell .service-hero h1{width:calc(100% - 32px);overflow-wrap:anywhere}
+.service-detail-shell .service-offer__description{max-width:min(310px,100%)}
+.service-detail-shell .service-pager a{min-height:44px;white-space:nowrap}
+.service-detail-shell .ds-contact-copy{height:auto;min-height:215px;padding-bottom:12px}
+.service-detail-shell .ds-contact-kicker{position:relative;width:100%;height:auto;justify-content:center;padding-left:0;text-align:center}
+.service-detail-shell .ds-contact-kicker:before{position:static;transform:none;margin-right:8px}
+.service-detail-shell .ds-contact-statement{position:relative;top:auto;left:auto;margin:12px 0 0;width:100%;max-width:100%;height:auto;display:block;text-align:center}
+.service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{display:block;width:100%;white-space:normal;overflow-wrap:break-word;text-wrap:balance;padding:24px 0}
+.service-detail-shell .ds-project-orb{margin:0 auto}
+.service-detail-shell .ds-appointment{max-width:100%}
+.service-detail-shell .ds-call-contact>h2{width:100%}
+.service-detail-shell .ds-call-contact>a{padding:0 12px;font-size:min(12vw,56px)}
+}
+@media(max-width:360px){
+.service-detail-shell .service-hero h1{font-size:36px}
+.service-detail-shell .ds-why>h2{font-size:36px}
+.service-detail-shell .ds-why-unified h3{font-size:23px}
+.service-detail-shell .ds-rating-stars{font-size:10vw}
+.service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{font-size:29px}
+.service-detail-shell .ds-contact-statement{font-size:23px;line-height:36px}
+}
