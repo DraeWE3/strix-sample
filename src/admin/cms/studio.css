@@ -8,3 +8,6 @@
 
 /* Integration: Firebase accounts often have only an email for a name; keep the avatar round and truncate long names. */
 .user .avatar{flex-shrink:0}.user>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Integration: the site's white "S" monogram (src/assets/img/layout/Header-s.webp) replaces the text mark; inverted on the light loading screen. */
+.brand-mark img{height:30px;width:auto;display:block}.loading-screen .brand-mark{margin:0 auto}.loading-screen .brand-mark img{filter:invert(1)}
