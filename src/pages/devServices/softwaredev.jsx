@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
 import Footer from '../../components/Footer'
@@ -97,8 +98,7 @@ const SoftwareDev = () => {
   return (
     <div>
       <SEO
-        title="Custom Software Development Services for Startups"
-        description="Strix delivers reliable, scalable custom software solutions, from web applications to enterprise platforms, built with modern tech to match your business goals."
+        {...pageMeta['/softwaredev']}
         canonical="https://www.strixproduction.com/softwaredev"
  />
       <Nav />

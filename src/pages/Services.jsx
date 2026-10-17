@@ -4,6 +4,7 @@ import "../style/services-page.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { pageMeta } from "../data/pageMeta";
 import useScrollReveal from "../animations/useScrollReveal";
 import ServicesBackdrops from "../components/services/ServicesBackdrops";
 import ServicesHero from "../components/services/ServicesHero";
@@ -30,8 +31,7 @@ const Services = () => {
   return (
     <div>
       <SEO
-        title="Services"
-        description="Design, development and production under one roof. Explore Strix Production’s UI/UX design, web development, MVP, motion design and video production services."
+        {...pageMeta['/services']}
         canonical="https://www.strixproduction.com/services"
       />
       <Nav />

@@ -2,10 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../style/home.css'
 import { ADMIN_URL } from './AdminRedirect'
+import SEO from './SEO'
 
 const Url = () => {
   return (
     <div className='url-con'>
+      <SEO title="Site Links" noindex />
       <Link to='/mvp'>MVP</Link>
       <Link to='/services'>Services</Link>
       <Link to="/about">About</Link>

@@ -28,6 +28,7 @@ import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import FAQ from "../../components/FAQ";
 
 
@@ -151,8 +152,7 @@ const WebApp = () => {
   return (
     <div>
       <SEO
-        title="SaaS Web Application Development Services"
-        description="Expert SaaS web application development services to build scalable, secure, and high-performing web apps that accelerate your business growth."
+        {...pageMeta['/webapp']}
         schema={faqSchema}
  />
       <Nav />

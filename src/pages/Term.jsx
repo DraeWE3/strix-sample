@@ -3,6 +3,7 @@ import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
 import SEO from '../components/SEO'
+import { pageMeta } from '../data/pageMeta'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/shared/sr-img.webp'
 import RotateCardsScroll from '../animations/RotateCardsScroll'
@@ -16,8 +17,7 @@ const Term = () => {
   return (
     <div>
       <SEO
-        title="Terms and Conditions for Using Strix Services"
-        description="Review the terms and conditions governing the use of Strix Production's website, creative services, and digital solutions before engaging with our studio."
+        {...pageMeta['/term']}
         canonical="https://www.strixproduction.com/term"
       />
             <Nav />

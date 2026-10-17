@@ -1,0 +1,15 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+DirectorySlash Off
+
+RewriteEngine On
+
+RewriteRule ^$ index.html [L]
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+RewriteRule ^ app.html [L]

@@ -3,6 +3,7 @@ import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
 import SEO from '../components/SEO'
+import { pageMeta } from '../data/pageMeta'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/shared/sr-img.webp'
 import RotateCardsScroll from '../animations/RotateCardsScroll'
@@ -16,8 +17,7 @@ const Policy = () => {
   return (
     <div>
       <SEO
-        title="Privacy Policy for Strix Production Services"
-        description="Read the Strix Production privacy policy to understand how we collect, use, and protect your personal data in compliance with applicable digital privacy laws."
+        {...pageMeta['/policy']}
         canonical="https://www.strixproduction.com/policy"
       />
             <Nav />

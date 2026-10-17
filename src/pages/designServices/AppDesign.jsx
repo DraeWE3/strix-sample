@@ -3,6 +3,8 @@ import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Footer from '../../components/Footer'
+import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import Blur1 from '../../assets/img/shared/p-blur2.png'
 import Blur2 from '../../assets/img/shared/p-blur1.png'
 import Blur3 from '../../assets/img/shared/Ellipse 7.png'
@@ -97,6 +99,9 @@ const AppDesign = () => {
   return (
     <div>
       <Nav />
+      <SEO
+        {...pageMeta['/appdesign']}
+      />
       <SlideInFramerOnLoad />
       <ScrollAnimation />
       <RotateCardsScroll />

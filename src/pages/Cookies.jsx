@@ -2,6 +2,8 @@ import Button from '../components/Button'
 import React from 'react'
 import Nav from '../components/Navbar'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
+import { pageMeta } from '../data/pageMeta'
 import { ArrowLeft } from 'lucide-react';
 import Circleblur from '../assets/img/shared/sr-img.webp'
 import RotateCardsScroll from '../animations/RotateCardsScroll'
@@ -14,6 +16,9 @@ import "../style/note.css"
 const Cookies = () => {
   return (
     <div>
+            <SEO
+              {...pageMeta['/cookies']}
+            />
             <Nav />
             <SlideInFramerOnLoad />
             <ScrollAnimation />

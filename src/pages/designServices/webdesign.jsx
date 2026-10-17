@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
 import Footer from '../../components/Footer'
@@ -98,8 +99,7 @@ const WebDesign = () => {
     return (
         <div>
             <SEO
-              title="Professional Web Design Services for Businesses"
-              description="Strix builds visually striking, conversion-focused websites tailored to your brand, combining creative design with solid development for a powerful online presence."
+              {...pageMeta['/webdesign']}
               canonical="https://www.strixproduction.com/webdesign"
  />
             <Nav />

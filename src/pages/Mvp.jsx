@@ -5,6 +5,7 @@ import "../style/mvp.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { pageMeta } from "../data/pageMeta";
 import useScrollReveal from "../animations/useScrollReveal";
 import { useProjects } from "../lib/projects";
 import MvpBackdrops from "../components/mvp/MvpBackdrops";
@@ -42,8 +43,7 @@ const Mvp = () => {
   return (
     <div>
       <SEO
-        title="Full-Stack MVP Development Company | Custom MVP Development Services"
-        description="Full-stack MVP development company providing custom MVP development services to turn your ideas into scalable, market-ready products fast and efficiently."
+        {...pageMeta['/mvp']}
         schema={faqSchema}
       />
       <Nav />

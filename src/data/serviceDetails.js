@@ -84,8 +84,8 @@ export const serviceDetails = {
     title: "UI/UX Design",
     navLabel: "UI/UX Design",
     seo: {
-      title: "UI/UX Design Services for Web & Mobile Apps",
-      description: "Strix crafts intuitive and visually compelling UI/UX designs for web and mobile apps, helping businesses improve usability, user retention, and digital impact.",
+      title: "UI/UX Design for Websites, Apps & E-Commerce",
+      description: "Strix designs corporate websites, mobile apps, landing pages and e-commerce experiences backed by user behaviour, built to lift conversions and retention.",
     },
     hero: {
       ...VIEW_WORK_AND_SHOWREEL,
@@ -133,8 +133,8 @@ export const serviceDetails = {
     title: "Product Design",
     navLabel: "Product Design",
     seo: {
-      title: "Custom SaaS Product Development Company | SaaS Product Design Agency",
-      description: "Custom SaaS product development company and SaaS product design agency delivering innovative, scalable solutions to bring your software ideas to life.",
+      title: "SaaS Product Design: Interfaces & Dashboards",
+      description: "Strix designs SaaS interfaces, dashboards, enterprise applications, user flows and wireframes, built component-first so developers can ship without guesswork.",
     },
     hero: {
       ...VIEW_WORK,
@@ -236,7 +236,7 @@ export const serviceDetails = {
     title: "Creative Designs",
     navLabel: "Creative Design",
     seo: {
-      title: "Creative Design Services — Graphics, Thumbnails & Presentations",
+      title: "Graphics, Thumbnail & Presentation Design",
       description: "Strix blends next-gen visuals with strategy, crafting high-impact graphics, thumbnails and presentations that help your brand stand out.",
     },
     hero: {
@@ -338,7 +338,7 @@ export const serviceDetails = {
     title: "3D Design",
     navLabel: "3D Design",
     seo: {
-      title: "3D Design, Product Renders & Real Estate Visualization",
+      title: "3D Product Renders & Real Estate Visualization",
       description: "Strix creates photoreal 3D product renders, real estate visualizations and 3D models that show products and spaces before they exist.",
     },
     hero: {
@@ -374,8 +374,8 @@ export const serviceDetails = {
     title: "Web Applications",
     navLabel: "Web App",
     seo: {
-      title: "SaaS Web Application Development Services",
-      description: "Expert SaaS web application development services to build scalable, secure, and high-performing web apps that accelerate your business growth.",
+      title: "Web App Development: SaaS MVPs, AI & Dashboards",
+      description: "Strix builds SaaS MVPs, custom AI tools, workflow automation and dashboards: scalable web applications engineered to handle real growth without a rebuild.",
     },
     hero: {
       ...VIEW_WORK,
@@ -405,7 +405,7 @@ export const serviceDetails = {
     title: "App Development",
     navLabel: "App Dev",
     seo: {
-      title: "Mobile App Development Services — iOS, Android & Cross-Platform",
+      title: "Cross-Platform Mobile App Development",
       description: "Strix delivers powerful mobile applications with sleek performance, robust backends and cross-platform reach, from idea to app store.",
     },
     hero: {
@@ -466,7 +466,7 @@ export const serviceDetails = {
     title: "Website Development",
     navLabel: "Web Dev",
     seo: {
-      title: "Website Development Services — Front-End & Back-End",
+      title: "Front-End & Back-End Website Development",
       description: "Strix develops websites that blend speed, security and scalability, built with clean code and optimized for long-term growth.",
     },
     hero: {
@@ -498,8 +498,8 @@ export const serviceDetails = {
     title: "SaaS AI Development",
     navLabel: "Software Dev",
     seo: {
-      title: "Custom Software Development Services for Startups",
-      description: "Strix delivers reliable, scalable custom software solutions, from web applications to enterprise platforms, built with modern tech to match your business goals.",
+      title: "Custom Software, API & Backend Development",
+      description: "Strix builds SaaS AI products, custom business software, API integrations, enterprise systems and backends, fully documented and handed over clean.",
     },
     hero: {
       ...VIEW_WORK,

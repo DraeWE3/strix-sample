@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import { pageMeta } from '../data/pageMeta';
 import LogoLoop from '../components/Loop';
 import ContactFounderPanel from '../components/ContactFounderPanel';
 import ContactForm from '../components/ContactForm';
@@ -15,8 +16,7 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <SEO
-        title="Contact Strix for Design & Development Services"
-        description="Ready to start your next project? Connect with the Strix team for tailored design, development, and production solutions that align with your brand objectives."
+        {...pageMeta['/contact']}
         canonical="https://www.strixproduction.com/contact"
       />
       <a className="skip-link" href="#contact-form">Skip to project form</a>

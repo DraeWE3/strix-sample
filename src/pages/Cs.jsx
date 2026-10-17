@@ -2,6 +2,7 @@ import Button from "../components/Button";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Nav from "../components/Navbar";
+import SEO from "../components/SEO";
 import Css from "../assets/img/work/cs.webp";
 import "../style/cs.css";
 import Cicon from "../assets/img/shared/c-icon.webp";
@@ -71,6 +72,11 @@ const Cs = () => {
 
   return (
     <div ref={containerRef} className="comming">
+      <SEO
+        title="Coming Soon"
+        description="This Strix Production page is under construction. Follow Strix on social media for updates on our design, development and production work."
+        noindex
+      />
       <Nav />
       <h1 ref={heading1Ref}>Coming soon!</h1>
       <h2 ref={heading2Ref}>

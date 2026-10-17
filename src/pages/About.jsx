@@ -4,6 +4,7 @@ import "../style/about.css";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { pageMeta } from "../data/pageMeta";
 import useScrollReveal from "../animations/useScrollReveal";
 import AboutBackdrops from "../components/about/AboutBackdrops";
 import AboutHero from "../components/about/AboutHero";
@@ -24,8 +25,7 @@ const About = () => {
   return (
     <div>
       <SEO
-        title="About Us"
-        description="Meet Strix Production: a design, development and production studio for startups, SaaS and technology teams. Explore our people, process and selected work."
+        {...pageMeta['/about']}
         canonical="https://www.strixproduction.com/about"
       />
       <Nav />

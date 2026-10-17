@@ -42,6 +42,7 @@ import Shadow4 from '../assets/img/home/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
 import SEO from "../components/SEO";
+import { pageMeta } from "../data/pageMeta";
 import FAQ from "../components/FAQ";
 import "../style/home-page.css";
 import ShowreelDialog from "../components/ShowreelDialog";
@@ -478,8 +479,7 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="End-to-End SaaS Development Company"
-        description="End-to-end SaaS development company delivering full-cycle solutions from concept to launch, helping startups and businesses build scalable, high-performance platforms."
+        {...pageMeta['/']}
         schemas={[organizationSchema, localBusinessSchema, faqSchema]}
  />
       <Nav />

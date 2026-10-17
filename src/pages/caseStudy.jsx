@@ -45,13 +45,16 @@ const CaseStudy = () => {
     <div className="case-study-page">
       <Nav />
       {status === 'loading' && (
-        <div className="case-state" role="status" aria-live="polite">
-          <p>Loading case study…</p>
-        </div>
+        <>
+          <SEO title="Case Study" description="A Strix Production case study covering the client brief, our design and development approach, and the results delivered for the brand." />
+          <div className="case-state" role="status" aria-live="polite">
+            <p>Loading case study…</p>
+          </div>
+        </>
       )}
       {status === 'error' && (
         <>
-          <SEO title="Case study unavailable" noindex />
+          <SEO title="Case study unavailable" description="This Strix Production case study could not be loaded right now. Please try again or browse our other projects." noindex />
           <StateMessage
             title="We couldn't load this case study"
             action={
@@ -66,7 +69,7 @@ const CaseStudy = () => {
       )}
       {status === 'not-found' && (
         <>
-          <SEO title="Case study not found" noindex />
+          <SEO title="Case study not found" description="This Strix Production case study is unavailable. It may have been moved or unpublished. Browse our other projects instead." noindex />
           <StateMessage
             title="Case study not found"
             action={
@@ -83,7 +86,7 @@ const CaseStudy = () => {
         <>
           <SEO
             title={`${record.title} — Case Study`}
-            description={record.seo.description}
+            description={record.seo.description || `Explore the ${record.title} case study by Strix Production: the challenge, our design and development approach, and the results delivered.`}
             canonical={canonical}
             ogImage={record.seo.image || undefined}
             type="article"

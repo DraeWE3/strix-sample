@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
 import Footer from '../../components/Footer'
@@ -152,8 +153,7 @@ const Uiux = () => {
   return (
     <div>
       <SEO
-        title="UI/UX Design Services for Web & Mobile Apps"
-        description="Strix crafts intuitive and visually compelling UI/UX designs for web and mobile apps, helping businesses improve usability, user retention, and digital impact."
+        {...pageMeta['/uiux']}
         canonical="https://www.strixproduction.com/uiux"
         schema={faqSchema}
  />

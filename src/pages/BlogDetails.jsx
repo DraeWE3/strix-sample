@@ -71,9 +71,9 @@ const useActiveHeading = (headings) => {
   return [activeId, setActiveId];
 };
 
-const ArticleState = ({ title, children, noindex }) => (
+const ArticleState = ({ title, description, children, noindex }) => (
   <div>
-    <SEO title={title} noindex={noindex} />
+    <SEO title={title} description={description} noindex={noindex} />
     <Nav />
     <div className="blog-shell article-shell">
       <main className="article-page article-page--state">
@@ -116,7 +116,7 @@ const BlogDetails = () => {
 
   if (loading) {
     return (
-      <ArticleState title="Blog">
+      <ArticleState title="Blog Article" description="An article from the Strix Production blog with insights on UI/UX design, web development, branding and video production for startups and brands.">
         <div className="article-loading" role="status" aria-live="polite">
           <span className="article-loading__title" />
           <span className="article-loading__cover" />
@@ -129,7 +129,11 @@ const BlogDetails = () => {
   if (!blog) {
     const failed = Boolean(error);
     return (
-      <ArticleState title={failed ? 'Blog unavailable' : 'Article not found'} noindex>
+      <ArticleState
+        title={failed ? 'Blog unavailable' : 'Article not found'}
+        description={failed ? 'This Strix Production blog article could not be loaded right now. Please try again or explore the latest stories on the blog.' : 'This Strix Production blog article is unavailable. It may have been moved or unpublished. Explore the latest stories on the blog.'}
+        noindex
+      >
         <header className="article-hero article-hero--state">
           <h1>{failed ? 'Something went wrong' : 'Article not found'}</h1>
         </header>

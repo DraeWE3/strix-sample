@@ -2,12 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 import "../style/notFound.css";
 import { motion } from "framer-motion";
 
 const NotFound = () => {
     return (
         <div className="notfound-page">
+            <SEO
+                title="Page Not Found"
+                description="The page you are looking for does not exist or has moved. Return to the Strix Production homepage to explore our design, development and production work."
+                noindex
+            />
             <Nav />
             <main className="notfound-content">
                 <motion.div

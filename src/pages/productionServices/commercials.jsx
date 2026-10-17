@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import Circleblur from '../../assets/img/shared/sr-img.webp'
 import Connect from '../../assets/img/shared/connect.svg'
 import Footer from '../../components/Footer'
@@ -97,8 +98,7 @@ const Commercials = () => {
   return (
     <div>
       <SEO
-        title="Commercial Video Production for Brands & Ads"
-        description="Strix produces high-quality brand commercials and advertising videos from concept to final cut, helping businesses captivate audiences and strengthen brand recall."
+        {...pageMeta['/commercials']}
         canonical="https://www.strixproduction.com/commercials"
  />
       <Nav />

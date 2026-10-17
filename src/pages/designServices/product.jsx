@@ -30,6 +30,7 @@ import ScrollAnimation from '../../animations/scrollReveal'
 import SlideInFramerOnLoad from '../../animations/SlideInFramerOnLoad'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO'
+import { pageMeta } from '../../data/pageMeta'
 import FAQ from "../../components/FAQ";
 
 
@@ -154,8 +155,7 @@ const Product = () => {
   return (
     <div>
       <SEO
-        title="Custom SaaS Product Development Company | SaaS Product Design Agency"
-        description="Custom SaaS product development company and SaaS product design agency delivering innovative, scalable solutions to bring your software ideas to life."
+        {...pageMeta['/product']}
         schema={faqSchema}
  />
       <Nav />

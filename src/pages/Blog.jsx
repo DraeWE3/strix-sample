@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import { pageMeta } from '../data/pageMeta';
 import BlogCard from '../components/blog/BlogCard';
 import BlogSidebar, { ALL_TOPICS, SAVED_TOPIC } from '../components/blog/BlogSidebar';
 import { useSavedBlogs } from '../components/blog/savedBlogs';
@@ -94,8 +95,7 @@ const Blog = () => {
   return (
     <div>
       <SEO
-        title="Design, Tech & Creative Strategy Insights"
-        description="Read expert articles on UI/UX design, web development, branding, and digital marketing trends from the creative minds at Strix Production."
+        {...pageMeta['/blog']}
         canonical={`${BLOG_SITE_URL}/blog`}
       />
       <Nav />
