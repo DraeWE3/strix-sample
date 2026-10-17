@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../style/home.css'
+import { ADMIN_URL } from './AdminRedirect'
 
 const Url = () => {
   return (
@@ -11,7 +12,7 @@ const Url = () => {
       <Link to="/works">Project</Link>
       <Link to="/caseStudy">CaseStudy</Link>
       <Link to="/uiux">Uiux</Link>
-      <Link to="/admin">Admin</Link>
+      <a href={ADMIN_URL}>Admin</a>
       <Link to="/blog">Blog</Link>
       <Link to="/blogd">Blog Details</Link>
     </div>

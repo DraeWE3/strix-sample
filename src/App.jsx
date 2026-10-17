@@ -23,7 +23,9 @@ import CreativeDesign from "./pages/designServices/cDesign";
 import About from "./pages/About";
 import Contact from "./pages/contact";
 import Url from "./components/route";
-import AdminPanel from "./admin/admin";
+import AdminRedirect from "./components/AdminRedirect";
+// Public pages rely on this stylesheet's global resets (`*` margins, `.tab`, `.card-title`)
+import "./admin/style/admin.css";
 import Blog from "./pages/Blog";
 import BlogDetails from "./pages/BlogDetails";
 import Mvp from "./pages/Mvp";
@@ -60,7 +62,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Url" element={<Url />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/*" element={<AdminRedirect />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/mvp" element={<Mvp />} />
           <Route path="/cookies" element={<Cookies />} />
