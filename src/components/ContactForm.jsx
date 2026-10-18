@@ -150,14 +150,30 @@ const ContactForm = () => {
 
   if (submitted) {
     return (
-      <section className="form-panel" aria-labelledby="form-title">
+      <section className="form-panel" aria-labelledby="success-title">
         <div className="success-panel" ref={successRef} tabIndex={-1}>
-          <span className="success-mark"><Check size={28} /></span>
+          <span className="success-mark"><Check size={28} strokeWidth={2.5} /></span>
           <p className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
-          <h2>Great things<br />are on the way.</h2>
-          <p>Your inquiry is in. We’ll review your project and reply to <strong>{submitted.email}</strong> with the next steps.</p>
-          <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book a discovery call" arrow />
-          <Button text="Send another inquiry" onClick={resetForm} />
+          <h2 id="success-title">Great things<br />are on the way.</h2>
+          <p className="success-copy">Your inquiry is in. We’ll review your project and reply to <strong>{submitted.email}</strong> with the next steps.</p>
+
+          {(submitted.services.length > 0 || submitted.budget) && (
+            <ul className="success-summary" aria-label="Your inquiry">
+              {submitted.services.map(service => <li key={service}>{service}</li>)}
+              {submitted.budget && <li className="is-budget">{submitted.budget}</li>}
+            </ul>
+          )}
+
+          <ol className="success-steps">
+            <li><span>01</span>We review your brief</li>
+            <li><span>02</span>We reply by email</li>
+            <li><span>03</span>We plan a discovery call</li>
+          </ol>
+
+          <div className="success-actions">
+            <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book a discovery call" arrow />
+            <button type="button" className="success-reset" onClick={resetForm}>Send another inquiry</button>
+          </div>
         </div>
       </section>
     );
