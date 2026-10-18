@@ -8,38 +8,38 @@
     "dev:admin": "vite --config vite.admin.config.js",
     "build": "vite build",
     "build:admin": "vite build --config vite.admin.config.js",
+    "build:offline": "STRIX_PRERENDER_OFFLINE=1 vite build",
     "lint": "eslint .",
+    "test": "node --experimental-test-module-mocks --import ./src/admin/cms/tests/resolveHooks.js --test 'tests/*.test.js' 'src/admin/cms/tests/*.test.js'",
+    "test:build": "node --test tests/build/*.test.mjs",
+    "verify:release": "node scripts/verify-release.mjs dist",
+    "verify:admin": "node scripts/verify-release.mjs --admin dist-admin",
+    "check": "npm run lint && npm test",
     "preview": "vite preview",
     "preview:admin": "vite preview --config vite.admin.config.js"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "@gsap/react": "^2.1.2",
     "firebase": "^12.5.0",
     "gsap": "^3.13.0",
-    "gsap-trial": "^3.12.7",
-    "lenis": "^1.3.11",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.14",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-helmet-async": "^3.0.0",
-    "react-router-dom": "^7.9.1",
-    "split-type": "^0.3.4",
-    "three": "^0.180.0"
+    "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
-    "autoprefixer": "^10.4.23",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18",
     "vite": "^7.1.2"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

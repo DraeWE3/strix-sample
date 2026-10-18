@@ -1,18 +1,41 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useProjects, projectHref, isExternalProject } from '../lib/projects';
 import { getOptimizedImage } from '../lib/cloudinary';
 import '../style/carousal.css';
 import '../style/button.css';
 
+const SLIDE_MS = 600;
+const AUTOPLAY_MS = 5000;
+
+// The track renders three copies; the active index is kept inside the middle copy.
+const middleIndex = (index, count) => count + (((index - count) % count) + count) % count;
+
+const usePrefersReducedMotion = () => {
+  const query = '(prefers-reduced-motion: reduce)';
+  const [reduced, setReduced] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const sync = () => setReduced(list.matches);
+    list.addEventListener('change', sync);
+    return () => list.removeEventListener('change', sync);
+  }, []);
+  return reduced;
+};
+
 const ProjectCarousel = () => {
   const { projects: carouselData, loading, error } = useProjects();
+  const count = carouselData.length;
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isAnimating, setIsAnimating] = useState(false);
   const [buttonOffset, setButtonOffset] = useState("22.5%");
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
   const containerRef = useRef(null);
-  const navigate = useNavigate();
+  const animatingRef = useRef(false);
+  const suppressClick = useRef(false);
 
   useEffect(() => {
     const updateOffset = () => {
@@ -30,11 +53,10 @@ const ProjectCarousel = () => {
   }, []);
 
   useEffect(() => {
-    setCurrentIndex(Math.min(2, Math.max(0, carouselData.length - 1)));
-  }, [carouselData.length]);
+    if (count) setCurrentIndex(count + Math.min(2, count - 1));
+  }, [count]);
 
   const infiniteItems = [...carouselData, ...carouselData, ...carouselData];
-  const totalItems = infiniteItems.length;
 
   const getItemStyle = (index) => {
     const position = index - currentIndex;
@@ -76,42 +98,40 @@ const ProjectCarousel = () => {
     };
   };
 
-  const nextSlide = () => {
-    if (isAnimating || !carouselData.length) return;
+  const goTo = useCallback((index) => {
+    if (animatingRef.current || !count) return;
+    animatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex((prev) => {
-      const newIndex = prev + 1;
-      return newIndex >= totalItems - 2 ? carouselData.length : newIndex;
-    });
-  };
+    setCurrentIndex(index);
+  }, [count]);
 
-  const prevSlide = () => {
-    if (isAnimating || !carouselData.length) return;
+  const step = useCallback((delta) => {
+    if (animatingRef.current || !count) return;
+    animatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex((prev) => {
-      const newIndex = prev - 1;
-      return newIndex < 2 ? totalItems - carouselData.length - 1 : newIndex;
-    });
-  };
+    setCurrentIndex((prev) => prev + delta);
+  }, [count]);
 
+  const nextSlide = () => step(1);
+  const prevSlide = () => step(-1);
+
+  // After a slide settles, swap to the same card in the middle copy without a transition,
+  // so wrapping around never animates cards back across the track.
   useEffect(() => {
-    const timer = setTimeout(() => setIsAnimating(false), 600);
+    const timer = setTimeout(() => {
+      animatingRef.current = false;
+      setIsAnimating(false);
+      if (count) setCurrentIndex((prev) => middleIndex(prev, count));
+    }, SLIDE_MS);
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, [currentIndex, count]);
 
+  const paused = hovered || focused || reducedMotion;
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    if (paused || count < 2) return;
+    const interval = setInterval(() => step(1), AUTOPLAY_MS);
     return () => clearInterval(interval);
-  }, [isAnimating, carouselData.length]);
-
-  const openProject = (project) => {
-    const href = projectHref(project);
-    if (isExternalProject(project)) {
-      window.open(href, '_blank', 'noopener,noreferrer');
-    } else {
-      navigate(href);
-    }
-  };
+  }, [paused, count, step]);
 
   const startX = useRef(0);
   const isDragging = useRef(false);
@@ -120,9 +140,28 @@ const ProjectCarousel = () => {
     if (!isDragging.current) return;
     const diff = startX.current - x;
     if (Math.abs(diff) > 50) {
-      diff > 0 ? nextSlide() : prevSlide();
+      if (diff > 0) nextSlide();
+      else prevSlide();
       isDragging.current = false;
+      suppressClick.current = true;
     }
+  };
+
+  const onClickCapture = (event) => {
+    if (!suppressClick.current) return;
+    suppressClick.current = false;
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const onKeyDown = (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key === 'ArrowRight') { event.preventDefault(); nextSlide(); }
+    else if (event.key === 'ArrowLeft') { event.preventDefault(); prevSlide(); }
+  };
+
+  const onBlur = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
   };
 
   const styles = {
@@ -145,7 +184,6 @@ const ProjectCarousel = () => {
       position: 'absolute',
       width: 'clamp(180px, 70vw, 395px)',
       height: 'clamp(120px, 50vw, 260px)',
-      cursor: 'pointer',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -209,10 +247,22 @@ const ProjectCarousel = () => {
   }
 
   return (
-    <div className='p-carousel-container' style={styles.container}>
+    <div
+      className='p-carousel-container'
+      style={styles.container}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Projects"
+      onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHovered(true); }}
+      onPointerLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+    >
       <div style={styles.backgroundEffect}></div>
       <div className='p-carousel-con'  style={styles.carouselContainer}
         ref={containerRef}
+        onClickCapture={onClickCapture}
         onTouchStart={(e) => handleStart(e.touches[0].clientX)}
         onTouchMove={(e) => handleMove(e.touches[0].clientX)}
         onTouchEnd={() => (isDragging.current = false)}
@@ -223,22 +273,26 @@ const ProjectCarousel = () => {
       >
         {infiniteItems.map((item, index) => {
           const isCenter = index === currentIndex;
+          const href = projectHref(item);
+          let hitArea;
+          if (!isCenter) {
+            hitArea = (
+              <button type="button" className="p-carousel-hit" aria-label={`Show ${item.title}`} onClick={() => goTo(index)} />
+            );
+          } else if (isExternalProject(item)) {
+            hitArea = <a className="p-carousel-hit" href={href} target="_blank" rel="noopener noreferrer" aria-label={`${item.title} (opens in a new tab)`} />;
+          } else {
+            hitArea = <Link className="p-carousel-hit" to={href} aria-label={item.title} />;
+          }
           return (
             <div
               key={`${item.id}-${index}`}
               style={{ ...styles.carouselItem, ...getItemStyle(index) }}
-              onClick={() => {
-                if (isAnimating) return;
-                if (isCenter) {
-                  openProject(item);
-                } else {
-                  setIsAnimating(true);
-                  setCurrentIndex(index);
-                }
-              }}
+              aria-hidden={Math.abs(index - currentIndex) > 2 || undefined}
             >
               <div style={styles.imageContainer(isCenter)}>
-                <img src={getOptimizedImage(item.image)} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                <img src={getOptimizedImage(item.image)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" decoding="async" />
+                {hitArea}
               </div>
               <div style={styles.title}>{item.title}</div>
             </div>
@@ -247,27 +301,31 @@ const ProjectCarousel = () => {
       </div>
 
       <button
-        className="ui-btn-icon-only"
+        type="button"
+        className="ui-btn-icon-only p-carousel-nav"
         onClick={prevSlide}
-        disabled={isAnimating}
+        aria-label="Previous project"
+        aria-disabled={isAnimating}
         style={{
           position: 'absolute', top: '50%', left: buttonOffset, transform: 'translateY(-50%)',
-          display: 'none', color: '#fff', zIndex: 30,
+          color: '#fff', zIndex: 30,
         }}
       >
-        <ChevronLeft size={38} />
+        <ChevronLeft size={38} aria-hidden="true" />
       </button>
 
       <button
-        className="ui-btn-icon-only"
+        type="button"
+        className="ui-btn-icon-only p-carousel-nav"
         onClick={nextSlide}
-        disabled={isAnimating}
+        aria-label="Next project"
+        aria-disabled={isAnimating}
         style={{
           position: 'absolute', top: '50%', right: buttonOffset, transform: 'translateY(-50%)',
-          display: 'none', color: '#fff', zIndex: 30,
+          color: '#fff', zIndex: 30,
         }}
       >
-        <ChevronRight size={38} />
+        <ChevronRight size={38} aria-hidden="true" />
       </button>
     </div>
   );

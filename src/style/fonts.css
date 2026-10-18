@@ -7,7 +7,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/Syne-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Syne-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../assets/fonts/Syne-Medium.ttf') format('truetype');
+  src: url('../assets/fonts/Syne-Medium.woff2') format('woff2');
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../assets/fonts/Syne-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/Syne-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../assets/fonts/Syne-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/Syne-Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -39,7 +39,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/Epilogue-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -47,7 +47,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../assets/fonts/Epilogue-Medium.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-Medium.woff2') format('woff2');
 }
 
 @font-face {
@@ -55,7 +55,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../assets/fonts/Epilogue-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -63,7 +63,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../assets/fonts/Epilogue-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/Epilogue-Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -71,7 +71,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/ClashDisplay-Regular.otf') format('opentype');
+  src: url('../assets/fonts/ClashDisplay-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -122,5 +122,5 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/Motive-Regular.otf') format('opentype');
+  src: url('../assets/fonts/Motive-Regular.woff2') format('woff2');
 }

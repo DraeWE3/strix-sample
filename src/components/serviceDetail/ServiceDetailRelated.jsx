@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ServiceOrbit from "./ServiceOrbit";
-import { createContinuousCarousels } from "./continuousCarousel";
+import { initContinuousCarousels } from "../shared/continuousCarousel";
 import { useProjects, projectHref, isExternalProject, projectsKey } from "../../lib/projects";
 import { getOptimizedImage } from "../../lib/cloudinary";
 import MoreRim from "../../assets/img/service-pages/figma/0354d.svg";
@@ -40,7 +40,7 @@ const RelatedGallery = ({ projects, sectionRef }) => {
 
   useEffect(() => {
     const gallery = galleryRef.current;
-    const carousels = createContinuousCarousels(sectionRef.current);
+    const destroyCarousels = initContinuousCarousels(sectionRef.current);
     let startX = 0;
     let moved = false;
     const onDown = (event) => { startX = event.clientX; moved = false; };
@@ -53,7 +53,7 @@ const RelatedGallery = ({ projects, sectionRef }) => {
       gallery.removeEventListener("pointerdown", onDown);
       gallery.removeEventListener("pointermove", onMove);
       gallery.removeEventListener("click", onClick, true);
-      carousels.destroy();
+      destroyCarousels();
     };
   }, [sectionRef]);
 

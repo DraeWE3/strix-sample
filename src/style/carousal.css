@@ -37,3 +37,32 @@ button:hover{
   height: 20rem !important;
 }
 }
+/* Slide hit areas: real links/buttons covering each card */
+.p-carousel-container .p-carousel-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.p-carousel-container .p-carousel-hit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+/* Prev/next stay out of sight until reached by keyboard */
+.p-carousel-container .p-carousel-nav {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.p-carousel-container .p-carousel-nav:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}

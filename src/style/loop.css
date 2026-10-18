@@ -50,3 +50,21 @@
     width: 5.75rem;
   }
 }
+
+/* Without the marquee the strip wraps so every logo stays visible */
+@media (prefers-reduced-motion: reduce) {
+  .logo-loop {
+    white-space: normal;
+  }
+
+  .logo-strip {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+    will-change: auto;
+  }
+
+  .logo-item[aria-hidden="true"] {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "../style/loop.css";
 
@@ -12,20 +12,22 @@ import logo6 from "../assets/img/shared/logos/logo6.svg";
 import logo7 from "../assets/img/shared/logos/logo7.svg";
 
 const logos = [
-  { src: logo1, className: "logo-wurkzen" },
-  { src: logo2 },
-  { src: logo3 },
-  { src: logo4 },
-  { src: logo5 },
-  { src: logo6 },
-  { src: logo7, className: "logo-locovo" },
+  { src: logo1, className: "logo-wurkzen", size: [125, 24] },
+  { src: logo2, size: [152, 21] },
+  { src: logo3, size: [148, 24] },
+  { src: logo4, size: [148, 18] },
+  { src: logo5, size: [128, 25] },
+  { src: logo6, size: [131, 25] },
+  { src: logo7, className: "logo-locovo", size: [87, 15] },
 ];
 
 const LogoLoop = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(containerRef);
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
       const strip = containerRef.current.querySelector(".logo-strip");
       const stripWidth = strip.scrollWidth / 2; // width of one set of logos
 
@@ -42,18 +44,18 @@ const LogoLoop = () => {
           },
         },
       });
-    }, containerRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
     <div className="logo-loop" ref={containerRef}>
       <div className="logo-strip">
         {/* Duplicate logos to ensure smooth loop */}
-        {logos.concat(logos).map(({ src, className }, i) => (
-          <div key={i} className="logo-item">
-            <img src={src} className={className} alt={`logo-${i}`} />
+        {logos.concat(logos).map(({ src, className, size: [width, height] }, i) => (
+          <div key={i} className="logo-item" aria-hidden={i >= logos.length || undefined}>
+            <img src={src} className={className} alt={i >= logos.length ? "" : `logo-${i}`} width={width} height={height} decoding="async" />
           </div>
         ))}
       </div>

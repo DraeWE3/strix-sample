@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring, animate } from "framer-motion";
+import { useInView, useMotionValue, useSpring, animate } from "motion/react";
 
 export default function CountUp({
   to,

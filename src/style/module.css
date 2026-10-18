@@ -7,6 +7,35 @@
   justify-content: center;
 }
 
+/* Home service modals render as a native <dialog>; it fills the viewport like .modal and
+   draws its own .backdrop element, so the UA dialog box and ::backdrop are neutralised. */
+body.info-dialog-open { overflow: hidden; }
+
+dialog.info-dialog[open] {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+dialog.info-dialog::backdrop { background: transparent; }
+
+dialog.info-dialog .close-btnmode:focus:not(:focus-visible) { outline: none; }
+
+dialog.info-dialog a:focus-visible,
+dialog.info-dialog .close-btnmode:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
 .backdrop {
   position: absolute;
   inset: 0;

@@ -1,6 +1,6 @@
 import Button from "./Button";
 import React, { useState, useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import Card from "../assets/img/home/card.webp";
 import Star from "../assets/img/home/star.webp";
 import Star2 from "../assets/img/home/star2.webp";

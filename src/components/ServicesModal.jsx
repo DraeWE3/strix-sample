@@ -1,6 +1,6 @@
 // components/ServicesModal.jsx
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import "../style/ConnectModal.css";
 import "../style/button.css";
 

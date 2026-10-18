@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import './style/admin.css';
+import '../style/site-globals.css';
 import '../style/fonts.css';
 
 /**

@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from '../admin/firebaseconfig';
+import { db } from './firebase';
+import { createLiveCollection } from './liveCollection';
+import { safeUrl } from './urls';
+import { SITE_URL } from './seo';
 
 /**
  * @typedef {Object} BlogBlock
@@ -40,6 +43,7 @@ import { db } from '../admin/firebaseconfig';
 /**
  * @typedef {Object} BlogsState
  * @property {Blog[]} blogs
+ * @property {boolean} confirmed The list came from the server, not an offline cache
  * @property {boolean} loading
  * @property {Error | null} error
  */
@@ -59,7 +63,7 @@ const mapBlock = (block, index) => {
     const points = Array.isArray(block.content) ? block.content.map(asString).filter(Boolean) : [];
     return points.length ? { key, type: block.type, content: points } : null;
   }
-  const content = asString(block.content);
+  const content = block.type === 'image' ? safeUrl(block.content) : asString(block.content);
   return content ? { key, type: block.type, content } : null;
 };
 
@@ -77,9 +81,9 @@ const mapAuthor = (author) => {
     name: asString(author.name),
     role: asString(author.role),
     bio: asString(author.bio),
-    avatar: asString(author.avatar),
-    linkedin: asString(author.linkedin),
-    email: asString(author.email),
+    avatar: safeUrl(author.avatar),
+    linkedin: /^https:\/\//i.test(asString(author.linkedin)) ? safeUrl(author.linkedin) : '',
+    email: /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(asString(author.email)) ? asString(author.email) : '',
   };
 };
 
@@ -100,8 +104,8 @@ export const mapBlog = (id, data = {}) => {
     cardTitle: asString(data.topic) || title,
     category: asString(data.tag),
     date,
-    image: asString(data.image),
-    coverImage: asString(data.detailsImage) || asString(data.image),
+    image: safeUrl(data.image),
+    coverImage: safeUrl(data.detailsImage) || safeUrl(data.image),
     excerpt: asString(data.excerpt) || (firstParagraph ? truncate(firstParagraph.content, EXCERPT_LENGTH) : ''),
     readTime: Number.isFinite(data.readTime) && data.readTime > 0 ? Math.round(data.readTime) : Math.max(1, Math.ceil(words / WORDS_PER_MINUTE)),
     content,
@@ -115,7 +119,19 @@ export const mapBlog = (id, data = {}) => {
 /** @param {Blog} blog */
 export const blogHref = (blog) => `/blog/${encodeURIComponent(blog.id)}`;
 
-export const BLOG_SITE_URL = 'https://www.strixproduction.com';
+export const BLOG_SITE_URL = SITE_URL;
+
+/**
+ * Head metadata for an article page, shared by the page and the prerender build.
+ * @param {Blog} blog
+ */
+export const blogMeta = (blog) => ({
+  path: blogHref(blog),
+  title: blog.title,
+  description: blog.excerpt || `Read “${blog.title}” on the Strix Production blog.`,
+  type: 'article',
+  image: blog.coverImage,
+});
 
 /** @param {string} value YYYY-MM-DD */
 export const formatBlogDate = (value, style = 'card') => {
@@ -127,33 +143,28 @@ export const formatBlogDate = (value, style = 'card') => {
 
 const byNewest = (a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt);
 
-/** @type {BlogsState} */
-let state = { blogs: [], loading: true, error: null };
-const listeners = new Set();
-let unsubscribe = null;
+/** @param {import('firebase/firestore').Firestore} firestore */
+export const publishedBlogsQuery = (firestore) =>
+  query(collection(firestore, BLOGS_COLLECTION), where('status', '==', 'published'));
 
-const emit = (next) => {
-  state = next;
-  listeners.forEach((listener) => listener(state));
-};
+/** @param {Array<{ id: string, data: () => Record<string, unknown> }>} docs */
+export const blogsFromDocs = (docs) =>
+  docs
+    .map((doc) => mapBlog(doc.id, doc.data()))
+    .filter((blog) => blog.title)
+    .sort(byNewest);
 
-const start = () => {
-  if (unsubscribe) return;
-  unsubscribe = onSnapshot(
-    query(collection(db, BLOGS_COLLECTION), where('status', '==', 'published')),
-    (snapshot) => {
-      const blogs = snapshot.docs
-        .map((doc) => mapBlog(doc.id, doc.data()))
-        .filter((blog) => blog.title)
-        .sort(byNewest);
-      emit({ blogs, loading: false, error: null });
-    },
-    (error) => {
-      console.error('Error loading blogs:', error);
-      emit({ ...state, loading: false, error });
-    }
-  );
-};
+const live = createLiveCollection({
+  name: 'blogs',
+  initial: { blogs: [], confirmed: false },
+  listen: (next, fail) =>
+    onSnapshot(
+      publishedBlogsQuery(db),
+      { includeMetadataChanges: true },
+      (snapshot) => next({ blogs: blogsFromDocs(snapshot.docs), confirmed: !snapshot.metadata.fromCache }),
+      fail
+    ),
+});
 
 /**
  * Subscribe to the published posts in the Firestore `blogs` collection. One
@@ -161,18 +172,11 @@ const start = () => {
  * @param {(state: BlogsState) => void} listener
  * @returns {() => void}
  */
-export const subscribeToBlogs = (listener) => {
-  listeners.add(listener);
-  start();
-  listener(state);
-  return () => {
-    listeners.delete(listener);
-  };
-};
+export const subscribeToBlogs = live.subscribe;
 
 /** @returns {BlogsState} */
 export const useBlogs = () => {
-  const [snapshot, setSnapshot] = useState(state);
+  const [snapshot, setSnapshot] = useState(live.getState);
   useEffect(() => subscribeToBlogs(setSnapshot), []);
   return snapshot;
 };

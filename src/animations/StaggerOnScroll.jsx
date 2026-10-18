@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { animate } from "framer-motion";
+import { animate } from "motion/react";
 
 export default function StaggerOnScrollDebug() {
   useEffect(() => {

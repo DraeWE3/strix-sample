@@ -14,6 +14,8 @@ import ServiceDetailWhy from "./ServiceDetailWhy";
 import ServiceDetailRelated from "./ServiceDetailRelated";
 import ServiceDetailContact from "./ServiceDetailContact";
 import { getServiceCategory, getNextService, serviceRoute } from "../../data/serviceDetails";
+import { breadcrumbSchema, serviceSchema } from "../../data/structuredData";
+import { SITE_URL } from "../../lib/seo";
 
 const REVEAL_OPTIONS = { readyClass: "svc-motion-ready", threshold: 0.08, rootMargin: "0px 0px -20px 0px" };
 
@@ -43,7 +45,19 @@ const ServiceDetailPage = ({ service }) => {
 
   return (
     <div>
-      <SEO title={service.seo.title} description={service.seo.description} canonical={`https://www.strixproduction.com${serviceRoute(service.slug)}`} />
+      <SEO
+        title={service.seo.title}
+        description={service.seo.description}
+        canonical={serviceRoute(service.slug)}
+        schemas={[
+          serviceSchema({ name: service.title, description: service.seo.description, url: `${SITE_URL}${serviceRoute(service.slug)}` }),
+          breadcrumbSchema([
+            { name: "Home", url: `${SITE_URL}/` },
+            { name: "Services", url: `${SITE_URL}/services` },
+            { name: service.title, url: `${SITE_URL}${serviceRoute(service.slug)}` },
+          ]),
+        ]}
+      />
       <Nav />
       <div
         className="service-detail-shell"

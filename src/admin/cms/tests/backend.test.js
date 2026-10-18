@@ -13,6 +13,7 @@ const fake = createFakeFirebase();
 mock.module('firebase/firestore', { namedExports: fake.firestore });
 mock.module('firebase/auth', { namedExports: { ...fake.auth, getAuth: () => ({}) } });
 mock.module(new URL('../../firebaseconfig.js', import.meta.url).href, { namedExports: { auth: {}, db: {} } });
+mock.module(new URL('../../../lib/firebase.js', import.meta.url).href, { namedExports: { app: {}, db: {} } });
 mock.module(new URL('../../storage.js', import.meta.url).href, { namedExports: fake.storage });
 
 const { createBackend } = await import('../backend.js');
@@ -159,7 +160,7 @@ test('large sections are split into chunks the public page can still read', asyn
   const mark = fake.writes.length;
   await save(record);
   const writes = writesSince(mark);
-  const chunk = writes.find((w) => w.op === 'add' && w.data.sectionName === 'hero_thumbnail');
+  const chunk = writes.find((w) => w.op === 'set' && w.data.sectionName === 'hero_thumbnail');
   assert.ok(chunk, 'a hero chunk was written');
   assert.equal(writes.find((w) => w.path === 'caseStudies/c1').data.heroThumbnail, '');
   assert.ok(writes.some((w) => w.op === 'delete' && w.path === 'caseStudies/c1/chunks/k1'), 'the stale hero chunk is removed after the new one is stored');
@@ -203,7 +204,12 @@ test('publish and unpublish only change the status fields', async () => {
   const mark = fake.writes.length;
   const draft = await api('/api/content/p_p1/unpublish', { method: 'POST', body: {} });
   assert.equal(draft.status, 'draft');
-  assert.deepEqual(writesSince(mark).map((w) => [w.path, w.data]), [['projects/p1', { status: 'draft' }], ['caseStudies/c1', { status: 'draft' }]]);
+  const statusWrites = writesSince(mark);
+  assert.deepEqual(statusWrites.map((w) => [w.path, Object.keys(w.data).sort(), w.data.status]), [
+    ['projects/p1', ['status', 'updatedAt'], 'draft'],
+    ['caseStudies/c1', ['status', 'updatedAt'], 'draft'],
+  ]);
+  assert.equal(statusWrites[0].data.updatedAt, statusWrites[1].data.updatedAt, 'card and case study change in one commit');
   assert.equal((await publicCaseStudy('aurora')).status, 'not-found');
   const live = await api('/api/content/p_p1/publish', { method: 'POST', body: {} });
   assert.equal(live.status, 'published');
@@ -230,7 +236,7 @@ test('a new project is created as a draft with the case study only when it has c
   withStory.data.shipped.items = ['Onboarding', 'Billing'];
   mark = fake.writes.length;
   const saved = await save(withStory);
-  const caseAdd = writesSince(mark).find((w) => w.op === 'add' && w.path.startsWith('caseStudies/'));
+  const caseAdd = writesSince(mark).find((w) => w.op === 'set' && /^caseStudies\/[^/]+$/.test(w.path));
   assert.equal(caseAdd.data.projectId, saved.id.slice(2));
   assert.equal(caseAdd.data.status, 'draft');
   const caseDoc = fake.get(caseAdd.path);
@@ -271,7 +277,7 @@ test('a new article is stored as a draft in the blogs collection', async () => {
   const mark = fake.writes.length;
   const saved = await save(draft);
   const [write] = writesSince(mark);
-  assert.equal(write.op, 'add');
+  assert.equal(write.op, 'set');
   assert.equal(write.path.split('/')[0], 'blogs');
   assert.equal(write.data.status, 'draft');
   assert.equal(write.data.headerText, 'Fresh thinking');

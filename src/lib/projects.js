@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { db } from '../admin/firebaseconfig';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from './firebase';
+import { createLiveCollection } from './liveCollection';
+import { safeExternalUrl, safeUrl } from './urls';
+
+export { safeExternalUrl };
 
 /**
  * @typedef {Object} ProjectFilters
@@ -50,7 +54,7 @@ export const mapProject = (id, data = {}) => ({
   title: asString(data.title),
   categoryText: asString(data.categoryText),
   industry: asString(data.industry),
-  image: asString(data.image),
+  image: safeUrl(data.image),
   link: asString(data.link),
   externalLink: asString(data.externalLink),
   filters: Object.fromEntries(FILTER_GROUPS.map((group) => [group, asStringArray(data.filters?.[group])])),
@@ -62,12 +66,19 @@ export const mapProject = (id, data = {}) => ({
 /** @param {Project} project */
 export const isPublished = (project) => project.status === 'published' && Boolean(project.image);
 
-/** @param {Project} project */
-export const isExternalProject = (project) => /^https?:\/\//.test(project.externalLink);
+const CASE_STUDY_LINK = /^\/case-study\/[A-Za-z0-9_-]+$/;
 
 /** @param {Project} project */
-export const projectHref = (project) =>
-  (isExternalProject(project) ? project.externalLink : project.link) || `/case-study/${project.id}`;
+export const isExternalProject = (project) => Boolean(safeExternalUrl(project.externalLink));
+
+/** Site path of a project's case study: its `/case-study/<slug>` link, else its document id. */
+export const caseStudyPath = (project) => {
+  const link = asString(project.link).trim().replace(/\/+$/, '');
+  return CASE_STUDY_LINK.test(link) ? link : `/case-study/${encodeURIComponent(project.id)}`;
+};
+
+/** @param {Project} project */
+export const projectHref = (project) => safeExternalUrl(project.externalLink) || caseStudyPath(project);
 
 /** @param {Project[]} projects */
 export const projectsKey = (projects) => projects.map((project) => project.id).join('|');
@@ -105,59 +116,58 @@ export const shuffleProjects = (items, seed) => {
   return result;
 };
 
-/** @type {ProjectsState} */
-let state = { projects: [], loading: true, error: null };
-const listeners = new Set();
-let unsubscribe = null;
-
-const emit = (next) => {
-  state = next;
-  listeners.forEach((listener) => listener(state));
-};
-
-const start = () => {
-  if (unsubscribe) return;
-  unsubscribe = onSnapshot(
-    query(collection(db, PROJECTS_COLLECTION), orderBy('createdAt', 'desc')),
-    (snapshot) => emit({ projects: snapshot.docs.map((doc) => mapProject(doc.id, doc.data())), loading: false, error: null }),
-    (error) => emit({ ...state, loading: false, error })
-  );
-};
+const byNewest = (a, b) => b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id);
 
 /**
- * Subscribe to the live Firestore projects collection. A single real-time
- * listener is shared by every subscriber for the lifetime of the app, so
- * navigating between pages never refetches or flashes a loading state.
+ * Only published cards are requested, so drafts never reach visitors. Sorted
+ * here rather than with orderBy, so no composite index is needed and cards
+ * without `createdAt` are not silently dropped.
+ * @param {import('firebase/firestore').Firestore} firestore
+ */
+export const publishedProjectsQuery = (firestore) =>
+  query(collection(firestore, PROJECTS_COLLECTION), where('status', '==', 'published'));
+
+/** @param {Array<{ id: string, data: () => Record<string, unknown> }>} docs */
+export const projectsFromDocs = (docs) => docs.map((doc) => mapProject(doc.id, doc.data())).sort(byNewest);
+
+const live = createLiveCollection({
+  name: 'projects',
+  initial: { projects: [] },
+  listen: (next, fail) =>
+    onSnapshot(
+      publishedProjectsQuery(db),
+      (snapshot) => next({ projects: projectsFromDocs(snapshot.docs) }),
+      fail
+    ),
+});
+
+/**
+ * Subscribe to the live published projects. A single real-time listener is
+ * shared by every subscriber, so navigating between pages never refetches or
+ * flashes a loading state. The listener restarts after transient errors.
  * @param {(state: ProjectsState) => void} listener
  * @returns {() => void}
  */
-export const subscribeToProjects = (listener) => {
-  listeners.add(listener);
-  start();
-  listener(state);
-  return () => {
-    listeners.delete(listener);
-  };
-};
+export const subscribeToProjects = live.subscribe;
 
 /**
  * Published projects are returned in a random order. A new order is drawn each
  * time a component mounts (every page visit), then held stable for that
  * component's lifetime so re-renders and snapshot updates don't reshuffle.
- * Pass `shuffle: false` (used by the admin) to keep newest-first order.
- * @param {{ includeDrafts?: boolean, shuffle?: boolean }} [options]
+ * Pass `shuffle: false` to keep newest-first order.
+ * @param {{ shuffle?: boolean }} [options]
  * @returns {ProjectsState}
  */
-export const useProjects = ({ includeDrafts = false, shuffle = !includeDrafts } = {}) => {
-  const [snapshot, setSnapshot] = useState(state);
+export const useProjects = ({ shuffle = true } = {}) => {
+  const [snapshot, setSnapshot] = useState(live.getState);
   const [seed] = useState(() => Math.floor(Math.random() * 0xffffffff));
 
   useEffect(() => subscribeToProjects(setSnapshot), []);
 
   const projects = useMemo(() => {
-    const list = includeDrafts ? snapshot.projects : snapshot.projects.filter(isPublished);
+    const list = snapshot.projects.filter(isPublished);
     return shuffle ? shuffleProjects(list, seed) : list;
-  }, [snapshot.projects, includeDrafts, shuffle, seed]);
+  }, [snapshot.projects, shuffle, seed]);
 
   return { projects, loading: snapshot.loading, error: snapshot.error };
 };

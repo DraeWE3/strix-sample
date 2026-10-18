@@ -1,12 +1,11 @@
 // src/components/Footer.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "../style/footer.css";
-import Cicon from "../assets/img/shared/c-icon.webp";
 import Top from "../assets/img/layout/top.webp";
 import Footerimg from "../assets/img/layout/footer-video.webp";
 import FooterMobile from "../assets/img/layout/footer-mobile.webp";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion, useInView } from "framer-motion";
+import { motion as Motion, useInView } from "motion/react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
 
@@ -33,7 +32,7 @@ const FooterLogo = () => {
   };
 
   return (
-    <motion.div
+    <Motion.div
       ref={ref}
       className="ft-last flex justify-center gap-2 md:gap-3"
       variants={container}
@@ -41,29 +40,22 @@ const FooterLogo = () => {
       animate={isInView ? "visible" : "hidden"}
     >
       {["S", "T", "R", "I", "X"].map((char, i) => (
-        <motion.h2 key={i} className="foot-strix" variants={letter}>
+        <Motion.h2 key={i} className="foot-strix" variants={letter}>
           {char}
-        </motion.h2>
+        </Motion.h2>
       ))}
-    </motion.div>
+    </Motion.div>
   );
 };
 
+const scrollToTop = () => {
+  const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
+  window.scrollTo({ top: 0, behavior });
+  document.documentElement.scrollTo({ top: 0, behavior });
+  document.body.scrollTo({ top: 0, behavior });
+};
+
 const Footer = () => {
-  useEffect(() => {
-    const scrollBtn = document.querySelector(".scroll-top");
-    if (!scrollBtn) return;
-
-    const onScrollTopClick = (e) => {
-      e?.preventDefault?.();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-      document.body.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    scrollBtn.addEventListener("click", onScrollTopClick);
-    return () => scrollBtn.removeEventListener("click", onScrollTopClick);
-  }, []);
 
   return (
     <div className="footer">
@@ -72,7 +64,7 @@ const Footer = () => {
         <div className="ft-links">
           <p className="hea">Contact</p>
           <Link to="/contact"><p className="ft-num">Get a Quote</p></Link>
-          <p className="ft-num">+91 995884094</p>
+          <a href="tel:+919958844094"><p className="ft-num">+91 9958844094</p></a>
           <p className="ft-num">New Delhi, India</p>
         </div>
 
@@ -87,9 +79,9 @@ const Footer = () => {
         <div className="ft-links">
           <p className="hea">Services</p>
           <Link to="/mvp"><p className="ft-num">Build MVP</p></Link>
-          <Link to="/uiux"><p className="ft-num">UI/UX Design</p></Link>
-          <Link to="/webdesign"><p className="ft-num">Website</p></Link>
-          <Link to="/commercials"><p className="ft-num">SaaS Promos</p></Link>
+          <Link to="/services/ui-ux-design"><p className="ft-num">UI/UX Design</p></Link>
+          <Link to="/services/ui-ux-design"><p className="ft-num">Website</p></Link>
+          <Link to="/services/commercials"><p className="ft-num">SaaS Promos</p></Link>
         </div>
 
         <div className="ft-links">
@@ -101,23 +93,23 @@ const Footer = () => {
       </div>
 
       <div className="ft-icon">
-        <a href="https://www.upwork.com/agencies/1799430219619033088/" target="_blank" rel="noopener noreferrer">
-          <div className="simple-icons--upwork ft-icons"></div>
+        <a href="https://www.upwork.com/agencies/1799430219619033088/" target="_blank" rel="noopener noreferrer" aria-label="Upwork">
+          <div className="simple-icons--upwork ft-icons" aria-hidden="true"></div>
         </a>
-        <a href="mailto:info@strixproduction.com">
-          <div className="mdi--email ft-icons"></div>
+        <a href="mailto:info@strixproduction.com" aria-label="Email">
+          <div className="mdi--email ft-icons" aria-hidden="true"></div>
         </a>
-        <a href="https://www.linkedin.com/company/strix-production/" target="_blank" rel="noopener noreferrer">
-          <div className="akar-icons--linkedin-v1-fill ft-icons"></div>
+        <a href="https://www.linkedin.com/company/strix-production/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <div className="akar-icons--linkedin-v1-fill ft-icons" aria-hidden="true"></div>
         </a>
-        <a href="https://www.instagram.com/strix_productions" target="_blank">
-          <div className="mdi--instagram ft-icons"></div>
+        <a href="https://www.instagram.com/strix_productions" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <div className="mdi--instagram ft-icons" aria-hidden="true"></div>
         </a>
-        <a href="https://x.com/strixproduction" target="_blank">
-          <div className="ri--twitter-x-line ft-icons"></div>
+        <a href="https://x.com/strixproduction" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <div className="ri--twitter-x-line ft-icons" aria-hidden="true"></div>
         </a>
-        <a href="https://www.behance.net/strixproductions" target="_blank">
-          <div className="behance ri--behance-fill ft-icons"></div>
+        <a href="https://www.behance.net/strixproductions" target="_blank" rel="noopener noreferrer" aria-label="Behance">
+          <div className="behance ri--behance-fill ft-icons" aria-hidden="true"></div>
         </a>
       </div>
 
@@ -127,17 +119,15 @@ const Footer = () => {
       <FooterLogo />
 
       <div className="ft-bottom">
-        <div className="nothing">
-          <Link to='/Url'><p>dot</p></Link>
-        </div>
+        <div className="nothing"></div>
         <p className="ft-year">© 2026 – Strix Production All Rights Reserved</p>
-        <div className="scroll-top">
-          <p>scroll Top</p> <img src={Top} alt="top" />
-        </div>
+        <button type="button" className="scroll-top" onClick={scrollToTop} aria-label="Back to top">
+          <p>scroll Top</p> <img src={Top} alt="" width="18" height="18" />
+        </button>
       </div>
 
-      <img className="footerImg" src={Footerimg} alt="footer" />
-      <img className="footerImg-mobile" src={FooterMobile} alt="footer" />
+      <img className="footerImg" src={Footerimg} alt="" width="1440" height="817" loading="lazy" decoding="async" />
+      <img className="footerImg-mobile" src={FooterMobile} alt="" width="390" height="950" loading="lazy" decoding="async" />
     </div>
   );
 };

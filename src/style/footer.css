@@ -231,6 +231,25 @@ font-size: 14px;
   cursor: pointer;
 }
 
+.footer button.scroll-top{
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+.footer button.scroll-top:focus:not(:focus-visible){
+  outline: none;
+}
+
+.footer button.scroll-top:focus-visible,
+.ft-icon a:focus-visible{
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
 .scroll-top p{
   font-size: 19px;
   margin-bottom: 0 !important;

@@ -1,9 +1,20 @@
 <!--
   Paste this into the EmailJS template editor (Content > Code view) for
-  the EmailJS template (see VITE_EMAILJS_TEMPLATE_ID). Set the template's "To Email"
-  field to {{to_email}} so it routes to info@strixproduction.com (sent from
-  src/lib/contactApi.js). Merge fields used below: {{name}}, {{company}},
-  {{email}}, {{reason}}, {{subject}}, {{message}}.
+  the EmailJS template (see VITE_EMAILJS_TEMPLATE_ID).
+
+  Template settings (EmailJS dashboard), required BEFORE deploying a site
+  build that no longer sends `to_email`:
+    - To Email:   info@strixproduction.com   (typed literally, no {{variables}})
+    - From Name:  Strix website
+    - Reply To:   {{email}}
+  The browser never chooses the recipient; src/lib/contactApi.js sends only
+  the merge fields below: {{name}}, {{company}}, {{email}}, {{reason}},
+  {{subject}}, {{message}}. Keep double braces (they HTML-escape input).
+
+  Optional reCAPTCHA v2: enable "Enable reCAPTCHA V2 verification" on this
+  template with your secret key, then set VITE_RECAPTCHA_SITE_KEY for the
+  site build. Enable it on the template only together with a build that has
+  the site key, or every inquiry will be rejected.
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#05060a;padding:32px 16px;">
   <tr>

@@ -14,8 +14,8 @@ const CASE_COUNT = 2;
 
 const CaseGlow = () => (
   <div className="hm-case-glows" aria-hidden="true">
-    <span className="hm-case-glow hm-case-glow-first"><span><img src={CaseGlowFirst} alt="" /></span></span>
-    <span className="hm-case-glow hm-case-glow-last"><span><img src={CaseGlowLast} alt="" /></span></span>
+    <span className="hm-case-glow hm-case-glow-first"><span><img src={CaseGlowFirst} alt="" decoding="async" /></span></span>
+    <span className="hm-case-glow hm-case-glow-last"><span><img src={CaseGlowLast} alt="" decoding="async" /></span></span>
   </div>
 );
 
@@ -30,8 +30,8 @@ const CaseLink = ({ project, children, ...rest }) => {
 const CaseVisual = ({ project }) => (
   <div className="hm-case-visual">
     <CaseLink project={project} className="hm-case-preview" aria-label={`Explore the ${project.title} case study`}>
-      <img className="hm-case-image" src={getOptimizedImage(project.image)} alt={project.title} loading="lazy" />
-      <span className="hm-case-action"><span>View Case Study</span><img src={CaseActionArrow} alt="" aria-hidden="true" /></span>
+      <img className="hm-case-image" src={getOptimizedImage(project.image)} alt={project.title} loading="lazy" decoding="async" />
+      <span className="hm-case-action"><span>View Case Study</span><img src={CaseActionArrow} alt="" aria-hidden="true" width="18" height="15" loading="lazy" decoding="async" /></span>
     </CaseLink>
     <p className="hm-case-category"><span aria-hidden="true">•</span> {project.categoryText}</p>
   </div>
@@ -89,7 +89,7 @@ const HomeMvp = () => {
               className={`hm-mvp-phase hm-mvp-phase-${index + 1}${mobile ? " carousel-slide" : ""}`}
               aria-label={`Learn about MVP ${phase.toLowerCase()}`}
             >
-              <img src={PhaseImage} alt="" loading="lazy" />
+              <img src={PhaseImage} alt="" width="1024" height="1024" loading="lazy" decoding="async" />
               <h3>MVP<br />{phase}</h3>
             </Link>
           ))}

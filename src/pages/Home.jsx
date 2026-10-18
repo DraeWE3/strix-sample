@@ -1,13 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../style/home.css";
 import Light from "../assets/img/home/bg.webp";
 import Nav from "../components/Navbar";
-import { motion, useInView } from "framer-motion";
+import { motion as Motion, useInView } from "motion/react";
 import Button from "../components/Button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Connect from '../assets/img/shared/connect.svg'
-import SmoothScroll from "../animations/SmoothScrollGSAP";
 gsap.registerPlugin(ScrollTrigger);
 import Shadow1 from "../assets/img/shared/shadow1.webp";
 import Shadow2 from "../assets/img/shared/shadow2.webp";
@@ -42,10 +41,10 @@ import Shadow4 from '../assets/img/home/shadow4.webp'
 import { Link } from "react-router-dom";
 import DotGrid from "../animations/DotGrid";
 import SEO from "../components/SEO";
+import { homeSchemas } from "../data/structuredData";
 import { pageMeta } from "../data/pageMeta";
 import FAQ from "../components/FAQ";
 import "../style/home-page.css";
-import ShowreelDialog from "../components/ShowreelDialog";
 import useScrollReveal from "../animations/useScrollReveal";
 import { HomeHeroMedia } from "../components/home/HomeHero";
 import HomeTestimonials from "../components/home/HomeTestimonials";
@@ -67,7 +66,7 @@ const NewSection = ({ children, className = "" }) => {
 const SmoothTextReveal = ({ children, className = "", delay = 0, as = "div" }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const Component = motion[as];
+  const Component = Motion[as];
 
   return (
     <Component
@@ -91,7 +90,7 @@ const BlurTextReveal = ({ children, className = "", as = "h2" }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const Component = motion[as];
+  const Component = Motion[as];
 
   return (
     <Component
@@ -122,7 +121,7 @@ const ScrambleText = ({ children, className = "" }) => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <motion.p
+    <Motion.p
       ref={ref} // Attached to element for scroll detection
       initial={{ opacity: 0, filter: "blur(10px)" }}
       // Animation only triggers when isInView is true
@@ -131,7 +130,7 @@ const ScrambleText = ({ children, className = "" }) => {
       className={className}
     >
       {children}
-    </motion.p>
+    </Motion.p>
   );
 };
 
@@ -142,10 +141,14 @@ const CircleBlurAnimation = ({ src, className = "" }) => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <motion.img
+    <Motion.img
       ref={ref}
       src={src}
       className={className}
+      width="961"
+      height="1024"
+      loading="lazy"
+      decoding="async"
       initial={{
         scale: 0.7,
         opacity: 0,
@@ -170,84 +173,167 @@ const CircleBlurAnimation = ({ src, className = "" }) => {
   );
 };
 
+const faqData = [
+  {
+    question: "What services does Strix Production provide?",
+    answer: "Creative and technology services combine branding, design, development, and marketing to build a strong digital presence. Strix Production offers UI/UX design, web and app development, content creation, and marketing for impactful results."
+  },
+  {
+    question: "Which are the best startup branding agencies for digital-first businesses?",
+    answer: "Startup branding agencies help new businesses build a clear identity through strategy, design, and messaging. Strix Productions creates cohesive branding systems, visuals, and promotional content to help startups stand out and grow in competitive markets."
+  },
+  {
+    question: "What are the top SaaS platform development company for scalable products?",
+    answer: "SaaS platform development involves building cloud-based software accessible online without installation. Strix Production creates secure, scalable, and user-friendly SaaS solutions with strong performance, intuitive design, and reliable architecture for growing businesses."
+  }, {
+    question: "What makes Strix Production a reliable digital design and development partner?",
+    answer: "Effective digital experiences combine strategy, user-focused design, and modern technology. Strix Production delivers scalable development, strong branding, and engaging solutions to help businesses create impactful products and drive long-term growth."
+  }
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.25, delayChildren: 0.3 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+const fadeInSide = (direction) => ({
+  hidden: { opacity: 0, x: direction === "left" ? -80 : 80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1, ease: "easeOut", delay: 0.6 },
+  },
+});
+
+// Card animation variants for services section
+const ServiceCard = ({ children, delay = 0 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <Motion.div
+      ref={ref}
+      initial={{
+        opacity: 0,
+        y: 100,
+        scale: 0.8,
+        rotateX: 45
+      }}
+      animate={isInView ? {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotateX: 0
+      } : {
+        opacity: 0,
+        y: 100,
+        scale: 0.8,
+        rotateX: 45
+      }}
+      transition={{
+        duration: 1,
+        delay,
+        ease: [0.25, 0.4, 0.25, 1],
+        type: "spring",
+        stiffness: 50,
+        damping: 15
+      }}
+      whileHover={{
+        y: -10,
+        transition: { duration: 0.3 }
+      }}
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
+      {children}
+    </Motion.div>
+  );
+};
+
+const MOTION_OK = "(prefers-reduced-motion: no-preference)";
+const MOTION_REDUCED = "(prefers-reduced-motion: reduce)";
+
 const Home = () => {
   const [openModal, setOpenModal] = useState(null);
-  const [showreelTrigger, setShowreelTrigger] = useState(null);
-  const openShowreel = (event) => setShowreelTrigger(event.currentTarget);
-  const closeShowreel = () => setShowreelTrigger(null);
+  const closeModal = useCallback(() => setOpenModal(null), []);
   const titleRef = useRef(null);
   const subTextRef = useRef(null);
   const velocityRef = useRef(null);
   const section = useRef(null);
+  const coinRef = useRef(null);
 
-  const faqData = [
-    {
-      question: "What services does Strix Production provide?",
-      answer: "Creative and technology services combine branding, design, development, and marketing to build a strong digital presence. Strix Production offers UI/UX design, web and app development, content creation, and marketing for impactful results."
-    },
-    {
-      question: "Which are the best startup branding agencies for digital-first businesses?",
-      answer: "Startup branding agencies help new businesses build a clear identity through strategy, design, and messaging. Strix Productions creates cohesive branding systems, visuals, and promotional content to help startups stand out and grow in competitive markets."
-    },
-    {
-      question: "What are the top SaaS platform development company for scalable products?",
-      answer: "SaaS platform development involves building cloud-based software accessible online without installation. Strix Production creates secure, scalable, and user-friendly SaaS solutions with strong performance, intuitive design, and reliable architecture for growing businesses."
-    }, {
-      question: "What makes Strix Production a reliable digital design and development partner?",
-      answer: "Effective digital experiences combine strategy, user-focused design, and modern technology. Strix Production delivers scalable development, strong branding, and engaging solutions to help businesses create impactful products and drive long-term growth."
-    }
-  ];
   // Hero animation for title and subtitle
   useEffect(() => {
-    gsap.set(titleRef.current, {
-      opacity: 0,
-      visibility: "hidden",
-      scale: 1.2,
-      letterSpacing: "140px",
-      y: 100,
-      filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
-    });
+    const mm = gsap.matchMedia();
 
-    gsap.set(subTextRef.current, {
-      opacity: 0,
-      visibility: "hidden",
-      y: 60,
-    });
+    mm.add(MOTION_OK, () => {
+      gsap.set(titleRef.current, {
+        opacity: 0,
+        visibility: "hidden",
+        scale: 1.2,
+        letterSpacing: "140px",
+        y: 100,
+        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
+      });
 
-    const tl = gsap.timeline();
+      gsap.set(subTextRef.current, {
+        opacity: 0,
+        visibility: "hidden",
+        y: 60,
+      });
 
-    tl.to(titleRef.current, {
-      opacity: 1,
-      visibility: "visible",
-      scale: 1,
-      letterSpacing: "90px",
-      y: 0,
-      filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.474))",
-      ease: "power4.out",
-      duration: 2.5,
-    });
+      const tl = gsap.timeline();
 
-    tl.to(
-      subTextRef.current,
-      {
+      tl.to(titleRef.current, {
         opacity: 1,
         visibility: "visible",
+        scale: 1,
+        letterSpacing: "90px",
         y: 0,
-        ease: "power3.out",
-        duration: 1.8,
-      },
-      "-=0.8"
-    );
+        filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.474))",
+        ease: "power4.out",
+        duration: 2.5,
+      });
+
+      tl.to(
+        subTextRef.current,
+        {
+          opacity: 1,
+          visibility: "visible",
+          y: 0,
+          ease: "power3.out",
+          duration: 1.8,
+        },
+        "-=0.8"
+      );
+    });
+
+    // The CSS keeps both hidden until revealed, so show them in their final state.
+    mm.add(MOTION_REDUCED, () => {
+      gsap.set([titleRef.current, subTextRef.current], { opacity: 1, visibility: "visible" });
+    });
+
+    return () => mm.revert();
   }, []);
 
   // MVP Card animation
   useEffect(() => {
-    gsap.set(".mvp-card", { opacity: 0 });
-
-    let mm = gsap.matchMedia();
+    const mm = gsap.matchMedia(section);
 
     // Desktop animation only (scroll-based)
-    mm.add("(min-width: 771px)", () => {
+    mm.add(`(min-width: 771px) and ${MOTION_OK}`, () => {
+      gsap.set(".mvp-card", { opacity: 0 });
       gsap.timeline({
         scrollTrigger: {
           trigger: ".mvp-cardcon",
@@ -286,6 +372,13 @@ const Home = () => {
         );
     });
 
+    // Desktop with reduced motion: the fanned-out end state, no animation
+    mm.add(`(min-width: 771px) and ${MOTION_REDUCED}`, () => {
+      gsap.set(".mvp-card1", { opacity: 1, x: -260, rotate: -18 });
+      gsap.set(".mvp-card2", { opacity: 1, x: 0, rotate: 0 });
+      gsap.set(".mvp-card3", { opacity: 1, x: 260, rotate: 18 });
+    });
+
     // Mobile — NO animation, show instantly
     mm.add("(max-width: 770px)", () => {
       gsap.set(".mvp-card1", { opacity: 1, x: "0", rotate: 0 });
@@ -296,191 +389,41 @@ const Home = () => {
     return () => mm.revert();
   }, []);
 
+  // The decorative coin loop stays on its first frame when reduced motion is preferred.
+  useEffect(() => {
+    const video = coinRef.current;
+    const query = window.matchMedia(MOTION_REDUCED);
+    const sync = () => {
+      if (query.matches) video.pause();
+      else video.play().catch(() => {});
+    };
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.25, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
-
-  const fadeInSide = (direction) => ({
-    hidden: { opacity: 0, x: direction === "left" ? -80 : 80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 1, ease: "easeOut", delay: 0.6 },
-    },
-  });
-
-  // Card animation variants for services section
-  const ServiceCard = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-    return (
-      <motion.div
-        ref={ref}
-        initial={{
-          opacity: 0,
-          y: 100,
-          scale: 0.8,
-          rotateX: 45
-        }}
-        animate={isInView ? {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotateX: 0
-        } : {
-          opacity: 0,
-          y: 100,
-          scale: 0.8,
-          rotateX: 45
-        }}
-        transition={{
-          duration: 1,
-          delay,
-          ease: [0.25, 0.4, 0.25, 1],
-          type: "spring",
-          stiffness: 50,
-          damping: 15
-        }}
-        whileHover={{
-          y: -10,
-          transition: { duration: 0.3 }
-        }}
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      >
-        {children}
-      </motion.div>
-    );
-  };
-
-  const PortfolioLink = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-    // detect screen width
-    const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-
-    return (
-      <motion.p
-        ref={ref}
-        className="link-button"
-        initial={isMobile ? false : { opacity: 0, x: -50 }}
-        animate={isMobile ? false : (isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 })}
-        transition={
-          isMobile
-            ? { duration: 0 } // disable animation entirely
-            : { duration: 0.6, delay, ease: [0.25, 0.4, 0.25, 1] }
-        }
-        whileHover={
-          isMobile
-            ? {} // no hover animation on mobile
-            : { scale: 1.05, transition: { duration: 0.2 } }
-        }
-      >
-        {children}
-      </motion.p>
-    );
-  };
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Strix Production",
-    "url": "https://www.strixproduction.com/",
-    "logo": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/brand/Header%20Logo.png",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "8851313109",
-      "contactType": "customer service",
-      "areaServed": "IN",
-      "availableLanguage": "en"
-    },
-    "sameAs": [
-      "https://www.instagram.com/strix_productions",
-      "https://x.com/strixproduction"
-    ]
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Strix Production",
-    "image": "https://raw.githubusercontent.com/DraeWE3/strix-sample/refs/heads/main/src/assets/img/brand/Header%20Logo.png",
-    "@id": "",
-    "url": "https://www.strixproduction.com/",
-    "telephone": "8851313109",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Sec-62",
-      "addressLocality": "Noida",
-      "postalCode": "201309",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 28.6229,
-      "longitude": 77.3640
-    },
-    "sameAs": [
-      "https://www.instagram.com/strix_productions",
-      "https://x.com/strixproduction",
-      "https://www.strixproduction.com/"
-    ]
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "What services does Strix Production provide?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Creative and technology services combine branding, design, development, and marketing to build a strong digital presence. Strix Production offers UI/UX design, web and app development, content creation, and marketing for impactful results."
-      }
-    },{
-      "@type": "Question",
-      "name": "Which are the best startup branding agencies for digital-first businesses?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Startup branding agencies help new businesses build a clear identity through strategy, design, and messaging. Strix Productions creates cohesive branding systems, visuals, and promotional content to help startups stand out and grow in competitive markets."
-      }
-    },{
-      "@type": "Question",
-      "name": "What are the top SaaS platform development company for scalable products?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "SaaS platform development involves building cloud-based software accessible online without installation. Strix Production creates secure, scalable, and user-friendly SaaS solutions with strong performance, intuitive design, and reliable architecture for growing businesses."
-      }
-    },{
-      "@type": "Question",
-      "name": "What makes Strix Production a reliable digital design and development partner?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Effective digital experiences combine strategy, user-focused design, and modern technology. Strix Production delivers scalable development, strong branding, and engaging solutions to help businesses create impactful products and drive long-term growth."
-      }
-    }]
-  };
+  // Sections above the MVP cards load data and media after mount; re-measure triggers when they resize.
+  useEffect(() => {
+    const root = section.current;
+    if (!root) return;
+    let frame = 0;
+    const refresh = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+    const observer = new ResizeObserver(refresh);
+    [...root.children].forEach((child) => observer.observe(child));
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
     <>
       <SEO
         {...pageMeta['/']}
-        schemas={[organizationSchema, localBusinessSchema, faqSchema]}
+        schemas={homeSchemas}
  />
       <Nav />
 
@@ -521,45 +464,47 @@ const Home = () => {
               <path className="half-circle-path" d="M 50 0 A 150 150 0 0 0 350 0" />
             </svg>
           </div>
-          <img src={Light} alt="" className="underlay" />
-          <img src={LightMobile} alt="" className="underlay-mobile" />
+          <img src={Light} alt="" className="underlay" width="2048" height="919" fetchPriority="high" />
+          <img src={LightMobile} alt="" className="underlay-mobile" width="390" height="405" />
 
-          <motion.div
+          <Motion.div
             className="explore explore-mobile relative overflow-hidden"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            <motion.h2 className="power-desk" variants={itemVariants}>
+            <Motion.h2 className="power-desk" variants={itemVariants}>
               Design, Development, Production - From Start to Ship
-            </motion.h2>
-            <motion.p className="power-mobile" variants={itemVariants}>
+            </Motion.h2>
+            <Motion.p className="power-mobile" variants={itemVariants}>
               Design, Development, Production - From Start to Ship
-            </motion.p>
-            <motion.p className="hero-desc" variants={itemVariants}>
+            </Motion.p>
+            <Motion.p className="hero-desc" variants={itemVariants}>
               We work with tech &amp; SaaS companies go from idea to market-ready product – without the chaos of managing five different vendors.
-            </motion.p>
+            </Motion.p>
 
-            <motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
+            <Motion.div className="button-p flex gap-4 mt-6" variants={itemVariants}>
 
               <Button to='/mvp' text="Build MVP" arrow />
               <Button to='/works' text="Explore Work" />
 
-            </motion.div>
+            </Motion.div>
 
-            <motion.img
+            <Motion.img
               src={Shadow1}
               alt=""
               className="shadow1 absolute top-10 left-0 w-40"
               variants={fadeInSide("right")}
- />
-            <motion.img
+              width="598" height="2048"
+            />
+            <Motion.img
               src={Shadow2}
               alt=""
               className="shadow2 absolute bottom-0 right-0 w-40"
               variants={fadeInSide("left")}
- />
-          </motion.div>
+              width="599" height="2048"
+            />
+          </Motion.div>
         </div>
 
 
@@ -579,33 +524,34 @@ const Home = () => {
             src={Shadow1}
             alt=""
             className="shadow1 absolute top-10 left-0 w-40"
- />
+            width="598" height="2048" loading="lazy" decoding="async"
+          />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 absolute bottom-0 right-0 w-40"
- />
+            width="599" height="2048" loading="lazy" decoding="async"
+          />
         </div>
 
         {/* =============showreel + trusted clients============== */}
         <NewSection>
-          <HomeHeroMedia onShowreel={openShowreel} style={{ marginTop: 0 }} />
+          <HomeHeroMedia style={{ marginTop: 0 }} />
           <HomeClients />
           <div className="smoothsection logo-loop sectionCon" style={{ paddingTop: 0 }}>
             <Loop />
           </div>
         </NewSection>
-        <ShowreelDialog trigger={showreelTrigger} onClose={closeShowreel} />
 
         {/* =============section 3============== */}
         <div className="smoothsection motion sectionCon" style={{ marginTop: "clamp(72px, 9vw, 140px)" }}>
-          <img src={Shadow3} alt="" className="shadow3" />
-          <img src={VectorB} alt="" className="Vector1" />
+          <img src={Shadow3} alt="" className="shadow3" width="1888" height="992" loading="lazy" decoding="async" />
+          <img src={VectorB} alt="" className="Vector1" width="1640" height="543" loading="lazy" decoding="async" />
 
           <SmoothTextReveal as="h2" className="section-header2 delay1">Real Work. Real Results</SmoothTextReveal>
 
           <div className="number-container">
-            <img src={Shadow4} className="shadow4" alt="" />
+            <img src={Shadow4} className="shadow4" alt="" width="688" height="1544" loading="lazy" decoding="async" />
             <div className="num1 delay2">
               <div>
                 <CountUp
@@ -683,9 +629,9 @@ const Home = () => {
           <div ref={velocityRef} className="altcard flex gap-8 justify-center">
             <ServiceCard delay={0}>
               <div className="card-con card-con1">
-                <img src={Card} alt="" className="card-img" />
-                <img src={Star} alt="" className="card-icon" />
-                <img src={Star2} alt="" className="card-icon2" />
+                <img src={Card} alt="" className="card-img" width="1407" height="1761" loading="lazy" decoding="async" />
+                <img src={Star} alt="" className="card-icon" width="143" height="141" loading="lazy" decoding="async" />
+                <img src={Star2} alt="" className="card-icon2" width="143" height="141" loading="lazy" decoding="async" />
                 <div className="card-content">
                   <h2>Design</h2>
                   <p className="card-content-p">Crafted to Captivate</p>
@@ -699,9 +645,9 @@ const Home = () => {
 
             <ServiceCard delay={0.2}>
               <div className="card-con card-con2">
-                <img src={Card2} alt="" className="card-img" />
-                <img src={Cloud} alt="" className="card-icon" />
-                <img src={Cloud2} alt="" className="card-icon2" />
+                <img src={Card2} alt="" className="card-img" width="704" height="881" loading="lazy" decoding="async" />
+                <img src={Cloud} alt="" className="card-icon" width="157" height="133" loading="lazy" decoding="async" />
+                <img src={Cloud2} alt="" className="card-icon2" width="157" height="133" loading="lazy" decoding="async" />
                 <div className="card-content">
                   <h2>Development</h2>
                   <p className="card-content-p">Engineered for Performance</p>
@@ -715,9 +661,9 @@ const Home = () => {
 
             <ServiceCard delay={0.4}>
               <div className="card-con">
-                <img src={Card3} alt="" className="card-img" />
-                <img src={Bolt} alt="" className="card-icon" />
-                <img src={Bolt2} alt="" className="card-icon2" />
+                <img src={Card3} alt="" className="card-img" width="1407" height="1761" loading="lazy" decoding="async" />
+                <img src={Bolt} alt="" className="card-icon" width="134" height="173" loading="lazy" decoding="async" />
+                <img src={Bolt2} alt="" className="card-icon2" width="134" height="173" loading="lazy" decoding="async" />
                 <div className="card-content">
                   <h2>Production</h2>
                   <p className="card-content-p">Elevate your content</p>
@@ -730,9 +676,9 @@ const Home = () => {
             </ServiceCard>
           </div>
 
-          <DevelopmentModal isOpen={openModal === "dev"} onClose={() => setOpenModal(null)} />
-          <DesignModal isOpen={openModal === "design"} onClose={() => setOpenModal(null)} />
-          <ResearchModal isOpen={openModal === "research"} onClose={() => setOpenModal(null)} />
+          <DevelopmentModal isOpen={openModal === "dev"} onClose={closeModal} />
+          <DesignModal isOpen={openModal === "design"} onClose={closeModal} />
+          <ResearchModal isOpen={openModal === "research"} onClose={closeModal} />
 
           <SmoothTextReveal as="p" className="services-p p-up" delay={0.3}>
             From visuals that speak to systems that scale - We deliver
@@ -753,31 +699,33 @@ const Home = () => {
               src={Shadow1}
               alt=""
               className="shadow1 shdowsmall absolute top-10 left-0 w-40"
- />
+              width="598" height="2048" loading="lazy" decoding="async"
+            />
             <img
               src={Shadow2}
               alt=""
               className="shadow2 mpv-shad shdowsmall absolute bottom-0 right-0 w-40"
- />
+              width="599" height="2048" loading="lazy" decoding="async"
+            />
 
             <div className="mvp-card mvp-card1 ">
-              <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={MvpDev} alt="" />
+              <img className="mvp-img" src={Mvp} alt="" width="544" height="845" loading="lazy" decoding="async" />
+              <img className="mvp-img-ab" src={MvpDev} alt="" width="254" height="255" loading="lazy" decoding="async" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Research
                 </h2>
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Shape your concept into a roadmap</p>
-                  <Button to="/cs" text="Know more" />
+                  <Button to="/mvp" text="Know more" />
 
                 </div>
               </div>
             </div>
 
             <div className="mvp-card mvp-card2">
-              <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={MvpDesign} alt="" />
+              <img className="mvp-img" src={Mvp} alt="" width="544" height="845" loading="lazy" decoding="async" />
+              <img className="mvp-img-ab" src={MvpDesign} alt="" width="254" height="255" loading="lazy" decoding="async" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Design
@@ -785,14 +733,14 @@ const Home = () => {
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Create intuitive flows, protoypes & More</p>
 
-                  <Button to="/cs" text="Know more" />
+                  <Button to="/mvp" text="Know more" />
                 </div>
               </div>
             </div>
 
             <div className="mvp-card mvp-card3">
-              <img className="mvp-img" src={Mvp} alt="" />
-              <img className="mvp-img-ab" src={MvpReasearch} alt="" />
+              <img className="mvp-img" src={Mvp} alt="" width="544" height="845" loading="lazy" decoding="async" />
+              <img className="mvp-img-ab" src={MvpReasearch} alt="" width="1014" height="1014" loading="lazy" decoding="async" />
               <div className="mvp-content">
                 <h2>
                   MVP <br /> Development
@@ -800,7 +748,7 @@ const Home = () => {
                 <div className="btn-con2">
                   <p className="mvp-ptxt">Full-stack, scalable builds</p>
 
-                  <Button to="/cs" text="Know more" />
+                  <Button to="/mvp" text="Know more" />
                 </div>
               </div>
             </div>
@@ -851,6 +799,7 @@ const Home = () => {
 
           <div className="coin-con flex justify-center items-center">
             <video
+              ref={coinRef}
               className="coin-anime"
               src={Coin}
               playsInline
@@ -871,12 +820,14 @@ const Home = () => {
             src={Shadow1}
             alt=""
             className="shadow1 absolute top-10 left-0 w-40"
- />
+            width="598" height="2048" loading="lazy" decoding="async"
+          />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 absolute bottom-0 right-0 w-40"
- />
+            width="599" height="2048" loading="lazy" decoding="async"
+          />
         </section>
 
 
@@ -887,12 +838,14 @@ const Home = () => {
             src={Shadow1}
             alt=""
             className="shadow1 shadowmed absolute top-10 left-0 w-40"
- />
+            width="598" height="2048" loading="lazy" decoding="async"
+          />
           <img
             src={Shadow2}
             alt=""
             className="shadow2 shadowmed absolute bottom-0 right-0 w-40"
- />
+            width="599" height="2048" loading="lazy" decoding="async"
+          />
 
           <SmoothTextReveal as="h2" className="section-header2 delay3">Our Craft, Your Expression.</SmoothTextReveal>
 
@@ -931,7 +884,7 @@ const Home = () => {
 
               <Link to='/contact'>
                 <div className="right-booking right-booking2">
-                  <img className="right-booking-img" src={Connect} alt="" />
+                  <img className="right-booking-img" src={Connect} alt="" width="56" height="56" loading="lazy" decoding="async" />
                   <p>
                     Let's start <br /> your project
                   </p>
@@ -943,7 +896,7 @@ const Home = () => {
             </div>
             <Link to='/contact'>
               <div className="right-booking">
-                <img className="right-booking-img" src={Connect} alt="" />
+                <img className="right-booking-img" src={Connect} alt="" width="56" height="56" loading="lazy" decoding="async" />
                 <p>
                   Let's start <br /> your project
                 </p>

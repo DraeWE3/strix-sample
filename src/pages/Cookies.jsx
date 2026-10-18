@@ -29,12 +29,12 @@ const Cookies = () => {
 
 
         <div className="blog-top note-return">
-               <Button to='/home'><ArrowLeft size={16} /> Return to Blog</Button>
+               <Button to='/blog'><ArrowLeft size={16} /> Return to Blog</Button>
              </div>
 
 
               <div className="sh-top uiux-hero note-hero">
-                       <img src={Circleblur} alt="" />
+                       <img src={Circleblur} alt="" width="3103" height="3336" />
                        <h1 className="slideinLoad mvp-hero-h1">Cookie Policy</h1>
                      </div>
 

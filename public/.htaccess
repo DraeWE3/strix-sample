@@ -1,15 +1,75 @@
 Options -Indexes -MultiViews
 DirectoryIndex index.html
 DirectorySlash Off
+ErrorDocument 404 /404.html
 
+# The studio lives on admin.strixproduction.com. public_html/admin (its docroot) handles /admin/*;
+# the bare folder URL never reaches its rewrite rules, so it is redirected here.
+<IfModule mod_alias.c>
+  RedirectMatch 301 "(?i)^/admin/?$" "https://admin.strixproduction.com/"
+</IfModule>
+
+<IfModule mod_rewrite.c>
 RewriteEngine On
+
+# One host: https://www.strixproduction.com (other hosts, e.g. staging, are left alone).
+# The X-Forwarded-Proto check avoids a redirect loop behind a TLS-terminating CDN.
+RewriteCond %{HTTP_HOST} ^strixproduction\.com$ [NC]
+RewriteRule ^ https://www.strixproduction.com%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTP_HOST} ^www\.strixproduction\.com$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+RewriteRule ^ https://www.strixproduction.com%{REQUEST_URI} [R=301,L,NE]
+
+# Redirects below are absolute https on the live host (the origin itself may see plain http
+# behind the CDN) and relative on any other host, e.g. a staging subdomain.
+RewriteRule ^ - [E=CANON:]
+RewriteCond %{HTTP_HOST} ^www\.strixproduction\.com$ [NC]
+RewriteRule ^ - [E=CANON:https://www.strixproduction.com]
+
+# Build metadata is not public.
+RewriteRule ^(release-manifest\.json|NOT-FOR-RELEASE\.txt)$ - [R=404,L]
+
+# /index.html and /page.html are reached at their clean URLs.
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^ %{ENV:CANON}/ [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+([^?\s]+?)\.html[\s?] [NC]
+RewriteRule ^ %{ENV:CANON}/%1 [R=301,L,NE]
+
+# @generated-route-rules
+
+# No trailing slashes.
+RewriteRule ^(.+)/$ %{ENV:CANON}/$1 [R=301,L,NE]
 
 RewriteRule ^$ index.html [L]
 
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-RewriteRule ^(.+?)/?$ $1.html [L]
+# A missing build file is a real 404, never the app shell (stale cached HTML must not get HTML as JavaScript).
+RewriteRule ^assets/ - [R=404,L]
 
-RewriteRule ^ app.html [L]
+# Prerendered pages: /works -> works.html, /services/web-dev -> services/web-dev.html
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# CMS content published after the last build: served by the app until the next build prerenders it.
+RewriteRule ^(blog|case-study)/[^/]+$ app.html [L]
+
+# Anything else is not a page.
+RewriteRule ^ - [R=404,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # HTML and metadata are revalidated on every visit, so a deploy is picked up at once.
+  <FilesMatch "\.(html|xml|txt|json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Build files carry a content hash in their name and never change.
+  <FilesMatch "-[A-Za-z0-9_-]{8}\.(js|css|png|jpe?g|webp|avif|gif|svg|ico|woff2?|ttf|otf|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

@@ -1,6 +1,9 @@
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
-import { db } from '../admin/firebaseconfig';
-import { PROJECTS_COLLECTION, isPublished, mapProject, projectHref } from './projects';
+import { db } from './firebase';
+import { PROJECTS_COLLECTION, caseStudyPath, isPublished, mapProject, projectHref } from './projects';
+import { safeUrl } from './urls';
+
+export { safeUrl };
 
 export const CASE_STUDIES_COLLECTION = 'caseStudies';
 
@@ -16,28 +19,6 @@ const cache = new Map();
 
 const asString = (value) => (typeof value === 'string' ? value : '');
 const asArray = (value) => (Array.isArray(value) ? value : []);
-
-const hasUnsafeChars = (value) => [...value].some((char) => char.charCodeAt(0) < 32 || char === '\u007f' || char === '\\');
-
-/**
- * Accepts https URLs, site-relative paths and base64 image data URIs.
- * @param {unknown} value
- * @returns {string}
- */
-export const safeUrl = (value) => {
-  const raw = asString(value).trim();
-  if (!raw || hasUnsafeChars(raw)) return '';
-  if (/^data:image\/(?:png|jpeg|jpg|gif|webp|avif|svg\+xml);base64,[a-z0-9+/=]+$/i.test(raw)) return raw;
-  if (/^https:\/\//i.test(raw)) {
-    try {
-      const url = new URL(raw);
-      return url.username || url.password ? '' : url.href;
-    } catch {
-      return '';
-    }
-  }
-  return raw.startsWith('/') && !raw.startsWith('//') ? raw : '';
-};
 
 /** @param {unknown} value */
 export const youtubeId = (value) => {
@@ -79,6 +60,9 @@ export const resolveTemplate = (data, project) => {
  * @param {Record<string, any>} mainData
  * @param {Array<{ sectionName?: string, data?: Record<string, any> }>} chunks
  */
+const chunkOrder = (a, b) =>
+  String(a.createdAt || '').localeCompare(String(b.createdAt || '')) || String(a.id || '').localeCompare(String(b.id || ''));
+
 export const reconstructSectionData = (mainData, chunks) => {
   const result = {
     ...mainData,
@@ -89,7 +73,8 @@ export const reconstructSectionData = (mainData, chunks) => {
     responsiveImages: asArray(mainData.responsiveImages).slice(),
   };
 
-  chunks.forEach(({ sectionName, data }) => {
+  // Oldest first, so the newest write of a section wins over any stray older chunk.
+  chunks.slice().sort(chunkOrder).forEach(({ sectionName, data }) => {
     if (!sectionName || !data) return;
     const hasIndex = data.index !== undefined;
     if (sectionName === 'hero_thumbnail') result.heroThumbnail = data.heroThumbnail;
@@ -177,12 +162,12 @@ export const mapCaseStudy = (data, project) => {
     media: {
       thumbnail: safeUrl(data.heroThumbnail),
       alt: title,
-      videoUrl: safeUrl(data.heroVideo),
+      videoUrl: safeUrl(data.heroVideo, { allowData: false }),
       youtubeId: youtubeId(data.heroVideo),
     },
     about,
     aboutImages: toImages(asArray(data.aboutProject?.images).slice(0, 3), title),
-    experienceUrl: safeUrl(data.aboutProject?.experienceLink),
+    experienceUrl: safeUrl(data.aboutProject?.experienceLink, { allowData: false }),
     process: FIGMA_PROCESS[template] || [],
     concepts: [
       toImages(asArray(data.conceptSlides).slice(0, 5), `${title} concept`),
@@ -200,6 +185,7 @@ export const mapCaseStudy = (data, project) => {
       .filter((result) => result?.title)
       .slice(0, 8)
       .map((result) => ({ title: asString(result.title), description: asString(result.description) })),
+    canonicalPath: caseStudyPath(project),
     seo: {
       title,
       description: about.slice(0, 160) || filterLabels.join(', '),
@@ -208,34 +194,86 @@ export const mapCaseStudy = (data, project) => {
   };
 };
 
-const findProject = async (slug) => {
-  const bySlug = await getDocs(
-    query(collection(db, PROJECTS_COLLECTION), where('link', '==', `/case-study/${slug}`), limit(1))
-  );
-  if (!bySlug.empty) return mapProject(bySlug.docs[0].id, bySlug.docs[0].data());
-  const byId = await getDoc(doc(db, PROJECTS_COLLECTION, slug));
-  return byId.exists() ? mapProject(byId.id, byId.data()) : null;
+const SAFE_ID = /^[A-Za-z0-9_-]{1,128}$/;
+
+const unavailable = () =>
+  Object.assign(new Error('The case study could not be loaded right now. Check your connection and try again.'), {
+    code: 'unavailable',
+  });
+
+const denied = (error) => error?.code === 'permission-denied';
+
+// An empty answer that came only from the local cache proves nothing.
+const confirmedEmpty = (snapshot) => {
+  if (!snapshot.empty) return false;
+  if (snapshot.metadata?.fromCache) throw unavailable();
+  return true;
 };
 
-const fetchCaseStudy = async (slug) => {
-  const project = await findProject(slug);
+const findProject = async (slug, { db: firestore, getDocs: readDocs, getDoc: readDoc }) => {
+  const bySlug = await readDocs(
+    query(
+      collection(firestore, PROJECTS_COLLECTION),
+      where('link', '==', `/case-study/${slug}`),
+      where('status', '==', 'published'),
+      limit(1)
+    )
+  );
+  if (!confirmedEmpty(bySlug)) return mapProject(bySlug.docs[0].id, bySlug.docs[0].data());
+  if (!SAFE_ID.test(slug)) return null;
+  try {
+    const byId = await readDoc(doc(firestore, PROJECTS_COLLECTION, slug));
+    return byId.exists() ? mapProject(byId.id, byId.data()) : null;
+  } catch (error) {
+    // Security rules refuse direct reads of unpublished cards.
+    if (denied(error)) return null;
+    throw error;
+  }
+};
+
+/**
+ * Reads one published case study. `source` lets the build pass server-only
+ * reads against its own Firestore instance.
+ * @param {string} slug
+ * @param {{ db: import('firebase/firestore').Firestore, getDocs: typeof getDocs, getDoc: typeof getDoc }} [source]
+ */
+export const fetchCaseStudy = async (slug, source = { db, getDocs, getDoc }) => {
+  const project = await findProject(slug, source);
   if (!project || !isPublished(project)) return { status: 'not-found' };
 
-  const snapshot = await getDocs(
-    query(collection(db, CASE_STUDIES_COLLECTION), where('projectId', '==', project.id), limit(1))
+  const snapshot = await source.getDocs(
+    query(
+      collection(source.db, CASE_STUDIES_COLLECTION),
+      where('projectId', '==', project.id),
+      where('status', '==', 'published'),
+      limit(1)
+    )
   );
-  if (snapshot.empty) return { status: 'not-found' };
+  if (confirmedEmpty(snapshot)) return { status: 'not-found' };
 
   const [caseDoc] = snapshot.docs;
-  if (caseDoc.data().status !== 'published') return { status: 'not-found' };
-  const chunks = await getDocs(collection(db, CASE_STUDIES_COLLECTION, caseDoc.id, 'chunks'));
+  const chunks = await source.getDocs(collection(source.db, CASE_STUDIES_COLLECTION, caseDoc.id, 'chunks'));
   const data = reconstructSectionData(
     { id: caseDoc.id, ...caseDoc.data() },
-    chunks.docs.map((chunk) => chunk.data())
+    chunks.docs.map((chunk) => ({ id: chunk.id, ...chunk.data() }))
   );
 
   return { status: 'ready', project, record: mapCaseStudy(data, project) };
 };
+
+/**
+ * Head metadata for a case study page, shared by the page and the prerender build.
+ * @param {ReturnType<typeof mapCaseStudy>} record
+ */
+export const caseStudyMeta = (record) => ({
+  path: record.canonicalPath,
+  title: `${record.title} — Case Study`,
+  description:
+    record.seo.description ||
+    `Explore the ${record.title} case study by Strix Production: the challenge, our design and development approach, and the results delivered.`,
+  type: 'article',
+  image: record.seo.image,
+});
 
 /**
  * Resolve a published case study by the slug used in `/case-study/:slug`.

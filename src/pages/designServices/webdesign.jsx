@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import Nav from '../../components/Navbar'
 import SEO from '../../components/SEO'
 import { pageMeta } from '../../data/pageMeta'

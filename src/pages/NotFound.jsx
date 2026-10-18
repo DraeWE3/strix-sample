@@ -4,7 +4,7 @@ import Nav from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import "../style/notFound.css";
-import { motion } from "framer-motion";
+import { motion as Motion } from "motion/react";
 
 const NotFound = () => {
     return (
@@ -16,7 +16,7 @@ const NotFound = () => {
             />
             <Nav />
             <main className="notfound-content">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
@@ -28,7 +28,7 @@ const NotFound = () => {
                     <Link to="/" className="notfound-btn">
                         Retrace Your Steps
                     </Link>
-                </motion.div>
+                </Motion.div>
             </main>
             <Footer />
         </div>

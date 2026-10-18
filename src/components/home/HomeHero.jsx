@@ -9,11 +9,11 @@ import { SHOWREEL_ID } from "../showreel";
 import SuccessIcon from "../../assets/img/shared/9eacb.png";
 
 const badges = [
-  { icon: TopRatedIcon, label: "Top Rated", key: "top-rated" },
-  { icon: MvpsIcon, label: "10+ MVPs", key: "mvps" },
-  { icon: FundsIcon, label: "$1M+ Funds raised by our clients", key: "funds" },
-  { icon: YearsIcon, label: "3+ Years", key: "years" },
-  { icon: SuccessIcon, label: "100% Job Success", key: "success" },
+  { icon: TopRatedIcon, label: "Top Rated", key: "top-rated", size: [196, 214] },
+  { icon: MvpsIcon, label: "10+ MVPs", key: "mvps", size: [1024, 1024] },
+  { icon: FundsIcon, label: "$1M+ Funds raised by our clients", key: "funds", size: [1024, 1024] },
+  { icon: YearsIcon, label: "3+ Years", key: "years", size: [1024, 1024] },
+  { icon: SuccessIcon, label: "100% Job Success", key: "success", size: [306, 318] },
 ];
 
 
@@ -33,8 +33,8 @@ const HomeHeroMedia = ({ style }) => {
       </div>
     ) : (
       <button type="button" className="hh-showreel" onClick={() => setPlaying(true)} aria-label="Play the Strix showreel">
-        <img className="hh-showreel-poster" src={`https://i.ytimg.com/vi/${SHOWREEL_ID}/maxresdefault.jpg`} alt="Strix showreel" fetchPriority="high" />
-        <img className="hh-showreel-play" src={PlayIcon} alt="" />
+        <img className="hh-showreel-poster" src={`https://i.ytimg.com/vi/${SHOWREEL_ID}/maxresdefault.jpg`} alt="Strix showreel" width="1280" height="720" loading="lazy" decoding="async" />
+        <img className="hh-showreel-play" src={PlayIcon} alt="" width="51" height="58" />
       </button>
     )}
     <p className="hh-media-copy">
@@ -42,9 +42,9 @@ const HomeHeroMedia = ({ style }) => {
       <br className="hh-desktop-break" /> No separate agencies. No coordination chaos.
     </p>
     <ul className="hh-proof" aria-label="Studio credentials">
-      {badges.map(({ icon, label, key }) => (
+      {badges.map(({ icon, label, key, size: [width, height] }) => (
         <li key={key} className={`hh-proof-${key}`}>
-          <span className="hh-proof-icon"><img alt="" src={icon} /></span>
+          <span className="hh-proof-icon"><img alt="" src={icon} width={width} height={height} loading="lazy" decoding="async" /></span>
           <span>{label}</span>
         </li>
       ))}

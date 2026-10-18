@@ -2,12 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
-import SEO from '../components/SEO';
+import SEO, { PendingSEO } from '../components/SEO';
 import BlogCard from '../components/blog/BlogCard';
 import BlogContent from '../components/blog/BlogContent';
 import BlogSummaryLinks from '../components/blog/BlogSummaryLinks';
 import { useSavedBlogs } from '../components/blog/savedBlogs';
-import { BLOG_SITE_URL, blogHeadings, blogHref, formatBlogDate, relatedBlogs, useBlogs } from '../lib/blogs';
+import { BLOG_SITE_URL, blogHeadings, blogHref, blogMeta, formatBlogDate, relatedBlogs, useBlogs } from '../lib/blogs';
 import '../style/fonts.css';
 import '../style/blog-page.css';
 import '../style/blog-article.css';
@@ -71,9 +71,9 @@ const useActiveHeading = (headings) => {
   return [activeId, setActiveId];
 };
 
-const ArticleState = ({ title, description, children, noindex }) => (
+const ArticleState = ({ title, description, children, pending = false }) => (
   <div>
-    <SEO title={title} description={description} noindex={noindex} />
+    {pending ? <PendingSEO title={title} description={description} /> : <SEO title={title} description={description} noindex />}
     <Nav />
     <div className="blog-shell article-shell">
       <main className="article-page article-page--state">
@@ -87,7 +87,7 @@ const ArticleState = ({ title, description, children, noindex }) => (
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { blogs, loading, error } = useBlogs();
+  const { blogs, loading, error, confirmed } = useBlogs();
   const { isSaved, toggle } = useSavedBlogs();
   const blog = blogs.find((item) => item.id === id);
   const bodyRef = useRef(null);
@@ -101,8 +101,10 @@ const BlogDetails = () => {
 
   useEffect(() => setShareStatus(''), [id]);
 
+  const jumpedFor = useRef('');
   useEffect(() => {
-    if (!headings.length) return;
+    if (!headings.length || jumpedFor.current === id) return;
+    jumpedFor.current = id;
     let fragment = '';
     try {
       fragment = decodeURIComponent(window.location.hash.slice(1));
@@ -112,11 +114,11 @@ const BlogDetails = () => {
     if (!headings.some((heading) => heading.id === fragment)) return;
     requestAnimationFrame(() => document.getElementById(fragment)?.scrollIntoView());
     setActiveId(fragment);
-  }, [headings, setActiveId]);
+  }, [headings, setActiveId, id]);
 
-  if (loading) {
+  if (loading || (!blog && !error && !confirmed)) {
     return (
-      <ArticleState title="Blog Article" description="An article from the Strix Production blog with insights on UI/UX design, web development, branding and video production for startups and brands.">
+      <ArticleState pending title="Blog Article" description="An article from the Strix Production blog with insights on UI/UX design, web development, branding and video production for startups and brands.">
         <div className="article-loading" role="status" aria-live="polite">
           <span className="article-loading__title" />
           <span className="article-loading__cover" />
@@ -127,12 +129,13 @@ const BlogDetails = () => {
   }
 
   if (!blog) {
-    const failed = Boolean(error);
+    // Only a published list confirmed by the server proves the article is gone; errors and cached answers are temporary.
+    const failed = Boolean(error) || !confirmed;
     return (
       <ArticleState
+        pending={failed}
         title={failed ? 'Blog unavailable' : 'Article not found'}
         description={failed ? 'This Strix Production blog article could not be loaded right now. Please try again or explore the latest stories on the blog.' : 'This Strix Production blog article is unavailable. It may have been moved or unpublished. Explore the latest stories on the blog.'}
-        noindex
       >
         <header className="article-hero article-hero--state">
           <h1>{failed ? 'Something went wrong' : 'Article not found'}</h1>
@@ -148,6 +151,7 @@ const BlogDetails = () => {
     );
   }
 
+  const meta = blogMeta(blog);
   const canonical = `${BLOG_SITE_URL}${blogHref(blog)}`;
   const summaryPrompt = `Summarize this Strix Production article in 5 concise points: ${canonical}\n\n${[blog.title, blog.excerpt].filter(Boolean).join('\n\n')}`;
   const shareLinks = [
@@ -170,7 +174,8 @@ const BlogDetails = () => {
 
   const jumpTo = (event, headingId) => {
     event.preventDefault();
-    document.getElementById(headingId)?.scrollIntoView({ behavior: 'smooth' });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById(headingId)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
     window.history.replaceState(null, '', `#${headingId}`);
     setActiveId(headingId);
   };
@@ -180,23 +185,24 @@ const BlogDetails = () => {
     '@type': 'BlogPosting',
     headline: blog.title,
     description: blog.excerpt || undefined,
-    image: blog.coverImage || undefined,
+    image: /^https:\/\//i.test(blog.coverImage) ? blog.coverImage : undefined,
     datePublished: blog.date || undefined,
     dateModified: blog.updatedAt || blog.date || undefined,
     mainEntityOfPage: canonical,
     articleSection: blog.category || undefined,
     author: author ? { '@type': 'Person', name: author.name } : { '@type': 'Organization', name: 'Strix Production' },
-    publisher: { '@type': 'Organization', name: 'Strix Production', url: BLOG_SITE_URL },
+    publisher: { '@type': 'Organization', '@id': `${BLOG_SITE_URL}/#org`, name: 'Strix Production', url: BLOG_SITE_URL, logo: { '@type': 'ImageObject', url: `${BLOG_SITE_URL}/brand/strix-logo.png` } },
   };
 
   return (
     <div>
       <SEO
-        title={blog.title}
-        description={blog.excerpt || `Read “${blog.title}” on the Strix Production blog.`}
-        canonical={canonical}
-        ogImage={blog.coverImage || undefined}
-        type="article"
+        title={meta.title}
+        description={meta.description}
+        canonical={meta.path}
+        ogImage={meta.image}
+        ogImageAlt={blog.title}
+        type={meta.type}
         schema={schema}
       />
       <Nav />

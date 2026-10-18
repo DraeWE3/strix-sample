@@ -309,8 +309,56 @@ button:focus-visible {
   height: 3rem;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Home images carry intrinsic width/height attributes; these are sized by width only */
+#smooth-wrapper .card-img,
+#smooth-wrapper .card-icon,
+#smooth-wrapper .card-icon2,
+#smooth-wrapper .mvp-img,
+#smooth-wrapper .shadow4 {
+  height: auto;
+}
+
+/* Home card "Know more" buttons reveal on hover; keep them focusable and reveal them on keyboard focus too */
+@media (min-width: 771px) {
+  #smooth-wrapper .btn-con,
+  #smooth-wrapper .btn-con2 {
+    visibility: visible;
+  }
+
+  #smooth-wrapper .card-con:focus-within .btn-con {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #smooth-wrapper .mvp-card:focus-within .btn-con2 {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  #smooth-wrapper .mvp-card:focus-within .mvp-img-ab {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Home hero intro effects end on their final frame instead of playing */
+@media (prefers-reduced-motion: reduce) {
+  #smooth-wrapper .underlay,
+  #smooth-wrapper .underlay-mobile,
+  #smooth-wrapper .half-circle-container,
+  #smooth-wrapper .half-circle-svg,
+  #smooth-wrapper .half-circle-path {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 .link-button:hover{

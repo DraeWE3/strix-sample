@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
 import Footer from '../components/Footer';
-import SEO from '../components/SEO';
+import SEO, { PendingSEO } from '../components/SEO';
 import CaseStudyView from '../components/caseStudy/CaseStudyView';
-import { loadCaseStudy, nextProjectHref } from '../lib/caseStudies';
+import { caseStudyMeta, loadCaseStudy, nextProjectHref } from '../lib/caseStudies';
+import { SITE_URL } from '../lib/seo';
+import { breadcrumbSchema } from '../data/structuredData';
 import { useProjects } from '../lib/projects';
 import '../style/caseStudyState.css';
-
-const SITE_URL = 'https://www.strixproduction.com';
 
 const StateMessage = ({ title, children, action }) => (
   <main className="case-state" id="main-content">
@@ -39,14 +39,15 @@ const CaseStudy = () => {
     () => (status === 'ready' ? nextProjectHref(projects, project) : ''),
     [status, projects, project]
   );
-  const canonical = `${SITE_URL}/case-study/${id}`;
+  const meta = status === 'ready' ? caseStudyMeta(record) : null;
+  const canonical = meta ? `${SITE_URL}${meta.path}` : '';
 
   return (
     <div className="case-study-page">
       <Nav />
       {status === 'loading' && (
         <>
-          <SEO title="Case Study" description="A Strix Production case study covering the client brief, our design and development approach, and the results delivered for the brand." />
+          <PendingSEO title="Case Study" description="A Strix Production case study covering the client brief, our design and development approach, and the results delivered for the brand." />
           <div className="case-state" role="status" aria-live="polite">
             <p>Loading case study…</p>
           </div>
@@ -54,7 +55,7 @@ const CaseStudy = () => {
       )}
       {status === 'error' && (
         <>
-          <SEO title="Case study unavailable" description="This Strix Production case study could not be loaded right now. Please try again or browse our other projects." noindex />
+          <PendingSEO title="Case study unavailable" description="This Strix Production case study could not be loaded right now. Please try again or browse our other projects." />
           <StateMessage
             title="We couldn't load this case study"
             action={
@@ -85,11 +86,30 @@ const CaseStudy = () => {
       {status === 'ready' && (
         <>
           <SEO
-            title={`${record.title} — Case Study`}
-            description={record.seo.description || `Explore the ${record.title} case study by Strix Production: the challenge, our design and development approach, and the results delivered.`}
-            canonical={canonical}
-            ogImage={record.seo.image || undefined}
-            type="article"
+            title={meta.title}
+            description={meta.description}
+            canonical={meta.path}
+            ogImage={meta.image}
+            ogImageAlt={record.title}
+            type={meta.type}
+            schemas={[
+              {
+                '@context': 'https://schema.org',
+                '@type': 'CreativeWork',
+                name: record.title,
+                headline: meta.title,
+                description: meta.description,
+                url: canonical,
+                image: /^https:\/\//i.test(meta.image) ? meta.image : undefined,
+                creator: { '@type': 'Organization', '@id': `${SITE_URL}/#org`, name: 'Strix Production', url: `${SITE_URL}/` },
+                keywords: record.services.length ? record.services.join(', ') : undefined,
+              },
+              breadcrumbSchema([
+                { name: 'Home', url: `${SITE_URL}/` },
+                { name: 'Works', url: `${SITE_URL}/works` },
+                { name: record.title, url: canonical },
+              ]),
+            ]}
           />
           <CaseStudyView record={record} nextHref={nextHref} canonical={canonical} />
         </>

@@ -6,9 +6,9 @@ const config = Object.freeze({
   timeoutMs: 20000
 });
 
-function templateParams(inquiry) {
-  return {
-    to_email: 'info@strixproduction.com',
+// The recipient is fixed in the EmailJS template (see emailjs/lead-template.html), never sent from the browser.
+export function templateParams(inquiry, captchaToken = '') {
+  const params = {
     name: inquiry.name,
     company: 'Not provided',
     email: inquiry.email,
@@ -21,20 +21,22 @@ function templateParams(inquiry) {
       `Brief / reference: ${inquiry.brief || 'Not provided'}`
     ].join('\n')
   };
+  if (captchaToken) params['g-recaptcha-response'] = captchaToken;
+  return params;
 }
 
-export async function sendInquiry(inquiry) {
+export async function sendInquiry(inquiry, { captchaToken = '', fetchImpl = fetch } = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), config.timeoutMs);
   try {
-    const response = await fetch(config.endpoint, {
+    const response = await fetchImpl(config.endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id: config.publicKey,
         service_id: config.serviceId,
         template_id: config.templateId,
-        template_params: templateParams(inquiry)
+        template_params: templateParams(inquiry, captchaToken)
       }),
       signal: controller.signal
     });

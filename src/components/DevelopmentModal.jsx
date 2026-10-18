@@ -1,8 +1,5 @@
 import Button from "./Button";
-import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ReactDOM from "react-dom";
-import "../style/module.css";
+import InfoDialog from "./InfoDialog";
 import Grad from "../assets/img/home/dev-gradient.webp";
 import Icon1 from "../assets/img/home/dev-icon1.png";
 import Icon2 from "../assets/img/home/dev-icon2.png";
@@ -14,65 +11,29 @@ import Arrow from "../assets/img/home/arr-left.png";
 import Mgrad from "../assets/img/home/dev-grad-mobile.webp";
 import { Link } from "react-router-dom";
 
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
 
-const modalVariants = {
-  hidden: { opacity: 0, scale: 0.95, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: 20,
-    transition: { duration: 0.2, ease: "easeIn" },
-  },
-};
-
-const DevelopmentModal = ({ isOpen, onClose }) => {
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "unset";
-    return () => (document.body.style.overflow = "unset");
-  }, [isOpen]);
-
-  const modalContent = (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="modal"
-          style={{ zIndex: 9999999, position: "fixed", inset: 0 }}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <motion.div
-            className="backdrop"
-            onClick={onClose}
-            variants={backdropVariants}
- />
-          <motion.div className="modal-content2" variants={modalVariants}>
-            <img src={Grad} className="gradient" alt="" />
-            <img src={Mgrad} alt="" className="mgradient" />
-            <button className="close-btnmode ui-btn-icon-only" onClick={onClose}>
-              <img src={Arrow} alt="" />
-            </button>
-            <h1>Development</h1>
+const DevelopmentModal = ({ isOpen, onClose }) => (
+  <InfoDialog
+    isOpen={isOpen}
+    onClose={onClose}
+    title="Development"
+    closeIcon={Arrow}
+    media={
+      <>
+        <img src={Grad} className="gradient" alt="" width="1118" height="600" />
+        <img src={Mgrad} alt="" className="mgradient" width="1414" height="2268" />
+      </>
+    }
+  >
             <p className="mcp">
               Building fast, functional, and scalable digital experiences across
               platforms.
             </p>
            <div className="mcp-con">
   <div className="mcp-left">
-    <Link to="/webapp">
+    <Link to="/services/web-app">
       <div className="table">
-        <img src={Icon1} alt="" className="t-icon" />
+        <img src={Icon1} alt="" className="t-icon" width="48" height="49" />
         <div className="t-txt">
           <h2>Web Applications</h2>
           <p>Site builder solutions</p>
@@ -80,9 +41,9 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
       </div>
     </Link>
 
-    <Link to="/intaweb">
+    <Link to="/services/interactive-web">
       <div className="table">
-        <img src={Icon2} alt="" className="t-icon" />
+        <img src={Icon2} alt="" className="t-icon" width="43" height="43" />
         <div className="t-txt">
           <h2>Interactive Websites</h2>
           <p>Real-time interactions</p>
@@ -90,9 +51,9 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
       </div>
     </Link>
 
-    <Link to="/webdev">
+    <Link to="/services/web-dev">
       <div className="table">
-        <img src={Icon3} alt="" className="t-icon" />
+        <img src={Icon3} alt="" className="t-icon" width="46" height="41" />
         <div className="t-txt">
           <h2>Website Development</h2>
           <p>Front-End & Back-End Development</p>
@@ -102,9 +63,9 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
   </div>
 
   <div className="mcp-left">
-    <Link to="/appdev">
+    <Link to="/services/app-dev">
       <div className="table">
-        <img src={Icon4} alt="" className="t-icon" />
+        <img src={Icon4} alt="" className="t-icon" width="48" height="47" />
         <div className="t-txt">
           <h2>Mobile App Development</h2>
           <p>IOS, Android, Cross-platform</p>
@@ -114,7 +75,7 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
 
     <Link to="/ecommerce">
       <div className="table">
-        <img src={Icon5} alt="" className="t-icon" />
+        <img src={Icon5} alt="" className="t-icon" width="48" height="47" />
         <div className="t-txt">
           <h2>E-Commerce</h2>
           <p>Custom e-commerce platforms</p>
@@ -122,9 +83,9 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
       </div>
     </Link>
 
-    <Link to="/softwaredev">
+    <Link to="/services/software-dev">
       <div className="table">
-        <img src={Icon6} alt="" className="t-icon" />
+        <img src={Icon6} alt="" className="t-icon" width="48" height="47" />
         <div className="t-txt">
           <h2>Maintenance & Hosting</h2>
           <p>Performance optimization, Setup</p>
@@ -133,14 +94,8 @@ const DevelopmentModal = ({ isOpen, onClose }) => {
     </Link>
   </div>
 </div>
-            <Button text="Portfolio" arrow />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-
-  return ReactDOM.createPortal(modalContent, document.body);
-};
+            <Button to="/works" text="Portfolio" arrow />
+  </InfoDialog>
+);
 
 export default DevelopmentModal;

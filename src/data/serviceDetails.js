@@ -687,7 +687,7 @@ export const serviceDetails = {
 
 export const serviceSlugs = serviceCategories.flatMap((category) => category.slugs);
 
-export const getServiceDetail = (slug) => serviceDetails[slug];
+export const getServiceDetail = (slug) => (Object.hasOwn(serviceDetails, slug) ? serviceDetails[slug] : undefined);
 
 export const getServiceCategory = (id) => serviceCategories.find((category) => category.id === id);
 

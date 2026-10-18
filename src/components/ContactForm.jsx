@@ -3,6 +3,16 @@ import { Paperclip, Check } from 'lucide-react';
 import Button from './Button';
 import ArrowIcon from '../assets/img/home/e23f5-hero-intro.svg';
 import { sendInquiry } from '../lib/contactApi';
+import { GUARD_MESSAGES, checkSubmission, readHistory, recordSubmission } from '../lib/spamGuard';
+import { useRecaptcha } from '../lib/recaptcha';
+
+const storage = () => {
+  try {
+    return window.localStorage;
+  } catch {
+    return undefined;
+  }
+};
 
 const SERVICES = ['UI/UX design', 'Websites', 'MVP & development', 'Mobile application', 'Motion & video'];
 const BUDGETS = ['Under $5K', '$5K–$10K', '$10K–$20K', '$20K+', 'Let’s discuss'];
@@ -27,6 +37,8 @@ const ContactForm = () => {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null);
   const [submitted, setSubmitted] = useState(null);
+  const [honeypot, setHoneypot] = useState('');
+  const [startedAt, setStartedAt] = useState(() => Date.now());
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -34,6 +46,8 @@ const ContactForm = () => {
   const briefRef = useRef(null);
   const statusRef = useRef(null);
   const successRef = useRef(null);
+  const captchaRef = useRef(null);
+  const captcha = useRecaptcha(captchaRef, !submitted);
 
   const refs = { name: nameRef, email: emailRef, project: projectRef, brief: briefRef };
 
@@ -83,10 +97,31 @@ const ContactForm = () => {
     }
 
     const inquiry = { name: trimmedName, email: trimmedEmail, project: trimmedProject, services, budget, brief: trimmedBrief };
+    const now = Date.now();
+    const history = readHistory(storage());
+    const blocked = checkSubmission({ honeypot, startedAt, now, history });
+    if (blocked === 'bot') {
+      // Bots get the normal success screen and nothing is sent.
+      setSubmitted(inquiry);
+      return;
+    }
+    if (blocked) {
+      setStatus({ text: GUARD_MESSAGES[blocked], state: 'error' });
+      setTimeout(() => statusRef.current?.focus(), 0);
+      return;
+    }
+    const captchaToken = captcha.token();
+    if (captcha.enabled && !captchaToken) {
+      setStatus({ text: 'Please confirm you’re not a robot, then send again.', state: 'error' });
+      setTimeout(() => statusRef.current?.focus(), 0);
+      return;
+    }
+
     setSending(true);
     setStatus(null);
     try {
-      await sendInquiry(inquiry);
+      await sendInquiry(inquiry, { captchaToken });
+      recordSubmission(storage(), history, now);
       setSubmitted(inquiry);
       setName('');
       setEmail('');
@@ -98,6 +133,7 @@ const ContactForm = () => {
       setBriefOpen(false);
       setTimeout(() => successRef.current?.focus(), 0);
     } catch {
+      captcha.reset();
       setStatus({ text: 'error', state: 'error', inquiry });
       setTimeout(() => statusRef.current?.focus(), 0);
     } finally {
@@ -108,6 +144,7 @@ const ContactForm = () => {
   const resetForm = () => {
     setSubmitted(null);
     setStatus(null);
+    setStartedAt(Date.now());
     setTimeout(() => nameRef.current?.focus(), 0);
   };
 
@@ -148,9 +185,10 @@ const ContactForm = () => {
               maxLength={120}
               value={name}
               aria-invalid={errors.name ? 'true' : 'false'}
+              aria-describedby={errors.name ? 'name-error' : undefined}
               onChange={e => setName(e.target.value)}
             />
-            {errors.name && <span className="error">Please enter your name.</span>}
+            {errors.name && <span className="error" id="name-error">Please enter your name.</span>}
           </div>
           <div className="field">
             <label htmlFor="email">Work email <span>*</span></label>
@@ -165,9 +203,10 @@ const ContactForm = () => {
               maxLength={254}
               value={email}
               aria-invalid={errors.email ? 'true' : 'false'}
+              aria-describedby={errors.email ? 'email-error' : undefined}
               onChange={e => setEmail(e.target.value)}
             />
-            {errors.email && <span className="error">Please enter a valid email.</span>}
+            {errors.email && <span className="error" id="email-error">Please enter a valid email.</span>}
           </div>
         </div>
 
@@ -206,9 +245,10 @@ const ContactForm = () => {
             placeholder="What are you building, who is it for, and what would success look like?"
             value={project}
             aria-invalid={errors.project ? 'true' : 'false'}
+            aria-describedby={errors.project ? 'project-error' : undefined}
             onChange={e => setProject(e.target.value)}
           />
-          {errors.project && <span className="error">Tell us a little about your project.</span>}
+          {errors.project && <span className="error" id="project-error">Tell us a little about your project.</span>}
         </div>
 
         <div className="brief-area">
@@ -233,13 +273,21 @@ const ContactForm = () => {
                 maxLength={1000}
                 value={brief}
                 aria-invalid={errors.brief ? 'true' : 'false'}
+                aria-describedby={errors.brief ? 'brief-help brief-error' : 'brief-help'}
                 onChange={e => setBrief(e.target.value)}
               />
-              <small>A Figma, Drive or website link. Make sure our team can view it.</small>
-              {errors.brief && <span className="error">Enter a full link starting with https:// or http://.</span>}
+              <small id="brief-help">A Figma, Drive or website link. Make sure our team can view it.</small>
+              {errors.brief && <span className="error" id="brief-error">Enter a full link starting with https:// or http://.</span>}
             </div>
           )}
         </div>
+
+        <div className="hp-field" aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', overflow: 'hidden' }}>
+          <label htmlFor="company-website">Company website</label>
+          <input id="company-website" name="company_website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
+        </div>
+
+        {captcha.enabled && <div className="captcha-field" ref={captchaRef} style={{ marginTop: '1rem' }} />}
 
         <div className="form-bottom">
           <p className="privacy">
@@ -255,7 +303,7 @@ const ContactForm = () => {
         </div>
 
         {status && (
-          <div ref={statusRef} tabIndex={-1} role="status" aria-live="polite" data-state={status.state}>
+          <div ref={statusRef} tabIndex={-1} role={status.state === 'error' ? 'alert' : 'status'} aria-live={status.state === 'error' ? 'assertive' : 'polite'} data-state={status.state}>
             {status.state === 'error' && status.inquiry ? (
               <>
                 Your inquiry wasn’t sent. Your details are still here. Please try again, or{' '}

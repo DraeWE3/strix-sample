@@ -35,7 +35,7 @@
 @media(prefers-reduced-motion:reduce){.strix-case[data-template="production"] .production-related__arrow{transition:none}}
 
 /* Production-specific differences from the shared case-study template. */
-@font-face{font-family:'CS 42dot Sans';src:url('/case-study/fonts/42dot-sans-500.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'CS 42dot Sans';src:url('/case-study/fonts/42dot-sans-500.woff2') format('woff2');font-weight:500;font-display:swap}
 .strix-case[data-template="production"] .case-process + .case-section-rule{margin-top:95px}
 .strix-case[data-template="production"] .production-related{margin-top:51.909px}
 .strix-case[data-template="production"] .case-connect{margin-top:151px}

@@ -37,7 +37,7 @@ const HomeTestimonials = () => {
                       <div className="hl-review-rating">
                         <div className="hl-review-stars" aria-label={`${review.rating} out of 5 stars`}>
                           {Array.from({ length: Math.round(review.rating) }, (_, star) => star).map((star) => (
-                            <span key={star} className="hl-review-star" aria-hidden="true"><span><img src={StarIcon} alt="" draggable="false" /></span></span>
+                            <span key={star} className="hl-review-star" aria-hidden="true"><span><img src={StarIcon} alt="" draggable="false" width="40" height="40" loading="lazy" decoding="async" /></span></span>
                           ))}
                         </div>
                         <span className="hl-review-rating-value" aria-hidden="true">{formatRating(review.rating)} / 5</span>
@@ -66,7 +66,7 @@ const HomeTestimonials = () => {
         </div>
         <div className="hl-review-controls">
           <button type="button" className="hl-review-prev ui-btn-icon-only" aria-label="Previous testimonial" disabled={controlIndex === 0} onClick={() => step(-1)}>
-            <span aria-hidden="true"><img src={PrevArrow} alt="" draggable="false" /></span>
+            <span aria-hidden="true"><img src={PrevArrow} alt="" draggable="false" width="64" height="64" loading="lazy" decoding="async" /></span>
           </button>
           <div className="hl-review-dots" role="group" aria-label="Choose a testimonial">
             {reviews.map((review, reviewIndex) => (
@@ -82,7 +82,7 @@ const HomeTestimonials = () => {
             ))}
           </div>
           <button type="button" className="hl-review-next ui-btn-icon-only" aria-label="Next testimonial" disabled={controlIndex === reviews.length - 1} onClick={() => step(1)}>
-            <span aria-hidden="true"><img src={NextArrow} alt="" draggable="false" /></span>
+            <span aria-hidden="true"><img src={NextArrow} alt="" draggable="false" width="64" height="64" loading="lazy" decoding="async" /></span>
           </button>
         </div>
         <p className="visually-hidden" aria-live="polite" aria-atomic="true">{`Client testimonials: ${settledIndex + 1} of ${reviews.length}`}</p>

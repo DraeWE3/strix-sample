@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../style/showreel-dialog.css";
 import "../style/button.css";
-
-// Placeholder showreel (Big Buck Bunny by Blender). Replace with Strix's YouTube video ID.
-const SHOWREEL_VIDEO_ID = "aqz-KE-bpKQ";
+import { SHOWREEL_ID } from "./showreel";
 
 const ShowreelDialog = ({ trigger, onClose }) => {
   const dialogRef = useRef(null);
@@ -39,8 +37,8 @@ const ShowreelDialog = ({ trigger, onClose }) => {
       <div className="video-mount">
         {trigger && (
           <iframe
-            title="Placeholder showreel — Big Buck Bunny by Blender"
-            src={`https://www.youtube-nocookie.com/embed/${SHOWREEL_VIDEO_ID}?autoplay=1&rel=0`}
+            title="Strix Production showreel"
+            src={`https://www.youtube-nocookie.com/embed/${SHOWREEL_ID}?autoplay=1&rel=0`}
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen
             referrerPolicy="strict-origin-when-cross-origin"
@@ -48,8 +46,7 @@ const ShowreelDialog = ({ trigger, onClose }) => {
         )}
       </div>
       <p className="video-note">
-        Placeholder video: Big Buck Bunny by Blender.{" "}
-        <a href={`https://www.youtube.com/watch?v=${SHOWREEL_VIDEO_ID}`} target="_blank" rel="noopener noreferrer">
+        <a href={`https://www.youtube.com/watch?v=${SHOWREEL_ID}`} target="_blank" rel="noopener noreferrer">
           Watch on YouTube &#8599;
         </a>
       </p>

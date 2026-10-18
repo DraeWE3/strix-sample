@@ -1,8 +1,5 @@
 import Button from "./Button";
-import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ReactDOM from "react-dom";
-import "../style/module.css";
+import InfoDialog from "./InfoDialog";
 import { Link } from "react-router-dom";
 import Grad from "../assets/img/home/pro-gradient.webp";
 import Icon1 from "../assets/img/home/pro-icon1.png";
@@ -13,80 +10,23 @@ import Icon5 from "../assets/img/home/pro-icon5.png";
 import Arrow from "../assets/img/home/arr-left.png";
 import Mgrad from "../assets/img/home/pro-gradient.webp";
 
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
 
-const modalVariants = {
-  hidden: { opacity: 0, scale: 0.95, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: 20,
-    transition: { duration: 0.2, ease: "easeIn" },
-  },
-};
-
-const ResearchModal = ({ isOpen, onClose }) => {
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "unset";
-    return () => (document.body.style.overflow = "unset");
-  }, [isOpen]);
-
-  const modalContent = (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="modal"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999999,
-            pointerEvents: "auto",
-          }}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          {/* Backdrop */}
-          <motion.div
-            className="backdrop"
-            onClick={onClose}
-            variants={backdropVariants}
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "rgba(0, 0, 0, 0.5)",
-              zIndex: 9999998,
-            }}
- />
-
-          {/* Modal Content */}
-          <motion.div
-            className="modal-content2"
-            variants={modalVariants}
-            style={{
-              position: "relative",
-              zIndex: 9999999,
-              background: "white",
-              borderRadius: "1rem",
-            }}
-          >
-            <img src={Grad} alt="" className="gradient" />
-            <img src={Mgrad} alt="" className="mgradient" />
-            <button className="close-btnmode arr-left ui-btn-icon-only" onClick={onClose}>
-              <img src={Arrow} alt="" />
-            </button>
-
-            <h1>Production</h1>
+const ResearchModal = ({ isOpen, onClose }) => (
+  <InfoDialog
+    isOpen={isOpen}
+    onClose={onClose}
+    title="Production"
+    backdropStyle={{ background: "rgba(0, 0, 0, 0.5)" }}
+    contentStyle={{ background: "white", borderRadius: "1rem" }}
+    closeClassName="arr-left"
+    closeIcon={Arrow}
+    media={
+      <>
+        <img src={Grad} alt="" className="gradient" width="1118" height="600" />
+        <img src={Mgrad} alt="" className="mgradient" width="1118" height="600" />
+      </>
+    }
+  >
             <p className="mcp">
               Creating engaging video content and motion graphics that tell your
               story powerfully.
@@ -94,9 +34,9 @@ const ResearchModal = ({ isOpen, onClose }) => {
 
           <div className="mcp-con">
   <div className="mcp-left">
-    <Link to="/commercials">
+    <Link to="/services/commercials">
       <div className="table">
-        <img src={Icon1} alt="" className="t-icon" />
+        <img src={Icon1} alt="" className="t-icon" width="49" height="49" />
         <div className="t-txt">
           <h2>Commercials</h2>
           <p>Product promos, ads, teasers</p>
@@ -104,9 +44,9 @@ const ResearchModal = ({ isOpen, onClose }) => {
       </div>
     </Link>
 
-    <Link to="/reel">
+    <Link to="/services/reels-shorts">
       <div className="table">
-        <img src={Icon2} alt="" className="t-icon" />
+        <img src={Icon2} alt="" className="t-icon" width="44" height="43" />
         <div className="t-txt">
           <h2>Reels & Shorts</h2>
           <p>Engaging short format content</p>
@@ -116,9 +56,9 @@ const ResearchModal = ({ isOpen, onClose }) => {
   </div>
 
   <div className="mcp-left">
-    <Link to="/longform">
+    <Link to="/services/long-format">
       <div className="table">
-        <img src={Icon3} alt="" className="t-icon" />
+        <img src={Icon3} alt="" className="t-icon" width="48" height="47" />
         <div className="t-txt">
           <h2>Long Format Content</h2>
           <p>Vlogs, Documentaries, Podcasts etc.</p>
@@ -126,9 +66,9 @@ const ResearchModal = ({ isOpen, onClose }) => {
       </div>
     </Link>
 
-    <Link to="/motion">
+    <Link to="/services/motion-graphics">
       <div className="table">
-        <img src={Icon4} alt="" className="t-icon" />
+        <img src={Icon4} alt="" className="t-icon" width="48" height="47" />
         <div className="t-txt">
           <h2>Motion Graphics</h2>
           <p>High quality After Effects animations</p>
@@ -138,9 +78,9 @@ const ResearchModal = ({ isOpen, onClose }) => {
   </div>
 </div>
 
-<Link to="/threed">
+<Link to="/services/3d-animations">
   <div className="table threed">
-    <img src={Icon5} alt="" className="t-icon" />
+    <img src={Icon5} alt="" className="t-icon" width="47" height="41" />
     <div className="t-txt">
       <h2>3D Animations</h2>
       <p>Pixar level visuals and rendering</p>
@@ -149,22 +89,15 @@ const ResearchModal = ({ isOpen, onClose }) => {
 </Link>
 
             {/* <div className="table threed">
-              <img src={Icon5} alt="" className="t-icon" />
+              <img src={Icon5} alt="" className="t-icon" width="47" height="41" />
               <div className="t-txt">
                 <h2>3D Animations</h2>
                 <p>Pixar level visuals and rendering</p>
               </div>
             </div> */}
 
-            <Button text="Portfolio" arrow />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-
-  // ✅ Mount modal directly in the <body> for top-level stacking
-  return ReactDOM.createPortal(modalContent, document.body);
-};
+            <Button to="/works" text="Portfolio" arrow />
+  </InfoDialog>
+);
 
 export default ResearchModal;

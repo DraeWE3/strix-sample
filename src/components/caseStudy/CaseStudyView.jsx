@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { destroyCarousels, initCarousels } from './carousels';
+import { initContinuousCarousels } from '../shared/continuousCarousel';
 import googleIconParts from './googleIconParts';
 import { TEMPLATES } from '../../lib/caseStudies';
 import '../../style/caseStudyTemplates/base.css';
@@ -181,9 +181,13 @@ const HeroMedia = ({ media, title }) => {
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const playRef = useRef(null);
+  const videoFile = !media.youtubeId && VIDEO_FILE.test(media.videoUrl || '');
+  // Only YouTube is embedded in a frame; a direct video file plays natively; anything else just links out.
   const embedUrl = media.youtubeId
     ? `https://www.youtube-nocookie.com/embed/${media.youtubeId}?autoplay=1&playsinline=1&rel=0`
-    : media.videoUrl;
+    : videoFile
+      ? media.videoUrl
+      : '';
   const watchUrl = media.youtubeId ? `https://www.youtube.com/watch?v=${media.youtubeId}` : media.videoUrl;
 
   const close = () => {
@@ -239,15 +243,28 @@ const HeroMedia = ({ media, title }) => {
       ) : null}
       {playing ? (
         <div className="case-hero__video">
-          <iframe
-            className="case-media-player"
-            src={embedUrl}
-            title={`${title} video`}
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
-            referrerPolicy="strict-origin-when-cross-origin"
-            onError={() => setFailed(true)}
-          />
+          {videoFile ? (
+            <video
+              className="case-media-player"
+              src={embedUrl}
+              aria-label={`${title} video`}
+              controls
+              autoPlay
+              playsInline
+              onError={() => setFailed(true)}
+            />
+          ) : (
+            <iframe
+              className="case-media-player"
+              src={embedUrl}
+              title={`${title} video`}
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+              referrerPolicy="strict-origin-when-cross-origin"
+              onError={() => setFailed(true)}
+            />
+          )}
           {failed ? (
             <div className="case-media-status" role="status">
               <p>This video cannot play here.</p>
@@ -580,10 +597,7 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
   ].filter(([, value]) => value);
   const bentoImages = record.aboutImages;
 
-  useLayoutEffect(() => {
-    initCarousels({ force: true });
-    return () => destroyCarousels();
-  }, [record]);
+  useLayoutEffect(() => initContinuousCarousels(rootRef.current), [record]);
 
   useEffect(() => {
     const root = rootRef.current;
