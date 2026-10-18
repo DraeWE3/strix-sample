@@ -7,19 +7,20 @@ const config = Object.freeze({
 });
 
 // The recipient is fixed in the EmailJS template (see emailjs/lead-template.html), never sent from the browser.
+// One merge field per form input: {{name}} {{email}} {{services}} {{budget}} {{project}} {{brief}}.
 export function templateParams(inquiry, captchaToken = '') {
+  const services = inquiry.services.join(', ') || 'General enquiry';
   const params = {
     name: inquiry.name,
-    company: 'Not provided',
     email: inquiry.email,
-    reason: inquiry.services.join(', ') || 'General enquiry',
+    services,
+    budget: inquiry.budget || 'Not decided',
+    project: inquiry.project,
+    brief: inquiry.brief || 'Not provided',
     subject: `New project inquiry${inquiry.budget ? ` — ${inquiry.budget}` : ''}`,
-    message: [
-      inquiry.project,
-      '',
-      `Budget (USD): ${inquiry.budget || 'Not decided'}`,
-      `Brief / reference: ${inquiry.brief || 'Not provided'}`
-    ].join('\n')
+    // Legacy names kept so an older template still renders something.
+    reason: services,
+    message: inquiry.project
   };
   if (captchaToken) params['g-recaptcha-response'] = captchaToken;
   return params;

@@ -51,3 +51,17 @@ test('submission history survives bad or blocked storage', () => {
   assert.deepEqual(readHistory({ getItem: () => { throw new Error('blocked'); } }), []);
   assert.doesNotThrow(() => recordSubmission({ setItem: () => { throw new Error('quota'); } }, [], 1));
 });
+
+test('every form input has its own template field', () => {
+  const params = templateParams({ ...inquiry, brief: 'https://example.com/brief' });
+  assert.equal(params.name, 'Ada');
+  assert.equal(params.email, 'ada@example.com');
+  assert.equal(params.services, 'Websites');
+  assert.equal(params.budget, '$5K–$10K');
+  assert.equal(params.project, 'A new app');
+  assert.equal(params.brief, 'https://example.com/brief');
+  const empty = templateParams({ ...inquiry, services: [], budget: '' });
+  assert.equal(empty.services, 'General enquiry');
+  assert.equal(empty.budget, 'Not decided');
+  assert.equal(empty.brief, 'Not provided');
+});

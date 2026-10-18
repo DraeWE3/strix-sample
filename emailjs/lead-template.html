@@ -1,71 +1,72 @@
 <!--
-  Paste this into the EmailJS template editor (Content > Code view) for
-  the EmailJS template (see VITE_EMAILJS_TEMPLATE_ID).
+  Paste this into the EmailJS template editor (Content > Edit Content > Code
+  view) for the EmailJS template (see VITE_EMAILJS_TEMPLATE_ID), replacing
+  everything that is there.
 
-  Template settings (EmailJS dashboard), required BEFORE deploying a site
-  build that no longer sends `to_email`:
+  Template settings (EmailJS dashboard):
+    - Subject:    {{subject}}
     - To Email:   info@strixproduction.com   (typed literally, no {{variables}})
     - From Name:  Strix website
     - Reply To:   {{email}}
   The browser never chooses the recipient; src/lib/contactApi.js sends only
-  the merge fields below: {{name}}, {{company}}, {{email}}, {{reason}},
-  {{subject}}, {{message}}. Keep double braces (they HTML-escape input).
+  these merge fields: {{name}}, {{email}}, {{services}}, {{budget}},
+  {{project}}, {{brief}}, {{subject}}. The names must match exactly, or the
+  field shows up empty. Keep double braces (they HTML-escape input).
 
   Optional reCAPTCHA v2: enable "Enable reCAPTCHA V2 verification" on this
   template with your secret key, then set VITE_RECAPTCHA_SITE_KEY for the
   site build. Enable it on the template only together with a build that has
   the site key, or every inquiry will be rejected.
 -->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#05060a;padding:32px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#000;padding:32px 16px;">
   <tr>
     <td align="center">
-      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+      <table role="presentation" width="540" cellpadding="0" cellspacing="0" style="max-width:540px;width:100%;background:#111;border:1px solid #262626;">
         <tr>
-          <td align="center" style="padding:8px 0 28px;">
-            <span style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;letter-spacing:1px;color:#2f7bff;">NEW LEAD DETECTED</span>
+          <td style="padding:36px 36px 8px;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#9a9a9a;">WEBSITE CONTACT FORM</div>
+            <div style="font-size:30px;font-weight:700;letter-spacing:-1px;color:#fff;padding:18px 0 12px;">New project enquiry<span style="color:#666;">.</span></div>
+            <div style="font-size:13px;line-height:1.6;color:#b5b5b5;">A new project enquiry has been received from your website. Review the details below and reply directly.</div>
           </td>
         </tr>
         <tr>
-          <td style="border-top:1px solid #1c2030;padding-top:24px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0a0c14;border:1px solid #1c2030;border-radius:16px;">
-              <tr>
-                <td style="padding:28px 28px 8px;">
+          <td style="padding:20px 36px 0;font-family:Arial,Helvetica,sans-serif;">
 
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">NAME</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{name}}</td></tr>
-                  </table>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">COMPANY</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{company}}</td></tr>
-                  </table>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">EMAIL</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;">
-                      <a href="mailto:{{email}}" style="color:#4f8bff;text-decoration:underline;">{{email}}</a>
-                    </td></tr>
-                  </table>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">REASON</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{reason}}</td></tr>
-                  </table>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">SUBJECT</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#f2f3f7;">{{subject}}</td></tr>
-                  </table>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
-                    <tr><td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:#8a8f9c;padding-bottom:8px;">MESSAGE</td></tr>
-                    <tr><td style="background:#0f1220;border:1px solid #20243a;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#f2f3f7;white-space:pre-wrap;">{{message}}</td></tr>
-                  </table>
-
-                </td>
-              </tr>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Full name</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;color:#f2f2f2;padding-bottom:14px;">{{name}}</td></tr>
             </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Work email</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;padding-bottom:14px;"><a href="mailto:{{email}}" style="color:#f2f2f2;text-decoration:underline;">{{email}}</a></td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Services required</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;color:#f2f2f2;padding-bottom:14px;">{{services}}</td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Budget (USD)</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;color:#f2f2f2;padding-bottom:14px;">{{budget}}</td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Project description</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;color:#f2f2f2;padding-bottom:14px;white-space:pre-line;">{{project}}</td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:16px 0 8px;">Reference link</td></tr>
+              <tr><td style="font-size:15px;line-height:1.6;color:#f2f2f2;padding-bottom:14px;word-break:break-all;">{{brief}}</td></tr>
+            </table>
+
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:30px 36px 40px;font-family:Arial,Helvetica,sans-serif;">
+            <a href="mailto:{{email}}?subject=Re:%20Your%20project%20enquiry" style="display:inline-block;background:#fff;color:#000;font-size:14px;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:40px;">Reply to {{name}}</a>
           </td>
         </tr>
       </table>

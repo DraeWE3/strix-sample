@@ -1,0 +1,70 @@
+<!--
+  Auto-reply sent to the person who filled in the contact form.
+
+  Setup (EmailJS dashboard):
+    1. Email Templates > Create New Template. Paste this file into
+       Content > Edit Content > Code view.
+    2. Settings of this new template:
+         - Subject:    We’ve received your project enquiry — Strix
+         - To Email:   {{email}}
+         - From Name:  Strix
+         - Reply To:   info@strixproduction.com
+    3. Open the MAIN lead template (VITE_EMAILJS_TEMPLATE_ID) > Auto-Reply tab
+       and select this template. EmailJS sends it automatically with the same
+       merge fields; no site code change or extra env variable is needed.
+
+  Merge fields (from src/lib/contactApi.js): {{name}}, {{email}},
+  {{services}}, {{budget}}, {{project}}, {{brief}}.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#000;padding:32px 16px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="540" cellpadding="0" cellspacing="0" style="max-width:540px;width:100%;background:#111;border:1px solid #262626;">
+        <tr>
+          <td style="padding:36px 36px 8px;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#9a9a9a;">YOUR NEXT CHAPTER STARTS HERE</div>
+            <div style="font-size:30px;line-height:1.15;font-weight:700;letter-spacing:-1px;color:#fff;padding:18px 0 14px;">Great things are on the way<span style="color:#666;">.</span></div>
+            <div style="font-size:14px;line-height:1.7;color:#d0d0d0;">Hi {{name}},</div>
+            <div style="font-size:14px;line-height:1.7;color:#b5b5b5;padding-top:10px;">Thanks for reaching out to Strix. Your project enquiry has reached our team, and we’ll review it and reply to this address with the next steps.</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 36px 0;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#9a9a9a;padding-bottom:6px;">WHAT YOU SENT US</div>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:14px 0 6px;">Services</td></tr>
+              <tr><td style="font-size:14px;line-height:1.6;color:#f2f2f2;padding-bottom:12px;">{{services}}</td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:14px 0 6px;">Budget (USD)</td></tr>
+              <tr><td style="font-size:14px;line-height:1.6;color:#f2f2f2;padding-bottom:12px;">{{budget}}</td></tr>
+            </table>
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #2c2c2c;">
+              <tr><td style="font-size:11px;color:#9a9a9a;padding:14px 0 6px;">Project</td></tr>
+              <tr><td style="font-size:14px;line-height:1.6;color:#f2f2f2;padding-bottom:12px;white-space:pre-line;">{{project}}</td></tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:28px 36px 0;font-family:Arial,Helvetica,sans-serif;">
+            <div style="font-size:14px;line-height:1.7;color:#b5b5b5;">Want to move faster? Pick a time that suits you for a discovery call.</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 36px 32px;font-family:Arial,Helvetica,sans-serif;">
+            <a href="https://calendly.com/strix-ryvon/raj-consultation" style="display:inline-block;background:#fff;color:#000;font-size:14px;font-weight:700;text-decoration:none;padding:14px 30px;border-radius:40px;">Book a discovery call</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:22px 36px 32px;border-top:1px solid #262626;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.7;color:#8a8a8a;">
+            Need to add something? Just reply to this email.<br />
+            <span style="color:#f2f2f2;font-weight:700;">Strix</span> · <a href="https://strixproduction.com" style="color:#8a8a8a;text-decoration:underline;">strixproduction.com</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
