@@ -1,5 +1,5 @@
 import Button from "../Button";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getOptimizedImage } from "../../lib/cloudinary";
 import { projectHref, isExternalProject } from "../../lib/projects";
@@ -53,15 +53,22 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const state = useMemo(() => stateFromSearch(searchParams), [searchParams]);
   const filtered = useMemo(() => filterProjects(projects, state), [projects, state]);
-  const visible = filtered.slice(0, state.limit);
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? filtered : filtered.slice(0, state.limit);
   const remaining = filtered.length - visible.length;
   const typeGroups = (FILTERS[state.category] ? [state.category] : Object.keys(FILTERS))
     .map((category) => ({ label: category, types: FILTERS[category] }));
   const active = state.category !== "All" || Boolean(state.type) || Boolean(state.industry);
 
-  const update = (next) => setSearchParams(searchFromState(normalizeState({ ...state, ...next })));
-  const setFilter = (next) => update({ ...next, limit: PAGE_SIZE });
-  const clearFilters = () => setSearchParams({});
+  const update = (next) => setSearchParams(searchFromState(normalizeState({ ...state, ...next, shown: (next.limit ?? state.limit) })));
+  const setFilter = (next) => {
+    setShowAll(false);
+    update({ ...next, limit: PAGE_SIZE });
+  };
+  const clearFilters = () => {
+    setShowAll(false);
+    setSearchParams({});
+  };
 
   let count = "";
   if (error) {
@@ -141,8 +148,8 @@ const ProjectsCatalog = ({ projects, loading, error }) => {
         <p>Projects tailored to your industry or need are available on request.</p>
         {remaining > 0 && (
           <Button className="load-more"
-            aria-label={`Load ${Math.min(PAGE_SIZE, remaining)} more projects`}
-            onClick={() => update({ limit: state.limit + PAGE_SIZE })}
+            aria-label={`Load all ${remaining} remaining projects`}
+            onClick={() => setShowAll(true)}
           >Load More</Button>
         )}
       </div>
