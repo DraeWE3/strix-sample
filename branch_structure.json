@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "fix/patch-vulnerabilities-27895985-1792419772",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "fix/patch-vulnerabilities-27895985-1792419772": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "fix/patch-vulnerabilities-27895985-1792419772",
+    "origin"
+  ]
+}
