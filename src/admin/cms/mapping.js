@@ -5,6 +5,7 @@
  * stored schema is unchanged. Pure functions: no Firebase imports.
  */
 import { FILTERS, INDUSTRIES } from '../../components/projects/projectFilters.js';
+import { PROCESS_DEFAULTS, PROCESS_MAX_STEPS, resolveProcess } from '../../lib/processDefaults.js';
 
 export const TEMPLATES = ['design-development', 'production', 'mvp'];
 export const FILTER_GROUPS = Object.keys(FILTERS);
@@ -16,7 +17,7 @@ export const TECHNOLOGY_NAMES = {
 export { FILTERS, INDUSTRIES };
 
 // Limits follow what the public case-study and blog templates render.
-export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12 };
+export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12, processSteps: PROCESS_MAX_STEPS };
 const CONCEPT_SLOTS = LIMITS.conceptsFirst + LIMITS.conceptsSecond;
 // Same threshold the previous admin used before moving a section into `chunks`.
 export const CHUNK_THRESHOLD = 150000;
@@ -255,6 +256,7 @@ export const projectToEditor = (project, caseStudy) => {
       development: strings(c.technologies?.development),
       production: strings(c.technologies?.production),
     },
+    process: resolveProcess(c.process, template).map((step) => ({ ...step })),
     results: asArray(c.results)
       .filter((result) => result && typeof result === 'object')
       .map((result) => ({ title: asString(result.title), description: asString(result.description) })),
@@ -277,6 +279,14 @@ export const projectCardFields = (data) => ({
   externalLink: asString(data.externalLink).trim(),
   filters: normalizeFilters(data.filters),
 });
+
+/** Steps equal to the template default are not stored, so the default keeps following the template. */
+const processToStore = (data) => {
+  const steps = asArray(data.process)
+    .map((step) => ({ title: asString(step?.title).trim(), description: asString(step?.description).trim() }))
+    .filter((step) => step.title || step.description);
+  return same(steps, PROCESS_DEFAULTS[data.template] || []) ? [] : steps;
+};
 
 /** Case-study fields grouped into the sections the previous admin saved independently. */
 export const caseStudySections = (data, { includeTemplate = false } = {}) => {
@@ -326,6 +336,7 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
       },
     },
     results: { results },
+    process: { process: processToStore(data) },
   };
   if (data.template === 'mvp') {
     sections.shipped = {
@@ -469,6 +480,7 @@ export const blankProject = (template) => {
   return {
     ...projectToEditor(null, null),
     template,
+    process: resolveProcess([], template).map((step) => ({ ...step })),
     title: 'Untitled project',
     slug: `untitled-project-${suffix}`,
     filters,
@@ -525,6 +537,10 @@ export const validateProject = (data, { publish = false, otherSlugs = [], hasPro
   if (asArray(data.results).length > LIMITS.results) error('data.results', `The website shows up to ${LIMITS.results} results.`);
   asArray(data.results).forEach((result, index) => {
     if (asString(result?.description).trim() && !asString(result?.title).trim()) error(`data.results.${index}.title`, 'Give this result a title, or the website will skip it.');
+  });
+  if (asArray(data.process).length > LIMITS.processSteps) error('data.process', `The website shows up to ${LIMITS.processSteps} process steps.`);
+  asArray(data.process).forEach((step, index) => {
+    if (asString(step?.description).trim() && !asString(step?.title).trim()) error(`data.process.${index}.title`, 'Give this step a title, or the website will skip it.');
   });
   if (strings(data.shipped?.items).length > LIMITS.shippedItems) error('data.shipped.items', `The website shows up to ${LIMITS.shippedItems} deliverables.`);
   return errors;

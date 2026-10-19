@@ -317,3 +317,17 @@ test('signing out ends access', async () => {
   await rejects(api('/api/content'), 401);
   backend.dispose();
 });
+
+test('custom process steps are stored, default ones are not, and the public mapper uses them', async () => {
+  const { mapCaseStudy } = await import('../../../lib/caseStudies.js');
+  const { projectChanges, projectToEditor } = await import('../mapping.js');
+  const base = projectToEditor({ id: 'p1', data: { filters: { Design: ['UI/UX'] } } }, { id: 'c1', data: { template: 'mvp' } });
+  assert.equal(base.process.length, 4);
+  assert.deepEqual(projectChanges(base, base, { hasCaseStudy: true, templateStored: true }).sections, {});
+  const edited = { ...base, process: [{ title: 'Kickoff', description: 'Hello' }, ...base.process.slice(1)] };
+  const { sections } = projectChanges(edited, base, { hasCaseStudy: true, templateStored: true });
+  assert.equal(sections.process.process[0].title, 'Kickoff');
+  const project = { id: 'p1', title: 'T', filters: { Design: [], Development: [], Production: [], MVP: [] } };
+  assert.equal(mapCaseStudy({ id: 'c1', template: 'mvp', process: sections.process.process }, project).process[0].title, 'Kickoff');
+  assert.equal(mapCaseStudy({ id: 'c1', template: 'mvp', process: [] }, project).process[0].title, 'Discovery & Wireframes');
+});

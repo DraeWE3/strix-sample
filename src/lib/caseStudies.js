@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { db } from './firebase';
 import { PROJECTS_COLLECTION, caseStudyPath, isPublished, mapProject, projectHref } from './projects';
+import { resolveProcess } from './processDefaults';
 import { safeUrl } from './urls';
 
 export { safeUrl };
@@ -112,30 +113,6 @@ const mapShipped = (shipped, title) => {
   };
 };
 
-const PROCESS_COPY = {
-  discovery: 'We define your core idea, map user journeys, and create wireframes that lock your product vision with direction.',
-  design: 'High-fidelity visuals, interactive prototypes, and feedback loops - ensuring every screen looks and feels right before development.',
-  development: 'We develop the MVP with clean, scalable code & refine through quick sprints to keep results aligned with the vision.',
-  launch: 'Before going live, we stress-test every feature for smooth performance, scalability, and future expansion.',
-};
-
-// The Process copy is fixed per template to match the Figma designs (nodes 894:4788, 3534:8076, 3534:8137).
-const FIGMA_PROCESS = {
-  [TEMPLATES.DESIGN_DEVELOPMENT]: [
-    { title: 'Discovery & Wireframes', description: PROCESS_COPY.discovery },
-    { title: 'Design & Validation', description: PROCESS_COPY.design },
-    { title: 'Development & Iterations', description: PROCESS_COPY.development },
-    { title: 'Test, Launch & Scale', description: PROCESS_COPY.launch },
-  ],
-  [TEMPLATES.PRODUCTION]: [
-    { title: 'Discovery & Brief', description: PROCESS_COPY.discovery },
-    { title: 'Pre-Production & Creative Direction', description: 'High-fidelity visuals, interactive prototypes, and feedback loops - ensuring every screen looks right.' },
-    { title: 'Production & Editing', description: PROCESS_COPY.development },
-    { title: 'Delivery & Distribution', description: PROCESS_COPY.launch },
-  ],
-};
-FIGMA_PROCESS[TEMPLATES.MVP] = FIGMA_PROCESS[TEMPLATES.DESIGN_DEVELOPMENT];
-
 /**
  * Map a reconstructed Firestore case study (plus its project) onto the record
  * shape consumed by the case-study templates.
@@ -168,7 +145,7 @@ export const mapCaseStudy = (data, project) => {
     about,
     aboutImages: toImages(asArray(data.aboutProject?.images).slice(0, 3), title),
     experienceUrl: safeUrl(data.aboutProject?.experienceLink, { allowData: false }),
-    process: FIGMA_PROCESS[template] || [],
+    process: resolveProcess(data.process, template),
     concepts: [
       toImages(asArray(data.conceptSlides).slice(0, 5), `${title} concept`),
       toImages(asArray(data.conceptSlides).slice(5, 9), `${title} concept`),
