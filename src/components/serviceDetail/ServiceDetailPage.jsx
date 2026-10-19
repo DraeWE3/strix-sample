@@ -73,7 +73,7 @@ const ServiceDetailPage = ({ service }) => {
           <ServiceDetailProvide offers={service.offers} categoryName={category.name} />
           <ServiceDetailProof proof={service.proof} />
           <ServiceDetailWhy />
-          <ServiceDetailRelated />
+          <ServiceDetailRelated slug={service.slug} />
           <ServiceDetailContact />
         </main>
       </div>

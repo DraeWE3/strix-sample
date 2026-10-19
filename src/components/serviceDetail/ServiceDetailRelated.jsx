@@ -1,7 +1,8 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import ServiceOrbit from "./ServiceOrbit";
 import { initContinuousCarousels } from "../shared/continuousCarousel";
+import { projectsForService } from "../../lib/serviceProjectFilters";
 import { useProjects, projectHref, isExternalProject, projectsKey } from "../../lib/projects";
 import { getOptimizedImage } from "../../lib/cloudinary";
 import MoreRim from "../../assets/img/service-pages/figma/0354d.svg";
@@ -79,14 +80,15 @@ const RelatedGallery = ({ projects, sectionRef }) => {
   );
 };
 
-const ServiceDetailRelated = () => {
+const ServiceDetailRelated = ({ slug }) => {
   const sectionRef = useRef(null);
-  const { projects, loading, error } = useProjects();
+  const { projects: allProjects, loading, error } = useProjects();
+  const projects = useMemo(() => projectsForService(allProjects, slug), [allProjects, slug]);
 
   let status = "";
   if (loading) status = "Loading projects...";
   else if (error) status = "Projects could not be loaded right now.";
-  else if (!projects.length) status = "No projects published yet.";
+  else if (!projects.length) status = "No related projects published yet.";
 
   return (
     <section className="ds-related" id="related-projects" aria-labelledby="ds-related-heading" ref={sectionRef}>
