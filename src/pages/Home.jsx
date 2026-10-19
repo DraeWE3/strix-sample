@@ -660,7 +660,7 @@ const Home = () => {
             </ServiceCard>
 
             <ServiceCard delay={0.4}>
-              <div className="card-con">
+              <div className="card-con card-con3">
                 <img src={Card3} alt="" className="card-img" width="1407" height="1761" loading="lazy" decoding="async" />
                 <img src={Bolt} alt="" className="card-icon" width="134" height="173" loading="lazy" decoding="async" />
                 <img src={Bolt2} alt="" className="card-icon2" width="134" height="173" loading="lazy" decoding="async" />

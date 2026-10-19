@@ -1,5 +1,6 @@
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import ServiceModalList from "./ServiceModalList";
+import serviceGalleries from "./services/serviceGalleries";
 import InfoDialog from "./InfoDialog";
 
 import Grad from "../assets/img/home/design-gradient.webp";
@@ -12,6 +13,17 @@ import Icon6 from "../assets/img/home/design-icon6.png";
 import Arrow from "../assets/img/home/arr-left.png";
 import Mgrad from "../assets/img/home/design-grad-mobile.webp";
 
+
+const ICONS = {
+  "/services/ui-ux-design": Icon3,
+  "/services/product-design": Icon6,
+  "/services/game-art": Icon2,
+  "/services/creative-design": Icon5,
+  "/services/3d-design": Icon1,
+  "/services/branding": Icon4,
+};
+
+const gallery = serviceGalleries.find((item) => item.id === "design");
 
 const DesignModal = ({ isOpen, onClose }) => (
   <InfoDialog
@@ -29,77 +41,8 @@ const DesignModal = ({ isOpen, onClose }) => (
       </>
     }
   >
-            <p className="mcp">
-              Crafting intuitive, eye-catching designs for web, apps, and brands
-              that stand out.
-            </p>
-
-           <div className="mcp-con">
-  <div className="mcp-left">
-    <Link to="/services/ui-ux-design">
-      <div className="table">
-        <img src={Icon1} alt="" className="t-icon" width="49" height="49" />
-        <div className="t-txt">
-          <h2>UI/UX Design</h2>
-          <p>Web & Mobile App Design</p>
-        </div>
-      </div>
-    </Link>
-
-    <Link to="/services/product-design">
-      <div className="table">
-        <img src={Icon2} alt="" className="t-icon" width="44" height="43" />
-        <div className="t-txt">
-          <h2>Product Design</h2>
-          <p>Digital Product, User Experience</p>
-        </div>
-      </div>
-    </Link>
-
-    <Link to="/services/ui-ux-design">
-      <div className="table">
-        <img src={Icon3} alt="" className="t-icon" width="47" height="42" />
-        <div className="t-txt">
-          <h2>Mobile App Design</h2>
-          <p>User-Friendly Applications</p>
-        </div>
-      </div>
-    </Link>
-  </div>
-
-  <div className="mcp-left">
-    <Link to="/services/branding">
-      <div className="table">
-        <img src={Icon4} alt="" className="t-icon" width="48" height="47" />
-        <div className="t-txt">
-          <h2>Branding</h2>
-          <p>Identity, Strategy, Guidelines</p>
-        </div>
-      </div>
-    </Link>
-
-    <Link to="/services/creative-design">
-      <div className="table">
-        <img src={Icon5} alt="" className="t-icon" width="48" height="47" />
-        <div className="t-txt">
-          <h2>Creative Design</h2>
-          <p>Graphics, Thumbnails, Presentations</p>
-        </div>
-      </div>
-    </Link>
-
-    <Link to="/services/ui-ux-design">
-      <div className="table">
-        <img src={Icon6} alt="" className="t-icon" width="48" height="47" />
-        <div className="t-txt">
-          <h2>Website Design</h2>
-          <p>Custom Websites, Landing page</p>
-        </div>
-      </div>
-    </Link>
-  </div>
-</div>
-
+            <p className="mcp">{gallery.tagline}</p>
+            <ServiceModalList gallery={gallery} icons={ICONS} />
             <Button to="/works" text="Portfolio" arrow />
   </InfoDialog>
 );

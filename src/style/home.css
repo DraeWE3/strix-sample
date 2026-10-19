@@ -738,6 +738,17 @@ width: 50% !important;
   background-image: url('../assets/img/home/glow-card3.webp');
 }
 
+/* Hover colours follow each service's pop-out: Development blue -> red, Production lime -> teal. */
+.card-con2 .glow2,
+.card-con2 .card-icon2 {
+  filter: hue-rotate(155deg) saturate(1.2);
+}
+
+.card-con3 .glow3,
+.card-con3 .card-icon2 {
+  filter: hue-rotate(105deg);
+}
+
 .card-con:hover .glow {
   opacity: 1;
   /* fade in */

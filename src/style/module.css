@@ -181,6 +181,7 @@ dialog.info-dialog .close-btnmode:focus-visible { outline: 2px solid #fff; outli
 
 .t-txt p{
     font-family: ep-light;
+  line-height: 1.45;
   font-size: 1vw;
   width: 100%;
   text-align: left;
