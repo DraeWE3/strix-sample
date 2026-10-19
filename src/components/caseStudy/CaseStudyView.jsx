@@ -407,6 +407,64 @@ const ShippedSection = ({ shipped }) => (
   </>
 );
 
+// Exported styleguide boards often carry a soft transparent margin; measure the opaque
+// area so the board can crop to it and the artwork fits the box exactly.
+const measureOpaqueBox = (img) => {
+  try {
+    const scale = Math.min(1, 2000 / img.naturalWidth);
+    const w = Math.round(img.naturalWidth * scale);
+    const h = Math.round(img.naturalHeight * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, w, h);
+    const { data } = ctx.getImageData(0, 0, w, h);
+    const opaque = (x, y) => data[(y * w + x) * 4 + 3] >= 250;
+    let left = 0;
+    let right = w - 1;
+    let bottom = h - 1;
+    let top = 0;
+    const mid = Math.floor(h / 2);
+    while (left < w && !opaque(left, mid)) left += 1;
+    while (right > left && !opaque(right, mid)) right -= 1;
+    const bright = (x, y) => data[(y * w + x) * 4] > 200 && data[(y * w + x) * 4 + 1] > 200 && data[(y * w + x) * 4 + 2] > 200;
+    // The artwork can carry a baked-in 1px light rule along its top edge; crop it off.
+    while (top < 12 && (!opaque(Math.floor(w / 2), top) || bright(Math.floor(w / 2), top))) top += 1;
+    while (bottom > 0 && !opaque(Math.floor(w / 2), bottom)) bottom -= 1;
+    const x0 = (left + 1) / scale;
+    const x1 = (right - 1) / scale;
+    const y0 = (top + 1) / scale;
+    const y1 = (bottom - 1) / scale;
+    const cropW = x1 - x0;
+    if (cropW < img.naturalWidth * 0.8 || y1 - y0 < img.naturalHeight * 0.8) return null;
+    return {
+      '--sg-img-width': `${(img.naturalWidth / cropW) * 100}%`,
+      '--sg-img-left': `${(-x0 / cropW) * 100}%`,
+      '--sg-img-top': `${(-y0 / cropW) * 100}%`,
+      '--sg-ratio': `${cropW} / ${y1 - y0}`,
+    };
+  } catch {
+    return null;
+  }
+};
+
+const StyleGuideBoard = ({ image }) => {
+  const [crop, setCrop] = useState(null);
+  return (
+    <div className="case-styleguide__board" data-reveal style={crop || undefined}>
+      <img
+        className="case-styleguide__custom"
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        crossOrigin="anonymous"
+        onLoad={(event) => setCrop(measureOpaqueBox(event.currentTarget))}
+      />
+    </div>
+  );
+};
+
 const StyleGuide = ({ image }) => (
   <>
     <section className="case-styleguide" id="design-system" aria-labelledby="case-styleguide-title">
@@ -416,9 +474,7 @@ const StyleGuide = ({ image }) => (
       <p className="case-styleguide__sub" data-reveal>
         Typography, colour palette and brand marks that keep the product consistent.
       </p>
-      <div className="case-styleguide__board" data-reveal>
-        <img className="case-styleguide__custom" src={image.src} alt={image.alt} loading="lazy" />
-      </div>
+      <StyleGuideBoard image={image} />
     </section>
     <Rule />
   </>

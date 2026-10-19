@@ -441,9 +441,8 @@
 /* Styleguide (Figma 894:4772): 1440x503 board, 1px white border, 20px top radius; uploaded image fills it */
 .strix-case .case-styleguide:has(.case-styleguide__custom){height:auto}
 .strix-case .case-styleguide__sub{max-width:620px;margin:14px auto 0;text-align:center;font:400 16px/1.6 'CS Epilogue',sans-serif;color:#ffffffb3}
-.strix-case .case-styleguide__board:has(.case-styleguide__custom){display:block;position:relative;width:100%;max-width:1440px;height:auto;aspect-ratio:auto;margin-inline:auto;border:0;border-radius:20px;overflow:hidden;background:#2a0a2e;box-shadow:0 0 0 1px #ffffff26,0 24px 60px -20px #000c,0 0 80px -30px #8a4dff66}
-.strix-case .case-styleguide__custom{display:block;width:101.6%;max-width:none;height:auto;margin-bottom:-1.2%;transform-origin:top left;transition:transform .8s cubic-bezier(.16,1,.3,1)}
-.strix-case .case-styleguide__board:hover .case-styleguide__custom{transform:scale(1.02)}
+.strix-case .case-styleguide__board:has(.case-styleguide__custom){display:block;position:relative;width:100%;max-width:1440px;height:auto;aspect-ratio:var(--sg-ratio,auto);margin-inline:auto;border:0;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 24px 60px -20px #000c}
+.strix-case .case-styleguide__custom{display:block;width:var(--sg-img-width,100%);max-width:none;height:auto;margin-left:var(--sg-img-left,0);margin-top:var(--sg-img-top,0)}
 @media(max-width:620px){.strix-case .case-styleguide__sub{font-size:14px;padding-inline:8px}.strix-case .case-styleguide__board:has(.case-styleguide__custom){border-radius:14px}}
 .strix-case .case-carousel-arrow:disabled{opacity:.3;cursor:default;transform:none}
 
