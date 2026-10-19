@@ -437,7 +437,7 @@ const Technologies = ({ technologies }) => {
       <h2 id="case-technologies-heading" data-reveal>
         Technologies and tools
       </h2>
-      <div className="case-tech-groups">
+      <div className={`case-tech-groups${groups.length === 1 ? ' case-tech-groups--single' : groups.length === 2 ? ' case-tech-groups--double' : ''}`}>
         {groups.map(([key, label]) => (
           <div className="case-tech-group" key={key} data-reveal>
             <h3>{label}</h3>
