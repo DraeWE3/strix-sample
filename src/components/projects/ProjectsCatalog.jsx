@@ -1,7 +1,7 @@
 import Button from "../Button";
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { getOptimizedImage } from "../../lib/cloudinary";
+import { getSharpImage, getSharpSrcSet } from "../../lib/cloudinary";
 import { projectHref, isExternalProject } from "../../lib/projects";
 import ProjectsTypeSelect from "./ProjectsTypeSelect";
 import {
@@ -32,7 +32,9 @@ const ProjectCard = ({ project, index }) => (
       <div className="project-card__media">
         <img
           className="project-card__image"
-          src={getOptimizedImage(project.image)}
+          src={getSharpImage(project.image)}
+          srcSet={getSharpSrcSet(project.image)}
+          sizes="(max-width: 900px) 100vw, 600px"
           alt={project.title}
           width="1074"
           height="762"
