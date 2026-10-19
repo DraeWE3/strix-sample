@@ -631,12 +631,15 @@ const MEDIA = {
 };
 
 // Media whose Figma layer sits above the card title rather than beneath it.
+// eslint-disable-next-line react-refresh/only-export-components
 export const MEDIA_ABOVE_TITLE = new Set(["interactive-landing", "interactive-gamified", "interactive-parallax", "product-enterprise", "product-user-flows", "brand-logo", "brand-kit", "brand-identity", "brand-packaging", "game-gamified", "app-ios", "app-android", "dev-enterprise", "dev-portfolio", "dev-interactive-3d", "dev-cms"]);
 
 // Media placed in the unrotated card box (above the glow frame and title) rather than inside the frame.
 // Media drawn beneath the screen-blended glow layer (first child of the Figma frame).
+// eslint-disable-next-line react-refresh/only-export-components
 export const MEDIA_BELOW_GLOW = new Set(["interactive-showcase"]);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const MEDIA_OUTSIDE_FRAME = new Set(["3d-characters", "3d-product-renders", "game-icons", "game-ui"]);
 
 const OfferMedia = ({ name }) => {

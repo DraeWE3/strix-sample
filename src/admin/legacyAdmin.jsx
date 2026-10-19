@@ -77,7 +77,7 @@ const splitSectionData = (sectionName, sectionData) => {
       }
       break;
 
-    case 'about':
+    case 'about': {
       result.main = {
         aboutProject: {
           description: sectionData.aboutProject?.description || '',
@@ -93,16 +93,18 @@ const splitSectionData = (sectionName, sectionData) => {
         });
       }
       break;
+    }
 
-    case 'process':
+    case 'process': {
       result.main = { processCards: [] };
       const processCards = sectionData.processCards || [];
       processCards.forEach((card, index) => {
         result.chunks[`process_card_${index}`] = { card, index };
       });
       break;
+    }
 
-    case 'concepts':
+    case 'concepts': {
       result.main = { conceptSlides: [] };
       const conceptSlides = sectionData.conceptSlides || [];
       conceptSlides.forEach((slide, index) => {
@@ -111,6 +113,7 @@ const splitSectionData = (sectionName, sectionData) => {
         }
       });
       break;
+    }
 
     case 'design':
       result.main = { designSystemImage: '' };
@@ -119,7 +122,7 @@ const splitSectionData = (sectionName, sectionData) => {
       }
       break;
 
-    case 'responsive':
+    case 'responsive': {
       result.main = { responsiveImages: [] };
       const responsiveImages = sectionData.responsiveImages || [];
       responsiveImages.forEach((img, index) => {
@@ -128,6 +131,7 @@ const splitSectionData = (sectionName, sectionData) => {
         }
       });
       break;
+    }
 
     default:
       result.main = sectionData;

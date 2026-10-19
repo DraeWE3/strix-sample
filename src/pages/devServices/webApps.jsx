@@ -35,12 +35,8 @@ import FAQ from "../../components/FAQ";
 gsap.registerPlugin(ScrollTrigger);
 
 const WebApp = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying] = useState(false);
   const videoexRef = useRef(null)
-
-  const handlePlay = () => {
-    setIsPlaying(true);
-  };
 
   useEffect(() => {
     if (window.innerWidth < 768) return

@@ -25,7 +25,7 @@ const SplitTextScroll = () => {
     const run = async () => {
       try {
         await document.fonts.ready;
-      } catch (e) {
+      } catch {
         // fonts.ready may throw in some contexts; continue anyway
       }
 
@@ -34,7 +34,7 @@ const SplitTextScroll = () => {
       // store created SplitText instances for cleanup
       instancesRef.current = [];
 
-      containers.forEach((container, i) => {
+      containers.forEach((container) => {
         const textEl = container.querySelector(".split");
         if (!textEl) return;
 
@@ -54,7 +54,7 @@ const SplitTextScroll = () => {
             mask: "lines",
             autoSplit: true,
           });
-        } catch (err) {
+        } catch {
           // fallback to create (older examples)
           instance = SplitText.create
             ? SplitText.create(textEl, {
@@ -110,7 +110,7 @@ const SplitTextScroll = () => {
       instancesRef.current.forEach((inst) => {
         try {
           inst.revert && inst.revert();
-        } catch (e) {}
+        } catch { /* ignore */ }
       });
       instancesRef.current = [];
 

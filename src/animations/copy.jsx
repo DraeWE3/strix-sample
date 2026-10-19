@@ -24,7 +24,7 @@ const Copy = ({ children, animateOnScroll = true, delay = 0 }) => {
       await new Promise((resolve) => setTimeout(resolve, 100));
       
       return true;
-    } catch (error) {
+    } catch {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return true;
     }

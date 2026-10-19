@@ -18,7 +18,6 @@ const Spotlight = () => {
   const introTextElementsRef = useRef([]);
   const imageElementsRef = useRef([]);
   const titleElementsRef = useRef([]);
-  const currentActiveIndexRef = useRef(0);
   const scrollTriggerRef = useRef(null);
 
   // NOTE: These values are interconnected - when speed changes, it affects when images finish their movement, which also affects the gap between images. When you change the number of items in spotlightItems array, you'll need to adjust these config settings together. Test different combinations until you find the right balance that looks good.
@@ -49,7 +48,6 @@ const spotlightItems = [
       const imagesContainer = imagesContainerRef.current;
       const spotlightHeader = spotlightHeaderRef.current;
       const titlesContainerElement = titlesContainerElementRef.current;
-      const introTextElements = introTextElementsRef.current;
       const imageElements = imageElementsRef.current;
 
       if (
@@ -111,7 +109,6 @@ const spotlightItems = [
     }
 
     const titlesContainer = titlesContainerRef.current;
-    const imagesContainer = imagesContainerRef.current;
     const spotlightHeader = spotlightHeaderRef.current;
     const titlesContainerElement = titlesContainerElementRef.current;
     const introTextElements = introTextElementsRef.current;
