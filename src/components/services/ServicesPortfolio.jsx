@@ -40,7 +40,8 @@ export const PortfolioStatus = ({ children, busy = false }) => (
 );
 
 export const PortfolioSlides = ({ projects }) => {
-  const startIndex = Math.min(2, projects.length - 1);
+  // Open on the 3rd slide, or the middle one for short lists so slides flank it on both sides.
+  const startIndex = Math.min(2, Math.floor((projects.length - 1) / 2));
   const { viewportRef, index, controlIndex, settledIndex, isDragging, step } = useScrollCarousel({
     align: "center",
     startIndex,
