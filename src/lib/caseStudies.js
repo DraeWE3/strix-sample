@@ -132,6 +132,7 @@ export const mapCaseStudy = (data, project) => {
     template,
     title,
     tagLabels: template === TEMPLATES.DESIGN_DEVELOPMENT ? services : [],
+    filters: project.filters,
     services,
     industry: asString(data.client?.industry),
     country: asString(data.client?.country),

@@ -1,7 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { initContinuousCarousels } from '../shared/continuousCarousel';
 import googleIconParts from './googleIconParts';
 import { TEMPLATES } from '../../lib/caseStudies';
+import { serviceHrefForTag } from '../../lib/serviceProjectFilters';
 import '../../style/caseStudyTemplates/base.css';
 import '../../style/caseStudyTemplates/layout.css';
 import '../../style/caseStudyTemplates/production.css';
@@ -744,7 +746,7 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
             {tags.length ? (
               <ul className="case-hero__tags" aria-label="Project services">
                 {tags.slice(0, 12).map((label) => (
-                  <li key={label}>{label}</li>
+                  <li key={label}><Link className="case-hero__tag" to={serviceHrefForTag(label, record.filters)}>{label}</Link></li>
                 ))}
               </ul>
             ) : null}
