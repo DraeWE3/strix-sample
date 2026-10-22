@@ -256,36 +256,9 @@
 .service-detail-shell .ds-related-orbit .ds-orbit-light{top:33px;background:linear-gradient(#ffffff87,#666460)}
 .service-detail-shell .ds-related-orbit .ds-orbit-ring{border-width:2px;background:linear-gradient(#ffffff4d,transparent 54.81%)}
 .service-detail-shell .ds-related>h2{height:55px;font:500 45px/55px 'Clash Display',sans-serif;letter-spacing:2.25px;opacity:.9;background:linear-gradient(#000 41.818%,#666 208.18%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
-.service-detail-shell .ds-related-gallery{position:relative;width:100%;height:392px;margin-top:33px}
-.service-detail-shell .ds-related-viewport{width:100%;height:392px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;touch-action:pan-x pan-y pinch-zoom;scrollbar-width:none;cursor:grab;outline-offset:-4px;-webkit-overflow-scrolling:touch;scroll-behavior:auto}
-.service-detail-shell .ds-related-viewport::-webkit-scrollbar{display:none}
-.service-detail-shell .ds-related-viewport:focus-visible{outline:2px solid #ccc}
-.service-detail-shell .ds-related-viewport.is-dragging{cursor:grabbing;user-select:none}
-.service-detail-shell .ds-related-viewport img{user-select:none;-webkit-user-drag:none}
-.service-detail-shell .ds-related-track{display:flex;align-items:center;gap:44px;width:max-content;height:392px}
-.service-detail-shell .ds-related-card{position:relative;display:block;flex:none;width:286.086px;height:200.92px;border-radius:31.697px;--ds-card-width:286.086px;--ds-card-height:200.92px;--ds-card-radius:31.697px;--ds-card-mask:url("../assets/img/service-pages/figma/5ffcd.svg")}
-.service-detail-shell .ds-related-card--laptop{--ds-card-mask:url("../assets/img/service-pages/figma/92cd5.svg")}
-.service-detail-shell .ds-related-card--laptop-right{--ds-card-mask:url("../assets/img/service-pages/figma/8aeda.svg")}
-.service-detail-shell .ds-related-card--featured{width:400.68px;height:281.4px;--ds-card-width:400.68px;--ds-card-height:281.4px;--ds-card-radius:44.394px;--ds-card-mask:url("../assets/img/service-pages/figma/8146e.svg")}
-.service-detail-shell .ds-related-native{position:relative;display:block;width:var(--ds-card-width);height:var(--ds-card-height);transform-origin:0 0}
-.service-detail-shell .ds-related-card-glow,.service-detail-shell .ds-related-card-media,.service-detail-shell .ds-related-card-rim{position:absolute;inset:0;mask:var(--ds-card-mask) no-repeat 0 0/var(--ds-card-width) var(--ds-card-height);-webkit-mask:var(--ds-card-mask) no-repeat 0 0/var(--ds-card-width) var(--ds-card-height)}
-.service-detail-shell .ds-related-card-glow{inset:0 .84% -1.49% 0;pointer-events:none}
-.service-detail-shell .ds-related-card-glow img{position:absolute;left:-47.4%;top:-65.94%;width:auto;height:auto;max-width:none!important}
-.service-detail-shell .ds-related-card-media{border:.906px solid #ffffff1a;border-radius:var(--ds-card-radius);box-shadow:0 4.585px 7.132px #000c}
-.service-detail-shell .ds-related-card-media img{display:block;width:100%;height:100%;object-fit:cover}
-.service-detail-shell .ds-related-card-media:after{content:'';position:absolute;inset:0;background:#0008;transition:background .2s}
-.service-detail-shell .ds-related-card--featured .ds-related-card-media{border-width:1.268px;box-shadow:0 6.421px 9.989px #000c}
-.service-detail-shell .ds-related-card--featured .ds-related-card-media img{object-fit:contain}
-.service-detail-shell .ds-related-card--featured .ds-related-card-media:after,.service-detail-shell .ds-related-card:hover .ds-related-card-media:after,.service-detail-shell .ds-related-card:focus-visible .ds-related-card-media:after{background:transparent}
-.service-detail-shell .ds-related-card-rim{pointer-events:none}
-.service-detail-shell .ds-related-card-rim img{position:absolute;inset:0;max-width:none!important;width:auto;height:auto}
-.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{position:absolute;top:174px;display:grid;place-items:center;width:44px;height:44px;z-index:2;padding:0;background:transparent;border:0;color:white;cursor:pointer}
-.service-detail-shell .ds-related-prev{left:calc(50% - 244px)}
-.service-detail-shell .ds-related-next{right:calc(50% - 244px)}
-.service-detail-shell .ds-related-prev img,.service-detail-shell .ds-related-next img{max-width:none!important;width:auto;height:auto}
-.service-detail-shell .ds-related-next img{transform:scaleX(-1)}
-.service-detail-shell .ds-related-prev:disabled,.service-detail-shell .ds-related-next:disabled{opacity:.35;cursor:default}
-.service-detail-shell .ds-related-pause{position:absolute;right:30px;bottom:36px;z-index:2;padding:8px 10px;border:1px solid #ffffff30;border-radius:20px;background:#080808aa;color:#bbb;font:400 11px/1 'Epilogue',sans-serif;cursor:pointer}
+.service-detail-shell .ds-related-gallery{position:relative;width:100%;margin-top:33px}
+/* Reuses the homepage portfolio carousel (.services-page-shell.home-portfolio-carousel); keep its section text styles from leaking in. */
+.service-detail-shell .ds-related-gallery .home-portfolio-carousel{text-align:left}
 .service-detail-shell .ds-related-caption{position:relative;width:min(943px,calc(100% - 48px));margin:-26px auto 0!important;font:400 25px/48px 'Epilogue',sans-serif;letter-spacing:.5px;background:url("../assets/img/service-pages/figma/13b32.png") center/cover no-repeat;background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 4px 4px #0004}
 .service-detail-shell .ds-lower-button{position:relative;display:flex;justify-content:center;align-items:center;flex:none;height:65px;padding:0;border:1.125px solid #ffffff1a;border-radius:70px;background:#000;backdrop-filter:blur(5.625px);box-shadow:0 10.125px 15.75px #000c;transition:transform .25s ease,filter .25s ease;isolation:isolate}
 .service-detail-shell .ds-lower-button:hover{transform:translateY(-3px);filter:brightness(1.2)}
@@ -353,7 +326,6 @@
 .service-detail-shell .ds-related-gallery{margin-top:12px}
 .service-detail-shell .ds-related-caption{font-size:20px;line-height:36px;max-width:650px;margin-top:-36px!important}
 .service-detail-shell .ds-related-more{margin-top:25px}
-.service-detail-shell .ds-related-pause{right:18px;bottom:32px}
 .service-detail-shell .ds-project-contact{width:calc(100% - 48px);margin-top:35px;gap:55px}
 .service-detail-shell .ds-project-contact>h2,.service-detail-shell .ds-call-contact>h2{height:auto;min-height:150px;font-size:44px;line-height:1.35;letter-spacing:2px;max-width:680px}
 .service-detail-shell .ds-contact-prompt{height:auto;flex-direction:column;gap:30px}
@@ -373,16 +345,8 @@
 .service-detail-shell .ds-related{padding-top:130px;min-height:680px;margin-top:70px}
 .service-detail-shell .ds-related-orbit{transform:translateX(-50%) scale(.61)}
 .service-detail-shell .ds-related>h2{font-size:33px;line-height:48px;height:48px;letter-spacing:1.5px}
-.service-detail-shell .ds-related-gallery{height:315px;margin-top:8px}
-.service-detail-shell .ds-related-viewport,.service-detail-shell .ds-related-track{height:315px}
-.service-detail-shell .ds-related-track{gap:25px}
-.service-detail-shell .ds-related-card{width:228.869px;height:160.736px}
-.service-detail-shell .ds-related-card--featured{width:320.544px;height:225.12px}
-.service-detail-shell .ds-related-native{transform:scale(.8)}
-.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{top:135px}
-.service-detail-shell .ds-related-prev{left:5px}
-.service-detail-shell .ds-related-next{right:5px}
-.service-detail-shell .ds-related-pause{bottom:16px;right:12px}
+.service-detail-shell .ds-related-gallery{margin-top:8px}
+.service-detail-shell .ds-related-gallery .home-portfolio-carousel{height:325px}
 .service-detail-shell .ds-related-caption{font-size:17px;line-height:30px;margin-top:-10px!important;width:calc(100% - 44px)}
 .service-detail-shell .ds-related-more{margin-top:25px}
 .service-detail-shell .ds-project-contact{margin-top:30px;gap:45px}
@@ -397,7 +361,6 @@
 .service-detail-shell .ds-call-contact>h2{max-width:400px}
 }
 @media(prefers-reduced-motion:reduce){
-.service-detail-shell .ds-lower-button,.service-detail-shell .ds-project-orb,.service-detail-shell .ds-call-contact>a,.service-detail-shell .ds-related-card-media:after{transition:none}
 }
 
 /* Space the shared site footer the way the source page spaced its own footer (.ds-site-footer margin-top). */
@@ -409,53 +372,8 @@
 /* Anchor targets (#related-projects, #start-project) land below the fixed header like the source's scroll-padding-top. */
 .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 135px; }
 @media(max-width:600px){ .service-detail-shell .ds-related, .service-detail-shell .ds-project-contact { scroll-margin-top: 100px; } }
-.service-detail-shell .ds-related-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 24px; text-align: center; font-size: 16px; line-height: 26px; color: #999; }
 .service-detail-shell .client-logo--multiple-clients{width:174px;margin-left:-1px;font:600 28.688px/34.425px Syne,sans-serif;text-align:center;color:transparent;background:radial-gradient(187.6px 74.4px at 87px 34.5px,#ff9697 0%,#ee719f 25%,#dd4ba7 50%,#cb26af 75%,#c313b3 87.5%,#ba00b7 100%);-webkit-background-clip:text;background-clip:text}
 
-/* ---- Related projects carousel redesign (uniform cards, edge fade, glass arrows) ---- */
-.service-detail-shell .ds-related-gallery{height:340px;margin-top:40px}
-.service-detail-shell .ds-related-viewport{height:300px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.service-detail-shell .ds-related-track{height:300px;gap:28px;align-items:center}
-.service-detail-shell .ds-related-card{position:relative;display:block;flex:none;width:380px;height:250px;border-radius:24px;overflow:hidden;background:#0c0c0c;border:1px solid #ffffff1f;box-shadow:0 18px 40px #000a;transition:translate .35s ease,border-color .35s ease,box-shadow .35s ease}
-.service-detail-shell .ds-related-card:hover,.service-detail-shell .ds-related-card:focus-visible{translate:0 -8px;border-color:#ffffff55;box-shadow:0 26px 50px #000c,0 0 36px #ffffff14}
-.service-detail-shell .ds-related-card-media{position:absolute;inset:0;display:block}
-.service-detail-shell .ds-related-card-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
-.service-detail-shell .ds-related-card:hover .ds-related-card-media img{transform:scale(1.06)}
-.service-detail-shell .ds-related-card-info{position:absolute;left:20px;right:56px;bottom:16px;z-index:1;display:flex;flex-direction:column;gap:4px;text-align:left}
-.service-detail-shell .ds-related-card-cat{font:500 11px/1 'Epilogue',sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:#ffffffa6}
-.service-detail-shell .ds-related-card-title{font:500 19px/1.25 'Clash Display',sans-serif;letter-spacing:.4px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.service-detail-shell .ds-related-card-go{position:absolute;right:16px;bottom:16px;z-index:1;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff1f;backdrop-filter:blur(8px);color:#fff;font-size:15px;transition:background .3s,color .3s}
-.service-detail-shell .ds-related-card:hover .ds-related-card-go{background:#fff;color:#000}
-.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{top:126px;width:48px;height:48px;border-radius:50%;background:#0b0b0bcc;border:1px solid #ffffff2e;backdrop-filter:blur(10px);transition:background .25s,border-color .25s,scale .25s}
-.service-detail-shell .ds-related-prev{left:max(16px,calc(50% - 560px))}
-.service-detail-shell .ds-related-next{right:max(16px,calc(50% - 560px))}
-.service-detail-shell .ds-related-prev:hover:not(:disabled),.service-detail-shell .ds-related-next:hover:not(:disabled){background:#fff;color:#000;border-color:#fff;scale:1.08}
-.service-detail-shell .ds-related-pause{left:50%;right:auto;bottom:0;translate:-50% 0;padding:9px 18px;font-size:12px;letter-spacing:.6px}
-.service-detail-shell .ds-related-caption{margin-top:12px!important}
-@media(max-width:900px){
-.service-detail-shell .ds-related-card{width:320px;height:215px}
-.service-detail-shell .ds-related-gallery{height:320px;margin-top:24px}
-.service-detail-shell .ds-related-viewport,.service-detail-shell .ds-related-track{height:280px}
-.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{top:116px}
-.service-detail-shell .ds-related-prev{left:12px}
-.service-detail-shell .ds-related-next{right:12px}
-}
-@media(max-width:600px){
-.service-detail-shell .ds-related-card{width:78vw;max-width:300px;height:200px;border-radius:20px}
-.service-detail-shell .ds-related-track{gap:16px}
-.service-detail-shell .ds-related-gallery{height:290px}
-.service-detail-shell .ds-related-viewport,.service-detail-shell .ds-related-track{height:250px}
-.service-detail-shell .ds-related-prev,.service-detail-shell .ds-related-next{top:101px;width:40px;height:40px}
-.service-detail-shell .ds-related-pause{bottom:0;right:auto;left:50%}
-}
-.service-detail-shell .ds-related-card-media{border:0;border-radius:0;box-shadow:none}
-.service-detail-shell .ds-related-card-media:after{display:none}
-.service-detail-shell .ds-related-card-media img{object-fit:cover}
-.service-detail-shell .ds-related-card-media{mask:none;-webkit-mask:none}
-.service-detail-shell .ds-related-card:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,#000000dd 100%);pointer-events:none}
-.service-detail-shell .ds-related-card-go{top:14px;right:14px;bottom:auto;width:38px;height:38px;font-size:18px;opacity:0;scale:.7;transition:opacity .3s,scale .3s,background .3s,color .3s}
-.service-detail-shell .ds-related-card:hover .ds-related-card-go,.service-detail-shell .ds-related-card:focus-visible .ds-related-card-go{opacity:1;scale:1}
-.service-detail-shell .ds-related-card-info{right:20px}
 
 /* ---- Mobile polish (phones only; desktop/tablet untouched) ---- */
 @media(max-width:600px){

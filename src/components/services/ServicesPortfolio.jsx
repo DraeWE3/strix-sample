@@ -33,13 +33,13 @@ const SlideLink = ({ project, children, ...rest }) => {
   return <Link to={href} {...rest}>{children}</Link>;
 };
 
-const PortfolioStatus = ({ children, busy = false }) => (
+export const PortfolioStatus = ({ children, busy = false }) => (
   <div className="portfolio-carousel carousel" aria-roledescription="carousel" aria-label="Selected portfolio projects" aria-busy={busy}>
     <p className="portfolio-status" role="status" aria-live="polite">{children}</p>
   </div>
 );
 
-const PortfolioSlides = ({ projects }) => {
+export const PortfolioSlides = ({ projects }) => {
   const startIndex = Math.min(2, projects.length - 1);
   const { viewportRef, index, controlIndex, settledIndex, isDragging, step } = useScrollCarousel({
     align: "center",
