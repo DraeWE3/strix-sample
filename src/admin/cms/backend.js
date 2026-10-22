@@ -4,28 +4,21 @@
  * generated CMS's Python server) using the same collections, fields, status
  * values and upload preset as the previous admin panel and the public site.
  */
-import { BOOKING_URL } from '../../lib/booking';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import {
-  collection, deleteDoc, doc, getDocFromServer, getDocsFromServer, query, runTransaction, setDoc, updateDoc, where, writeBatch,
-} from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocFromServer, getDocs, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseconfig.js';
 import { uploadImage } from '../storage.js';
 import {
-  articleChanges, articleToEditor, blankArticle, blankProject, categoriesFromFilters, changedFieldErrors,
-  chunkBelongsTo, isSafeId, isSafeUrl, projectChanges, projectToEditor, reconstructCaseStudy, splitSection,
+  articleChanges, articleToEditor, blankArticle, blankProject, categoriesFromFilters,
+  chunkBelongsTo, projectChanges, projectToEditor, reconstructCaseStudy, splitSection,
   validateArticle, validateProject,
 } from './mapping.js';
 
 const PROJECTS = 'projects';
 const CASE_STUDIES = 'caseStudies';
 const BLOGS = 'blogs';
-const ADMINS = 'admins';
 const SITE_URL = 'https://www.strixproduction.com';
 const PINNED_TOPICS = ['Tips', 'News'];
-// Firestore commits are limited to 500 writes and about 10 MiB; stay under both.
-const MAX_COMMIT_WRITES = 450;
-const MAX_COMMIT_BYTES = 9 * 1024 * 1024;
 
 class ApiError extends Error {
   constructor(status, message, fields) {
@@ -47,9 +40,7 @@ const FIREBASE_MESSAGES = {
   'auth/network-request-failed': 'You appear to be offline. Check your connection and try again.',
   'permission-denied': 'Your account is not allowed to make this change.',
   unauthenticated: 'Your session expired. Sign in again.',
-  unavailable: 'The database is unreachable. Check your connection and try again. Nothing was saved.',
-  aborted: 'Someone else saved at the same moment. Reload the page and try again.',
-  'deadline-exceeded': 'The database took too long to answer. Nothing was saved; try again.',
+  unavailable: 'The database is unreachable. Check your connection and try again.',
 };
 
 const friendly = (error) => {
@@ -58,72 +49,30 @@ const friendly = (error) => {
   return new ApiError(error?.code === 'permission-denied' ? 403 : 500, message);
 };
 
-/** Same rules as `projectHref` on the public site: an https link out, or the case-study page. */
-const liveProjectUrl = (card, id) => {
-  const external = asString(card.externalLink).trim();
-  if (/^https:\/\//i.test(external) && isSafeUrl(external)) return external;
-  const link = asString(card.link).trim().replace(/\/+$/, '');
-  return /^\/case-study\/[A-Za-z0-9_-]+$/.test(link) ? link : `/case-study/${encodeURIComponent(id)}`;
-};
-
-const byteSize = (value) => new TextEncoder().encode(JSON.stringify(value ?? null)).length;
-
-/** Commits `changes` atomically when they fit in one transaction, after `checks` pass inside it. */
-const fitsInOneCommit = (changes) =>
-  changes.length <= MAX_COMMIT_WRITES && changes.reduce((total, change) => total + byteSize(change.data), 0) <= MAX_COMMIT_BYTES;
+const liveProjectUrl = (card, id) =>
+  /^https?:\/\//.test(asString(card.externalLink)) ? card.externalLink : asString(card.link) || `/case-study/${id}`;
 
 export const createBackend = () => {
   /** @type {Map<string, { envelope: Record<string, any>, source: Record<string, any> }>} */
   const records = new Map();
   const uploads = [];
-  const saving = new Set();
   let user = null;
-  let isAdmin = false;
   let stopAuth = null;
   const authReady = new Promise((resolve) => {
     stopAuth = onAuthStateChanged(auth, (next) => {
       user = next;
-      isAdmin = false;
       resolve();
     });
   });
 
-  /**
-   * A signed-in account is a studio admin only with an `admin` custom claim or
-   * an `admins/{uid}` document. Firestore rules enforce the same check; this
-   * keeps everyone else out of the studio UI.
-   */
-  const verifyAdmin = async () => {
-    if (!user) return false;
-    if (isAdmin) return true;
-    const token = await user.getIdTokenResult?.();
-    if (token?.claims?.admin === true) return (isAdmin = true);
-    try {
-      isAdmin = (await getDocFromServer(doc(db, ADMINS, user.uid))).exists();
-    } catch (error) {
-      if (error?.code !== 'permission-denied') throw error;
-      isAdmin = false;
-    }
-    return isAdmin;
-  };
-
-  const refuse = async () => {
-    await signOut(auth);
-    user = null;
-    isAdmin = false;
-    records.clear();
-    throw new ApiError(403, 'This account is not a studio administrator. Ask an existing admin to add it.');
-  };
-
   const sessionPayload = () => ({
     setupRequired: false,
-    authenticated: Boolean(user && isAdmin),
-    user: user && isAdmin ? { id: user.uid, name: user.displayName || user.email, email: user.email } : null,
+    authenticated: Boolean(user),
+    user: user ? { id: user.uid, name: user.displayName || user.email, email: user.email } : null,
   });
 
-  const requireAdmin = () => {
+  const requireUser = () => {
     if (!user) throw new ApiError(401, 'Sign in to continue.');
-    if (!isAdmin) throw new ApiError(403, 'This account is not a studio administrator.');
   };
 
   /* --------------------------------------------------------- envelopes */
@@ -213,19 +162,12 @@ export const createBackend = () => {
 
   const snapshotDocs = (snapshot) => snapshot.docs.map((d) => ({ id: d.id, data: d.data() }));
 
-  const loadChunks = async (caseId) => snapshotDocs(await getDocsFromServer(collection(db, CASE_STUDIES, caseId, 'chunks')));
-
-  // Ids end up in markup and API paths; documents with any other id are left out (and reported).
-  const safeDocs = (name, list) => {
-    const unsafe = list.filter((item) => !isSafeId(item.id));
-    if (unsafe.length) console.warn(`Strix Studio: skipped ${unsafe.length} ${name} document(s) with unsupported ids.`);
-    return list.filter((item) => isSafeId(item.id));
-  };
+  const loadChunks = async (caseId) => snapshotDocs(await getDocs(collection(db, CASE_STUDIES, caseId, 'chunks')));
 
   const loadAll = async () => {
     const [projects, cases, blogs] = (
-      await Promise.all([PROJECTS, CASE_STUDIES, BLOGS].map((name) => getDocsFromServer(collection(db, name))))
-    ).map((snapshot, index) => safeDocs([PROJECTS, CASE_STUDIES, BLOGS][index], snapshotDocs(snapshot)));
+      await Promise.all([PROJECTS, CASE_STUDIES, BLOGS].map((name) => getDocs(collection(db, name))))
+    ).map(snapshotDocs);
     const chunks = await Promise.all(cases.map((c) => loadChunks(c.id)));
     const casesByProject = new Map();
     // The public page reads the first case study per project in document-id order.
@@ -275,101 +217,47 @@ export const createBackend = () => {
     return entry;
   };
 
-  const otherProjectSlugs = (id) =>
-    [...records.values()]
-      .filter(({ envelope }) => envelope.kind === 'project' && envelope.id !== id && !envelope.orphan)
-      .map(({ envelope }) => envelope.data.slug)
-      .filter(Boolean);
-
-  /** Slugs are checked against the server, not only the records open in this tab. */
-  const assertSlugFree = async (link, projectId) => {
-    if (!link.startsWith('/case-study/')) return;
-    const taken = await getDocsFromServer(query(collection(db, PROJECTS), where('link', '==', link)));
-    if (taken.docs.some((d) => d.id !== projectId)) {
-      throw new ApiError(422, 'Review the highlighted fields before saving.', [{ field: 'data.slug', message: 'Another project already uses this URL slug.' }]);
-    }
-  };
-
-  /* ------------------------------------------------------------ writes */
-
-  const checkVersion = (snapshot, expectedUpdatedAt) => {
+  /** Refuse to overwrite a document someone changed after it was loaded here. */
+  const assertUnchanged = async (collectionName, id, expectedUpdatedAt) => {
+    if (!id) return;
+    const snapshot = await getDocFromServer(doc(db, collectionName, id));
     if (!snapshot.exists()) throw new ApiError(409, 'This item was deleted elsewhere. Reload the page.');
     if (asString(snapshot.data().updatedAt) !== expectedUpdatedAt) {
       throw new ApiError(409, 'This item was changed elsewhere since you opened it. Reload it before saving again.');
     }
   };
 
-  /**
-   * Applies a write plan. Normally one transaction re-checks every document's
-   * `updatedAt` and commits all changes together, so a failure or a concurrent
-   * edit leaves nothing half-written. Plans too large for one commit (old
-   * base64 images) fall back to ordered writes that never lose data: new
-   * chunks first, then the main documents, then stale chunks.
-   * @param {Array<{ op: 'set' | 'update' | 'delete', ref: any, data?: Record<string, unknown> }>} changes
-   * @param {Array<{ ref: any, updatedAt: string }>} checks
-   */
-  const commit = async (changes, checks = []) => {
-    if (fitsInOneCommit(changes)) {
-      await runTransaction(db, async (tx) => {
-        const snapshots = await Promise.all(checks.map((check) => tx.get(check.ref)));
-        snapshots.forEach((snapshot, index) => checkVersion(snapshot, checks[index].updatedAt));
-        for (const change of changes) {
-          if (change.op === 'set') tx.set(change.ref, change.data);
-          else if (change.op === 'update') tx.update(change.ref, change.data);
-          else tx.delete(change.ref);
-        }
-      });
-      return;
-    }
-    for (const check of checks) checkVersion(await getDocFromServer(check.ref), check.updatedAt);
-    const rank = (change) => (change.op === 'set' && change.chunk ? 0 : change.op === 'delete' ? 2 : 1);
-    for (const change of changes.slice().sort((a, b) => rank(a) - rank(b))) {
-      if (change.op === 'set') await setDoc(change.ref, change.data);
-      else if (change.op === 'update') await updateDoc(change.ref, change.data);
-      else await deleteDoc(change.ref);
-    }
-  };
+  const otherProjectSlugs = (id) =>
+    [...records.values()]
+      .filter(({ envelope }) => envelope.kind === 'project' && envelope.id !== id && !envelope.orphan)
+      .map(({ envelope }) => envelope.data.slug)
+      .filter(Boolean);
 
-  /**
-   * Writes for rewriting case-study sections. Stale chunks are looked up on the
-   * server at save time, so leftovers from an earlier failed save are removed too.
-   */
-  const sectionChanges = async (caseId, sections, { isNewCase, stamp }) => {
+  /* ------------------------------------------------------------ writes */
+
+  const writeSections = async (caseId, sections, existingChunks) => {
     const main = {};
     const added = [];
+    const stale = [];
     for (const [name, fields] of Object.entries(sections)) {
       const split = splitSection(name, fields);
       Object.assign(main, split.main);
       added.push(...split.chunks);
+      stale.push(...existingChunks.filter((chunk) => chunkBelongsTo(name, chunk.sectionName)));
     }
-    const existing = isNewCase ? [] : await loadChunks(caseId);
-    const stale = existing.filter((chunk) => Object.keys(sections).some((name) => chunkBelongsTo(name, asString(chunk.data.sectionName))));
-    const chunks = collection(db, CASE_STUDIES, caseId, 'chunks');
-    return {
-      main,
-      changes: [
-        ...added.map((chunk) => ({ op: 'set', chunk: true, ref: doc(chunks), data: { ...chunk, createdAt: stamp, updatedAt: stamp } })),
-        ...stale.map((chunk) => ({ op: 'delete', ref: doc(db, CASE_STUDIES, caseId, 'chunks', chunk.id) })),
-      ],
-    };
-  };
-
-  /** One save per record at a time; a second click or Ctrl+S while saving is refused. */
-  const exclusive = async (envelope, task) => {
-    if (saving.has(envelope.id)) throw new ApiError(409, 'This item is already being saved. Wait a moment.');
-    saving.add(envelope.id);
-    try {
-      return await task();
-    } finally {
-      saving.delete(envelope.id);
+    const stamp = now();
+    // New chunks go in before old ones are removed, so a failed save never loses images.
+    for (const chunk of added) {
+      await addDoc(collection(db, CASE_STUDIES, caseId, 'chunks'), { ...chunk, createdAt: stamp, updatedAt: stamp });
     }
+    await updateDoc(doc(db, CASE_STUDIES, caseId), { ...main, updatedAt: stamp });
+    await Promise.all(stale.map((chunk) => deleteDoc(doc(db, CASE_STUDIES, caseId, 'chunks', chunk.id))));
   };
 
   const saveProject = async (entry, data) => {
     const { source, envelope } = entry;
     data.categories = categoriesFromFilters(data.filters);
-    const errors = validateProject(data, { otherSlugs: otherProjectSlugs(envelope.id), hasProject: !envelope.orphan });
-    const fields = source.isNew ? errors : changedFieldErrors(errors, data, source.original);
+    const fields = validateProject(data, { otherSlugs: otherProjectSlugs(envelope.id), hasProject: !envelope.orphan });
     if (fields.length) throw new ApiError(422, 'Review the highlighted fields before saving.', fields);
 
     const { card, sections, createCaseStudy } = projectChanges(data, source.original, {
@@ -378,57 +266,44 @@ export const createBackend = () => {
       hasProject: !envelope.orphan,
       templateStored: source.templateStored,
     });
-    if (!Object.keys(card).length && !Object.keys(sections).length) return clone(envelope);
-
-    // Ids are chosen once per new record, so retrying a failed save rewrites the same documents instead of adding duplicates.
-    if (source.isNew) source.pendingProjectId ||= doc(collection(db, PROJECTS)).id;
-    if (createCaseStudy) source.pendingCaseId ||= doc(collection(db, CASE_STUDIES)).id;
-    const projectId = source.projectId || source.pendingProjectId || null;
-    const caseId = source.caseId || (createCaseStudy ? source.pendingCaseId : null);
-    if (card.link) await assertSlugFree(card.link, projectId);
+    await assertUnchanged(PROJECTS, source.projectId, source.projectUpdatedAt);
+    await assertUnchanged(CASE_STUDIES, source.caseId, source.caseUpdatedAt);
 
     const stamp = now();
-    const changes = [];
-    const checks = [];
-    if (source.projectId) checks.push({ ref: doc(db, PROJECTS, source.projectId), updatedAt: source.projectUpdatedAt });
-    if (source.caseId) checks.push({ ref: doc(db, CASE_STUDIES, source.caseId), updatedAt: source.caseUpdatedAt });
-
+    let { projectId, caseId } = source;
     if (source.isNew) {
-      changes.push({ op: 'set', ref: doc(db, PROJECTS, projectId), data: { ...card, status: 'draft', createdAt: stamp, updatedAt: stamp } });
+      const ref = await addDoc(collection(db, PROJECTS), { ...card, status: 'draft', createdAt: stamp, updatedAt: stamp });
+      projectId = ref.id;
     } else if (projectId && Object.keys(card).length) {
-      changes.push({ op: 'update', ref: doc(db, PROJECTS, projectId), data: { ...card, updatedAt: stamp } });
+      await updateDoc(doc(db, PROJECTS, projectId), { ...card, updatedAt: stamp });
     }
-    if (caseId && Object.keys(sections).length) {
-      const written = await sectionChanges(caseId, sections, { isNewCase: createCaseStudy, stamp });
-      if (createCaseStudy) {
-        // A first case study follows the card's status, so a live card never links to a hidden page.
-        const status = envelope.status === 'published' ? 'published' : 'draft';
-        changes.push({ op: 'set', ref: doc(db, CASE_STUDIES, caseId), data: { projectId, status, createdAt: stamp, ...written.main, updatedAt: stamp } });
-      } else {
-        changes.push({ op: 'update', ref: doc(db, CASE_STUDIES, caseId), data: { ...written.main, updatedAt: stamp } });
-      }
-      changes.push(...written.changes);
+    if (createCaseStudy) {
+      // A first case study follows the card's status, so a live card never links to a hidden page.
+      const ref = await addDoc(collection(db, CASE_STUDIES), {
+        projectId, status: envelope.status === 'published' ? 'published' : 'draft', createdAt: stamp, updatedAt: stamp,
+      });
+      caseId = ref.id;
+      await writeSections(caseId, sections, []);
+    } else if (caseId && Object.keys(sections).length) {
+      await writeSections(caseId, sections, source.chunks);
     }
-    await commit(changes, checks);
     records.delete(envelope.id);
     return remember(await reloadProject({ projectId, caseId }));
   };
 
   const saveArticle = async (entry, data) => {
     const { source, envelope } = entry;
-    const errors = validateArticle(data);
-    const fields = source.isNew ? errors : changedFieldErrors(errors, data, source.original);
+    const fields = validateArticle(data);
     if (fields.length) throw new ApiError(422, 'Review the highlighted fields before saving.', fields);
     const changes = articleChanges(data, source.original, { isNew: source.isNew, hadAuthor: source.hadAuthor, hadReadTime: source.hadReadTime });
     const stamp = now();
-    if (source.isNew) source.pendingBlogId ||= doc(collection(db, BLOGS)).id;
-    const blogId = source.blogId || source.pendingBlogId;
+    let { blogId } = source;
     if (source.isNew) {
-      await commit([{ op: 'set', ref: doc(db, BLOGS, blogId), data: { ...changes, status: 'draft', createdAt: stamp, updatedAt: stamp } }]);
+      const ref = await addDoc(collection(db, BLOGS), { ...changes, status: 'draft', createdAt: stamp, updatedAt: stamp });
+      blogId = ref.id;
     } else if (Object.keys(changes).length) {
-      await commit([{ op: 'update', ref: doc(db, BLOGS, blogId), data: { ...changes, updatedAt: stamp } }], [{ ref: doc(db, BLOGS, blogId), updatedAt: source.updatedAt }]);
-    } else {
-      return clone(envelope);
+      await assertUnchanged(BLOGS, blogId, source.updatedAt);
+      await updateDoc(doc(db, BLOGS, blogId), { ...changes, updatedAt: stamp });
     }
     records.delete(envelope.id);
     return remember(await reloadArticle(blogId));
@@ -443,52 +318,28 @@ export const createBackend = () => {
         : validateArticle(envelope.data, { publish: true });
       if (fields.length) throw new ApiError(422, 'Review the highlighted fields before publishing.', fields);
     }
-    const stamp = now();
+    // Status-only writes, exactly as the previous admin's publish toggle.
     if (envelope.kind === 'article') {
-      const ref = doc(db, BLOGS, source.blogId);
-      await commit([{ op: 'update', ref, data: { status, updatedAt: stamp } }], [{ ref, updatedAt: source.updatedAt }]);
+      await updateDoc(doc(db, BLOGS, source.blogId), { status });
       return remember(await reloadArticle(source.blogId));
     }
     if (envelope.orphan) throw new ApiError(409, 'Link this case study to a project card before publishing it.');
-    // Card and case study change together, so the site never shows a card whose page is hidden (or the reverse).
-    const changes = [{ op: 'update', ref: doc(db, PROJECTS, source.projectId), data: { status, updatedAt: stamp } }];
-    const checks = [{ ref: doc(db, PROJECTS, source.projectId), updatedAt: source.projectUpdatedAt }];
-    if (source.caseId) {
-      changes.push({ op: 'update', ref: doc(db, CASE_STUDIES, source.caseId), data: { status, updatedAt: stamp } });
-      checks.push({ ref: doc(db, CASE_STUDIES, source.caseId), updatedAt: source.caseUpdatedAt });
-    }
-    await commit(changes, checks);
+    await updateDoc(doc(db, PROJECTS, source.projectId), { status });
+    if (source.caseId) await updateDoc(doc(db, CASE_STUDIES, source.caseId), { status });
     return remember(await reloadProject(source));
-  };
-
-  /** Deletes in batches of at most MAX_COMMIT_WRITES; each batch is atomic. */
-  const deleteAll = async (refs) => {
-    for (let index = 0; index < refs.length; index += MAX_COMMIT_WRITES) {
-      const batch = writeBatch(db);
-      refs.slice(index, index + MAX_COMMIT_WRITES).forEach((ref) => batch.delete(ref));
-      await batch.commit();
-    }
   };
 
   const remove = async (entry) => {
     const { envelope, source } = entry;
     if (!envelope.isNew) {
-      if (envelope.kind === 'article') await deleteAll([doc(db, BLOGS, source.blogId)]);
+      if (envelope.kind === 'article') await deleteDoc(doc(db, BLOGS, source.blogId));
       else {
-        // Every case study of the card goes too, not only the one shown, so no orphans are left behind.
-        const caseIds = new Set(source.caseId ? [source.caseId] : []);
-        if (source.projectId) {
-          const linked = await getDocsFromServer(query(collection(db, CASE_STUDIES), where('projectId', '==', source.projectId)));
-          linked.docs.forEach((d) => caseIds.add(d.id));
+        if (source.caseId) {
+          const chunks = await getDocs(collection(db, CASE_STUDIES, source.caseId, 'chunks'));
+          await Promise.all(chunks.docs.map((chunk) => deleteDoc(chunk.ref)));
+          await deleteDoc(doc(db, CASE_STUDIES, source.caseId));
         }
-        const refs = [];
-        // The card is removed first (in the first batch), so the live site stops linking to the case study at once.
-        if (source.projectId) refs.push(doc(db, PROJECTS, source.projectId));
-        for (const caseId of caseIds) {
-          const chunks = await loadChunks(caseId);
-          refs.push(...chunks.map((chunk) => doc(db, CASE_STUDIES, caseId, 'chunks', chunk.id)), doc(db, CASE_STUDIES, caseId));
-        }
-        await deleteAll(refs);
+        if (source.projectId) await deleteDoc(doc(db, PROJECTS, source.projectId));
       }
     }
     records.delete(envelope.id);
@@ -500,7 +351,7 @@ export const createBackend = () => {
     return {
       siteName: 'Strix Production',
       siteUrl: SITE_URL,
-      bookingUrl: BOOKING_URL,
+      bookingUrl: 'https://calendly.com/strixmufasa/30min',
       blogCategories: [...PINNED_TOPICS, ...topics.filter((topic) => !PINNED_TOPICS.includes(topic))],
     };
   };
@@ -519,24 +370,20 @@ export const createBackend = () => {
     const [pathname, search = ''] = path.split('?');
     if (pathname === '/api/session') {
       await authReady;
-      if (user && !(await verifyAdmin())) await refuse();
       return sessionPayload();
     }
     if (pathname === '/api/login' && method === 'POST') {
       const credential = await signInWithEmailAndPassword(auth, asString(body?.email).trim(), asString(body?.password));
       user = credential.user;
-      isAdmin = false;
-      if (!(await verifyAdmin())) await refuse();
       return sessionPayload();
     }
     if (pathname === '/api/logout' && method === 'POST') {
       await signOut(auth);
       user = null;
-      isAdmin = false;
       records.clear();
       return { ok: true };
     }
-    requireAdmin();
+    requireUser();
     if (pathname === '/api/settings' && method === 'GET') return settings();
     if (pathname === '/api/media' && method === 'GET') return { items: uploads.slice() };
     if (pathname === '/api/media' && method === 'POST') return upload(raw);
@@ -558,11 +405,11 @@ export const createBackend = () => {
       if (!action && method === 'GET') return clone(entry.envelope);
       if (!action && method === 'PUT') {
         const data = clone(body?.data || {});
-        return exclusive(entry.envelope, () => (entry.envelope.kind === 'article' ? saveArticle(entry, data) : saveProject(entry, data)));
+        return entry.envelope.kind === 'article' ? saveArticle(entry, data) : saveProject(entry, data);
       }
-      if (action === 'publish' && method === 'POST') return exclusive(entry.envelope, () => setStatus(entry, 'published'));
-      if (action === 'unpublish' && method === 'POST') return exclusive(entry.envelope, () => setStatus(entry, 'draft'));
-      if (action === 'trash' && method === 'POST') return exclusive(entry.envelope, () => remove(entry));
+      if (action === 'publish' && method === 'POST') return setStatus(entry, 'published');
+      if (action === 'unpublish' && method === 'POST') return setStatus(entry, 'draft');
+      if (action === 'trash' && method === 'POST') return remove(entry);
     }
     throw new ApiError(404, 'This action is not available in the Strix Content Studio.');
   };

@@ -13,7 +13,6 @@ const fake = createFakeFirebase();
 mock.module('firebase/firestore', { namedExports: fake.firestore });
 mock.module('firebase/auth', { namedExports: { ...fake.auth, getAuth: () => ({}) } });
 mock.module(new URL('../../firebaseconfig.js', import.meta.url).href, { namedExports: { auth: {}, db: {} } });
-mock.module(new URL('../../../lib/firebase.js', import.meta.url).href, { namedExports: { app: {}, db: {} } });
 mock.module(new URL('../../storage.js', import.meta.url).href, { namedExports: fake.storage });
 
 const { createBackend } = await import('../backend.js');
@@ -204,12 +203,7 @@ test('publish and unpublish only change the status fields', async () => {
   const mark = fake.writes.length;
   const draft = await api('/api/content/p_p1/unpublish', { method: 'POST', body: {} });
   assert.equal(draft.status, 'draft');
-  const statusWrites = writesSince(mark);
-  assert.deepEqual(statusWrites.map((w) => [w.path, Object.keys(w.data).sort(), w.data.status]), [
-    ['projects/p1', ['status', 'updatedAt'], 'draft'],
-    ['caseStudies/c1', ['status', 'updatedAt'], 'draft'],
-  ]);
-  assert.equal(statusWrites[0].data.updatedAt, statusWrites[1].data.updatedAt, 'card and case study change in one commit');
+  assert.deepEqual(writesSince(mark).map((w) => [w.path, w.data]), [['projects/p1', { status: 'draft' }], ['caseStudies/c1', { status: 'draft' }]]);
   assert.equal((await publicCaseStudy('aurora')).status, 'not-found');
   const live = await api('/api/content/p_p1/publish', { method: 'POST', body: {} });
   assert.equal(live.status, 'published');
@@ -236,7 +230,7 @@ test('a new project is created as a draft with the case study only when it has c
   withStory.data.shipped.items = ['Onboarding', 'Billing'];
   mark = fake.writes.length;
   const saved = await save(withStory);
-  const caseAdd = writesSince(mark).find((w) => w.op === 'set' && /^caseStudies\/[^/]+$/.test(w.path));
+  const caseAdd = writesSince(mark).find((w) => w.op === 'set' && w.path.startsWith('caseStudies/'));
   assert.equal(caseAdd.data.projectId, saved.id.slice(2));
   assert.equal(caseAdd.data.status, 'draft');
   const caseDoc = fake.get(caseAdd.path);
@@ -316,18 +310,4 @@ test('signing out ends access', async () => {
   assert.equal((await api('/api/session')).authenticated, false);
   await rejects(api('/api/content'), 401);
   backend.dispose();
-});
-
-test('custom process steps are stored, default ones are not, and the public mapper uses them', async () => {
-  const { mapCaseStudy } = await import('../../../lib/caseStudies.js');
-  const { projectChanges, projectToEditor } = await import('../mapping.js');
-  const base = projectToEditor({ id: 'p1', data: { filters: { Design: ['UI/UX'] } } }, { id: 'c1', data: { template: 'mvp' } });
-  assert.equal(base.process.length, 4);
-  assert.deepEqual(projectChanges(base, base, { hasCaseStudy: true, templateStored: true }).sections, {});
-  const edited = { ...base, process: [{ title: 'Kickoff', description: 'Hello' }, ...base.process.slice(1)] };
-  const { sections } = projectChanges(edited, base, { hasCaseStudy: true, templateStored: true });
-  assert.equal(sections.process.process[0].title, 'Kickoff');
-  const project = { id: 'p1', title: 'T', filters: { Design: [], Development: [], Production: [], MVP: [] } };
-  assert.equal(mapCaseStudy({ id: 'c1', template: 'mvp', process: sections.process.process }, project).process[0].title, 'Kickoff');
-  assert.equal(mapCaseStudy({ id: 'c1', template: 'mvp', process: [] }, project).process[0].title, 'Discovery & Wireframes');
 });

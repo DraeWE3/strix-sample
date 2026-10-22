@@ -5,7 +5,6 @@
  * stored schema is unchanged. Pure functions: no Firebase imports.
  */
 import { FILTERS, INDUSTRIES } from '../../components/projects/projectFilters.js';
-import { PROCESS_DEFAULTS, PROCESS_MAX_STEPS, resolveProcess } from '../../lib/processDefaults.js';
 
 export const TEMPLATES = ['design-development', 'production', 'mvp'];
 export const FILTER_GROUPS = Object.keys(FILTERS);
@@ -17,7 +16,7 @@ export const TECHNOLOGY_NAMES = {
 export { FILTERS, INDUSTRIES };
 
 // Limits follow what the public case-study and blog templates render.
-export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12, processSteps: PROCESS_MAX_STEPS };
+export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12 };
 const CONCEPT_SLOTS = LIMITS.conceptsFirst + LIMITS.conceptsSecond;
 // Same threshold the previous admin used before moving a section into `chunks`.
 export const CHUNK_THRESHOLD = 150000;
@@ -75,28 +74,12 @@ export const youtubeId = (value) => {
 };
 
 export const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
-/** Firestore ids the studio is willing to render and route to. */
-export const SAFE_ID = /^[A-Za-z0-9_-]{1,128}$/;
-export const isSafeId = (value) => typeof value === 'string' && SAFE_ID.test(value);
-
-const CASE_STUDY_LINK = /^\/case-study\/[A-Za-z0-9_-]+\/?$/;
-
-/** Site path or https URL a project card may link to; anything else is dropped. */
-export const safeProjectLink = (value) => {
-  const raw = asString(value).trim();
-  if (CASE_STUDY_LINK.test(raw)) return raw;
-  return /^https:\/\//i.test(raw) && isSafeUrl(raw) ? raw : '';
-};
 export const slugFromLink = (link) => {
   const match = /^\/case-study\/([^/?#]+)\/?$/.exec(asString(link));
   return match ? decodeURIComponent(match[1]) : '';
 };
 
 /* ------------------------------------------------------- case-study chunks */
-
-const chunkOrder = (a, b) =>
-  String(a.createdAt || '').localeCompare(String(b.createdAt || '')) || String(a.id || '').localeCompare(String(b.id || ''));
 
 /**
  * Folds `caseStudies/{id}/chunks` back into the main document. Same rules as
@@ -111,7 +94,7 @@ export const reconstructCaseStudy = (mainData, chunks) => {
     conceptSlides: asArray(mainData.conceptSlides).slice(),
     responsiveImages: asArray(mainData.responsiveImages).slice(),
   };
-  chunks.slice().sort(chunkOrder).forEach(({ sectionName, data }) => {
+  chunks.forEach(({ sectionName, data }) => {
     if (!sectionName || !data) return;
     const hasIndex = data.index !== undefined;
     if (sectionName === 'hero_thumbnail') result.heroThumbnail = data.heroThumbnail;
@@ -220,9 +203,6 @@ export const projectToEditor = (project, caseStudy) => {
   const template = resolveTemplate(c, filters);
   const slides = strings(c.conceptSlides);
   const shipped = c.shipped && typeof c.shipped === 'object' ? c.shipped : null;
-  const heroVideo = asString(c.heroVideo);
-  // Older case studies store a direct video file (e.g. .mp4) in heroVideo.
-  const mediaType = !heroVideo ? 'image' : youtubeId(heroVideo) ? 'youtube' : 'video';
   return {
     template,
     title: asString(p.title) || asString(c.projectTitle),
@@ -240,10 +220,9 @@ export const projectToEditor = (project, caseStudy) => {
     country: asString(c.client?.country),
     client: { name: asString(c.client?.name), logo: asString(c.client?.logo) },
     media: {
-      type: mediaType,
+      type: asString(c.heroVideo) ? 'youtube' : 'image',
       thumbnail: asString(c.heroThumbnail),
-      youtubeUrl: mediaType === 'youtube' ? heroVideo : '',
-      videoUrl: mediaType === 'video' ? heroVideo : '',
+      youtubeUrl: asString(c.heroVideo),
     },
     about: asString(c.aboutProject?.description),
     aboutImages: images(c.aboutProject?.images, LIMITS.aboutImages),
@@ -256,7 +235,6 @@ export const projectToEditor = (project, caseStudy) => {
       development: strings(c.technologies?.development),
       production: strings(c.technologies?.production),
     },
-    process: resolveProcess(c.process, template).map((step) => ({ ...step })),
     results: asArray(c.results)
       .filter((result) => result && typeof result === 'object')
       .map((result) => ({ title: asString(result.title), description: asString(result.description) })),
@@ -275,18 +253,10 @@ export const projectCardFields = (data) => ({
   categoryText: asString(data.categoryText).trim(),
   industry: asString(data.cardIndustry),
   image: asString(data.cardImage).trim(),
-  link: SLUG.test(asString(data.slug)) ? `/case-study/${data.slug}` : safeProjectLink(data.link),
+  link: SLUG.test(asString(data.slug)) ? `/case-study/${data.slug}` : asString(data.link),
   externalLink: asString(data.externalLink).trim(),
   filters: normalizeFilters(data.filters),
 });
-
-/** Steps equal to the template default are not stored, so the default keeps following the template. */
-const processToStore = (data) => {
-  const steps = asArray(data.process)
-    .map((step) => ({ title: asString(step?.title).trim(), description: asString(step?.description).trim() }))
-    .filter((step) => step.title || step.description);
-  return same(steps, PROCESS_DEFAULTS[data.template] || []) ? [] : steps;
-};
 
 /** Case-study fields grouped into the sections the previous admin saved independently. */
 export const caseStudySections = (data, { includeTemplate = false } = {}) => {
@@ -296,12 +266,7 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
   const sections = {
     basic: { projectTitle: asString(data.caseTitle).trim() },
     hero: {
-      heroVideo:
-        data.media?.type === 'youtube'
-          ? asString(data.media?.youtubeUrl).trim()
-          : data.media?.type === 'video'
-            ? asString(data.media?.videoUrl).trim()
-            : '',
+      heroVideo: data.media?.type === 'youtube' ? asString(data.media?.youtubeUrl).trim() : '',
       heroThumbnail: asString(data.media?.thumbnail).trim(),
     },
     client: {
@@ -336,7 +301,6 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
       },
     },
     results: { results },
-    process: { process: processToStore(data) },
   };
   if (data.template === 'mvp') {
     sections.shipped = {
@@ -480,7 +444,6 @@ export const blankProject = (template) => {
   return {
     ...projectToEditor(null, null),
     template,
-    process: resolveProcess([], template).map((step) => ({ ...step })),
     title: 'Untitled project',
     slug: `untitled-project-${suffix}`,
     filters,
@@ -507,7 +470,6 @@ export const validateProject = (data, { publish = false, otherSlugs = [], hasPro
     if (!SLUG.test(asString(data.slug)) && !asString(data.link)) error('data.slug', 'Use lowercase words separated by hyphens.');
     if (data.slug && !SLUG.test(data.slug)) error('data.slug', 'Use lowercase words separated by hyphens.');
     if (data.slug && otherSlugs.includes(data.slug)) error('data.slug', 'Another project already uses this URL slug.');
-    if (!SLUG.test(asString(data.slug)) && asString(data.link) && !safeProjectLink(data.link)) error('data.slug', 'This project has an unsafe link. Give it a URL slug.');
     if (data.cardIndustry && !INDUSTRIES.includes(data.cardIndustry)) error('data.cardIndustry', 'Choose an industry from the list.');
     for (const group of FILTER_GROUPS) {
       for (const value of strings(data.filters?.[group])) if (!FILTERS[group].includes(value)) error('data.filters', `“${value}” is not a ${group} filter.`);
@@ -524,7 +486,6 @@ export const validateProject = (data, { publish = false, otherSlugs = [], hasPro
   if (data.media?.type === 'youtube' && data.media?.youtubeUrl && !youtubeId(data.media.youtubeUrl)) {
     error('data.media.youtubeUrl', 'Use a YouTube link such as https://www.youtube.com/watch?v=…');
   }
-  if (data.media?.type === 'video') link(asString(data.media?.videoUrl), 'data.media.videoUrl');
   const gallery = (values, field, max) => {
     const list = asArray(values);
     if (list.length > max) error(field, `Use up to ${max} images here.`);
@@ -538,23 +499,9 @@ export const validateProject = (data, { publish = false, otherSlugs = [], hasPro
   asArray(data.results).forEach((result, index) => {
     if (asString(result?.description).trim() && !asString(result?.title).trim()) error(`data.results.${index}.title`, 'Give this result a title, or the website will skip it.');
   });
-  if (asArray(data.process).length > LIMITS.processSteps) error('data.process', `The website shows up to ${LIMITS.processSteps} process steps.`);
-  asArray(data.process).forEach((step, index) => {
-    if (asString(step?.description).trim() && !asString(step?.title).trim()) error(`data.process.${index}.title`, 'Give this step a title, or the website will skip it.');
-  });
   if (strings(data.shipped?.items).length > LIMITS.shippedItems) error('data.shipped.items', `The website shows up to ${LIMITS.shippedItems} deliverables.`);
   return errors;
 };
-
-const pathValue = (record, path) => path.split('.').reduce((value, key) => (value == null ? undefined : value[key]), record);
-
-/**
- * Drops errors about fields the editor did not touch, so one bad legacy value
- * elsewhere in a record never blocks saving an unrelated change.
- * @param {Array<{ field: string, message: string }>} errors
- */
-export const changedFieldErrors = (errors, edited, original) =>
-  errors.filter(({ field }) => !same(pathValue({ data: edited }, field), pathValue({ data: original }, field)));
 
 export const validateArticle = (data, { publish = false } = {}) => {
   const errors = [];
