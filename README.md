@@ -42,7 +42,25 @@ without blogs and case studies for local work; it is marked `NOT-FOR-RELEASE.txt
 New, changed or unpublished CMS content reaches the prerendered pages and sitemap only with the next build and
 deploy. Rebuild after publishing.
 
-## Deploying to Hostinger (manual)
+## Deploying to Hostinger
+
+Every push to `main` deploys automatically: the `deploy` job in `.github/workflows/ci.yml` runs after lint and
+tests, builds both apps with the real config, runs `verify:release` / `verify:admin`, and uploads with
+`scripts/deploy-hostinger.sh` (assets first, HTML last; `dist-admin/` → `public_html/admin/`). It never deletes
+anything on the server, so clear stale files with step 5 below now and then.
+
+One-time setup in GitHub → Settings → Environments → **production** (add yourself as a required reviewer if every
+deploy should wait for approval):
+
+- Secrets: `HOSTINGER_HOST`, `HOSTINGER_USER`, `HOSTINGER_PASSWORD` (hPanel → Files → FTP Accounts, or SSH Access),
+  and every `VITE_*` value from `.env.example`.
+- Variables (optional): `HOSTINGER_PROTOCOL` (`ftp`, the default, or `sftp`), `HOSTINGER_PORT` (Hostinger SSH uses
+  65002), `HOSTINGER_SITE_DIR` — the site's docroot as the FTP/SSH login sees it (default `public_html`; for an SSH
+  login it is usually `domains/strixproduction.com/public_html`).
+
+To redeploy without a code change, re-run the workflow's latest run on `main`.
+
+### Manual deploy
 
 1. `npm run build && npm run verify:release` and `npm run build:admin && npm run verify:admin`.
 2. Upload `dist/assets/` to `public_html/assets/` first (old hashed files can stay until step 5).
