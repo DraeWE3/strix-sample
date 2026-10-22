@@ -11,6 +11,8 @@
     align-items: center;
     justify-content: center;
     padding: 5% 5%;
+    /* Keep the card clear of the fixed nav (5% alone is too small on short or narrow screens). */
+    padding-top: max(5%, 7.5rem);
     position: relative;
     overflow: hidden;
 }

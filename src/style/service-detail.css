@@ -172,6 +172,9 @@
 @media(max-width:360px){
 .service-detail-shell .service-hero-actions{transform:scale(.86);transform-origin:center}
 }
+@media(max-width:359px){
+.service-detail-shell .service-provide>h2{font-size:33px}
+}
 .service-detail-shell{--ds-contact-gap:140px}
 .service-detail-shell .service-proof__heading{background-image:url("../assets/img/service-pages/figma/ed208.png")}
 @media(min-width:1191px){
@@ -300,6 +303,7 @@
 .service-detail-shell .ds-why-unified>p{width:95%;font-size:22px;line-height:38px;top:135px}
 .service-detail-shell .ds-why-badges{left:50%;transform:translateX(-50%) scale(.86);transform-origin:center}
 .service-detail-shell .ds-why-card-caption{width:94%;font-size:14px}
+.service-detail-shell .ds-why-verified .ds-why-card-caption{top:auto;bottom:14px}
 .service-detail-shell .ds-why-projects h3{font-size:44px}
 .service-detail-shell .ds-rating-stars{font-size:36px}
 .service-detail-shell .ds-contact-statement{font-size:36px;line-height:54px;letter-spacing:1.5px}
@@ -384,7 +388,7 @@
 .service-detail-shell .ds-why-grid>.ds-why-card{height:auto;min-height:254px}
 .service-detail-shell .ds-why-verified{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:26px 12px 22px}
 .service-detail-shell .ds-why-verified .ds-why-badges{position:relative;top:auto;left:auto;transform:scale(.85);transform-origin:center;margin:-6px 0}
-.service-detail-shell .ds-why-verified .ds-why-card-caption{position:relative;top:auto;left:auto;transform:none;width:100%;max-width:100%}
+.service-detail-shell .ds-why-verified .ds-why-card-caption{position:relative;top:auto;bottom:auto;left:auto;transform:none;width:100%;max-width:100%}
 .service-detail-shell .ds-why-rating,.service-detail-shell .ds-why-projects{padding:0 12px}
 .service-detail-shell .ds-rating-stars{font-size:min(44px,11vw);letter-spacing:0;white-space:nowrap;text-align:center}
 .service-detail-shell .ds-why-rating-arrow{right:16px;bottom:16px}

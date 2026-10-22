@@ -160,6 +160,7 @@
   }
 
   .strix-case[data-template="mvp"] .mvp-shipped__card {
+    width: 100%;
     height: auto;
     min-height: 300px;
     aspect-ratio: 597 / 340;

@@ -358,6 +358,7 @@
   .home-page-shell .hm-cases { width:calc(100% - 48px); gap:36px; }
   .home-page-shell .hm-cases-title { font-size:46px; letter-spacing:1px; }
   .home-page-shell .hm-case { height:auto; min-height:400px; }
+  .home-page-shell .hm-case .hm-case-category { height:auto; min-height:38px; }
   .home-page-shell .hm-case-content { padding:28px; align-items:center; gap:26px; }
   .home-page-shell .hm-case-info { width:48%; }
   .home-page-shell .hm-case-visual { width:45%; }
@@ -598,6 +599,8 @@
   .home-page-shell .hl-contact-buttons { position:static; transform:none; margin:24px auto 0; flex-direction:column; gap:16px; }
 }
 @media (max-width:374px) {
+  .explore-mobile .button-p .ui-btn, .about-hero-actions .ui-btn { padding:0 14px; }
+  .explore-mobile .button-p .ui-btn-label, .about-hero-actions .ui-btn-label { font-size:15px; }
   .home-page-shell .hl-portfolio-carousel .carousel-slide { flex-basis:280px; width:280px; }
   .home-page-shell .hl-portfolio-carousel .carousel-track { padding-inline:calc((100vw - 280px)/2); }
   .home-page-shell .hl-portfolio-carousel .carousel-slide.is-active .hl-portfolio-visual { transform:scale(.7); }

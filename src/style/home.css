@@ -2064,6 +2064,10 @@ width: 50% !important;
     position: relative;
     margin-bottom: 2rem;
   }
+
+  .section-header {
+    max-width: 85%;
+  }
 }
 /* Desktop: equalise the visual gap between homepage sections (~144px of content-to-content space) */
 @media (min-width: 1025px) {
