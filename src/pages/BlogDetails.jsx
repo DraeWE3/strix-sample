@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../lib/booking';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Navbar';
@@ -22,7 +23,6 @@ import AuthorEmail from '../assets/img/blog/figma/5e398.svg';
 import CtaRim from '../assets/img/blog/figma/1a428.svg';
 import CtaArrow from '../assets/img/blog/figma/4acc0.svg';
 
-const BOOKING_URL = 'https://calendly.com/strixmufasa/30min';
 const PROGRESS_OFFSET = 150;
 
 const useReadingProgress = (targetRef, barRef, active) => {

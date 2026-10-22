@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "../../lib/booking";
 import { Link } from "react-router-dom";
 import Button from "../Button";
 import OrbBackground from "../../assets/img/services/4b4d2.svg";
@@ -21,7 +22,7 @@ const HomeContact = () => (
     <div className="hl-contact-actions">
       <p>Connect with us</p>
       <div className="hl-contact-buttons">
-        <Button href="https://calendly.com/strix-ryvon/raj-consultation" arrow className="hl-call-button" target="_blank" rel="noopener noreferrer">Book a free call</Button>
+        <Button href={BOOKING_URL} arrow className="hl-call-button" target="_blank" rel="noopener noreferrer">Book a free call</Button>
         <Button href="https://wa.me/919958844094" icon={WhatsappIcon} className="hl-whatsapp-button" target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Strix on WhatsApp">Whatsapp</Button>

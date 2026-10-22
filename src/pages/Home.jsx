@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../lib/booking';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../style/home.css";
 import Light from "../assets/img/home/bg.webp";
@@ -903,7 +904,7 @@ const Home = () => {
               </div>
             </Link>
           </div>
-          <Button target="_blank" href="https://calendly.com/strix-ryvon/raj-consultation" text="Book Appointment" />
+          <Button target="_blank" href={BOOKING_URL} text="Book Appointment" />
         </div>
 
         {/* =============section 11 FAQ ============== */}

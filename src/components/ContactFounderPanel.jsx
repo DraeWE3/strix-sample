@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../lib/booking';
 import React from 'react';
 import { Check, Calendar } from 'lucide-react';
 import Ab2 from '../assets/img/contact/9e6ae.png';
@@ -84,7 +85,7 @@ const ContactFounderPanel = () => (
 
     <div className="direct-contact">
       <p className="eyebrow">LET’S MAKE IT HAPPEN</p>
-      <a className="contact-link" href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer">
+      <a className="contact-link" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
         <span className="contact-icon"><Calendar size={15} /></span>
         <span>Book a discovery call</span>
         <span className="end-arrow" aria-hidden="true">↗</span>

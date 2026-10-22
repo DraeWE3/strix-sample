@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "../../lib/booking";
 import Button from "../Button";
 import { Link } from "react-router-dom";
 import OrbBackground from "../../assets/img/services/4b4d2.svg";
@@ -23,7 +24,7 @@ const ServicesContact = () => {
         <p>Connect with us</p>
         <div className="services-contact-buttons">
           <Button className="services-call-button"
-            href="https://calendly.com/strix-ryvon/raj-consultation"
+            href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
            arrow>Book a free call</Button>

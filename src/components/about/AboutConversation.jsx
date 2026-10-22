@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "../../lib/booking";
 import Button from "../Button";
 import WhatsappIcon from "../../assets/img/shared/75bd3.svg";
 
@@ -13,7 +14,7 @@ const AboutConversation = () => {
         <p>Connect with us</p>
         <div className="about-connect-actions">
           <Button className="about-call-button"
-            href="https://calendly.com/strix-ryvon/raj-consultation"
+            href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
            arrow>Book a free call</Button>

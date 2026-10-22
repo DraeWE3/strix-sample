@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../../lib/booking';
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
 import Nav from '../../components/Navbar'
@@ -253,7 +254,7 @@ const Commercials = () => {
             </p>
           </div>
         </div>
-        <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book Appointment" />
+        <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" text="Book Appointment" />
       </div>
 
       <Footer />

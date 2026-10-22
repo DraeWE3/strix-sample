@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../../lib/booking';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { initContinuousCarousels } from '../shared/continuousCarousel';
@@ -10,7 +11,6 @@ import '../../style/caseStudyTemplates/production.css';
 import '../../style/caseStudyTemplates/mvp.css';
 import '../../style/caseStudyTemplates/shipped.css';
 
-const BOOKING_URL = 'https://calendly.com/strixmufasa/30min';
 const WHATSAPP_URL = 'https://wa.me/919958844094';
 const PROJECTS_URL = '/works';
 

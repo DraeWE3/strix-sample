@@ -1,1 +1,1 @@
-export const BOOKING_URL = "https://calendly.com/strix-ryvon/raj-consultation";
+export { BOOKING_URL } from "../../lib/booking";

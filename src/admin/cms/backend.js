@@ -4,6 +4,7 @@
  * generated CMS's Python server) using the same collections, fields, status
  * values and upload preset as the previous admin panel and the public site.
  */
+import { BOOKING_URL } from '../../lib/booking';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import {
   collection, deleteDoc, doc, getDocFromServer, getDocsFromServer, query, runTransaction, setDoc, updateDoc, where, writeBatch,
@@ -499,7 +500,7 @@ export const createBackend = () => {
     return {
       siteName: 'Strix Production',
       siteUrl: SITE_URL,
-      bookingUrl: 'https://calendly.com/strixmufasa/30min',
+      bookingUrl: BOOKING_URL,
       blogCategories: [...PINNED_TOPICS, ...topics.filter((topic) => !PINNED_TOPICS.includes(topic))],
     };
   };

@@ -1,3 +1,4 @@
+import { BOOKING_URL } from '../lib/booking';
 import React, { useRef, useState } from 'react';
 import { Paperclip, Check } from 'lucide-react';
 import Button from './Button';
@@ -171,7 +172,7 @@ const ContactForm = () => {
           </ol>
 
           <div className="success-actions">
-            <Button href="https://calendly.com/strix-ryvon/raj-consultation" target="_blank" rel="noopener noreferrer" text="Book a discovery call" arrow />
+            <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" text="Book a discovery call" arrow />
             <button type="button" className="success-reset" onClick={resetForm}>Send another inquiry</button>
           </div>
         </div>

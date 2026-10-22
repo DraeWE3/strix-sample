@@ -1,3 +1,4 @@
+import { BOOKING_URL } from "../../lib/booking";
 import { Link } from "react-router-dom";
 import OrbBackground from "../../assets/img/service-pages/figma/4b4d2.svg";
 import OrbArrow from "../../assets/img/service-pages/figma/98325.svg";
@@ -5,7 +6,6 @@ import AppointmentRim from "../../assets/img/service-pages/figma/277a9.svg";
 import AppointmentLight from "../../assets/img/service-pages/figma/ff487.svg";
 import AppointmentArrow from "../../assets/img/service-pages/figma/e23f5.svg";
 
-export const BOOKING_URL = "https://calendly.com/strix-ryvon/raj-consultation";
 
 // Both closing sections ship; data-cta-mode on the shell decides which one is visible.
 const ServiceDetailContact = () => (
