@@ -49,11 +49,12 @@ tests, builds both apps with the real config, runs `verify:release` / `verify:ad
 `scripts/deploy-hostinger.sh` (assets first, HTML last; `dist-admin/` → `public_html/admin/`). It never deletes
 anything on the server, so clear stale files with step 5 below now and then.
 
-One-time setup in GitHub → Settings → Environments → **production** (add yourself as a required reviewer if every
-deploy should wait for approval):
+One-time setup in GitHub → Settings → Secrets and variables → Actions (or an Environment named **production**, if
+every deploy should wait for a reviewer's approval):
 
-- Secrets: `HOSTINGER_HOST`, `HOSTINGER_USER`, `HOSTINGER_PASSWORD` (hPanel → Files → FTP Accounts, or SSH Access),
-  and every `VITE_*` value from `.env.example`.
+- Secrets: `HOSTINGER_HOST`, `HOSTINGER_USER`, `HOSTINGER_PASSWORD` (hPanel → Files → FTP Accounts, or SSH Access).
+- Variables: every `VITE_*` value from `.env.example`, one variable per name (they end up in the public bundle, so
+  they are not secret).
 - Variables (optional): `HOSTINGER_PROTOCOL` (`ftp`, the default, or `sftp`), `HOSTINGER_PORT` (Hostinger SSH uses
   65002), `HOSTINGER_SITE_DIR` — the site's docroot as the FTP/SSH login sees it (default `public_html`; for an SSH
   login it is usually `domains/strixproduction.com/public_html`).
