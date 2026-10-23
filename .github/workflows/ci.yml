@@ -61,6 +61,7 @@ jobs:
         run: npm run build:admin && npm run verify:admin
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
       - name: Upload to Hostinger
+        timeout-minutes: 20
         run: bash scripts/deploy-hostinger.sh
         env:
           DEPLOY_HOST: ${{ secrets.HOSTINGER_HOST }}

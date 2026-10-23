@@ -25,13 +25,19 @@ done
 
 # Same order as the manual steps in the README: hashed assets first so no page ever points
 # at a file that is not there yet, then everything else, HTML (which references them) last.
+# Hostinger's FTP server presents a valid certificate for *.hstgr.io, never for the domain
+# or IP used to connect, so the certificate is still verified but its host name is not.
+# The `cls` first fails fast on a bad login or folder instead of once per file.
 export LFTP_PASSWORD="$DEPLOY_PASSWORD"
 lftp --env-password -u "$DEPLOY_USER" "$protocol://$DEPLOY_HOST$port" <<EOF
 set cmd:fail-exit yes
-set net:max-retries 3
+set net:max-retries 2
 set net:timeout 30
+set net:reconnect-interval-base 5
 set ftp:ssl-allow yes
+set ssl:check-hostname no
 set sftp:auto-confirm yes
+cls -d "$site_dir"
 mirror --reverse --verbose --parallel=4 dist/assets "$site_dir/assets"
 mirror --reverse --verbose --parallel=4 --exclude-glob assets/ --exclude-glob *.html dist "$site_dir"
 mirror --reverse --verbose --parallel=4 --include-glob *.html --exclude-glob assets/ dist "$site_dir"
