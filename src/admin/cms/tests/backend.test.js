@@ -166,6 +166,37 @@ test('project edits merge only the changed fields and keep the public case study
   assert.deepEqual(page.record.services, ['UI/UX', 'Web']);
 });
 
+test('the process starts as the template steps and saves only when customised', async () => {
+  const record = await open('p_p1');
+  assert.deepEqual(record.data.process.map((step) => step.title), ['Discovery & Wireframes', 'Design & Validation', 'Development & Iterations', 'Test, Launch & Scale']);
+  assert.equal('process' in fake.get('case_studies', 'c1'), false, 'standard steps are not stored');
+
+  record.data.process[1].title = 'Design Sprints';
+  record.data.process.push({ title: '  Handover  ', description: 'Docs and training for the client team.' });
+  await save(record);
+  const stored = fake.get('case_studies', 'c1').process;
+  assert.equal(stored.length, 5);
+  assert.deepEqual(stored[4], { title: 'Handover', description: 'Docs and training for the client team.' });
+  const page = await publicCaseStudy('aurora');
+  assert.deepEqual(page.record.process.map((step) => step.title), ['Discovery & Wireframes', 'Design Sprints', 'Development & Iterations', 'Test, Launch & Scale', 'Handover']);
+
+  const reopened = await open('p_p1');
+  assert.equal(reopened.data.process[1].title, 'Design Sprints');
+  reopened.data.process = [];
+  await save(reopened);
+  assert.deepEqual(fake.get('case_studies', 'c1').process, [], 'no own steps left');
+  assert.equal((await publicCaseStudy('aurora')).record.process[1].title, 'Design & Validation', 'the website falls back to the template steps');
+  assert.equal((await open('p_p1')).data.process.length, 4, 'the editor shows the template steps again');
+});
+
+test('process steps need a title and stay within the limit', async () => {
+  const record = await open('p_p1');
+  record.data.process[0].title = ' ';
+  await rejects(save(record), 422).then((error) => assert.ok(error.fields.some((f) => f.field === 'data.process.0.title')));
+  record.data.process = Array.from({ length: 7 }, (_, i) => ({ title: `Step ${i + 1}`, description: '' }));
+  await rejects(save(record), 422).then((error) => assert.ok(error.fields.some((f) => f.field === 'data.process')));
+});
+
 test('large images are stored inline and the public page reads them', async () => {
   const record = await open('p_p1');
   const big = `data:image/png;base64,${'A'.repeat(200000)}`;

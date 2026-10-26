@@ -5,6 +5,7 @@
  * already reads are written, so the stored shape is unchanged. Pure functions.
  */
 import { FILTERS, INDUSTRIES } from '../../components/projects/projectFilters.js';
+import { PROCESS_DEFAULTS, PROCESS_MAX_STEPS } from '../../lib/processDefaults.js';
 
 export const TEMPLATES = ['design-development', 'production', 'mvp'];
 export const FILTER_GROUPS = Object.keys(FILTERS);
@@ -16,8 +17,22 @@ export const TECHNOLOGY_NAMES = {
 export { FILTERS, INDUSTRIES };
 
 // Limits follow what the public case-study and blog templates render.
-export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12 };
+export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12, processSteps: PROCESS_MAX_STEPS };
 const CONCEPT_SLOTS = LIMITS.conceptsFirst + LIMITS.conceptsSecond;
+
+const textPairs = (value) =>
+  asArray(value)
+    .filter((item) => item && typeof item === 'object')
+    .map((item) => ({ title: asString(item.title), description: asString(item.description) }));
+
+/**
+ * "The Process" steps for the editor: the case study's own steps, else its
+ * template's standard steps (src/lib/processDefaults.js), as the website shows them.
+ */
+const processSteps = (stored, template) => {
+  const own = textPairs(stored);
+  return own.some((step) => step.title.trim()) ? own : textPairs(PROCESS_DEFAULTS[template]);
+};
 
 const asString = (value) => (typeof value === 'string' ? value : '');
 const asArray = (value) => (Array.isArray(value) ? value : []);
@@ -148,9 +163,8 @@ export const projectToEditor = (project, caseStudy) => {
       development: strings(c.technologies?.development),
       production: strings(c.technologies?.production),
     },
-    results: asArray(c.results)
-      .filter((result) => result && typeof result === 'object')
-      .map((result) => ({ title: asString(result.title), description: asString(result.description) })),
+    process: processSteps(c.process, template),
+    results: textPairs(c.results),
     shipped: {
       items: strings(shipped?.items),
       label: asString(shipped?.label),
@@ -176,6 +190,9 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
   const results = asArray(data.results)
     .map((result) => ({ title: asString(result?.title).trim(), description: asString(result?.description).trim() }))
     .filter((result) => result.title || result.description);
+  const steps = textPairs(data.process)
+    .map((step) => ({ title: step.title.trim(), description: step.description.trim() }))
+    .filter((step) => step.title || step.description);
   const sections = {
     basic: { projectTitle: asString(data.caseTitle).trim() },
     hero: {
@@ -213,6 +230,8 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
         production: strings(data.technologies?.production),
       },
     },
+    // The template's standard steps are not stored, so they keep following src/lib/processDefaults.js.
+    process: { process: same(steps, PROCESS_DEFAULTS[data.template] || []) ? [] : steps },
     results: { results },
   };
   if (data.template === 'mvp') {
@@ -357,6 +376,7 @@ export const blankProject = (template) => {
   return {
     ...projectToEditor(null, null),
     template,
+    process: processSteps([], template),
     title: 'Untitled project',
     slug: `untitled-project-${suffix}`,
     filters,
@@ -408,6 +428,10 @@ export const validateProject = (data, { publish = false, otherSlugs = [], hasPro
   gallery(data.concepts?.[0], 'data.concepts.0', LIMITS.conceptsFirst);
   gallery(data.concepts?.[1], 'data.concepts.1', LIMITS.conceptsSecond);
   gallery(data.responsiveImages, 'data.responsiveImages', LIMITS.responsiveImages);
+  if (asArray(data.process).length > LIMITS.processSteps) error('data.process', `The website shows up to ${LIMITS.processSteps} process steps.`);
+  asArray(data.process).forEach((step, index) => {
+    if (asString(step?.description).trim() && !asString(step?.title).trim()) error(`data.process.${index}.title`, 'Give this step a title, or the website will skip it.');
+  });
   if (asArray(data.results).length > LIMITS.results) error('data.results', `The website shows up to ${LIMITS.results} results.`);
   asArray(data.results).forEach((result, index) => {
     if (asString(result?.description).trim() && !asString(result?.title).trim()) error(`data.results.${index}.title`, 'Give this result a title, or the website will skip it.');
