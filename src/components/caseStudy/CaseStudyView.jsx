@@ -275,10 +275,15 @@ const HeroMedia = ({ media, title }) => {
               </a>
             </div>
           ) : null}
-          <button type="button" className="case-media-close" aria-label="Close video" onClick={close}>
-            ×
-          </button>
         </div>
+      ) : null}
+      {playing ? (
+        // Outside the player, so it never covers YouTube's own controls.
+        <button type="button" className="case-media-close" aria-label="Close video" onClick={close}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+        </button>
       ) : null}
     </div>
   );
