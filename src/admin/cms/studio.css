@@ -6,7 +6,7 @@
 
 .side-close{position:absolute;right:13px;top:26px;color:#b4bfaa}
 
-/* Integration: Firebase accounts often have only an email for a name; keep the avatar round and truncate long names. */
+/* Integration: Neon Auth accounts often have only an email for a name; keep the avatar round and truncate long names. */
 .user .avatar{flex-shrink:0}.user>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* Integration: the site's white "S" monogram (src/assets/img/layout/Header-s.webp) replaces the text mark; inverted on the light loading screen. */

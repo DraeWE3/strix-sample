@@ -3,7 +3,7 @@ import { useEffect } from "react";
 // Reveals [data-reveal] elements within a container as they scroll into view.
 // Honors prefers-reduced-motion (including live changes) and reveals content
 // immediately for keyboard focus, matching the source page's behavior.
-// Elements added after mount (e.g. data loaded from Firebase) are observed too.
+// Elements added after mount (e.g. data loaded from the database) are observed too.
 const useScrollReveal = (
   containerRef,
   { readyClass = "about-motion-ready", threshold = 0.06, rootMargin = "0px 0px -24px 0px" } = {}

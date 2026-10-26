@@ -1,7 +1,7 @@
 /**
  * Default "The Process" steps per case-study template, matching the Figma
  * designs (nodes 894:4788, 3534:8076, 3534:8137). A case study only stores
- * `process` when an admin has customised it. Pure module: no Firebase imports.
+ * `process` when an admin has customised it. Pure module: no database imports.
  */
 const COPY = {
   discovery: 'We define your core idea, map user journeys, and create wireframes that lock your product vision with direction.',

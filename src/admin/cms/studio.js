@@ -1,6 +1,6 @@
 /* Strix Studio. Structured content editor, adapted from the generated Strix CMS
  * (strix-cms-developer/strix-cms/public/admin.js) to run inside the site's /admin
- * route. It renders into a shadow root and persists through the Firestore backend. */
+ * route. It renders into a shadow root and persists through the Neon backend (backend.js). */
 import { BLOCK_TYPES, FILTERS, INDUSTRIES, LIMITS, TECHNOLOGY_NAMES } from './mapping.js';
 import css from './studio.css?inline';
 import strixLogo from '../../assets/img/layout/Header-s.webp';

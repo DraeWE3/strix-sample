@@ -9,7 +9,7 @@ export const DEFAULT_DESCRIPTION =
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 export const DEFAULT_OG_IMAGE_ALT = 'Strix Production — Where Creative Strategy Meets Scalable Technology';
 
-// Dynamic segments are Firestore ids or slugs and keep their case.
+// Dynamic segments are row ids or slugs and keep their case.
 const CASE_SENSITIVE = /^\/(blog|case-study)\/([^/]+)$/i;
 
 /**
