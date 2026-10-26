@@ -6,7 +6,7 @@ import '../style/fonts.css';
 /**
  * The Strix Content Studio (see ./cms), built separately for admin.strixproduction.com
  * (vite.admin.config.js). It renders inside a shadow root so the studio's styles and the
- * site's global styles cannot affect each other. The previous panel is in ./legacyAdmin.jsx.
+ * site's global styles cannot affect each other.
  */
 const AdminPanel = () => {
   const hostRef = useRef(null);
