@@ -1,9 +1,10 @@
 # Strix Production website
 
 Static single-page site for <https://www.strixproduction.com> (Vite 7, React 19, React Router 7), plus the
-Strix Content Studio at <https://admin.strixproduction.com>. Content lives in Cloud Firestore; the contact form
-sends through EmailJS; studio image uploads go to Cloudinary. There is no backend server: Firestore security
-rules are the only server-side access control.
+Strix Content Studio at <https://admin.strixproduction.com>. Content lives in Neon Postgres, read and written from
+the browser through the Neon Data API, with Neon Auth for studio sign-in; the contact form sends through EmailJS;
+studio image uploads go to Cloudinary. There is no backend server of our own: row-level security in
+`db/schema.sql` is the only server-side access control.
 
 ## Setup
 
@@ -19,14 +20,14 @@ npm run dev:admin      # studio on :5174
 | Command | What it does |
 |---|---|
 | `npm run lint` | ESLint |
-| `npm test` | Unit tests: studio backend (fake Firestore), public data layer, SEO generators, contact form, carousel |
-| `npm run test:build` | Two real builds with networking cut off (Linux `unshare`): a Firestore outage must fail the build |
+| `npm test` | Unit tests: studio backend (fake Neon Data API), public data layer, SEO generators, contact form, carousel |
+| `npm run test:build` | Two real builds with networking cut off (Linux `unshare`): a Neon outage must fail the build |
 | `npm run verify:release` | Checks `dist/` is a complete, untouched release (manifest hashes, every page's head, sitemap, `.htaccess`) |
 | `npm run verify:admin` | Checks `dist-admin/` |
 
 ## Building a release
 
-`npm run build` reads the published blogs and case studies from Firestore (server reads only, before `dist/`
+`npm run build` reads the published blogs and case studies from Neon (as an anonymous visitor, before `dist/`
 is emptied) and writes, next to the bundle:
 
 - a prerendered `<head>` for every page (`works.html`, `services/web-dev.html`, `blog/<id>.html`, …),
@@ -35,7 +36,7 @@ is emptied) and writes, next to the bundle:
 - `.htaccess` with the generated legacy and lower-case redirects (`src/data/legacyRoutes.js`);
 - `release-manifest.json` (SHA-256 of every file).
 
-If Firestore can't be read, or a content group that the previous build had comes back empty, **the build fails
+If Neon can't be read, or a content group that the previous build had comes back empty, **the build fails
 and the previous `dist/` is left as it was.** `npm run build:offline` (`STRIX_PRERENDER_OFFLINE=1`) builds
 without blogs and case studies for local work; it is marked `NOT-FOR-RELEASE.txt` and `verify:release` rejects it.
 
@@ -56,17 +57,30 @@ deploy. Rebuild after publishing.
 `.htaccess` answers 404 for `release-manifest.json` and `NOT-FOR-RELEASE.txt`. Only upload the build folders; never
 upload `.env` or the repository itself.
 
-## Firebase security rollout
+## Neon database
 
-Proposed rules are in `firestore.rules` (not deployed from here). Order matters:
+Tables, grants and row-level security are in `db/schema.sql`. Each table keeps the former Firestore document as a
+`data` JSON column under the same id, so `/blog/:id` and `/case-study/:id` URLs are unchanged. Visitors use Neon
+Auth's anonymous token (Postgres role `anonymous`) and see `status = 'published'` rows only; only users listed in
+`admins` can write. Pages refresh their content when the tab is shown again and every five minutes (the Data API
+has no real-time feed).
 
-1. Firestore → create `admins/{uid}` for every studio user (uid from Authentication → Users), or give them the
-   `admin` custom claim.
-2. Authentication → Settings → User actions → turn off **Enable create (sign-up)**.
-3. Deploy the public site build (it only queries `status == 'published'`; no composite index is needed).
-4. Test the rules in the emulator or Rules Playground (anonymous read of a draft project, case study and chunk must
-   be denied; an admin write must succeed), then `firebase deploy --only firestore:rules`.
-5. Deploy the studio build.
+Setup on a new branch, in this order:
+
+1. Neon Console → the project → **Data API** → enable it with **Use Neon Auth**. Add
+   `https://www.strixproduction.com`, `https://admin.strixproduction.com` and `http://localhost:5173`/`5174` to Neon
+   Auth's trusted domains, allow anonymous access, and turn off public sign-up.
+2. `.env`: `VITE_NEON_DATA_API_URL`, `VITE_NEON_AUTH_URL` (both shown on the Data API page) and `DATABASE_URL`
+   (Connect → owner connection string; used only by the scripts, never bundled).
+3. `npm run db:schema` (or paste `db/schema.sql` into the SQL Editor). Safe to re-run.
+4. Create each studio user in Neon Console → Auth, then `npm run db:admin -- name@example.com`.
+
+### Moving the content from Firestore
+
+The content was exported from Firestore to `../data/` (`projects.json`, `caseStudies.json`, `blogs.json`: arrays of
+`{ id, data }`, case studies with their `chunks`). `npm run db:migrate -- --dry-run` counts what would be copied;
+`npm run db:migrate` copies every project, case study (chunks folded in) and blog, drafts included, in one
+transaction. It upserts by id and never deletes, so it can be re-run. Use `-- --from <dir>` for another export folder.
 
 ## EmailJS
 

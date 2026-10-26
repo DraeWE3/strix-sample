@@ -1,21 +1,20 @@
 /**
- * Firestore, Firebase Auth and Cloudinary backend for the Strix Content Studio.
- * It answers the studio's `api(path, options)` calls (originally served by the
- * generated CMS's Python server) using the same collections, fields, status
- * values and upload preset as the previous admin panel and the public site.
+ * Neon (Data API + Neon Auth) and Cloudinary backend for the Strix Content
+ * Studio. It answers the studio's `api(path, options)` calls (originally served
+ * by the generated CMS's Python server) using the same tables, fields, status
+ * values and upload preset as the public site. Row-level security limits
+ * writes to users listed in the `admins` table (db/schema.sql).
  */
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { addDoc, collection, deleteDoc, doc, getDocFromServer, getDocs, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebaseconfig.js';
+import { neonAdmin } from '../neonClient.js';
+import { run } from '../../lib/neon.js';
 import { uploadImage } from '../storage.js';
 import {
   articleChanges, articleToEditor, blankArticle, blankProject, categoriesFromFilters,
-  chunkBelongsTo, projectChanges, projectToEditor, reconstructCaseStudy, splitSection,
-  validateArticle, validateProject,
+  projectChanges, projectToEditor, validateArticle, validateProject,
 } from './mapping.js';
 
 const PROJECTS = 'projects';
-const CASE_STUDIES = 'caseStudies';
+const CASE_STUDIES = 'case_studies';
 const BLOGS = 'blogs';
 const SITE_URL = 'https://www.strixproduction.com';
 const PINNED_TOPICS = ['Tips', 'News'];
@@ -32,54 +31,128 @@ const now = () => new Date().toISOString();
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const asString = (value) => (typeof value === 'string' ? value : '');
 
-const FIREBASE_MESSAGES = {
-  'auth/invalid-credential': 'The email or password is incorrect.',
-  'auth/invalid-email': 'Enter a valid email address.',
-  'auth/user-disabled': 'This account has been disabled.',
-  'auth/too-many-requests': 'Too many attempts. Wait a moment and try again.',
-  'auth/network-request-failed': 'You appear to be offline. Check your connection and try again.',
+const CHANGED_ELSEWHERE = 'This item was changed elsewhere since you opened it. Reload it before saving again.';
+
+const MESSAGES = {
+  INVALID_EMAIL_OR_PASSWORD: 'The email or password is incorrect.',
+  INVALID_EMAIL: 'Enter a valid email address.',
+  USER_NOT_FOUND: 'The email or password is incorrect.',
+  EMAIL_NOT_VERIFIED: 'Verify this email address before signing in.',
   'permission-denied': 'Your account is not allowed to make this change.',
   unauthenticated: 'Your session expired. Sign in again.',
   unavailable: 'The database is unreachable. Check your connection and try again.',
 };
 
+const STATUS = { 'permission-denied': 403, unauthenticated: 401, unavailable: 503 };
+
 const friendly = (error) => {
   if (error instanceof ApiError) return error;
-  const message = FIREBASE_MESSAGES[error?.code] || error?.message || 'The request could not be completed.';
-  return new ApiError(error?.code === 'permission-denied' ? 403 : 500, message);
+  const message = MESSAGES[error?.code] || error?.message || 'The request could not be completed.';
+  return new ApiError(STATUS[error?.code] || 500, message);
+};
+
+/** Neon Auth (Better Auth) answers `{ data, error }`; turn its error into a studio message. */
+const authFailure = (error) => {
+  if (error?.status === 429) return new ApiError(429, 'Too many attempts. Wait a moment and try again.');
+  if (MESSAGES[error?.code]) return new ApiError(401, MESSAGES[error.code]);
+  if (!error?.status) return new ApiError(503, 'You appear to be offline. Check your connection and try again.');
+  return new ApiError(401, error.message || 'Sign-in failed.');
 };
 
 const liveProjectUrl = (card, id) =>
   /^https?:\/\//.test(asString(card.externalLink)) ? card.externalLink : asString(card.link) || `/case-study/${id}`;
 
-export const createBackend = () => {
+/** @param {{ client?: typeof neonAdmin }} [options] */
+export const createBackend = ({ client = neonAdmin } = {}) => {
   /** @type {Map<string, { envelope: Record<string, any>, source: Record<string, any> }>} */
   const records = new Map();
   const uploads = [];
   let user = null;
-  let stopAuth = null;
-  const authReady = new Promise((resolve) => {
-    stopAuth = onAuthStateChanged(auth, (next) => {
-      user = next;
-      resolve();
+
+  /* ------------------------------------------------------------- auth */
+
+  const isAdmin = async () => (await run(client.rpc('is_admin'))) === true;
+
+  // A session that is not on the allow-list is signed out, so the studio shows the sign-in form.
+  const adopt = async (next) => {
+    user = next || null;
+    if (user && !(await isAdmin())) {
+      await client.auth.signOut().catch(() => {});
+      user = null;
+      return false;
+    }
+    return true;
+  };
+
+  const authReady = client.auth
+    .getSession()
+    .then(({ data }) => adopt(data?.user))
+    .catch((error) => {
+      console.error('Could not restore the studio session:', error);
+      user = null;
     });
-  });
 
   const sessionPayload = () => ({
     setupRequired: false,
     authenticated: Boolean(user),
-    user: user ? { id: user.uid, name: user.displayName || user.email, email: user.email } : null,
+    user: user ? { id: user.id, name: user.name || user.email, email: user.email } : null,
   });
 
   const requireUser = () => {
     if (!user) throw new ApiError(401, 'Sign in to continue.');
   };
 
+  /* -------------------------------------------------------------- rows */
+
+  const allRows = (table) => run(client.from(table).select('id, data'));
+
+  const readRow = async (table, id) => {
+    const [row] = await run(client.from(table).select('id, data').eq('id', id).limit(1));
+    return row || null;
+  };
+
+  const insertRow = async (table, data) => {
+    const [row] = await run(client.from(table).insert({ data }).select('id, data'));
+    return row;
+  };
+
+  // Row-level security turns a refused update or delete into "no rows", not an error.
+  const assertApplied = async (rows, conflictMessage) => {
+    if (rows.length) return;
+    if (!(await isAdmin())) throw new ApiError(403, MESSAGES['permission-denied']);
+    throw new ApiError(409, conflictMessage);
+  };
+
+  /**
+   * Merges `patch` into a row's data (a shallow merge, as Firestore's updateDoc
+   * did). The write is conditional on the `updatedAt` it read, so a save that
+   * lands in between is refused rather than overwritten.
+   */
+  const updateRow = async (table, id, patch) => {
+    const current = await readRow(table, id);
+    if (!current) throw new ApiError(409, 'This item was deleted elsewhere. Reload the page.');
+    const stored = asString(current.data.updatedAt);
+    const update = client.from(table).update({ data: { ...current.data, ...patch } }).eq('id', id);
+    const guarded = stored ? update.eq('data->>updatedAt', stored) : update.is('data->>updatedAt', null);
+    await assertApplied(await run(guarded.select('id')), CHANGED_ELSEWHERE);
+  };
+
+  /** Refuse to overwrite a row someone changed after it was loaded here. */
+  const assertUnchanged = async (table, id, expectedUpdatedAt) => {
+    if (!id) return;
+    const row = await readRow(table, id);
+    if (!row) throw new ApiError(409, 'This item was deleted elsewhere. Reload the page.');
+    if (asString(row.data.updatedAt) !== expectedUpdatedAt) throw new ApiError(409, CHANGED_ELSEWHERE);
+  };
+
+  const deleteRow = async (table, id) => {
+    await assertApplied(await run(client.from(table).delete().eq('id', id).select('id')), 'This item was already deleted. Reload the page.');
+  };
+
   /* --------------------------------------------------------- envelopes */
 
-  const projectEnvelope = ({ project, caseStudy, chunks, isNew = false, template }) => {
-    const reconstructed = caseStudy ? { id: caseStudy.id, data: reconstructCaseStudy(caseStudy.data, chunks.map((c) => c.data)) } : null;
-    const data = isNew ? blankProject(template) : projectToEditor(project, reconstructed);
+  const projectEnvelope = ({ project, caseStudy, isNew = false, template }) => {
+    const data = isNew ? blankProject(template) : projectToEditor(project, caseStudy);
     const orphan = !project && !isNew;
     const cardLive = project?.data.status === 'published';
     const caseLive = caseStudy?.data.status === 'published';
@@ -115,7 +188,6 @@ export const createBackend = () => {
         caseId: caseStudy?.id || null,
         caseUpdatedAt: asString(caseStudy?.data.updatedAt),
         templateStored: Boolean(caseStudy?.data.template),
-        chunks: chunks.map(({ id: chunkId, data: chunkData }) => ({ id: chunkId, sectionName: asString(chunkData.sectionName) })),
         original: clone(data),
         isNew,
       },
@@ -160,19 +232,12 @@ export const createBackend = () => {
 
   /* ------------------------------------------------------------- reads */
 
-  const snapshotDocs = (snapshot) => snapshot.docs.map((d) => ({ id: d.id, data: d.data() }));
-
-  const loadChunks = async (caseId) => snapshotDocs(await getDocs(collection(db, CASE_STUDIES, caseId, 'chunks')));
-
   const loadAll = async () => {
-    const [projects, cases, blogs] = (
-      await Promise.all([PROJECTS, CASE_STUDIES, BLOGS].map((name) => getDocs(collection(db, name))))
-    ).map(snapshotDocs);
-    const chunks = await Promise.all(cases.map((c) => loadChunks(c.id)));
+    const [projects, cases, blogs] = await Promise.all([PROJECTS, CASE_STUDIES, BLOGS].map(allRows));
     const casesByProject = new Map();
-    // The public page reads the first case study per project in document-id order.
+    // The public page reads the first case study per project in id order.
     cases
-      .map((c, i) => ({ ...c, chunks: chunks[i] }))
+      .slice()
       .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
       .forEach((c) => {
         const key = asString(c.data.projectId);
@@ -185,46 +250,31 @@ export const createBackend = () => {
     for (const [id, entry] of records) if (!entry.envelope.isNew) records.delete(id);
     for (const project of projects) {
       const [linked] = casesByProject.get(project.id) || [];
-      remember(projectEnvelope({ project, caseStudy: linked || null, chunks: linked?.chunks || [] }));
+      remember(projectEnvelope({ project, caseStudy: linked || null }));
     }
     for (const [projectId, list] of casesByProject) {
       // Case studies the website never shows: no project card, or a second one for the same card.
-      list.slice(projectIds.has(projectId) ? 1 : 0).forEach((c) => remember(projectEnvelope({ project: null, caseStudy: c, chunks: c.chunks })));
+      list.slice(projectIds.has(projectId) ? 1 : 0).forEach((c) => remember(projectEnvelope({ project: null, caseStudy: c })));
     }
     blogs.forEach((blog) => remember(articleEnvelope({ blog })));
   };
 
-  const reloadProject = async ({ projectId, caseId }) => {
-    const project = projectId ? await getDocFromServer(doc(db, PROJECTS, projectId)) : null;
-    const caseSnap = caseId ? await getDocFromServer(doc(db, CASE_STUDIES, caseId)) : null;
-    const caseStudy = caseSnap?.exists() ? { id: caseSnap.id, data: caseSnap.data() } : null;
-    return projectEnvelope({
-      project: project?.exists() ? { id: project.id, data: project.data() } : null,
-      caseStudy,
-      chunks: caseStudy ? await loadChunks(caseStudy.id) : [],
+  const reloadProject = async ({ projectId, caseId }) =>
+    projectEnvelope({
+      project: projectId ? await readRow(PROJECTS, projectId) : null,
+      caseStudy: caseId ? await readRow(CASE_STUDIES, caseId) : null,
     });
-  };
 
   const reloadArticle = async (blogId) => {
-    const snapshot = await getDocFromServer(doc(db, BLOGS, blogId));
-    if (!snapshot.exists()) throw new ApiError(404, 'This article no longer exists.');
-    return articleEnvelope({ blog: { id: snapshot.id, data: snapshot.data() } });
+    const blog = await readRow(BLOGS, blogId);
+    if (!blog) throw new ApiError(404, 'This article no longer exists.');
+    return articleEnvelope({ blog });
   };
 
   const entryFor = (id) => {
     const entry = records.get(id);
     if (!entry) throw new ApiError(404, 'Content not found. Reload the page.');
     return entry;
-  };
-
-  /** Refuse to overwrite a document someone changed after it was loaded here. */
-  const assertUnchanged = async (collectionName, id, expectedUpdatedAt) => {
-    if (!id) return;
-    const snapshot = await getDocFromServer(doc(db, collectionName, id));
-    if (!snapshot.exists()) throw new ApiError(409, 'This item was deleted elsewhere. Reload the page.');
-    if (asString(snapshot.data().updatedAt) !== expectedUpdatedAt) {
-      throw new ApiError(409, 'This item was changed elsewhere since you opened it. Reload it before saving again.');
-    }
   };
 
   const otherProjectSlugs = (id) =>
@@ -235,24 +285,7 @@ export const createBackend = () => {
 
   /* ------------------------------------------------------------ writes */
 
-  const writeSections = async (caseId, sections, existingChunks) => {
-    const main = {};
-    const added = [];
-    const stale = [];
-    for (const [name, fields] of Object.entries(sections)) {
-      const split = splitSection(name, fields);
-      Object.assign(main, split.main);
-      added.push(...split.chunks);
-      stale.push(...existingChunks.filter((chunk) => chunkBelongsTo(name, chunk.sectionName)));
-    }
-    const stamp = now();
-    // New chunks go in before old ones are removed, so a failed save never loses images.
-    for (const chunk of added) {
-      await addDoc(collection(db, CASE_STUDIES, caseId, 'chunks'), { ...chunk, createdAt: stamp, updatedAt: stamp });
-    }
-    await updateDoc(doc(db, CASE_STUDIES, caseId), { ...main, updatedAt: stamp });
-    await Promise.all(stale.map((chunk) => deleteDoc(doc(db, CASE_STUDIES, caseId, 'chunks', chunk.id))));
-  };
+  const sectionFields = (sections) => Object.assign({}, ...Object.values(sections));
 
   const saveProject = async (entry, data) => {
     const { source, envelope } = entry;
@@ -266,26 +299,23 @@ export const createBackend = () => {
       hasProject: !envelope.orphan,
       templateStored: source.templateStored,
     });
+    // Check both rows before writing either, so a conflict never leaves a half-saved project.
     await assertUnchanged(PROJECTS, source.projectId, source.projectUpdatedAt);
     await assertUnchanged(CASE_STUDIES, source.caseId, source.caseUpdatedAt);
 
     const stamp = now();
     let { projectId, caseId } = source;
     if (source.isNew) {
-      const ref = await addDoc(collection(db, PROJECTS), { ...card, status: 'draft', createdAt: stamp, updatedAt: stamp });
-      projectId = ref.id;
+      projectId = (await insertRow(PROJECTS, { ...card, status: 'draft', createdAt: stamp, updatedAt: stamp })).id;
     } else if (projectId && Object.keys(card).length) {
-      await updateDoc(doc(db, PROJECTS, projectId), { ...card, updatedAt: stamp });
+      await updateRow(PROJECTS, projectId, { ...card, updatedAt: stamp });
     }
     if (createCaseStudy) {
       // A first case study follows the card's status, so a live card never links to a hidden page.
-      const ref = await addDoc(collection(db, CASE_STUDIES), {
-        projectId, status: envelope.status === 'published' ? 'published' : 'draft', createdAt: stamp, updatedAt: stamp,
-      });
-      caseId = ref.id;
-      await writeSections(caseId, sections, []);
+      const status = envelope.status === 'published' ? 'published' : 'draft';
+      caseId = (await insertRow(CASE_STUDIES, { projectId, status, ...sectionFields(sections), createdAt: stamp, updatedAt: stamp })).id;
     } else if (caseId && Object.keys(sections).length) {
-      await writeSections(caseId, sections, source.chunks);
+      await updateRow(CASE_STUDIES, caseId, { ...sectionFields(sections), updatedAt: stamp });
     }
     records.delete(envelope.id);
     return remember(await reloadProject({ projectId, caseId }));
@@ -299,11 +329,10 @@ export const createBackend = () => {
     const stamp = now();
     let { blogId } = source;
     if (source.isNew) {
-      const ref = await addDoc(collection(db, BLOGS), { ...changes, status: 'draft', createdAt: stamp, updatedAt: stamp });
-      blogId = ref.id;
+      blogId = (await insertRow(BLOGS, { ...changes, status: 'draft', createdAt: stamp, updatedAt: stamp })).id;
     } else if (Object.keys(changes).length) {
       await assertUnchanged(BLOGS, blogId, source.updatedAt);
-      await updateDoc(doc(db, BLOGS, blogId), { ...changes, updatedAt: stamp });
+      await updateRow(BLOGS, blogId, { ...changes, updatedAt: stamp });
     }
     records.delete(envelope.id);
     return remember(await reloadArticle(blogId));
@@ -320,26 +349,22 @@ export const createBackend = () => {
     }
     // Status-only writes, exactly as the previous admin's publish toggle.
     if (envelope.kind === 'article') {
-      await updateDoc(doc(db, BLOGS, source.blogId), { status });
+      await updateRow(BLOGS, source.blogId, { status });
       return remember(await reloadArticle(source.blogId));
     }
     if (envelope.orphan) throw new ApiError(409, 'Link this case study to a project card before publishing it.');
-    await updateDoc(doc(db, PROJECTS, source.projectId), { status });
-    if (source.caseId) await updateDoc(doc(db, CASE_STUDIES, source.caseId), { status });
+    await updateRow(PROJECTS, source.projectId, { status });
+    if (source.caseId) await updateRow(CASE_STUDIES, source.caseId, { status });
     return remember(await reloadProject(source));
   };
 
   const remove = async (entry) => {
     const { envelope, source } = entry;
     if (!envelope.isNew) {
-      if (envelope.kind === 'article') await deleteDoc(doc(db, BLOGS, source.blogId));
+      if (envelope.kind === 'article') await deleteRow(BLOGS, source.blogId);
       else {
-        if (source.caseId) {
-          const chunks = await getDocs(collection(db, CASE_STUDIES, source.caseId, 'chunks'));
-          await Promise.all(chunks.docs.map((chunk) => deleteDoc(chunk.ref)));
-          await deleteDoc(doc(db, CASE_STUDIES, source.caseId));
-        }
-        if (source.projectId) await deleteDoc(doc(db, PROJECTS, source.projectId));
+        if (source.caseId) await deleteRow(CASE_STUDIES, source.caseId);
+        if (source.projectId) await deleteRow(PROJECTS, source.projectId);
       }
     }
     records.delete(envelope.id);
@@ -373,12 +398,13 @@ export const createBackend = () => {
       return sessionPayload();
     }
     if (pathname === '/api/login' && method === 'POST') {
-      const credential = await signInWithEmailAndPassword(auth, asString(body?.email).trim(), asString(body?.password));
-      user = credential.user;
+      const { data, error } = await client.auth.signIn.email({ email: asString(body?.email).trim(), password: asString(body?.password) });
+      if (error) throw authFailure(error);
+      if (!(await adopt(data?.user))) throw new ApiError(403, 'This account is not on the studio allow-list. Ask an existing admin to add it.');
       return sessionPayload();
     }
     if (pathname === '/api/logout' && method === 'POST') {
-      await signOut(auth);
+      await client.auth.signOut();
       user = null;
       records.clear();
       return { ok: true };
@@ -396,7 +422,7 @@ export const createBackend = () => {
     if (pathname === '/api/content' && method === 'POST') {
       return remember(body?.kind === 'article'
         ? articleEnvelope({ isNew: true, category: settings().blogCategories[0] })
-        : projectEnvelope({ isNew: true, template: body?.data?.template, project: null, caseStudy: null, chunks: [] }));
+        : projectEnvelope({ isNew: true, template: body?.data?.template, project: null, caseStudy: null }));
     }
     const match = /^\/api\/content\/([A-Za-z0-9_-]+)(?:\/(publish|unpublish|trash))?$/.exec(pathname);
     if (match) {
@@ -422,8 +448,6 @@ export const createBackend = () => {
         throw friendly(error);
       }
     },
-    dispose() {
-      stopAuth?.();
-    },
+    dispose() {},
   };
 };

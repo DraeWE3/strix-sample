@@ -1,8 +1,8 @@
 /**
- * Maps the existing Firestore documents (`projects`, `caseStudies` + chunks,
- * `blogs`) to the record envelopes the Strix Content Studio editor works on,
- * and back. Only fields the public site already reads are written, so the
- * stored schema is unchanged. Pure functions: no Firebase imports.
+ * Maps the stored content (`data` of the `projects`, `case_studies` and
+ * `blogs` rows, the former Firestore documents) to the record envelopes the
+ * Strix Content Studio editor works on, and back. Only fields the public site
+ * already reads are written, so the stored shape is unchanged. Pure functions.
  */
 import { FILTERS, INDUSTRIES } from '../../components/projects/projectFilters.js';
 
@@ -18,8 +18,6 @@ export { FILTERS, INDUSTRIES };
 // Limits follow what the public case-study and blog templates render.
 export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12 };
 const CONCEPT_SLOTS = LIMITS.conceptsFirst + LIMITS.conceptsSecond;
-// Same threshold the previous admin used before moving a section into `chunks`.
-export const CHUNK_THRESHOLD = 150000;
 
 const asString = (value) => (typeof value === 'string' ? value : '');
 const asArray = (value) => (Array.isArray(value) ? value : []);
@@ -79,91 +77,6 @@ export const slugFromLink = (link) => {
   return match ? decodeURIComponent(match[1]) : '';
 };
 
-/* ------------------------------------------------------- case-study chunks */
-
-/**
- * Folds `caseStudies/{id}/chunks` back into the main document. Same rules as
- * `reconstructSectionData` in src/lib/caseStudies.js, which the public page uses.
- */
-export const reconstructCaseStudy = (mainData, chunks) => {
-  const result = {
-    ...mainData,
-    aboutProject: { ...mainData.aboutProject, images: asArray(mainData.aboutProject?.images).slice() },
-    client: { ...mainData.client },
-    processCards: asArray(mainData.processCards).slice(),
-    conceptSlides: asArray(mainData.conceptSlides).slice(),
-    responsiveImages: asArray(mainData.responsiveImages).slice(),
-  };
-  chunks.forEach(({ sectionName, data }) => {
-    if (!sectionName || !data) return;
-    const hasIndex = data.index !== undefined;
-    if (sectionName === 'hero_thumbnail') result.heroThumbnail = data.heroThumbnail;
-    else if (sectionName === 'client_logo') result.client.logo = data.logo;
-    else if (sectionName === 'design_image') result.designSystemImage = data.designSystemImage;
-    else if (sectionName.startsWith('about_image_') && hasIndex && data.image) result.aboutProject.images[data.index] = data.image;
-    else if (sectionName.startsWith('process_card_') && hasIndex && data.card) result.processCards[data.index] = data.card;
-    else if (sectionName.startsWith('concept_slide_') && hasIndex && data.slide) result.conceptSlides[data.index] = data.slide;
-    else if (sectionName.startsWith('responsive_image_') && hasIndex && data.image) result.responsiveImages[data.index] = data.image;
-  });
-  return result;
-};
-
-/** Chunk names owned by each editable section, so stale chunks can be removed when a section is rewritten. */
-export const CHUNK_PREFIXES = {
-  hero: ['hero_thumbnail'],
-  client: ['client_logo'],
-  about: ['about_image_'],
-  concepts: ['concept_slide_'],
-  design: ['design_image'],
-  responsive: ['responsive_image_'],
-};
-
-export const chunkBelongsTo = (section, chunkName) =>
-  (CHUNK_PREFIXES[section] || []).some((prefix) => (prefix.endsWith('_') ? chunkName.startsWith(prefix) : chunkName === prefix));
-
-const byteSize = (value) => new TextEncoder().encode(JSON.stringify(value)).length;
-
-/**
- * Splits a section into fields for the main document plus chunk documents when
- * it is too large for one Firestore document (base64 images). Same layout as
- * the previous admin's `splitSectionData`.
- * @returns {{ main: Record<string, unknown>, chunks: Array<{ sectionName: string, data: Record<string, unknown> }> }}
- */
-export const splitSection = (section, fields) => {
-  if (!CHUNK_PREFIXES[section] || byteSize(fields) < CHUNK_THRESHOLD) return { main: fields, chunks: [] };
-  const chunks = [];
-  const indexed = (prefix, values, key) =>
-    values.forEach((value, index) => {
-      if (value) chunks.push({ sectionName: `${prefix}${index}`, data: { [key]: value, index } });
-    });
-  switch (section) {
-    case 'hero':
-      if (fields.heroThumbnail) chunks.push({ sectionName: 'hero_thumbnail', data: { heroThumbnail: fields.heroThumbnail } });
-      return { main: { heroVideo: fields.heroVideo, heroThumbnail: '' }, chunks };
-    case 'client': {
-      const { logo, ...client } = fields.client;
-      if (logo) chunks.push({ sectionName: 'client_logo', data: { logo } });
-      return { main: { client: { ...client, logo: '' } }, chunks };
-    }
-    case 'about': {
-      const { images: list, ...about } = fields.aboutProject;
-      indexed('about_image_', list, 'image');
-      return { main: { aboutProject: { ...about, images: [] } }, chunks };
-    }
-    case 'concepts':
-      indexed('concept_slide_', fields.conceptSlides, 'slide');
-      return { main: { conceptSlides: [] }, chunks };
-    case 'design':
-      if (fields.designSystemImage) chunks.push({ sectionName: 'design_image', data: { designSystemImage: fields.designSystemImage } });
-      return { main: { designSystemImage: '' }, chunks };
-    case 'responsive':
-      indexed('responsive_image_', fields.responsiveImages, 'image');
-      return { main: { responsiveImages: [] }, chunks };
-    default:
-      return { main: fields, chunks: [] };
-  }
-};
-
 /* -------------------------------------------------------------- projects */
 
 const emptyFilters = () => Object.fromEntries(FILTER_GROUPS.map((group) => [group, []]));
@@ -194,7 +107,7 @@ const defaultFiltersFor = (template) => {
 
 /**
  * @param {{ id: string, data: Record<string, any> } | null} project
- * @param {{ id: string, data: Record<string, any> } | null} caseStudy reconstructed (chunks folded in)
+ * @param {{ id: string, data: Record<string, any> } | null} caseStudy
  */
 export const projectToEditor = (project, caseStudy) => {
   const p = project?.data || {};
@@ -322,7 +235,7 @@ const hasText = (value) =>
 const caseStudyIsEmpty = (sections) => !Object.entries(sections).some(([name, fields]) => name !== 'template' && hasText(fields));
 
 /**
- * Work out the minimal Firestore writes for an edited project record.
+ * Work out the minimal writes for an edited project record.
  * @param {Record<string, any>} edited editor data
  * @param {Record<string, any>} original editor data as loaded (or a blank record)
  * @param {{ isNew?: boolean, hasCaseStudy: boolean, hasProject?: boolean, templateStored?: boolean }} context
@@ -354,7 +267,7 @@ const BLOCK_TO_EDITOR = {
 
 export const BLOCK_TYPES = ['paragraph', 'heading', 'list', 'image'];
 
-const blockToFirestore = (block, index) => {
+const blockToStored = (block, index) => {
   const id = block._id ?? Date.now() + index;
   if (block.type === 'legacy') return clone(block._raw);
   if (block.type === 'heading') return { id, type: 'subheading', content: asString(block.text) };
@@ -412,7 +325,7 @@ export const articleFields = (data, { hadAuthor = true, hadReadTime = true } = {
     date: asString(data.date),
     detailsImage: asString(data.cover?.src).trim(),
     image: asString(data.cardImage).trim(),
-    content: asArray(data.body).map(blockToFirestore),
+    content: asArray(data.body).map(blockToStored),
   };
   if (hadAuthor || Object.values(author).some(Boolean)) fields.author = author;
   const readTime = Number(data.readTime);

@@ -1,18 +1,26 @@
 /**
- * Studio backend against an in-memory Firestore, plus the public site's own data
- * layer (src/lib/caseStudies.js, src/lib/blogs.js) reading what the studio wrote.
+ * Studio backend against an in-memory Neon Data API, plus the public site's own
+ * data layer (src/lib/caseStudies.js, src/lib/blogs.js) reading what the studio wrote.
  *
  * Run from strix-sample/:
  *   node --experimental-test-module-mocks --import ./src/admin/cms/tests/resolveHooks.js --test src/admin/cms/tests/
  */
 import { mock, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createFakeFirebase } from './fakeFirebase.js';
+import { createFakeNeon } from './fakeNeon.js';
 
-const fake = createFakeFirebase();
-mock.module('firebase/firestore', { namedExports: fake.firestore });
-mock.module('firebase/auth', { namedExports: { ...fake.auth, getAuth: () => ({}) } });
-mock.module(new URL('../../firebaseconfig.js', import.meta.url).href, { namedExports: { auth: {}, db: {} } });
+const fake = createFakeNeon();
+globalThis.__STRIX_TEST_ENV__ = { VITE_NEON_DATA_API_URL: 'https://data.test/rest/v1', VITE_NEON_AUTH_URL: 'https://auth.test/auth' };
+mock.module('@neondatabase/postgrest-js', {
+  namedExports: {
+    // Visitors read through the anonymous role.
+    NeonPostgrestClient: function NeonPostgrestClient() {
+      return fake.anonymous;
+    },
+    fetchWithToken: () => fetch,
+  },
+});
+mock.module(new URL('../../neonClient.js', import.meta.url).href, { namedExports: { neonAdmin: fake.admin } });
 mock.module(new URL('../../storage.js', import.meta.url).href, { namedExports: fake.storage });
 
 const { createBackend } = await import('../backend.js');
@@ -24,15 +32,16 @@ const T1 = '2025-01-02T00:00:00.000Z';
 const BASE64_A = 'data:image/png;base64,QUFBQQ==';
 const BASE64_B = 'data:image/png;base64,QkJCQg==';
 
-fake.seed('projects/p1', {
+fake.seed('projects', 'p1', {
   title: 'Aurora', categoryText: 'UI/UX Design', industry: 'AI & technology', image: 'https://res.cloudinary.com/x/card.jpg',
   link: '/case-study/aurora', externalLink: '', filters: { Design: ['UI/UX'], Development: ['Website'], Production: [], MVP: [] },
   status: 'published', createdAt: T0, updatedAt: T1,
 });
-fake.seed('caseStudies/c1', {
-  projectId: 'p1', projectTitle: 'Aurora AI', heroVideo: '', heroThumbnail: '',
+// As the migration stores it: former chunks folded into the case study.
+fake.seed('case_studies', 'c1', {
+  projectId: 'p1', projectTitle: 'Aurora AI', heroVideo: '', heroThumbnail: BASE64_A,
   client: { name: 'Aurora', logo: '', industry: 'AI', country: 'India', services: 'UI/UX, Web' },
-  aboutProject: { description: 'Original story', experienceLink: 'https://aurora.example', images: [] },
+  aboutProject: { description: 'Original story', experienceLink: 'https://aurora.example', images: [BASE64_B] },
   processCards: [{ icon: '', hours: '10', title: 'Kick-off', details: ['a'] }],
   conceptSlides: ['https://c.example/1.jpg', '', '', '', '', 'https://c.example/6.jpg', '', '', ''],
   designSystemImage: '', responsiveImages: Array(8).fill(''),
@@ -40,15 +49,13 @@ fake.seed('caseStudies/c1', {
   results: [{ title: '2x', description: 'More sign-ups' }],
   status: 'published', createdAt: T0, updatedAt: T1,
 });
-fake.seed('caseStudies/c1/chunks/k1', { sectionName: 'hero_thumbnail', data: { heroThumbnail: BASE64_A } });
-fake.seed('caseStudies/c1/chunks/k2', { sectionName: 'about_image_0', data: { image: BASE64_B, index: 0 } });
-fake.seed('projects/p2', {
+fake.seed('projects', 'p2', {
   title: 'Side quest', categoryText: 'Experiment', industry: '', image: '', link: '/case-study/side-quest',
   externalLink: 'https://lab.example', filters: { Design: [], Development: ['Web-app'], Production: [], MVP: [] },
   status: 'draft', createdAt: '2025-03-01T00:00:00.000Z', updatedAt: '2025-03-01T00:00:00.000Z',
 });
-fake.seed('caseStudies/c9', { projectId: 'missing', projectTitle: 'Lost one', status: 'draft', createdAt: T0, updatedAt: T0 });
-fake.seed('blogs/b1', {
+fake.seed('case_studies', 'c9', { projectId: 'missing', projectTitle: 'Lost one', status: 'draft', createdAt: T0, updatedAt: T0 });
+fake.seed('blogs', 'b1', {
   headerText: 'How we design', topic: 'Design tips', tag: 'Tips', date: '2025-02-01',
   image: 'https://res.cloudinary.com/x/blog-card.jpg', detailsImage: 'https://res.cloudinary.com/x/blog-hero.jpg', excerpt: '',
   author: { name: 'Rajnandan', role: 'Founder', bio: '', avatar: '', linkedin: '', email: '' },
@@ -83,18 +90,26 @@ const rejects = async (promise, status, pattern) => {
   return error;
 };
 
-test('requires a Firebase sign-in before any content access', async () => {
+test('requires a Neon Auth sign-in from an allow-listed admin before any content access', async () => {
   const session = await api('/api/session');
   assert.equal(session.authenticated, false);
   assert.equal(session.setupRequired, false);
   await rejects(api('/api/content'), 401);
-  await rejects(api('/api/login', { method: 'POST', body: { email: 'admin@strix.test', password: 'wrong' } }), 500, /incorrect/);
+  await rejects(api('/api/login', { method: 'POST', body: { email: 'admin@strix.test', password: 'wrong' } }), 401, /incorrect/);
   const signedIn = await api('/api/login', { method: 'POST', body: { email: 'admin@strix.test', password: 'correct horse battery' } });
   assert.equal(signedIn.authenticated, true);
   assert.equal(signedIn.user.email, 'admin@strix.test');
 });
 
-test('lists the existing Firestore records without writing anything', async () => {
+test('a signed-in user who is not in admins is turned away', async () => {
+  const outsider = createFakeNeon({ users: { 'guest@strix.test': 'pw' }, admins: [] });
+  const studio = createBackend({ client: outsider.admin });
+  await rejects(studio.api('/api/login', { method: 'POST', body: { email: 'guest@strix.test', password: 'pw' } }), 403, /allow-list/);
+  assert.equal((await studio.api('/api/session')).authenticated, false);
+  await rejects(studio.api('/api/content'), 401);
+});
+
+test('lists the existing records without writing anything', async () => {
   const mark = fake.writes.length;
   const { items } = await api('/api/content');
   assert.deepEqual(items.map((r) => r.id).sort(), ['a_b1', 'c_c9', 'p_p1', 'p_p2']);
@@ -102,7 +117,7 @@ test('lists the existing Firestore records without writing anything', async () =
   assert.equal(aurora.status, 'published');
   assert.equal(aurora.liveUrl, '/case-study/aurora');
   assert.equal(aurora.data.slug, 'aurora');
-  assert.equal(aurora.data.media.thumbnail, BASE64_A, 'hero thumbnail folded in from its chunk');
+  assert.equal(aurora.data.media.thumbnail, BASE64_A);
   assert.deepEqual(aurora.data.aboutImages.map((i) => i.src), [BASE64_B]);
   assert.deepEqual(aurora.data.concepts.map((row) => row.map((i) => i.src)), [['https://c.example/1.jpg'], ['https://c.example/6.jpg']]);
   assert.deepEqual(aurora.data.categories, ['design', 'development']);
@@ -122,7 +137,8 @@ test('saving an unchanged record writes nothing', async () => {
   assert.deepEqual(writesSince(mark), []);
 });
 
-test('project edits update only the changed fields and keep the public case study intact', async () => {
+test('project edits merge only the changed fields and keep the public case study intact', async () => {
+  const before = fake.get('case_studies', 'c1');
   const record = await open('p_p1');
   record.data.title = 'Aurora Labs';
   record.data.about = 'A sharper story';
@@ -130,16 +146,14 @@ test('project edits update only the changed fields and keep the public case stud
   const saved = await save(record);
   const writes = writesSince(mark);
 
-  const card = writes.find((w) => w.path === 'projects/p1');
-  assert.deepEqual(Object.keys(card.data).sort(), ['title', 'updatedAt']);
-  const caseWrite = writes.find((w) => w.path === 'caseStudies/c1');
-  assert.deepEqual(Object.keys(caseWrite.data).sort(), ['aboutProject', 'updatedAt']);
-  assert.deepEqual(caseWrite.data.aboutProject, { description: 'A sharper story', experienceLink: 'https://aurora.example', images: [BASE64_B] });
-  // The about image moved back into the (now small) main document; its chunk is removed, the hero chunk is not.
-  assert.ok(writes.some((w) => w.op === 'delete' && w.path === 'caseStudies/c1/chunks/k2'));
-  assert.ok(fake.get('caseStudies/c1/chunks/k1'));
-  assert.deepEqual(fake.get('caseStudies/c1').processCards, [{ icon: '', hours: '10', title: 'Kick-off', details: ['a'] }], 'untouched fields preserved');
-  assert.equal(fake.get('caseStudies/c1').template, undefined, 'no template is added to an existing case study');
+  assert.deepEqual(writes.map((w) => [w.op, w.table, w.id]), [['update', 'projects', 'p1'], ['update', 'case_studies', 'c1']]);
+  const card = fake.get('projects', 'p1');
+  assert.equal(card.title, 'Aurora Labs');
+  assert.notEqual(card.updatedAt, T1);
+  const stored = fake.get('case_studies', 'c1');
+  assert.deepEqual(stored.aboutProject, { description: 'A sharper story', experienceLink: 'https://aurora.example', images: [BASE64_B] });
+  assert.deepEqual({ ...stored, aboutProject: before.aboutProject, updatedAt: T1 }, before, 'untouched fields preserved');
+  assert.equal(stored.template, undefined, 'no template is added to an existing case study');
   assert.equal(saved.data.title, 'Aurora Labs');
 
   const page = await publicCaseStudy('aurora');
@@ -152,30 +166,50 @@ test('project edits update only the changed fields and keep the public case stud
   assert.deepEqual(page.record.services, ['UI/UX', 'Web']);
 });
 
-test('large sections are split into chunks the public page can still read', async () => {
+test('large images are stored inline and the public page reads them', async () => {
   const record = await open('p_p1');
   const big = `data:image/png;base64,${'A'.repeat(200000)}`;
   record.data.media.thumbnail = big;
-  const mark = fake.writes.length;
   await save(record);
-  const writes = writesSince(mark);
-  const chunk = writes.find((w) => w.op === 'set' && w.data.sectionName === 'hero_thumbnail');
-  assert.ok(chunk, 'a hero chunk was written');
-  assert.equal(writes.find((w) => w.path === 'caseStudies/c1').data.heroThumbnail, '');
-  assert.ok(writes.some((w) => w.op === 'delete' && w.path === 'caseStudies/c1/chunks/k1'), 'the stale hero chunk is removed after the new one is stored');
+  assert.equal(fake.get('case_studies', 'c1').heroThumbnail, big);
   const page = await publicCaseStudy('aurora');
   assert.equal(page.status, 'ready');
   assert.equal(page.record.media.thumbnail, big);
-  const reread = await open('p_p1');
-  assert.equal(reread.data.media.thumbnail, big);
+  assert.equal((await open('p_p1')).data.media.thumbnail, big);
 });
 
-test('refuses to overwrite a document changed elsewhere', async () => {
+test('refuses to overwrite a row changed elsewhere', async () => {
   const record = await open('p_p1');
-  fake.seed('projects/p1', { ...fake.get('projects/p1'), updatedAt: '2030-01-01T00:00:00.000Z' });
+  fake.seed('projects', 'p1', { ...fake.get('projects', 'p1'), updatedAt: '2030-01-01T00:00:00.000Z' });
   record.data.categoryText = 'Changed here';
+  record.data.about = 'Changed here too';
+  const mark = fake.writes.length;
   await rejects(save(record), 409, /changed elsewhere/);
-  assert.notEqual(fake.get('projects/p1').categoryText, 'Changed here');
+  assert.deepEqual(writesSince(mark), [], 'neither the card nor the case study was written');
+  await api('/api/content');
+});
+
+test('a save that lands between the check and the write is refused', async () => {
+  const record = await open('a_b1');
+  record.data.excerpt = 'Mine';
+  // Another editor saves just before this update is sent, so its updatedAt condition matches no row.
+  const realFrom = fake.admin.from;
+  fake.admin.from = (table) => {
+    const rows = realFrom(table);
+    return {
+      ...rows,
+      update: (patch) => {
+        fake.seed('blogs', 'b1', { ...fake.get('blogs', 'b1'), updatedAt: '2031-01-01T00:00:00.000Z' });
+        return rows.update(patch);
+      },
+    };
+  };
+  try {
+    await rejects(save(record), 409, /changed elsewhere/);
+  } finally {
+    fake.admin.from = realFrom;
+  }
+  assert.notEqual(fake.get('blogs', 'b1').excerpt, 'Mine');
   await api('/api/content');
 });
 
@@ -189,10 +223,10 @@ test('validates content before saving or publishing', async () => {
   duplicate.data.slug = 'aurora';
   await rejects(save(duplicate), 422);
 
-  const before = fake.get('projects/p2');
+  const before = fake.get('projects', 'p2');
   const noImage = await rejects(api('/api/content/p_p2/publish', { method: 'POST', body: {} }), 422);
   assert.ok(noImage.fields.some((f) => f.field === 'data.cardImage'));
-  assert.deepEqual(fake.get('projects/p2'), before);
+  assert.deepEqual(fake.get('projects', 'p2'), before);
 
   const article = await open('a_b1');
   article.data.author.email = 'not-an-email';
@@ -200,14 +234,16 @@ test('validates content before saving or publishing', async () => {
 });
 
 test('publish and unpublish only change the status fields', async () => {
+  const card = fake.get('projects', 'p1');
   const mark = fake.writes.length;
   const draft = await api('/api/content/p_p1/unpublish', { method: 'POST', body: {} });
   assert.equal(draft.status, 'draft');
-  assert.deepEqual(writesSince(mark).map((w) => [w.path, w.data]), [['projects/p1', { status: 'draft' }], ['caseStudies/c1', { status: 'draft' }]]);
+  assert.deepEqual(writesSince(mark).map((w) => [w.table, w.id]), [['projects', 'p1'], ['case_studies', 'c1']]);
+  assert.deepEqual(fake.get('projects', 'p1'), { ...card, status: 'draft' });
   assert.equal((await publicCaseStudy('aurora')).status, 'not-found');
   const live = await api('/api/content/p_p1/publish', { method: 'POST', body: {} });
   assert.equal(live.status, 'published');
-  assert.equal(fake.get('caseStudies/c1').status, 'published');
+  assert.equal(fake.get('case_studies', 'c1').status, 'published');
 });
 
 test('a new project is created as a draft with the case study only when it has content', async () => {
@@ -217,8 +253,8 @@ test('a new project is created as a draft with the case study only when it has c
   cardOnly.data.slug = 'promo-reel';
   let mark = fake.writes.length;
   const savedCard = await save(cardOnly);
-  assert.deepEqual(writesSince(mark).map((w) => w.path.split('/')[0]), ['projects']);
-  const cardDoc = fake.get(`projects/${savedCard.id.slice(2)}`);
+  assert.deepEqual(writesSince(mark).map((w) => [w.op, w.table]), [['insert', 'projects']]);
+  const cardDoc = fake.get('projects', savedCard.id.slice(2));
   assert.equal(cardDoc.status, 'draft');
   assert.equal(cardDoc.link, '/case-study/promo-reel');
   assert.deepEqual(cardDoc.filters.Production, ['3D']);
@@ -230,10 +266,10 @@ test('a new project is created as a draft with the case study only when it has c
   withStory.data.shipped.items = ['Onboarding', 'Billing'];
   mark = fake.writes.length;
   const saved = await save(withStory);
-  const caseAdd = writesSince(mark).find((w) => w.op === 'set' && w.path.startsWith('caseStudies/'));
+  const caseAdd = writesSince(mark).find((w) => w.op === 'insert' && w.table === 'case_studies');
   assert.equal(caseAdd.data.projectId, saved.id.slice(2));
   assert.equal(caseAdd.data.status, 'draft');
-  const caseDoc = fake.get(caseAdd.path);
+  const caseDoc = fake.get('case_studies', caseAdd.id);
   assert.equal(caseDoc.template, 'mvp');
   assert.deepEqual(caseDoc.shipped.items, ['Onboarding', 'Billing']);
   assert.equal(caseDoc.aboutProject.description, 'We shipped a pilot.');
@@ -243,11 +279,13 @@ test('article edits keep block ids, unknown blocks and the public article shape'
   const record = await open('a_b1');
   record.data.body[1].text = 'Step one, revised';
   record.data.body.push({ type: 'list', items: ['Ship'] });
-  const mark = fake.writes.length;
+  const before = fake.get('blogs', 'b1');
   await save(record);
-  const [write] = writesSince(mark);
-  assert.deepEqual(Object.keys(write.data).sort(), ['content', 'updatedAt']);
-  const stored = fake.get('blogs/b1');
+  const stored = fake.get('blogs', 'b1');
+  assert.deepEqual(
+    Object.keys(stored).filter((key) => JSON.stringify(stored[key]) !== JSON.stringify(before[key])).sort(),
+    ['content', 'updatedAt']
+  );
   assert.deepEqual(stored.content.slice(0, 5), [
     { id: 1, type: 'paragraph', content: 'Hello world' },
     { id: 2, type: 'subheading', content: 'Step one, revised' },
@@ -263,7 +301,7 @@ test('article edits keep block ids, unknown blocks and the public article shape'
   assert.deepEqual(publicBlog.content.map((b) => b.type), ['paragraph', 'subheading', 'keypoints', 'image', 'keypoints']);
 });
 
-test('a new article is stored as a draft in the blogs collection', async () => {
+test('a new article is stored as a draft in the blogs table', async () => {
   const draft = await api('/api/content', { method: 'POST', body: { kind: 'article' } });
   draft.data.title = 'Fresh thinking';
   draft.data.body[0].text = 'First words';
@@ -271,38 +309,36 @@ test('a new article is stored as a draft in the blogs collection', async () => {
   const mark = fake.writes.length;
   const saved = await save(draft);
   const [write] = writesSince(mark);
-  assert.equal(write.op, 'set');
-  assert.equal(write.path.split('/')[0], 'blogs');
+  assert.equal(write.op, 'insert');
+  assert.equal(write.table, 'blogs');
   assert.equal(write.data.status, 'draft');
   assert.equal(write.data.headerText, 'Fresh thinking');
   assert.equal(write.data.readTime, 4);
   assert.equal('author' in write.data, false, 'no empty author card is added');
   assert.equal(saved.status, 'draft');
-  assert.equal(mapBlog(saved.id.slice(2), fake.get(write.path)).status, 'draft');
+  assert.equal(mapBlog(saved.id.slice(2), fake.get('blogs', write.id)).status, 'draft');
 });
 
-test('permission errors from Firestore are reported clearly and change nothing', async () => {
+test('writes refused by row-level security are reported clearly and change nothing', async () => {
   const record = await open('a_b1');
   record.data.excerpt = 'Denied edit';
-  fake.setDenyWrites(true);
+  fake.setAdmin('admin@strix.test', false);
   try {
     await rejects(save(record), 403, /not allowed/);
   } finally {
-    fake.setDenyWrites(false);
+    fake.setAdmin('admin@strix.test', true);
   }
-  assert.notEqual(fake.get('blogs/b1').excerpt, 'Denied edit');
+  assert.notEqual(fake.get('blogs', 'b1').excerpt, 'Denied edit');
 });
 
-test('deleting a project removes its card, case study and chunks', async () => {
+test('deleting a project removes its card and case study', async () => {
   await api('/api/content');
   const mark = fake.writes.length;
   await api('/api/content/p_p1/trash', { method: 'POST', body: {} });
-  const deleted = writesSince(mark).filter((w) => w.op === 'delete').map((w) => w.path);
-  assert.ok(deleted.includes('projects/p1'));
-  assert.ok(deleted.includes('caseStudies/c1'));
-  assert.equal([...fake.docs.keys()].filter((path) => path.startsWith('caseStudies/c1')).length, 0);
-  assert.ok(fake.get('caseStudies/c9'), 'unrelated records untouched');
-  assert.ok(fake.get('blogs/b1'));
+  const deleted = writesSince(mark).filter((w) => w.op === 'delete').map((w) => `${w.table}/${w.id}`);
+  assert.deepEqual(deleted.sort(), ['case_studies/c1', 'projects/p1']);
+  assert.ok(fake.has('case_studies', 'c9'), 'unrelated records untouched');
+  assert.ok(fake.has('blogs', 'b1'));
 });
 
 test('signing out ends access', async () => {

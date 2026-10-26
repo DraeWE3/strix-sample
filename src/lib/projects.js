@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from './firebase';
-import { createLiveCollection } from './liveCollection';
+import { neon, run } from './neon';
+import { createLiveCollection, pollingListener } from './liveCollection';
 import { safeExternalUrl, safeUrl } from './urls';
 
 export { safeExternalUrl };
@@ -16,7 +15,7 @@ export { safeExternalUrl };
 
 /**
  * @typedef {Object} Project
- * @property {string} id Firestore document id
+ * @property {string} id Row id (the former Firestore document id)
  * @property {string} title
  * @property {string} categoryText
  * @property {string} industry
@@ -36,7 +35,7 @@ export { safeExternalUrl };
  * @property {Error | null} error
  */
 
-export const PROJECTS_COLLECTION = 'projects';
+export const PROJECTS_TABLE = 'projects';
 
 const FILTER_GROUPS = ['Design', 'Development', 'Production', 'MVP'];
 
@@ -100,7 +99,7 @@ const createRandom = (seed) => {
 
 /**
  * Fisher-Yates shuffle driven by a seed. The same seed and the same ids always
- * yield the same order, so live Firestore updates don't reorder what's on screen.
+ * yield the same order, so background refreshes don't reorder what's on screen.
  * @template T
  * @param {T[]} items
  * @param {number} seed
@@ -119,32 +118,26 @@ export const shuffleProjects = (items, seed) => {
 const byNewest = (a, b) => b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id);
 
 /**
- * Only published cards are requested, so drafts never reach visitors. Sorted
- * here rather than with orderBy, so no composite index is needed and cards
- * without `createdAt` are not silently dropped.
- * @param {import('firebase/firestore').Firestore} firestore
+ * Only published cards are requested (row-level security enforces the same),
+ * so drafts never reach visitors. Sorted here, so cards without `createdAt`
+ * keep their place at the end.
+ * @param {import('@neondatabase/postgrest-js').NeonPostgrestClient} client
  */
-export const publishedProjectsQuery = (firestore) =>
-  query(collection(firestore, PROJECTS_COLLECTION), where('status', '==', 'published'));
+export const publishedProjectsQuery = (client) => client.from(PROJECTS_TABLE).select('id, data').eq('status', 'published');
 
-/** @param {Array<{ id: string, data: () => Record<string, unknown> }>} docs */
-export const projectsFromDocs = (docs) => docs.map((doc) => mapProject(doc.id, doc.data())).sort(byNewest);
+/** @param {Array<{ id: string, data: Record<string, unknown> }>} rows */
+export const projectsFromRows = (rows) => rows.map((row) => mapProject(row.id, row.data)).sort(byNewest);
 
 const live = createLiveCollection({
   name: 'projects',
   initial: { projects: [] },
-  listen: (next, fail) =>
-    onSnapshot(
-      publishedProjectsQuery(db),
-      (snapshot) => next({ projects: projectsFromDocs(snapshot.docs) }),
-      fail
-    ),
+  listen: pollingListener(async () => ({ projects: projectsFromRows(await run(publishedProjectsQuery(neon()))) })),
 });
 
 /**
- * Subscribe to the live published projects. A single real-time listener is
- * shared by every subscriber, so navigating between pages never refetches or
- * flashes a loading state. The listener restarts after transient errors.
+ * Subscribe to the published projects. One shared reader serves every
+ * subscriber, so navigating between pages never refetches or flashes a
+ * loading state. It refreshes in the background and restarts after errors.
  * @param {(state: ProjectsState) => void} listener
  * @returns {() => void}
  */
@@ -153,7 +146,7 @@ export const subscribeToProjects = live.subscribe;
 /**
  * Published projects are returned in a random order. A new order is drawn each
  * time a component mounts (every page visit), then held stable for that
- * component's lifetime so re-renders and snapshot updates don't reshuffle.
+ * component's lifetime so re-renders and background refreshes don't reshuffle.
  * Pass `shuffle: false` to keep newest-first order.
  * @param {{ shuffle?: boolean }} [options]
  * @returns {ProjectsState}

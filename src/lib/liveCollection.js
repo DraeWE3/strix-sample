@@ -1,10 +1,53 @@
 const RETRY_BASE_MS = 2000;
 const RETRY_MAX_MS = 60000;
+const REFRESH_MS = 5 * 60 * 1000;
 
 /**
- * One shared real-time listener per collection for the lifetime of the app.
- * Firestore detaches a listener after an error, so it is restarted with
- * exponential backoff while anything is still subscribed.
+ * A `listen` function for createLiveCollection over a one-shot read. The Data
+ * API has no real-time feed, so the read is repeated when the tab becomes
+ * visible again and every few minutes while it stays open. A failed read stops
+ * the poller and reports the error, so the collection's backoff takes over.
+ * @template T
+ * @param {() => Promise<T>} read
+ * @param {{ every?: number }} [options]
+ * @returns {(next: (data: T) => void, fail: (error: Error) => void) => () => void}
+ */
+export const pollingListener = (read, { every = REFRESH_MS } = {}) => (next, fail) => {
+  let stopped = false;
+  let timer = null;
+  const visible = () => typeof document === 'undefined' || document.visibilityState !== 'hidden';
+  const stop = () => {
+    stopped = true;
+    clearInterval(timer);
+    if (typeof document !== 'undefined') document.removeEventListener('visibilitychange', onVisible);
+  };
+  const refresh = () =>
+    read().then(
+      (data) => {
+        if (!stopped) next(data);
+      },
+      (error) => {
+        if (stopped) return;
+        stop();
+        fail(error);
+      }
+    );
+  function onVisible() {
+    if (visible()) refresh();
+  }
+  refresh();
+  timer = setInterval(() => {
+    if (visible()) refresh();
+  }, every);
+  timer.unref?.();
+  if (typeof document !== 'undefined') document.addEventListener('visibilitychange', onVisible);
+  return stop;
+};
+
+/**
+ * One shared listener per collection for the lifetime of the app. A listener
+ * stops after an error, so it is restarted with exponential backoff while
+ * anything is still subscribed.
  * @template T
  * @param {{
  *   name: string,

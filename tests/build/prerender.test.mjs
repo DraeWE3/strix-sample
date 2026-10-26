@@ -1,6 +1,6 @@
 /**
  * Real production builds with networking cut off (Linux `unshare -rn`):
- * a Firestore outage must fail the build and leave the previous output as it
+ * a Neon outage must fail the build and leave the previous output as it
  * was, and an explicitly offline build must be refused by the release check.
  *
  * Slow (two builds). Run with: npm run test:build
@@ -31,7 +31,7 @@ const snapshot = async (dir) => {
   return Promise.all(files.map(async (file) => [file, await readFile(file, 'utf8')]));
 };
 
-test('a build that cannot reach Firestore fails and keeps the previous release intact', { skip: !canIsolate && 'unshare -rn is not available' }, async () => {
+test('a build that cannot reach Neon fails and keeps the previous release intact', { skip: !canIsolate && 'unshare -rn is not available' }, async () => {
   const outDir = await mkdtemp(join(tmpdir(), 'strix-build-'));
   await mkdir(join(outDir, 'blog'), { recursive: true });
   await writeFile(join(outDir, 'blog', 'kept.html'), '<title>previous release</title>');
@@ -40,7 +40,7 @@ test('a build that cannot reach Firestore fails and keeps the previous release i
 
   const result = offlineBuild(outDir);
   assert.notEqual(result.status, 0, 'the build must fail');
-  assert.match(result.stdout + result.stderr, /Could not read published blogs and case studies from Firestore/);
+  assert.match(result.stdout + result.stderr, /Could not read published blogs and case studies from Neon/);
   assert.deepEqual(await snapshot(outDir), before, 'previous output untouched');
 });
 

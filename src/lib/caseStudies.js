@@ -1,12 +1,11 @@
-import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
-import { db } from './firebase';
-import { PROJECTS_COLLECTION, caseStudyPath, isPublished, mapProject, projectHref } from './projects';
+import { neon, run } from './neon';
+import { PROJECTS_TABLE, caseStudyPath, isPublished, mapProject, projectHref } from './projects';
 import { resolveProcess } from './processDefaults';
 import { safeUrl } from './urls';
 
 export { safeUrl };
 
-export const CASE_STUDIES_COLLECTION = 'caseStudies';
+export const CASE_STUDIES_TABLE = 'case_studies';
 
 export const TEMPLATES = Object.freeze({
   DESIGN_DEVELOPMENT: 'design-development',
@@ -43,7 +42,7 @@ export const youtubeId = (value) => {
 
 /**
  * Template used to lay a case study out. A `template` field on the case study
- * document wins; otherwise it follows the category filters of the linked project.
+ * wins; otherwise it follows the category filters of the linked project.
  * @param {Record<string, unknown>} data
  * @param {import('./projects').Project} project
  */
@@ -53,41 +52,6 @@ export const resolveTemplate = (data, project) => {
   if (filters.MVP.length) return TEMPLATES.MVP;
   if (filters.Production.length && !filters.Development.length) return TEMPLATES.PRODUCTION;
   return TEMPLATES.DESIGN_DEVELOPMENT;
-};
-
-/**
- * Case-study sections that are too large for one Firestore document are stored
- * in `caseStudies/{id}/chunks`; fold them back into the main document.
- * @param {Record<string, any>} mainData
- * @param {Array<{ sectionName?: string, data?: Record<string, any> }>} chunks
- */
-const chunkOrder = (a, b) =>
-  String(a.createdAt || '').localeCompare(String(b.createdAt || '')) || String(a.id || '').localeCompare(String(b.id || ''));
-
-export const reconstructSectionData = (mainData, chunks) => {
-  const result = {
-    ...mainData,
-    aboutProject: { ...mainData.aboutProject, images: asArray(mainData.aboutProject?.images).slice() },
-    client: { ...mainData.client },
-    processCards: asArray(mainData.processCards).slice(),
-    conceptSlides: asArray(mainData.conceptSlides).slice(),
-    responsiveImages: asArray(mainData.responsiveImages).slice(),
-  };
-
-  // Oldest first, so the newest write of a section wins over any stray older chunk.
-  chunks.slice().sort(chunkOrder).forEach(({ sectionName, data }) => {
-    if (!sectionName || !data) return;
-    const hasIndex = data.index !== undefined;
-    if (sectionName === 'hero_thumbnail') result.heroThumbnail = data.heroThumbnail;
-    else if (sectionName === 'client_logo') result.client.logo = data.logo;
-    else if (sectionName === 'design_image') result.designSystemImage = data.designSystemImage;
-    else if (sectionName.startsWith('about_image_') && hasIndex && data.image) result.aboutProject.images[data.index] = data.image;
-    else if (sectionName.startsWith('process_card_') && hasIndex && data.card) result.processCards[data.index] = data.card;
-    else if (sectionName.startsWith('concept_slide_') && hasIndex && data.slide) result.conceptSlides[data.index] = data.slide;
-    else if (sectionName.startsWith('responsive_image_') && hasIndex && data.image) result.responsiveImages[data.index] = data.image;
-  });
-
-  return result;
 };
 
 const splitList = (value) =>
@@ -114,7 +78,7 @@ const mapShipped = (shipped, title) => {
 };
 
 /**
- * Map a reconstructed Firestore case study (plus its project) onto the record
+ * Map a stored case study (plus its project) onto the record
  * shape consumed by the case-study templates.
  * @param {Record<string, any>} data
  * @param {import('./projects').Project} project
@@ -174,69 +138,33 @@ export const mapCaseStudy = (data, project) => {
 
 const SAFE_ID = /^[A-Za-z0-9_-]{1,128}$/;
 
-const unavailable = () =>
-  Object.assign(new Error('The case study could not be loaded right now. Check your connection and try again.'), {
-    code: 'unavailable',
-  });
-
-const denied = (error) => error?.code === 'permission-denied';
-
-// An empty answer that came only from the local cache proves nothing.
-const confirmedEmpty = (snapshot) => {
-  if (!snapshot.empty) return false;
-  if (snapshot.metadata?.fromCache) throw unavailable();
-  return true;
-};
-
-const findProject = async (slug, { db: firestore, getDocs: readDocs, getDoc: readDoc }) => {
-  const bySlug = await readDocs(
-    query(
-      collection(firestore, PROJECTS_COLLECTION),
-      where('link', '==', `/case-study/${slug}`),
-      where('status', '==', 'published'),
-      limit(1)
-    )
+const findProject = async (slug, client) => {
+  const [bySlug] = await run(
+    client.from(PROJECTS_TABLE).select('id, data').eq('link', `/case-study/${slug}`).eq('status', 'published').limit(1)
   );
-  if (!confirmedEmpty(bySlug)) return mapProject(bySlug.docs[0].id, bySlug.docs[0].data());
+  if (bySlug) return mapProject(bySlug.id, bySlug.data);
   if (!SAFE_ID.test(slug)) return null;
-  try {
-    const byId = await readDoc(doc(firestore, PROJECTS_COLLECTION, slug));
-    return byId.exists() ? mapProject(byId.id, byId.data()) : null;
-  } catch (error) {
-    // Security rules refuse direct reads of unpublished cards.
-    if (denied(error)) return null;
-    throw error;
-  }
+  // Row-level security hides unpublished cards, so a draft reads as missing.
+  const [byId] = await run(client.from(PROJECTS_TABLE).select('id, data').eq('id', slug).limit(1));
+  return byId ? mapProject(byId.id, byId.data) : null;
 };
 
 /**
- * Reads one published case study. `source` lets the build pass server-only
- * reads against its own Firestore instance.
+ * Reads one published case study. `client` lets the build pass its own Data API reader.
  * @param {string} slug
- * @param {{ db: import('firebase/firestore').Firestore, getDocs: typeof getDocs, getDoc: typeof getDoc }} [source]
+ * @param {import('@neondatabase/postgrest-js').NeonPostgrestClient} [client]
  */
-export const fetchCaseStudy = async (slug, source = { db, getDocs, getDoc }) => {
-  const project = await findProject(slug, source);
+export const fetchCaseStudy = async (slug, client = neon()) => {
+  const project = await findProject(slug, client);
   if (!project || !isPublished(project)) return { status: 'not-found' };
 
-  const snapshot = await source.getDocs(
-    query(
-      collection(source.db, CASE_STUDIES_COLLECTION),
-      where('projectId', '==', project.id),
-      where('status', '==', 'published'),
-      limit(1)
-    )
+  // The first published case study in id order, as the studio pairs them.
+  const [row] = await run(
+    client.from(CASE_STUDIES_TABLE).select('id, data').eq('project_id', project.id).eq('status', 'published').order('id').limit(1)
   );
-  if (confirmedEmpty(snapshot)) return { status: 'not-found' };
+  if (!row) return { status: 'not-found' };
 
-  const [caseDoc] = snapshot.docs;
-  const chunks = await source.getDocs(collection(source.db, CASE_STUDIES_COLLECTION, caseDoc.id, 'chunks'));
-  const data = reconstructSectionData(
-    { id: caseDoc.id, ...caseDoc.data() },
-    chunks.docs.map((chunk) => ({ id: chunk.id, ...chunk.data() }))
-  );
-
-  return { status: 'ready', project, record: mapCaseStudy(data, project) };
+  return { status: 'ready', project, record: mapCaseStudy({ ...row.data, id: row.id }, project) };
 };
 
 /**
@@ -256,7 +184,7 @@ export const caseStudyMeta = (record) => ({
 /**
  * Resolve a published case study by the slug used in `/case-study/:slug`.
  * Unpublished or missing projects resolve to `{ status: 'not-found' }`.
- * Results are cached briefly so revisits do not repeat the Firestore reads.
+ * Results are cached briefly so revisits do not repeat the database reads.
  * @param {string} slug
  */
 export const loadCaseStudy = (slug) => {

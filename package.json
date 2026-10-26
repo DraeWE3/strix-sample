@@ -16,10 +16,15 @@
     "verify:admin": "node scripts/verify-release.mjs --admin dist-admin",
     "check": "npm run lint && npm test",
     "preview": "vite preview",
-    "preview:admin": "vite preview --config vite.admin.config.js"
+    "preview:admin": "vite preview --config vite.admin.config.js",
+    "db:schema": "node --env-file=.env scripts/neon-db.mjs schema",
+    "db:admin": "node --env-file=.env scripts/neon-db.mjs add-admin",
+    "db:migrate": "node --env-file=.env scripts/migrate-firestore-to-neon.mjs",
+    "db:password": "node --env-file=.env scripts/neon-db.mjs set-password"
   },
   "dependencies": {
-    "firebase": "^12.5.0",
+    "@neondatabase/neon-js": "^0.9.0-beta",
+    "@neondatabase/postgrest-js": "^0.2.0-beta",
     "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.14",
@@ -29,7 +34,9 @@
     "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
+    "@better-auth/utils": "^0.4.2",
     "@eslint/js": "^9.33.0",
+    "@neondatabase/serverless": "^1.2.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",

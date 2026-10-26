@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from './firebase';
-import { createLiveCollection } from './liveCollection';
+import { neon, run } from './neon';
+import { createLiveCollection, pollingListener } from './liveCollection';
 import { safeUrl } from './urls';
 import { SITE_URL } from './seo';
 
@@ -24,7 +23,7 @@ import { SITE_URL } from './seo';
 
 /**
  * @typedef {Object} Blog
- * @property {string} id Firestore document id, also the public URL segment
+ * @property {string} id Row id (the former Firestore document id), also the public URL segment
  * @property {string} title Article page heading (`headerText`, falls back to `topic`)
  * @property {string} cardTitle Listing card title (`topic`, falls back to `headerText`)
  * @property {string} category `tag`
@@ -43,12 +42,12 @@ import { SITE_URL } from './seo';
 /**
  * @typedef {Object} BlogsState
  * @property {Blog[]} blogs
- * @property {boolean} confirmed The list came from the server, not an offline cache
+ * @property {boolean} confirmed The list came from a successful server read
  * @property {boolean} loading
  * @property {Error | null} error
  */
 
-export const BLOGS_COLLECTION = 'blogs';
+export const BLOGS_TABLE = 'blogs';
 
 const BLOCK_TYPES = ['paragraph', 'subheading', 'image', 'keypoints'];
 const WORDS_PER_MINUTE = 200;
@@ -143,32 +142,25 @@ export const formatBlogDate = (value, style = 'card') => {
 
 const byNewest = (a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt);
 
-/** @param {import('firebase/firestore').Firestore} firestore */
-export const publishedBlogsQuery = (firestore) =>
-  query(collection(firestore, BLOGS_COLLECTION), where('status', '==', 'published'));
+/** @param {import('@neondatabase/postgrest-js').NeonPostgrestClient} client */
+export const publishedBlogsQuery = (client) => client.from(BLOGS_TABLE).select('id, data').eq('status', 'published');
 
-/** @param {Array<{ id: string, data: () => Record<string, unknown> }>} docs */
-export const blogsFromDocs = (docs) =>
-  docs
-    .map((doc) => mapBlog(doc.id, doc.data()))
+/** @param {Array<{ id: string, data: Record<string, unknown> }>} rows */
+export const blogsFromRows = (rows) =>
+  rows
+    .map((row) => mapBlog(row.id, row.data))
     .filter((blog) => blog.title)
     .sort(byNewest);
 
 const live = createLiveCollection({
   name: 'blogs',
   initial: { blogs: [], confirmed: false },
-  listen: (next, fail) =>
-    onSnapshot(
-      publishedBlogsQuery(db),
-      { includeMetadataChanges: true },
-      (snapshot) => next({ blogs: blogsFromDocs(snapshot.docs), confirmed: !snapshot.metadata.fromCache }),
-      fail
-    ),
+  listen: pollingListener(async () => ({ blogs: blogsFromRows(await run(publishedBlogsQuery(neon()))), confirmed: true })),
 });
 
 /**
- * Subscribe to the published posts in the Firestore `blogs` collection. One
- * real-time listener is shared by the listing and article pages.
+ * Subscribe to the published posts in the `blogs` table. One reader is shared
+ * by the listing and article pages.
  * @param {(state: BlogsState) => void} listener
  * @returns {() => void}
  */
