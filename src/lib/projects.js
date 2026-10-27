@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { neon, run } from './neon';
 import { createLiveCollection, pollingListener } from './liveCollection';
 import { safeExternalUrl, safeUrl } from './urls';
+import { normalizeServiceSlugs } from '../data/serviceCatalog';
 
 export { safeExternalUrl };
 
@@ -24,6 +25,7 @@ export { safeExternalUrl };
  * @property {string} externalLink
  * @property {ProjectFilters} filters
  * @property {boolean} featured Shown in the Projects page hero carousel
+ * @property {string[]} serviceSlugs Service pages the case study links to (src/data/serviceCatalog.js)
  * @property {'draft' | 'published'} status
  * @property {string} createdAt
  * @property {string} updatedAt
@@ -59,6 +61,7 @@ export const mapProject = (id, data = {}) => ({
   externalLink: asString(data.externalLink),
   filters: Object.fromEntries(FILTER_GROUPS.map((group) => [group, asStringArray(data.filters?.[group])])),
   featured: data.featured === true,
+  serviceSlugs: normalizeServiceSlugs(data.serviceSlugs),
   status: data.status === 'published' ? 'published' : 'draft',
   createdAt: asString(data.createdAt),
   updatedAt: asString(data.updatedAt),

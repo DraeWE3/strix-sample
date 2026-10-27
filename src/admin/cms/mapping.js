@@ -6,6 +6,7 @@
  */
 import { FILTERS, INDUSTRIES } from '../../components/projects/projectFilters.js';
 import { PROCESS_DEFAULTS, PROCESS_MAX_STEPS } from '../../lib/processDefaults.js';
+import { SERVICE_TITLES, normalizeServiceSlugs, serviceCategories } from '../../data/serviceCatalog.js';
 
 export const TEMPLATES = ['design-development', 'production', 'mvp'];
 export const FILTER_GROUPS = Object.keys(FILTERS);
@@ -15,6 +16,10 @@ export const TECHNOLOGY_NAMES = {
   production: ['After Effects', 'Blender', 'Premiere Pro'],
 };
 export { FILTERS, INDUSTRIES };
+
+/** Service pages a project can link to from its case study, grouped like the Services menu. */
+export const SERVICES = serviceCategories.map(({ name, slugs }) => ({ name, services: slugs.map((slug) => ({ slug, title: SERVICE_TITLES[slug] })) }));
+export { normalizeServiceSlugs };
 
 // Limits follow what the public case-study and blog templates render.
 export const LIMITS = { aboutImages: 3, conceptsFirst: 5, conceptsSecond: 4, responsiveImages: 8, results: 8, shippedItems: 12, processSteps: PROCESS_MAX_STEPS };
@@ -139,6 +144,7 @@ export const projectToEditor = (project, caseStudy) => {
     link: asString(p.link),
     externalLink: asString(p.externalLink),
     featured: p.featured === true,
+    serviceSlugs: normalizeServiceSlugs(p.serviceSlugs),
     cardImage: asString(p.image),
     categoryText: asString(p.categoryText),
     cardIndustry: asString(p.industry),
@@ -185,6 +191,7 @@ export const projectCardFields = (data) => ({
   externalLink: asString(data.externalLink).trim(),
   filters: normalizeFilters(data.filters),
   featured: data.featured === true,
+  serviceSlugs: normalizeServiceSlugs(data.serviceSlugs),
 });
 
 /** Case-study fields grouped into the sections the previous admin saved independently. */

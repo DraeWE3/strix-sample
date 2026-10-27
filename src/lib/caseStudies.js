@@ -2,6 +2,7 @@ import { neon, run } from './neon';
 import { PROJECTS_TABLE, caseStudyPath, isPublished, mapProject, projectHref } from './projects';
 import { resolveProcess } from './processDefaults';
 import { safeUrl } from './urls';
+import { SERVICE_TITLES, serviceRoute } from '../data/serviceCatalog';
 
 export { safeUrl };
 
@@ -95,8 +96,8 @@ export const mapCaseStudy = (data, project) => {
     projectId: project.id,
     template,
     title,
-    tagLabels: template === TEMPLATES.DESIGN_DEVELOPMENT ? services : [],
     filters: project.filters,
+    serviceLinks: project.serviceSlugs.map((slug) => ({ slug, label: SERVICE_TITLES[slug], href: serviceRoute(slug) })),
     services,
     industry: asString(data.client?.industry),
     country: asString(data.client?.country),

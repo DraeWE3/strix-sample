@@ -13,8 +13,8 @@
 @media(max-width:850px){.strix-case[data-template="design-development"] .case-tech-groups{grid-template-columns:minmax(0,1fr);gap:36px}.strix-case[data-template="design-development"] .case-tech-group h3{text-align:center}.strix-case[data-template="design-development"] .case-tech-list{justify-content:center;gap:20px;margin-top:22px}}
 @media(min-width:851px){.strix-case .case-results{height:auto;min-height:514px}.strix-case .case-results-grid{grid-template-rows:none;grid-auto-rows:minmax(245px,auto)}}
 @media(min-width:601px){.strix-case main{padding-top:242px}}
-@media(max-width:600px){.strix-case main{padding-top:208px}}
 @media(min-width:1051px){.strix-case .case-hero__tags{margin:4px 0 80.6px}}
+@media(max-width:600px){.strix-case main{padding-top:208px}}
 .strix-case[data-template="production"] .production-related__label .production-related__name{height:auto;min-height:24px;padding-bottom:8px;line-height:1.3;overflow:visible}
 .strix-case[data-template="production"] .production-related__label.production-related__label{gap:16px!important}
 .strix-case .case-next-ring{border:1px solid rgba(255,255,255,.3);border-radius:50%}

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { initContinuousCarousels } from '../shared/continuousCarousel';
 import BlogSummaryLinks from '../blog/BlogSummaryLinks';
 import { TEMPLATES } from '../../lib/caseStudies';
-import { serviceHrefForTag } from '../../lib/serviceProjectFilters';
 import '../../style/caseStudyTemplates/base.css';
 import '../../style/caseStudyTemplates/layout.css';
 import '../../style/caseStudyTemplates/production.css';
@@ -38,7 +37,6 @@ const STEP_LAYOUTS = {
   4: ['discovery', 'design', 'development', 'launch'],
 };
 const RESULT_CLASSES = ['downloads', 'trending', 'dropoff', 'rating'];
-const DEFAULT_TAGS = { [TEMPLATES.MVP]: ['Minimum Viable Product'], [TEMPLATES.PRODUCTION]: ['Production'] };
 const EXPERIENCE_ANCHORS = {
   [TEMPLATES.DESIGN_DEVELOPMENT]: '#responsive-design',
   [TEMPLATES.PRODUCTION]: '#creative-directions',
@@ -566,7 +564,6 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
   const { template } = record;
   const isMvp = template === TEMPLATES.MVP;
   const isDesign = template === TEMPLATES.DESIGN_DEVELOPMENT;
-  const tags = record.tagLabels.length ? record.tagLabels : DEFAULT_TAGS[template] || [];
   const [rowOne, rowTwo] = record.concepts;
   const conceptCount = rowOne.length + rowTwo.length;
   const conceptsTitle = isDesign ? 'Initial concepts' : 'Creative Directions';
@@ -657,13 +654,13 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
       <main id="main-content">
         <section className="case-upper" aria-labelledby="case-overview-title">
           <header className="case-hero">
-            <h1 id="case-overview-title" className="case-hero__heading">
+            <h1 id="case-overview-title" className={`case-hero__heading${record.serviceLinks.length ? ' has-tags' : ''}`}>
               Project Overview
             </h1>
-            {tags.length ? (
+            {record.serviceLinks.length ? (
               <ul className="case-hero__tags" aria-label="Project services">
-                {tags.slice(0, 12).map((label) => (
-                  <li key={label}><Link className="case-hero__tag" to={serviceHrefForTag(label, record.filters)}>{label}</Link></li>
+                {record.serviceLinks.map((service) => (
+                  <li key={service.slug}><Link className="case-hero__tag" to={service.href}>{service.label}</Link></li>
                 ))}
               </ul>
             ) : null}

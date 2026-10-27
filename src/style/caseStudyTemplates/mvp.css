@@ -4,7 +4,6 @@
 .strix-case[data-template="mvp"] .case-process{margin-top:27.909px}
 .strix-case[data-template="mvp"] .case-process+.case-section-rule{margin-top:18px}
 .strix-case[data-template="mvp"] .case-styleguide+.case-section-rule{margin-top:71px}
-.strix-case[data-template="mvp"] .case-hero__tags{gap:0}
 .strix-case[data-template="mvp"] .case-summary__openai{mask-image:url('/case-study/figma/72758.svg')}
 .strix-case[data-template="mvp"] .case-technologies{width:min(1206px,calc(100% - 64px))}
 .strix-case[data-template="mvp"] .case-tech-groups{grid-template-columns:178.75px 297.5px 175.75px;justify-content:space-between;gap:0}

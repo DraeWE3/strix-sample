@@ -4,6 +4,7 @@
 // own copy and Figma artwork; design and development entries reuse the existing site's copy and
 // imagery and are ready to be refined in place.
 
+import { SERVICE_ROUTE_BASE, SERVICE_TITLES, serviceCategories, serviceRoute, serviceSlugs } from "./serviceCatalog";
 import CommercialsPoster from "../assets/img/service-pages/figma/8b632.png";
 import LongFormatPoster from "../assets/img/service-pages/figma/65435.png";
 import ReelsPoster from "../assets/img/service-pages/figma/c2ec4.png";
@@ -63,14 +64,7 @@ const WEB_APP_PROOF_CARDS = [
   },
 ];
 
-export const SERVICE_ROUTE_BASE = "/services";
-export const serviceRoute = (slug) => `${SERVICE_ROUTE_BASE}/${slug}`;
-
-export const serviceCategories = [
-  { id: "design", name: "Design", slugs: ["ui-ux-design", "product-design", "branding", "creative-design", "game-art", "3d-design"] },
-  { id: "development", name: "Development", slugs: ["web-app", "app-dev", "interactive-web", "web-dev", "software-dev"] },
-  { id: "production", name: "Production", slugs: ["commercials", "long-format", "reels-shorts", "motion-graphics", "3d-animations"] },
-];
+export { SERVICE_ROUTE_BASE, serviceCategories, serviceRoute, serviceSlugs };
 
 const VIEW_WORK = { showreel: false };
 const showreel = (videoId) => ({ showreel: true, videoId });
@@ -80,7 +74,7 @@ export const serviceDetails = {
   "ui-ux-design": {
     slug: "ui-ux-design",
     category: "design",
-    title: "UI/UX Design",
+    title: SERVICE_TITLES["ui-ux-design"],
     navLabel: "UI/UX Design",
     seo: {
       title: "UI/UX Design for Websites, Apps & E-Commerce",
@@ -129,7 +123,7 @@ export const serviceDetails = {
   "product-design": {
     slug: "product-design",
     category: "design",
-    title: "Product Design",
+    title: SERVICE_TITLES["product-design"],
     navLabel: "Product Design",
     seo: {
       title: "SaaS Product Design: Interfaces & Dashboards",
@@ -183,7 +177,7 @@ export const serviceDetails = {
   branding: {
     slug: "branding",
     category: "design",
-    title: "Branding",
+    title: SERVICE_TITLES["branding"],
     navLabel: "Branding",
     seo: {
       title: "Branding & Brand Identity Design Services",
@@ -232,7 +226,7 @@ export const serviceDetails = {
   "creative-design": {
     slug: "creative-design",
     category: "design",
-    title: "Creative Designs",
+    title: SERVICE_TITLES["creative-design"],
     navLabel: "Creative Design",
     seo: {
       title: "Graphics, Thumbnail & Presentation Design",
@@ -282,7 +276,7 @@ export const serviceDetails = {
   "game-art": {
     slug: "game-art",
     category: "design",
-    title: "Game Art",
+    title: SERVICE_TITLES["game-art"],
     navLabel: "Game Art",
     seo: {
       title: "Game Art & Asset Design Services",
@@ -334,7 +328,7 @@ export const serviceDetails = {
   "3d-design": {
     slug: "3d-design",
     category: "design",
-    title: "3D Design",
+    title: SERVICE_TITLES["3d-design"],
     navLabel: "3D Design",
     seo: {
       title: "3D Product Renders & Real Estate Visualization",
@@ -370,7 +364,7 @@ export const serviceDetails = {
   "web-app": {
     slug: "web-app",
     category: "development",
-    title: "Web Applications",
+    title: SERVICE_TITLES["web-app"],
     navLabel: "Web App",
     seo: {
       title: "Web App Development: SaaS MVPs, AI & Dashboards",
@@ -401,7 +395,7 @@ export const serviceDetails = {
   "app-dev": {
     slug: "app-dev",
     category: "development",
-    title: "App Development",
+    title: SERVICE_TITLES["app-dev"],
     navLabel: "App Dev",
     seo: {
       title: "Cross-Platform Mobile App Development",
@@ -430,7 +424,7 @@ export const serviceDetails = {
   "interactive-web": {
     slug: "interactive-web",
     category: "development",
-    title: "Interactive Websites",
+    title: SERVICE_TITLES["interactive-web"],
     navLabel: "Interactive Web",
     seo: {
       title: "Interactive Website & Landing Page Development",
@@ -462,7 +456,7 @@ export const serviceDetails = {
   "web-dev": {
     slug: "web-dev",
     category: "development",
-    title: "Website Development",
+    title: SERVICE_TITLES["web-dev"],
     navLabel: "Web Dev",
     seo: {
       title: "Front-End & Back-End Website Development",
@@ -494,7 +488,7 @@ export const serviceDetails = {
   "software-dev": {
     slug: "software-dev",
     category: "development",
-    title: "SaaS AI Development",
+    title: SERVICE_TITLES["software-dev"],
     navLabel: "Software Dev",
     seo: {
       title: "Custom Software, API & Backend Development",
@@ -527,7 +521,7 @@ export const serviceDetails = {
   commercials: {
     slug: "commercials",
     category: "production",
-    title: "Commercials & Promos",
+    title: SERVICE_TITLES["commercials"],
     navLabel: "Commercials",
     seo: {
       title: "Commercials & Promos Services",
@@ -560,7 +554,7 @@ export const serviceDetails = {
   "long-format": {
     slug: "long-format",
     category: "production",
-    title: "Long Format Videos",
+    title: SERVICE_TITLES["long-format"],
     navLabel: "Long Format",
     seo: {
       title: "Long Format Videos Services",
@@ -591,7 +585,7 @@ export const serviceDetails = {
   "reels-shorts": {
     slug: "reels-shorts",
     category: "production",
-    title: "Reels & Shorts",
+    title: SERVICE_TITLES["reels-shorts"],
     navLabel: "Reels & Shorts",
     seo: {
       title: "Reels & Shorts Services",
@@ -621,7 +615,7 @@ export const serviceDetails = {
   "motion-graphics": {
     slug: "motion-graphics",
     category: "production",
-    title: "Motion Graphics",
+    title: SERVICE_TITLES["motion-graphics"],
     navLabel: "Motion Graphics",
     seo: {
       title: "Motion Graphics Services",
@@ -651,7 +645,7 @@ export const serviceDetails = {
   "3d-animations": {
     slug: "3d-animations",
     category: "production",
-    title: "3D Animations",
+    title: SERVICE_TITLES["3d-animations"],
     navLabel: "3D Animations",
     seo: {
       title: "3D Animations Services",
@@ -683,8 +677,6 @@ export const serviceDetails = {
     },
   },
 };
-
-export const serviceSlugs = serviceCategories.flatMap((category) => category.slugs);
 
 export const getServiceDetail = (slug) => (Object.hasOwn(serviceDetails, slug) ? serviceDetails[slug] : undefined);
 

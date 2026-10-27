@@ -220,6 +220,20 @@ test('featuring a project is stored on its card and read by the public site', as
   assert.equal(mapProject('p1', fake.get('projects', 'p1')).featured, true);
 });
 
+test('services picked for a project link its case study to their service pages', async () => {
+  const record = await open('p_p1');
+  assert.deepEqual(record.data.serviceSlugs, []);
+  record.data.serviceSlugs = ['web-dev', 'ui-ux-design', 'not-a-service'];
+  await save(record);
+  assert.deepEqual(fake.get('projects', 'p1').serviceSlugs, ['ui-ux-design', 'web-dev']);
+  assert.deepEqual((await open('p_p1')).data.serviceSlugs, ['ui-ux-design', 'web-dev']);
+  const page = await publicCaseStudy('aurora');
+  assert.deepEqual(page.record.serviceLinks, [
+    { slug: 'ui-ux-design', label: 'UI/UX Design', href: '/services/ui-ux-design' },
+    { slug: 'web-dev', label: 'Website Development', href: '/services/web-dev' },
+  ]);
+});
+
 test('refuses to overwrite a row changed elsewhere', async () => {
   const record = await open('p_p1');
   fake.seed('projects', 'p1', { ...fake.get('projects', 'p1'), updatedAt: '2030-01-01T00:00:00.000Z' });
