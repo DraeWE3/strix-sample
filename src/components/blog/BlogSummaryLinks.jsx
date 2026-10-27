@@ -26,7 +26,7 @@ const GOOGLE_DOTS = [
 const PROVIDERS = [
   { key: 'chatgpt', name: 'Open AI', label: 'ChatGPT', url: 'https://chatgpt.com/?q=' },
   { key: 'perplexity', name: 'Perplexity', label: 'Perplexity', url: 'https://www.perplexity.ai/search?q=' },
-  { key: 'google', name: 'Google Search AI', label: 'Google', url: 'https://www.google.com/search?q=' },
+  { key: 'google', name: 'Google Search AI', label: 'Google', url: 'https://www.google.com/search?udm=50&q=' },
 ];
 
 const ProviderIcon = ({ provider }) => {
@@ -45,7 +45,7 @@ const ProviderIcon = ({ provider }) => {
   );
 };
 
-const BlogSummaryLinks = ({ prompt }) => (
+const BlogSummaryLinks = ({ prompt, subject = 'article' }) => (
   <div className="case-summary">
     <span className="case-summary__label">Summaries with</span>
     <div className="case-summary__links">
@@ -56,7 +56,7 @@ const BlogSummaryLinks = ({ prompt }) => (
           href={url + encodeURIComponent(prompt)}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Summarize this article with ${label}`}
+          aria-label={`Summarize this ${subject} with ${label}`}
         >
           <ProviderIcon provider={key} />
           <span className="case-summary__tooltip">{name}</span>

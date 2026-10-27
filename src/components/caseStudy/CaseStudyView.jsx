@@ -2,7 +2,7 @@ import { BOOKING_URL } from '../../lib/booking';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { initContinuousCarousels } from '../shared/continuousCarousel';
-import googleIconParts from './googleIconParts';
+import BlogSummaryLinks from '../blog/BlogSummaryLinks';
 import { TEMPLATES } from '../../lib/caseStudies';
 import { serviceHrefForTag } from '../../lib/serviceProjectFilters';
 import '../../style/caseStudyTemplates/base.css';
@@ -289,96 +289,18 @@ const HeroMedia = ({ media, title }) => {
   );
 };
 
-const SummaryStrip = ({ onOpen }) => (
-  <div className="case-summary">
-    <span className="case-summary__label">Summaries with</span>
-    <div className="case-summary__links">
-      <a className="case-summary__link" href="https://chatgpt.com/" aria-label="Summarize this case study with ChatGPT" onClick={(event) => onOpen(event, 'ChatGPT', 'https://chatgpt.com/')}>
-        <span className="case-summary__icon" aria-hidden="true">
-          <span className="case-summary__openai">
-            <img src={art('338be.svg')} alt="" />
-          </span>
-        </span>
-        <span className="case-summary__tooltip">Open AI</span>
-      </a>
-      <a className="case-summary__link" href="https://www.perplexity.ai/" aria-label="Summarize this case study with Perplexity" onClick={(event) => onOpen(event, 'Perplexity', 'https://www.perplexity.ai/')}>
-        <span className="case-summary__icon" aria-hidden="true">
-          <span className="case-summary__perplexity">
-            <img src={art('8a2bf.svg')} alt="" />
-          </span>
-        </span>
-        <span className="case-summary__tooltip">Perplexity</span>
-      </a>
-      <a className="case-summary__link" href="https://www.google.com/" aria-label="Summarize this case study with Google" onClick={(event) => onOpen(event, 'Google', 'https://www.google.com/')}>
-        <span className="case-summary__icon case-summary__google" aria-hidden="true">
-          {googleIconParts.map((part) => (
-            <span key={`${part.top}-${part.left}`} style={{ top: part.top, left: part.left, maskPosition: part.maskPosition }}>
-              <img src={art(part.src)} alt="" />
-            </span>
-          ))}
-        </span>
-        <span className="case-summary__tooltip">Google Search AI</span>
-      </a>
-    </div>
-  </div>
-);
-
-const buildBrief = (record, canonical) =>
+// Kept short so the prefilled ?q= URL stays well under provider length limits.
+const buildSummaryPrompt = (record, canonical) =>
   [
-    'Summarize this case study and explain the project approach.',
+    `Summarize this Strix Production case study in 5 concise points: ${canonical}`,
     '',
     `Project: ${record.title}`,
-    `Services: ${record.services.join(', ')}`,
-    `Industry: ${record.industry}`,
-    '',
-    record.about,
-    '',
-    'Process:',
-    ...record.process.map((step) => `${step.title}: ${step.description}`),
-    '',
-    'Reported results:',
-    ...record.results.map((result) => `${result.title.replace(/\n/g, ' ')}: ${result.description.replace(/\n/g, ' ')}`),
-    '',
-    `Source: ${canonical}`,
-  ].join('\n');
-
-const ShareDialog = ({ dialogRef, provider, brief, onClosed }) => {
-  const areaRef = useRef(null);
-  const [status, setStatus] = useState('');
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(brief);
-      setStatus('Copied. Open the tool and paste your brief.');
-    } catch {
-      areaRef.current?.focus();
-      areaRef.current?.select();
-      setStatus('Press Ctrl+C to copy the selected brief.');
-    }
-  };
-
-  return (
-    <dialog ref={dialogRef} className="case-share-dialog" aria-labelledby="case-share-title" onClose={() => { setStatus(''); onClosed(); }}>
-      <button className="case-share-close" type="button" aria-label="Close summary" onClick={() => dialogRef.current?.close()}>
-        ×
-      </button>
-      <h2 id="case-share-title">Take a closer look.</h2>
-      <p>Copy this project brief, then paste it into your preferred AI tool to explore or summarize it.</p>
-      <textarea ref={areaRef} readOnly aria-label="Case study summary" value={brief} />
-      <p className="case-share-status" role="status">
-        {status}
-      </p>
-      <div className="case-share-actions">
-        <button type="button" onClick={copy}>
-          Copy brief
-        </button>
-        <a href={provider.url} target="_blank" rel="noopener noreferrer">
-          Open {provider.name} ↗
-        </a>
-      </div>
-    </dialog>
-  );
-};
+    record.services.length ? `Services: ${record.services.join(', ')}` : '',
+    record.industry ? `Industry: ${record.industry}` : '',
+    record.about ? `\n${record.about.slice(0, 1200)}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
 
 const ShippedSection = ({ shipped }) => (
   <>
@@ -641,9 +563,6 @@ const Atmosphere = () => (
  */
 const CaseStudyView = ({ record, nextHref, canonical }) => {
   const rootRef = useRef(null);
-  const dialogRef = useRef(null);
-  const triggerRef = useRef(null);
-  const [provider, setProvider] = useState({ name: 'ChatGPT', url: 'https://chatgpt.com/' });
   const { template } = record;
   const isMvp = template === TEMPLATES.MVP;
   const isDesign = template === TEMPLATES.DESIGN_DEVELOPMENT;
@@ -728,13 +647,6 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
     };
   }, [record]);
 
-  const openSummary = (event, name, url) => {
-    event.preventDefault();
-    triggerRef.current = event.currentTarget;
-    setProvider({ name, url });
-    dialogRef.current?.showModal();
-  };
-
   return (
     <div className="strix-case" data-template={template} ref={rootRef}>
       <Atmosphere />
@@ -757,7 +669,7 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
             ) : null}
             <HeroMedia key={record.id} media={record.media} title={record.title} />
             <h2 className="case-hero__title">{record.title}</h2>
-            <SummaryStrip onOpen={openSummary} />
+            <BlogSummaryLinks subject="case study" prompt={buildSummaryPrompt(record, canonical)} />
           </header>
           <dl className="case-meta" aria-label="Project details" data-reveal>
             <div className="case-meta__item">
@@ -891,7 +803,6 @@ const CaseStudyView = ({ record, nextHref, canonical }) => {
         <Connect />
         {nextHref ? <NextProject href={nextHref} /> : null}
       </main>
-      <ShareDialog dialogRef={dialogRef} provider={provider} brief={buildBrief(record, canonical)} onClosed={() => triggerRef.current?.focus({ preventScroll: true })} />
     </div>
   );
 };
