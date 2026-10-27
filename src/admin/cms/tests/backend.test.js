@@ -209,6 +209,17 @@ test('large images are stored inline and the public page reads them', async () =
   assert.equal((await open('p_p1')).data.media.thumbnail, big);
 });
 
+test('featuring a project is stored on its card and read by the public site', async () => {
+  const record = await open('p_p1');
+  assert.equal(record.data.featured, false);
+  record.data.featured = true;
+  await save(record);
+  assert.equal(fake.get('projects', 'p1').featured, true);
+  assert.equal((await open('p_p1')).data.featured, true);
+  const { mapProject } = await import('../../../lib/projects.js');
+  assert.equal(mapProject('p1', fake.get('projects', 'p1')).featured, true);
+});
+
 test('refuses to overwrite a row changed elsewhere', async () => {
   const record = await open('p_p1');
   fake.seed('projects', 'p1', { ...fake.get('projects', 'p1'), updatedAt: '2030-01-01T00:00:00.000Z' });

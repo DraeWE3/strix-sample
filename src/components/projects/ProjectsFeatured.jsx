@@ -7,7 +7,8 @@ import DotIdle from "../../assets/img/projects/8f231.svg";
 import DotActive from "../../assets/img/projects/4e3a0.svg";
 import CardGlow from "../../assets/img/projects/ccefa.svg";
 
-const FEATURED_COUNT = 5;
+// Used only until a project is featured in the studio.
+const FALLBACK_COUNT = 5;
 const SWIPE_DISTANCE = 45;
 
 const Chevron = ({ direction }) => (
@@ -25,7 +26,8 @@ const SlideLink = ({ project, className, children, ...rest }) => {
 };
 
 const ProjectsFeatured = ({ projects, loading = false, error = null, children }) => {
-  const slides = projects.slice(0, FEATURED_COUNT);
+  const featured = projects.filter((project) => project.featured);
+  const slides = featured.length ? featured : projects.slice(0, FALLBACK_COUNT);
   const [activeIndex, setActiveIndex] = useState(2);
   const cardRef = useRef(null);
   const imageRef = useRef(null);

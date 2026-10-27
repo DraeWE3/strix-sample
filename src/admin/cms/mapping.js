@@ -138,6 +138,7 @@ export const projectToEditor = (project, caseStudy) => {
     slug: slugFromLink(p.link),
     link: asString(p.link),
     externalLink: asString(p.externalLink),
+    featured: p.featured === true,
     cardImage: asString(p.image),
     categoryText: asString(p.categoryText),
     cardIndustry: asString(p.industry),
@@ -183,6 +184,7 @@ export const projectCardFields = (data) => ({
   link: SLUG.test(asString(data.slug)) ? `/case-study/${data.slug}` : asString(data.link),
   externalLink: asString(data.externalLink).trim(),
   filters: normalizeFilters(data.filters),
+  featured: data.featured === true,
 });
 
 /** Case-study fields grouped into the sections the previous admin saved independently. */

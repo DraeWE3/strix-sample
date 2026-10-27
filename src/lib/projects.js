@@ -23,6 +23,7 @@ export { safeExternalUrl };
  * @property {string} link
  * @property {string} externalLink
  * @property {ProjectFilters} filters
+ * @property {boolean} featured Shown in the Projects page hero carousel
  * @property {'draft' | 'published'} status
  * @property {string} createdAt
  * @property {string} updatedAt
@@ -57,6 +58,7 @@ export const mapProject = (id, data = {}) => ({
   link: asString(data.link),
   externalLink: asString(data.externalLink),
   filters: Object.fromEntries(FILTER_GROUPS.map((group) => [group, asStringArray(data.filters?.[group])])),
+  featured: data.featured === true,
   status: data.status === 'published' ? 'published' : 'draft',
   createdAt: asString(data.createdAt),
   updatedAt: asString(data.updatedAt),
