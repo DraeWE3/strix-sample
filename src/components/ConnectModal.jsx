@@ -258,15 +258,18 @@ const ConnectModal = ({ isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   useLayoutEffect(() => {
+    const root = rootRef.current;
     const panel = panelRef.current;
-    if (!panel) return;
+    if (!root || !panel) return;
+    // Lives on the root as a custom property: the open timeline's clearProps wipes the panel's inline style,
+    // and reopening mid-close doesn't resize the panel, so the observer wouldn't put it back.
     const update = () => {
       if (window.matchMedia(MOBILE_QUERY).matches) {
-        panel.style.clipPath = "";
+        root.style.removeProperty("--smenu-clip");
         return;
       }
       const unit = parseFloat(getComputedStyle(panel).getPropertyValue("--smenu-u")) || 7.5;
-      panel.style.clipPath = panelClipPath(panel.offsetWidth, panel.offsetHeight, unit);
+      root.style.setProperty("--smenu-clip", panelClipPath(panel.offsetWidth, panel.offsetHeight, unit));
     };
     const observer = new ResizeObserver(update);
     observer.observe(panel);
