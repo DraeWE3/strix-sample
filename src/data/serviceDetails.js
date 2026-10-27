@@ -3,7 +3,6 @@
 // service, plus the proof strip beneath them. Production entries carry the generated template's
 // own copy and Figma artwork; design and development entries reuse the existing site's copy and
 // imagery and are ready to be refined in place.
-import { SHOWREEL_ID } from "../components/showreel";
 
 import CommercialsPoster from "../assets/img/service-pages/figma/8b632.png";
 import LongFormatPoster from "../assets/img/service-pages/figma/65435.png";
@@ -74,7 +73,7 @@ export const serviceCategories = [
 ];
 
 const VIEW_WORK = { showreel: false };
-const VIEW_WORK_AND_SHOWREEL = { showreel: true, videoId: SHOWREEL_ID };
+const showreel = (videoId) => ({ showreel: true, videoId });
 
 export const serviceDetails = {
   /* ----------------------------------------------------------------- DESIGN */
@@ -88,7 +87,7 @@ export const serviceDetails = {
       description: "Strix designs corporate websites, mobile apps, landing pages and e-commerce experiences backed by user behaviour, built to lift conversions and retention.",
     },
     hero: {
-      ...VIEW_WORK_AND_SHOWREEL,
+      ...showreel("zk0mGoyUrLo"),
       poster: UiuxPoster,
       description: "Real outcomes from real products we have shipped.",
     },
@@ -535,7 +534,7 @@ export const serviceDetails = {
       description: "We produce high-quality commercials that tell compelling stories and position your brand as unforgettable in the marketplace.",
     },
     hero: {
-      ...VIEW_WORK_AND_SHOWREEL,
+      ...showreel("V7AFNzek_mw"),
       poster: CommercialsPoster,
       description: "We produce high-quality commercials that tell compelling stories and position your brand as unforgettable in the marketplace.",
     },
@@ -659,7 +658,7 @@ export const serviceDetails = {
       description: "Cinematic 3D animations that make your product, space, or story impossible to ignore.",
     },
     hero: {
-      ...VIEW_WORK_AND_SHOWREEL,
+      ...showreel("L7fYmJXeGcU"),
       // Figma 965:9019: 1004 x 503 render, object-cover.
       poster: ThreeDAnimationsPoster,
       description: "Cinematic 3D animations that make your product, space, or story impossible to ignore.",
