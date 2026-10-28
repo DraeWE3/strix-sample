@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion as Motion, useInView } from "motion/react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
+import { openConsentSettings } from "../lib/analytics";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,6 +90,7 @@ const Footer = () => {
           <Link to="/term"><p className="ft-num">Terms of Services</p></Link>
           <Link to="/policy"><p className="ft-num">Privacy Policy</p></Link>
           <Link to="/cookies"> <p className="ft-num">Cookie Policy</p></Link>
+          <button type="button" className="ft-cookie-btn" onClick={openConsentSettings}><span className="ft-num">Cookie Settings</span></button>
         </div>
       </div>
 

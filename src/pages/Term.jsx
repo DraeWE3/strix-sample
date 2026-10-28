@@ -41,183 +41,96 @@ const Term = () => {
 
       <section className="terms-of-service">
         <div className="terms-header">
-          <p className="date-info">Effective Date: 1 January 2026</p>
-          <p className="date-info">Last Updated: 1 June 2026</p>
+          <p className="date-info">Last Updated: 28.10.2026</p>
         </div>
 
-        <div className="terms-intro">
+        <div className="terms-section">
+          <h2>1. About Strix Production</h2>
           <p>
-            Welcome to www.strixproduction.com ("we", "our", "us", or "Abhiwan"). These Terms of 
-            Service ("Terms") govern your access to and use of our website, content, products, and 
-            services (collectively, the "Service"). By accessing or using our Service, you agree to 
-            be bound by these Terms. If you do not agree to all of these Terms, please do not use 
-            our Service.
+            Strix Production is operated by <strong>Rajnandan soni</strong>, a sole proprietor, from{' '}
+            <em>New Delhi, India</em>. These terms govern your use of strixproduction.com.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>1. Eligibility</h2>
-          <p>By using our Service, you represent and warrant that:</p>
-          <ul>
-            <li>You are at least 18 years old or the age of majority in your jurisdiction.</li>
-            <li>You have the full power and authority to enter into these Terms.</li>
-            <li>You will comply with all applicable laws and regulations.</li>
-          </ul>
+          <h2>2. Our services and project agreements</h2>
           <p>
-            If you are using the Service on behalf of an organization, you agree to these Terms on 
-            behalf of that organization and confirm that you have the authority to do so.
+            We provide design, development, branding, MVP development, video production and related
+            creative services.
+          </p>
+          <p>
+            Submitting an enquiry does not create a service contract. Your accepted proposal or project
+            agreement defines the scope, deliverables, fees, payment schedule, timelines, revisions,
+            cancellations and refunds. That agreement takes priority over these website terms for the
+            relevant project.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>2. User Accounts</h2>
-          <p>To access certain features, you may be required to create an account. You agree to:</p>
-          <ul>
-            <li>Provide accurate and complete information when creating your account.</li>
-            <li>Keep your login credentials confidential.</li>
-            <li>Notify us immediately of any unauthorized use of your account.</li>
-          </ul>
-          <div className="highlight-box">
-            <p><strong>You are solely responsible for all activities that occur under your account.</strong></p>
-          </div>
-        </div>
-
-        <div className="terms-section">
-          <h2>3. Acceptable Use</h2>
-          <p>You agree not to:</p>
-          <ul>
-            <li>Use the Service for any unlawful purpose.</li>
-            <li>Post or transmit any content that is harmful, abusive, defamatory, vulgar, obscene, 
-            or otherwise objectionable.</li>
-            <li>Interfere with or disrupt the Service or servers.</li>
-            <li>Attempt to gain unauthorized access to any part of the Service or other users' accounts.</li>
-          </ul>
-          <div className="highlight-box">
-            <p><strong>We reserve the right to suspend or terminate your access if you violate these Terms.</strong></p>
-          </div>
-        </div>
-
-        <div className="terms-section">
-          <h2>4. Intellectual Property</h2>
+          <h2>3. Your responsibilities</h2>
           <p>
-            All content on www.abhiwan.com, including text, graphics, logos, images, audio, video, 
-            software, and the compilation thereof, is the property of Abhiwan or its content suppliers 
-            and is protected by copyright, trademark, and other intellectual property laws.
+            When engaging our services, you must be authorised to act for yourself or your organisation.
+            You are responsible for providing accurate information, agreed materials and timely feedback,
+            and for holding the necessary rights to materials you supply.
           </p>
           <p>
-            You may not copy, reproduce, distribute, modify, or create derivative works from any content 
-            on our Service without prior written consent.
+            Changes to the agreed scope may affect fees and timelines and must be agreed in writing.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>5. Purchases and Payments</h2>
-          <p>If you purchase products or services through our website:</p>
-          <ul>
-            <li>You agree to provide accurate billing information.</li>
-            <li>You authorize us to charge the payment method you provide.</li>
-            <li>All sales are subject to our return, refund, and cancellation policies, available on 
-            the relevant product or service page.</li>
-          </ul>
-          <p>Prices and availability of products/services are subject to change without notice.</p>
-        </div>
-
-        <div className="terms-section">
-          <h2>6. Third-Party Links</h2>
+          <h2>4. Intellectual property and confidentiality</h2>
           <p>
-            Our Service may contain links to third-party websites. We do not endorse, control, or 
-            assume responsibility for any content or practices of these third-party websites. Accessing 
-            third-party sites is at your own risk.
+            Website content belongs to Strix Production or its respective owners. You may browse and share
+            links, but may not reproduce or commercially exploit protected material without permission.
+          </p>
+          <p>
+            Ownership of project deliverables, source files and third-party assets follows the applicable
+            project agreement and licences. Confidentiality and portfolio permissions follow the relevant
+            agreement or NDA.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>7. Disclaimer of Warranties</h2>
+          <h2>5. Acceptable use</h2>
           <p>
-            Our Service is provided "as is" and "as available." We make no warranties, express or 
-            implied, regarding the operation, reliability, availability, or suitability of our Service.
-          </p>
-          <p>
-            To the fullest extent permitted by law, we disclaim all warranties, including but not 
-            limited to implied warranties of merchantability, fitness for a particular purpose, and 
-            non-infringement.
+            You must not misuse our forms, submit malicious content, infringe others’ rights, disrupt the
+            website or attempt unauthorised access. We may restrict access where reasonably necessary to
+            prevent misuse.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>8. Limitation of Liability</h2>
+          <h2>6. Information and liability</h2>
           <p>
-            To the maximum extent permitted by law, Abhiwan shall not be liable for any indirect, 
-            incidental, special, or consequential damages arising out of or related to your use of 
-            the Service, even if we were advised of the possibility of such damages.
+            We aim to keep website information accurate but cannot guarantee uninterrupted availability or
+            error-free content. Case studies describe individual projects and do not guarantee similar
+            outcomes.
           </p>
           <p>
-            Our total liability for any claim arising from your use of the Service shall not exceed 
-            the amount you paid to us (if any) in the 12 months preceding the claim.
-          </p>
-        </div>
-
-        <div className="terms-section">
-          <h2>9. Indemnification</h2>
-          <p>
-            You agree to defend, indemnify, and hold harmless Abhiwan, its affiliates, directors, 
-            employees, and agents from and against any claims, liabilities, damages, losses, or 
-            expenses (including legal fees) arising out of or in any way connected with:
-          </p>
-          <ul>
-            <li>Your use or misuse of the Service.</li>
-            <li>Your violation of these Terms.</li>
-            <li>Your violation of any law or rights of a third party.</li>
-          </ul>
-        </div>
-
-        <div className="terms-section">
-          <h2>10. Termination</h2>
-          <p>
-            We may suspend or terminate your access to the Service at any time, without notice or 
-            liability, for any reason, including violation of these Terms.
-          </p>
-          <p>
-            Upon termination, your right to use the Service will immediately cease. Sections that by 
-            their nature should survive termination (e.g., Intellectual Property, Disclaimer of 
-            Warranties, Limitation of Liability) will remain in effect.
+            To the extent permitted by law, we exclude liability for indirect or consequential losses
+            arising from use of this informational website. Liability for paid services follows the
+            relevant project agreement. Nothing limits rights or liabilities that cannot legally be
+            excluded.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>11. Changes to Terms</h2>
+          <h2>7. Governing law and changes</h2>
           <p>
-            We reserve the right to update or modify these Terms at any time. We will notify users of 
-            significant changes by posting an updated version on this page with a new "Last Updated" 
-            date. Your continued use of the Service constitutes acceptance of the revised Terms.
+            These terms are governed by Indian law, subject to any mandatory protections applicable to
+            you. Disputes fall within the jurisdiction of the competent courts.
+          </p>
+          <p>
+            Updates apply prospectively and do not retrospectively change signed project agreements.
           </p>
         </div>
 
         <div className="terms-section">
-          <h2>12. Governing Law and Jurisdiction</h2>
-          <p>
-            These Terms are governed by and construed in accordance with the laws of [Insert Country/State], 
-            without regard to conflict of law principles. Any disputes arising under these Terms shall be 
-            resolved exclusively in the courts of [Insert Jurisdiction].
-          </p>
-        </div>
-
-        <div className="terms-section">
-          <h2>13. Contact Us</h2>
-          <p>If you have any questions about these Terms, please contact us at:</p>
           <div className="contact-info">
-            <p><strong>Strix production</strong></p>
-            <p>Email: [Insert Email Address]</p>
-            <p>Phone: [Insert Phone Number]</p>
-            <p>Address: [Insert Business Address]</p>
+            <p><strong>Contact:</strong> <a href="mailto:info@strixproduction.com">info@strixproduction.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+919958844094">+91 9958844094</a></p>
           </div>
-        </div>
-
-        <div className="terms-footer">
-          <p>
-            By using www.strixproduction.com, you acknowledge that you have read, understood, and agree 
-            to be bound by these Terms of Service.
-          </p>
         </div>
       </section>
 

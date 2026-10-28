@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import PageTransition from "./components/pageTransition";
 import ScrollToTop from "./components/ScrollToTop";
 import AdminRedirect from "./components/AdminRedirect";
+import CookieConsent from "./components/CookieConsent";
 import { canonicalPath } from "./lib/seo";
 import { legacyRedirect } from "./data/legacyRoutes";
 
@@ -65,6 +66,7 @@ const App = () => {
             </Suspense>
           </CanonicalRoutes>
         </PageTransition>
+        <CookieConsent />
       </MotionConfig>
     </BrowserRouter>
   );
