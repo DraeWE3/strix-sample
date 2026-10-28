@@ -524,8 +524,8 @@ export const serviceDetails = {
     title: SERVICE_TITLES["commercials"],
     navLabel: "Commercials",
     seo: {
-      title: "Commercials & Promos Services",
-      description: "We produce high-quality commercials that tell compelling stories and position your brand as unforgettable in the marketplace.",
+      title: "Commercials, Product Promos & Launch Teasers",
+      description: "Strix produces commercials, product promos, launch teasers, SaaS demos and product ads that tell your story and make your brand unforgettable.",
     },
     hero: {
       ...showreel("V7AFNzek_mw"),
@@ -557,8 +557,8 @@ export const serviceDetails = {
     title: SERVICE_TITLES["long-format"],
     navLabel: "Long Format",
     seo: {
-      title: "Long Format Videos Services",
-      description: "From documentaries to podcasts, we craft long-format content that educates, entertains, and deeply engages audiences.",
+      title: "Long-Form Video: Documentaries, Podcasts & Vlogs",
+      description: "Strix edits vlogs, documentaries, podcasts, explainers and content highlights into long-form video that educates, entertains and keeps audiences watching.",
     },
     // Figma 965:8349 (hero 965:8485, offers 965:8500 / 8518 / 8509 / 9610, proof 3511:8458).
     hero: {
@@ -588,8 +588,8 @@ export const serviceDetails = {
     title: SERVICE_TITLES["reels-shorts"],
     navLabel: "Reels & Shorts",
     seo: {
-      title: "Reels & Shorts Services",
-      description: "We create engaging reels and short-form content that’s designed to grab attention and perform on social platforms.",
+      title: "Reels, YouTube Shorts & Short-Form Video",
+      description: "Strix creates social media reels, YouTube Shorts, animated ad creatives and viral-ready cuts designed to stop the scroll and perform on every platform.",
     },
     hero: {
       ...VIEW_WORK,
@@ -618,8 +618,8 @@ export const serviceDetails = {
     title: SERVICE_TITLES["motion-graphics"],
     navLabel: "Motion Graphics",
     seo: {
-      title: "Motion Graphics Services",
-      description: "We bring static ideas to life with motion graphics that communicate clearly, captivate viewers, and elevate your brand storytelling.",
+      title: "Motion Graphics, Explainers & Logo Animation",
+      description: "Strix designs explainer animations, logo animations, kinetic text and infographic videos that turn static ideas into clear, captivating brand stories.",
     },
     // Figma 965:8696 (hero 965:8832, offers 965:8847 / 8874 / 8856 / 8865, proof 3511:8480).
     hero: {
@@ -648,8 +648,8 @@ export const serviceDetails = {
     title: SERVICE_TITLES["3d-animations"],
     navLabel: "3D Animations",
     seo: {
-      title: "3D Animations Services",
-      description: "Cinematic 3D animations that make your product, space, or story impossible to ignore.",
+      title: "3D Product, Architectural & CGI Animation",
+      description: "Strix creates cinematic 3D product animations, architectural walkthroughs, character animation and CGI that make your product, space or story unmissable.",
     },
     hero: {
       ...showreel("L7fYmJXeGcU"),

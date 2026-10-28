@@ -70,6 +70,18 @@ test('a published case study loads by slug and by id', async () => {
   assert.ok(lastQuery.filters.some(([name, value]) => name === 'status' && value === 'published'));
 });
 
+test('case study SEO uses the studio fields and falls back when they are blank', async () => {
+  const { mapCaseStudy } = await import('../src/lib/caseStudies.js');
+  const card = projects.mapProject('live', project({ title: 'Live', link: '/case-study/live' }));
+  const custom = caseStudyMeta(mapCaseStudy({ id: 'c', seo: { title: ' Custom title ', description: 'Custom description' } }, card));
+  assert.equal(custom.title, 'Custom title');
+  assert.equal(custom.description, 'Custom description');
+  const long = 'word '.repeat(60);
+  const fallback = caseStudyMeta(mapCaseStudy({ id: 'c', projectTitle: 'Live', aboutProject: { description: long } }, card));
+  assert.equal(fallback.title, 'Live — Case Study');
+  assert.ok(fallback.description.length <= 160 && fallback.description.endsWith('word…'), fallback.description);
+});
+
 test('a draft project is not found, even when read directly by id', async () => {
   const mark = fake.queries.length;
   assert.equal((await fetchCaseStudy('secret')).status, 'not-found');

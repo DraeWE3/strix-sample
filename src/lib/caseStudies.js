@@ -67,7 +67,15 @@ const toImages = (values, alt) => asArray(values).map((src) => toImage(src, alt)
 
 const toStringList = (values) => asArray(values).filter((item) => typeof item === 'string' && item.trim());
 
-const mapShipped = (shipped, title) => {
+/** First ~160 characters of `text`, cut at a word boundary. */
+const summary = (text, max = 160) => {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ') > 0 ? cut.lastIndexOf(' ') : cut.length).replace(/[\s,.;:—-]+$/, '')}…`;
+};
+
+const mapShipped =(shipped, title) => {
   const items = toStringList(shipped?.items).slice(0, 12);
   if (!items.length) return null;
   return {
@@ -129,9 +137,10 @@ export const mapCaseStudy = (data, project) => {
       .slice(0, 8)
       .map((result) => ({ title: asString(result.title), description: asString(result.description) })),
     canonicalPath: caseStudyPath(project),
+    // Set in the studio's "Search & sharing" section; blank fields fall back in caseStudyMeta.
     seo: {
-      title,
-      description: about.slice(0, 160) || filterLabels.join(', '),
+      title: asString(data.seo?.title).trim(),
+      description: asString(data.seo?.description).trim() || summary(about) || filterLabels.join(', '),
       image: safeUrl(data.heroThumbnail),
     },
   };
@@ -174,7 +183,7 @@ export const fetchCaseStudy = async (slug, client = neon()) => {
  */
 export const caseStudyMeta = (record) => ({
   path: record.canonicalPath,
-  title: `${record.title} — Case Study`,
+  title: record.seo.title || `${record.title} — Case Study`,
   description:
     record.seo.description ||
     `Explore the ${record.title} case study by Strix Production: the challenge, our design and development approach, and the results delivered.`,

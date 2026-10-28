@@ -220,6 +220,19 @@ test('featuring a project is stored on its card and read by the public site', as
   assert.equal(mapProject('p1', fake.get('projects', 'p1')).featured, true);
 });
 
+test('case study SEO title and description are saved and used by the public page', async () => {
+  const record = await open('p_p1');
+  assert.deepEqual(record.data.seo, { title: '', description: '' });
+  record.data.seo = { title: '  Aurora rebrand  ', description: 'How we rebuilt\nAurora.' };
+  await save(record);
+  assert.deepEqual(fake.get('case_studies', 'c1').seo, { title: 'Aurora rebrand', description: 'How we rebuilt Aurora.' });
+  assert.deepEqual((await open('p_p1')).data.seo, { title: 'Aurora rebrand', description: 'How we rebuilt Aurora.' });
+  const { caseStudyMeta } = await import('../../../lib/caseStudies.js');
+  const meta = caseStudyMeta((await publicCaseStudy('aurora')).record);
+  assert.equal(meta.title, 'Aurora rebrand');
+  assert.equal(meta.description, 'How we rebuilt Aurora.');
+});
+
 test('services picked for a project link its case study to their service pages', async () => {
   const record = await open('p_p1');
   assert.deepEqual(record.data.serviceSlugs, []);

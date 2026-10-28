@@ -178,6 +178,7 @@ export const projectToEditor = (project, caseStudy) => {
       outcome: asString(shipped?.outcome),
       image: { src: asString(shipped?.image), alt: '' },
     },
+    seo: { title: asString(c.seo?.title), description: asString(c.seo?.description) },
   };
 };
 
@@ -242,6 +243,12 @@ export const caseStudySections = (data, { includeTemplate = false } = {}) => {
     // The template's standard steps are not stored, so they keep following src/lib/processDefaults.js.
     process: { process: same(steps, PROCESS_DEFAULTS[data.template] || []) ? [] : steps },
     results: { results },
+    seo: {
+      seo: {
+        title: asString(data.seo?.title).replace(/\s+/g, ' ').trim(),
+        description: asString(data.seo?.description).replace(/\s+/g, ' ').trim(),
+      },
+    },
   };
   if (data.template === 'mvp') {
     sections.shipped = {
