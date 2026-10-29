@@ -3,7 +3,7 @@
  * banner. The choice is stored per browser; declining later disables the tag
  * and clears the GA cookies.
  */
-const GA_ID = 'G-H5N3448QWW';
+const GA_ID = 'G-44Y051EWXT';
 export const CONSENT_KEY = 'strix:consent:analytics';
 export const CONSENT_OPEN_EVENT = 'strix:consent:open';
 
