@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import "../style/pageTrans.css";
-
-const scrollToTop = () => {
-  const scroller = document.scrollingElement || document.documentElement;
-  scroller.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  document.body.scrollTop = 0;
-};
+import { scrollToTop } from "../lib/smoothScroll";
 
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;

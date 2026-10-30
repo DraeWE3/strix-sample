@@ -9,6 +9,7 @@ import { motion as Motion, useInView } from "motion/react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
 import { openConsentSettings } from "../lib/analytics";
+import { scrollToTop as smoothScrollToTop } from "../lib/smoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,12 +50,7 @@ const FooterLogo = () => {
   );
 };
 
-const scrollToTop = () => {
-  const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
-  window.scrollTo({ top: 0, behavior });
-  document.documentElement.scrollTo({ top: 0, behavior });
-  document.body.scrollTo({ top: 0, behavior });
-};
+const scrollToTop = () => smoothScrollToTop({ smooth: true });
 
 const Footer = () => {
 

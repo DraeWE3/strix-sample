@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import PageTransition from "./components/pageTransition";
 import ScrollToTop from "./components/ScrollToTop";
+import SmoothScroll from "./components/SmoothScroll";
 import AdminRedirect from "./components/AdminRedirect";
 import CookieConsent from "./components/CookieConsent";
 import { canonicalPath } from "./lib/seo";
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <MotionConfig reducedMotion="user">
+        <SmoothScroll />
         <ScrollToTop />
         <PageTransition>
           <CanonicalRoutes>

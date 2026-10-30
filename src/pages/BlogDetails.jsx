@@ -9,6 +9,7 @@ import BlogContent from '../components/blog/BlogContent';
 import BlogSummaryLinks from '../components/blog/BlogSummaryLinks';
 import { useSavedBlogs } from '../components/blog/savedBlogs';
 import { BLOG_SITE_URL, blogHeadings, blogHref, blogMeta, formatBlogDate, relatedBlogs, useBlogs } from '../lib/blogs';
+import { scrollToElement } from '../lib/smoothScroll';
 import '../style/fonts.css';
 import '../style/blog-page.css';
 import '../style/blog-article.css';
@@ -174,8 +175,7 @@ const BlogDetails = () => {
 
   const jumpTo = (event, headingId) => {
     event.preventDefault();
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.getElementById(headingId)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    scrollToElement(document.getElementById(headingId));
     window.history.replaceState(null, '', `#${headingId}`);
     setActiveId(headingId);
   };

@@ -315,6 +315,16 @@ button:focus-visible {
   }
 }
 
+/* Lenis smooth scrolling (src/lib/smoothScroll.js) owns the easing while active: the class sits on
+   <html> when the viewport scrolls (home) and on <body> when the body is the scroll container. */
+html.lenis,
+html:has(> body.lenis) {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /* Home images carry intrinsic width/height attributes; these are sized by width only */
 #smooth-wrapper .card-img,
 #smooth-wrapper .card-icon,
