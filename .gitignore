@@ -26,4 +26,3 @@ dist-admin
 *.njsproj
 *.sln
 *.sw?
-config.bat
